@@ -94,18 +94,17 @@
 
 
 
-  <meta name="description" content="激活函数Sigmoid \begin{split} &amp; f(x) = \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\ &amp; f^,(x) = \frac{e^x}{(1+e^{-x})^2} = f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack \end{split}Tanh">
-<meta name="keywords" content="Activation Function">
+  <meta name="description" content="最优化方法最速下降法原理： 设目标函数$f(x)$在$x^{(k)}$附近连续可微，令$\nabla f(x^{(k)}) \ne 0$。将$f(x)$在$x^{(k)}$处$Taylor$展开  f(x) = f(x^{(k)})+(\nabla f(x^{(k)})^T(x-x^{(k)})) + o(||x-x^{(k)}||)令$x-x^{(k)}=\alpha d^{(k)}$，有  f">
 <meta property="og:type" content="article">
-<meta property="og:title" content="激活函数">
-<meta property="og:url" content="http://yoursite.com/2019/11/01/激活函数/index.html">
+<meta property="og:title" content="优化方法">
+<meta property="og:url" content="http://yoursite.com/2019/11/14/优化方法/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="激活函数Sigmoid \begin{split} &amp; f(x) = \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\ &amp; f^,(x) = \frac{e^x}{(1+e^{-x})^2} = f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack \end{split}Tanh">
+<meta property="og:description" content="最优化方法最速下降法原理： 设目标函数$f(x)$在$x^{(k)}$附近连续可微，令$\nabla f(x^{(k)}) \ne 0$。将$f(x)$在$x^{(k)}$处$Taylor$展开  f(x) = f(x^{(k)})+(\nabla f(x^{(k)})^T(x-x^{(k)})) + o(||x-x^{(k)}||)令$x-x^{(k)}=\alpha d^{(k)}$，有  f">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T03:45:40.264Z">
+<meta property="og:updated_time" content="2019-11-14T12:22:16.888Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="激活函数">
-<meta name="twitter:description" content="激活函数Sigmoid \begin{split} &amp; f(x) = \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\ &amp; f^,(x) = \frac{e^x}{(1+e^{-x})^2} = f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack \end{split}Tanh">
+<meta name="twitter:title" content="优化方法">
+<meta name="twitter:description" content="最优化方法最速下降法原理： 设目标函数$f(x)$在$x^{(k)}$附近连续可微，令$\nabla f(x^{(k)}) \ne 0$。将$f(x)$在$x^{(k)}$处$Taylor$展开  f(x) = f(x^{(k)})+(\nabla f(x^{(k)})^T(x-x^{(k)})) + o(||x-x^{(k)}||)令$x-x^{(k)}=\alpha d^{(k)}$，有  f">
 
 
 
@@ -113,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/11/01/激活函数/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/14/优化方法/">
 
 
 
@@ -123,7 +122,7 @@
   };
 </script>
 
-  <title>激活函数 | Dongxian's Blog</title>
+  <title>优化方法 | Dongxian's Blog</title>
   
 
 
@@ -326,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/01/激活函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/优化方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -343,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">激活函数
+          <h1 class="post-title" itemprop="name headline">优化方法
 
               
             
@@ -369,24 +368,12 @@
                 
               
 
-              <time title="创建时间：2019-11-01 10:35:45" itemprop="dateCreated datePublished" datetime="2019-11-01T10:35:45+08:00">2019-11-01</time>
+              <time title="创建时间：2019-11-14 19:37:05 / 修改时间：20:22:16" itemprop="dateCreated datePublished" datetime="2019-11-14T19:37:05+08:00">2019-11-14</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-06 11:45:40" itemprop="dateModified" datetime="2019-11-06T11:45:40+08:00">2019-11-06</time>
               
             
           </span>
@@ -403,7 +390,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/最优化方法/" itemprop="url" rel="index"><span itemprop="name">最优化方法</span></a></span>
 
                 
                 
@@ -438,26 +425,88 @@
       
 
       
-        <h1 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h1><h2 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h2><script type="math/tex; mode=display">
-\begin{split}
-& f(x) = \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\
-& f^,(x) = \frac{e^x}{(1+e^{-x})^2} = f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack
-\end{split}</script><h2 id="Tanh"><a href="#Tanh" class="headerlink" title="Tanh"></a>Tanh</h2><script type="math/tex; mode=display">
-\begin{split}
-& tanh(x) = \frac{sinhx}{coshx} = \frac{e^x-e^{-x}}{e^x+e^{-x}} \quad x\in R \quad tanh(x) \in (-1,1) \\
-& (tanhx)^, = sech^2x = 1-tanh^2x \quad x\in R \quad (tanhx)^, \in (0,1\rbrack
-\end{split}</script><h2 id="ReLu"><a href="#ReLu" class="headerlink" title="ReLu"></a>ReLu</h2><script type="math/tex; mode=display">
-f(x) = max(0,x)</script><h2 id="Leaky-ReLu"><a href="#Leaky-ReLu" class="headerlink" title="Leaky ReLu"></a>Leaky ReLu</h2><script type="math/tex; mode=display">
-f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2 id="Softplus"><a href="#Softplus" class="headerlink" title="Softplus"></a>Softplus</h2><script type="math/tex; mode=display">
-\zeta(x)= \ln(1+e^x)</script><h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><p>常见的激活函数有：<strong>sigmoid；tanh；ReLU；LReLU, PReLU, RReLU；ELU（Exponential Linear Units）；softplus；softsign,softmax等</strong></p>
-<h2 id="Notion"><a href="#Notion" class="headerlink" title="Notion"></a>Notion</h2><ul>
-<li>饱和：当激活函数趋于无穷，gradient 趋于 0。导致梯度消失</li>
+        <h1 id="最优化方法"><a href="#最优化方法" class="headerlink" title="最优化方法"></a>最优化方法</h1><h2 id="最速下降法"><a href="#最速下降法" class="headerlink" title="最速下降法"></a>最速下降法</h2><p>原理：</p>
+<p>设目标函数$f(x)$在$x^{(k)}$附近连续可微，令$\nabla f(x^{(k)}) \ne 0$。将$f(x)$在$x^{(k)}$处$Taylor$展开</p>
+<script type="math/tex; mode=display">
+f(x) = f(x^{(k)})+(\nabla f(x^{(k)})^T(x-x^{(k)})) + o(||x-x^{(k)}||)</script><p>令$x-x^{(k)}=\alpha d^{(k)}$，有</p>
+<script type="math/tex; mode=display">
+f(x) = f(x^{(k)})+\alpha(\nabla f(x^{(k)})^T d^{(k)} + o(\alpha d^{(k)})</script><p>若$(\nabla f(x^{(k)})^T d^{(k)}\lt 0$，则$d^{(k)}$为下降方向。且由$Cauchy-Schwartz$不等式</p>
+<script type="math/tex; mode=display">
+|(\nabla f(x^{(k)})^T d^{(k)}| \le \Vert \nabla f(x^{(k)}) \Vert \Vert d^{(k)} \Vert</script><p>有且当且仅当$d^{(k)}=- \nabla f(x^{(k)})$时，$-(\nabla f(x^{(k)})^T d^{(k)}$最大。因而以$-\nabla f(x^{(k)})^T $为下降方向的方法称为最速下降法。其中$\alpha _k$由精确线搜索策略选取。</p>
+<p>算法流程：</p>
+<ol>
+<li><p>给定初始点$x^{(1)} \in R^n$，允许误差$\varepsilon \gt 0$，置$k=1$</p>
+</li>
+<li><p>计算搜索方向$d^{(k)} = - \nabla f(x^{(k)})$，如果$||\nabla f(x^{(k)})|| \le \epsilon$，停止计算</p>
+</li>
+<li><p>由精确线搜索计算步长$\alpha _k$，使得</p>
+<script type="math/tex; mode=display">
+f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</script></li>
+<li><p>令$x^{(k+1)} = x^{(k)} + \alpha_k d^{(k)}$，令$k = k +1$，转步骤2</p>
+</li>
+</ol>
+<p>特点：</p>
+<ul>
+<li><p>计算工作量小，存储量小等优点。</p>
+</li>
+<li><p>最速下降方向仅是函数的局部性质，对于整体求解，最速下降法下降非常缓慢。</p>
+<p>原因是：</p>
+<ul>
+<li><p>精确线搜索使得$\nabla f(x^{(k+1)})^Td^{(k)} =0$，即最速下降法中前后两次迭代的搜索方向是正交的。</p>
+</li>
+<li><p>所以在靠近极小点附近的路径呈现锯齿形，下降十分缓慢。</p>
+</li>
 </ul>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><ul>
-<li>sigmoid 激活函数:除了输出层是一个二分类问题基本不会用它。</li>
-<li>tanh 激活函数:tanh 是非常优秀的,几乎适合所有场合。</li>
-<li>ReLu 激活函数:最常用的默认函数,,如果不确定用哪个激活函数,就使用 ReLu 或者Leaky ReLu。</li>
+</li>
 </ul>
+<h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><p>原理：</p>
+<p>设目标函数$f(x)$二次连续可微，$f(x)$在当前迭代点$x^{(k)}$处作$Taylor$展开，并取二阶近似得</p>
+<script type="math/tex; mode=display">
+f(x) \approx f(x^{(k)}) + \nabla f(x^{(k)})^T(x-x^{(k)}) + \frac{1}{2}^T(x-x^{(k)})^T \nabla^2 f(x^{(k)}) (x-x^{(k)})</script><p>极小化上式右端有</p>
+<script type="math/tex; mode=display">
+\nabla f(x^{(k)}) + \nabla^2f(x^{(k)})(x-x^{(k)}) = 0</script><p>若$Hessian$矩阵$\nabla^2 f(x^{(k)})$正定，则得到右端二次函数的极小点，并将它作为无约束问题最优值的第$k+1$次近似，即</p>
+<script type="math/tex; mode=display">
+x^{(k+1)} = x^{(k)} - (\nabla^2f(x^{(k)}))^{-1}\nabla f(x^{(k)})</script><p>这就是牛顿法迭代公式，其中</p>
+<script type="math/tex; mode=display">
+d^{(k)} = - (\nabla^2f(x^{(k)}))^{-1}\nabla f(x^{(k)}),\; \alpha_k=1</script><p>算法流程：</p>
+<ol>
+<li>给定初始点$x^{(1)} \in R^n$，允许误差$\varepsilon \gt 0$，置$k=1$</li>
+<li>计算$\nabla f(x^{(k)})$，如果$||\nabla f(x^{(k)})|| \le \epsilon$，停止计算。否则，转步骤3</li>
+<li>构造牛顿方向$d^{(k)} = - (-\nabla^2f(x^{(k)}))^{-1}\nabla f(x^{(k)})$</li>
+<li>令$x^{(k+1)} = x^{(k)} + d^{(k)}$，令$k = k +1$，转步骤2</li>
+</ol>
+<p>特点：</p>
+<ul>
+<li>牛顿法下降速度快，尤其对于二次凸函数，一次迭代就可以得到全局极小点。</li>
+<li>对于一般非二次函数，牛顿法无法保证有限次迭代获得最优解，但初始点十分靠近极小点，牛顿法一定条件下可以达到二阶收敛速度。</li>
+</ul>
+<h2 id="阻尼牛顿法"><a href="#阻尼牛顿法" class="headerlink" title="阻尼牛顿法"></a>阻尼牛顿法</h2><p>算法流程：</p>
+<ol>
+<li><p>给定初始点$x^{(1)} \in R^n$，允许误差$\varepsilon \gt 0$，置$k=1$</p>
+</li>
+<li><p>计算$\nabla f(x^{(k)})$，如果$||\nabla f(x^{(k)})|| \le \epsilon$，停止计算。否则，转步骤3</p>
+</li>
+<li><p>构造牛顿方向$d^{(k)} = - (-\nabla^2f(x^{(k)}))^{-1}\nabla f(x^{(k)})$。由精确线搜索计算步长$a_k$，使得</p>
+<script type="math/tex; mode=display">
+f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</script></li>
+<li><p>令$x^{(k+1)} = x^{(k)} + d^{(k)}$，令$k = k +1$，转步骤2</p>
+</li>
+</ol>
+<h2 id="共轭梯度法"><a href="#共轭梯度法" class="headerlink" title="共轭梯度法"></a>共轭梯度法</h2><p>算法流程：</p>
+<ol>
+<li><p>给定初始点$x^{(1)} \in R^n$，允许误差$\varepsilon \gt 0$，令$d^{(1)}=-\nabla f(x^{(1)})$。置$k=1$</p>
+</li>
+<li><p>如果$||\nabla f(x^{(k)})|| \le \epsilon$，停止计算。否则，转步骤3</p>
+</li>
+<li><p>由精确线搜索计算步长$a_k$，使得</p>
+<script type="math/tex; mode=display">
+f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</script><p>令$x^{(k+1)} = x^{(k)}+\alpha _k d^{(k)}$</p>
+</li>
+<li><p>计算$\beta _k= \frac{||\nabla f(x^{(k+1)})||^2}{||\nabla f(x^{(k)})||^2}$，$d^{(k+1)}=-\nabla f(x^{(k+1)})+\beta _k d^{(k)}$</p>
+</li>
+<li><p>令$k = k +1$，转步骤2</p>
+</li>
+</ol>
 
       
     </div>
@@ -479,15 +528,6 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/Activation-Function/" rel="tag"># Activation Function</a>
-          
-        </div>
-      
 
       
       
@@ -497,8 +537,8 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/01/ML-Based-Numpy/" rel="next" title="使用Numpy实现机器学习算法">
-                <i class="fa fa-chevron-left"></i> 使用Numpy实现机器学习算法
+              <a href="/2019/11/14/已知语言构建文法/" rel="next" title="已知语言构建文法">
+                <i class="fa fa-chevron-left"></i> 已知语言构建文法
               </a>
             
           </div>
@@ -506,10 +546,6 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/02/CPP快速教程/" rel="prev" title="C++快速教程">
-                C++快速教程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -672,7 +708,7 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#激活函数"><span class="nav-number">1.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Sigmoid"><span class="nav-number">1.1.</span> <span class="nav-text">Sigmoid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tanh"><span class="nav-number">1.2.</span> <span class="nav-text">Tanh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReLu"><span class="nav-number">1.3.</span> <span class="nav-text">ReLu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leaky-ReLu"><span class="nav-number">1.4.</span> <span class="nav-text">Leaky ReLu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softplus"><span class="nav-number">1.5.</span> <span class="nav-text">Softplus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">1.6.</span> <span class="nav-text">Others</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notion"><span class="nav-number">1.7.</span> <span class="nav-text">Notion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.8.</span> <span class="nav-text">Conclusion</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最优化方法"><span class="nav-number">1.</span> <span class="nav-text">最优化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最速下降法"><span class="nav-number">1.1.</span> <span class="nav-text">最速下降法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#牛顿法"><span class="nav-number">1.2.</span> <span class="nav-text">牛顿法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻尼牛顿法"><span class="nav-number">1.3.</span> <span class="nav-text">阻尼牛顿法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共轭梯度法"><span class="nav-number">1.4.</span> <span class="nav-text">共轭梯度法</span></a></li></ol></li></ol></div>
             
 
           </div>
