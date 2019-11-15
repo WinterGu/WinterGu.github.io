@@ -252,7 +252,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
 
   </li>
         
@@ -270,7 +270,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">14</span></a>
 
   </li>
 
@@ -306,6 +306,301 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/30/numpy-and-pandas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/30/numpy-and-pandas/" class="post-title-link" itemprop="url">numpy & panda 基础教程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-30 11:01:54" itemprop="dateCreated datePublished" datetime="2019-06-30T11:01:54+08:00">2019-06-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 11:47:00" itemprop="dateModified" datetime="2019-11-06T11:47:00+08:00">2019-11-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/框架/" itemprop="url" rel="index"><span itemprop="name">框架</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Numpy-和-Pandas"><a href="#Numpy-和-Pandas" class="headerlink" title="Numpy 和 Pandas"></a>Numpy 和 Pandas</h1><h2 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h2><h3 id="基本数学"><a href="#基本数学" class="headerlink" title="基本数学"></a>基本数学</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">array = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">                  [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line">print(array)</span><br><span class="line">print(<span class="string">'number of dim:'</span>,array.ndim)</span><br><span class="line">print(<span class="string">'shape:'</span>,array.shape)</span><br><span class="line">print(<span class="string">'size:'</span>,array.size)</span><br></pre></td></tr></table></figure>
+<h3 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=np.int)</span><br><span class="line">print(a.dtype)</span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=np.int32)</span><br><span class="line">print(a.dtype)</span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=np.int16)</span><br><span class="line">print(a.dtype)</span><br><span class="line">a = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=np.float)</span><br><span class="line">print(a.dtype)</span><br><span class="line">a = np.zeros((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">print(a)</span><br><span class="line">a = np.ones((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">print(a)</span><br><span class="line">a = np.empty((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">print(a)</span><br><span class="line">a = np.arange(<span class="number">10</span>,<span class="number">20</span>,<span class="number">2</span>)</span><br><span class="line">print(a)</span><br><span class="line">a = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">print(a)</span><br><span class="line"><span class="comment"># 生成线段，1-10 分成20段</span></span><br><span class="line">a = np.linspace(<span class="number">1</span>,<span class="number">10</span>,<span class="number">20</span>)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<h3 id="Numpy-运算"><a href="#Numpy-运算" class="headerlink" title="Numpy 运算"></a>Numpy 运算</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">b= np.arange(<span class="number">4</span>)</span><br><span class="line">c = a-b</span><br><span class="line">print(a,b)</span><br><span class="line">print(c)</span><br><span class="line">print(b**<span class="number">2</span>)</span><br><span class="line">print(b&lt;<span class="number">3</span>)</span><br><span class="line">print(b==<span class="number">3</span>)</span><br><span class="line">print(a<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">             [<span class="number">0</span>,<span class="number">1</span>]])</span><br><span class="line">b = np.arange(<span class="number">4</span>).reshape((<span class="number">2</span>,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br><span class="line"></span><br><span class="line">c = a*b</span><br><span class="line">c_dot = np.dot(a,b) <span class="comment"># 矩阵乘法</span></span><br><span class="line">c_dot_2 = a.dot(b)</span><br><span class="line">print(c)</span><br><span class="line">print(c_dot)</span><br><span class="line">print(c_dot_2)</span><br><span class="line"></span><br><span class="line">a = np.random.random((<span class="number">2</span>,<span class="number">4</span>))</span><br><span class="line">print(a)</span><br><span class="line">print(np.sum(a))</span><br><span class="line">print(np.min(a))</span><br><span class="line">print(np.max(a))</span><br><span class="line"></span><br><span class="line">print(np.sum(a,axis=<span class="number">1</span>)) <span class="comment"># 行里求和</span></span><br><span class="line">print(np.min(a,axis=<span class="number">0</span>)) <span class="comment"># 列里找最小值</span></span><br><span class="line">print(np.max(a,axis=<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Numpy-的索引"><a href="#Numpy-的索引" class="headerlink" title="Numpy 的索引"></a>Numpy 的索引</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.arange(<span class="number">2</span>,<span class="number">14</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">print(A)</span><br><span class="line">print(np.argmin(A)) <span class="comment"># 最小值索引</span></span><br><span class="line">print(np.argmax(A))</span><br><span class="line">print(np.mean(A)) <span class="comment"># 平均值</span></span><br><span class="line">print(A.mean())</span><br><span class="line">print(np.average(A))</span><br><span class="line">print(np.median(A)) <span class="comment"># 矩阵的中位数</span></span><br><span class="line">print(np.cumsum(A)) <span class="comment"># 累加</span></span><br><span class="line">print(np.diff(A)) <span class="comment"># 累差 相邻元素的差 3*4 = &gt; 3*3</span></span><br><span class="line">print(np.nonzero(A)) <span class="comment"># 非零，两个Array，第一个行数，第二个列数</span></span><br><span class="line">B = np.arange(<span class="number">14</span>,<span class="number">2</span>,<span class="number">-1</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">print(np.sort(B))</span><br><span class="line">print(np.transpose(A)) <span class="comment"># 矩阵转置</span></span><br><span class="line">print((A.T).dot(A))</span><br><span class="line"></span><br><span class="line">print(np.clip(A,<span class="number">5</span>,<span class="number">9</span>)) <span class="comment"># 截取，小于5变成5，大于9变成9</span></span><br><span class="line"><span class="comment"># 以上都可以指定axis计算</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.arange(<span class="number">3</span>,<span class="number">15</span>)</span><br><span class="line">print(A)</span><br><span class="line">print(A[<span class="number">3</span>])</span><br><span class="line">A = np.reshape(A,(<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">print(A)</span><br><span class="line">print(A[<span class="number">2</span>])</span><br><span class="line">print(A[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line">print(A[<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">print(A[<span class="number">2</span>,:])</span><br><span class="line">print(A[<span class="number">2</span>,<span class="number">1</span>:<span class="number">2</span>])</span><br><span class="line">print(A[<span class="number">2</span>,<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(A[:,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">print(A)</span><br><span class="line">print(<span class="string">'*'</span>*<span class="number">3</span>,<span class="string">'行迭代：'</span>)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> A:</span><br><span class="line">    print(row)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'*'</span>*<span class="number">3</span>,<span class="string">'列迭代：'</span>)</span><br><span class="line">print(A.T)</span><br><span class="line"><span class="keyword">for</span> column <span class="keyword">in</span> A.T:</span><br><span class="line">    print(column)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'*'</span>*<span class="number">3</span>,<span class="string">'元素迭代：'</span>)</span><br><span class="line">print(A.flatten())</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> A.flat: <span class="comment"># A编程一行 A.flat 是迭代器</span></span><br><span class="line">    print(item)</span><br></pre></td></tr></table></figure>
+<h3 id="Numpy的array-合并"><a href="#Numpy的array-合并" class="headerlink" title="Numpy的array 合并"></a>Numpy的array 合并</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.array([<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line">B = np.array([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line">C = np.vstack((A,B))<span class="comment"># vertical stack 垂直合并</span></span><br><span class="line">D = np.hstack((A,B)) <span class="comment"># horizontal stack 水平合并</span></span><br><span class="line">print(C)</span><br><span class="line">print(A.shape,C.shape)</span><br><span class="line"></span><br><span class="line">print(D)</span><br><span class="line">print(A.shape,D.shape)</span><br><span class="line"></span><br><span class="line">print(A[np.newaxis,:]) <span class="comment"># 在行上面加维度</span></span><br><span class="line">print(A[np.newaxis,:].shape) <span class="comment"># 在行上面加维度</span></span><br><span class="line"></span><br><span class="line">print(A[:,np.newaxis]) <span class="comment"># 在行上面加维度</span></span><br><span class="line">print(A[:,np.newaxis].shape) <span class="comment"># 在列上面加维度</span></span><br><span class="line"></span><br><span class="line">A = np.array([<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])[:,np.newaxis]</span><br><span class="line">B = np.array([<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>])[:,np.newaxis]</span><br><span class="line">E = np.concatenate((A,B,B,A),axis=<span class="number">0</span>) <span class="comment"># 纵向合并</span></span><br><span class="line">F = np.concatenate((A,B,B,A),axis=<span class="number">1</span>) <span class="comment"># 横向合并</span></span><br><span class="line">print(E)</span><br><span class="line">print(F)</span><br></pre></td></tr></table></figure>
+<h3 id="Numpy-的-array-分割"><a href="#Numpy-的-array-分割" class="headerlink" title="Numpy 的 array 分割"></a>Numpy 的 array 分割</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">A = np.arange(<span class="number">12</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line">print(A)</span><br><span class="line"></span><br><span class="line"><span class="comment"># split 只能均分</span></span><br><span class="line"></span><br><span class="line">print(np.split(A,<span class="number">3</span>,axis=<span class="number">0</span>)) <span class="comment"># 纵向分割</span></span><br><span class="line"></span><br><span class="line">print(np.split(A,<span class="number">2</span>,axis=<span class="number">1</span>)) <span class="comment"># 横向分割</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># array_split 可以不均分</span></span><br><span class="line"></span><br><span class="line">print(np.array_split(A,<span class="number">2</span>,axis=<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">print(np.vsplit(A,<span class="number">3</span>)) <span class="comment"># vertical split</span></span><br><span class="line"></span><br><span class="line">print(np.hsplit(A,<span class="number">1</span>)) <span class="comment"># horizontal split</span></span><br></pre></td></tr></table></figure>
+<h3 id="Numpy-的-copy-amp-deep-copy"><a href="#Numpy-的-copy-amp-deep-copy" class="headerlink" title="Numpy 的 copy &amp; deep copy"></a>Numpy 的 copy &amp; deep copy</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.arange(<span class="number">4</span>)</span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">b = a</span><br><span class="line">c = a</span><br><span class="line">d = b</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">11</span></span><br><span class="line">print(a,b,c,d)</span><br><span class="line"></span><br><span class="line">print(b <span class="keyword">is</span> a)</span><br><span class="line">print(d <span class="keyword">is</span> a)</span><br><span class="line"></span><br><span class="line">b = a.copy() <span class="comment"># deep copy 将a的值赋给b，两者之间没有关联。</span></span><br><span class="line"></span><br><span class="line">a[<span class="number">1</span>:<span class="number">3</span>] = [<span class="number">22</span>,<span class="number">33</span>]</span><br><span class="line">b[<span class="number">3</span>] = <span class="number">44</span></span><br><span class="line">print(a,b)</span><br></pre></td></tr></table></figure>
+<h2 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">s = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,np.nan,<span class="number">44</span>]) <span class="comment"># pandas 序列</span></span><br><span class="line">print(s)</span><br><span class="line"></span><br><span class="line">dates = pd.date_range(start=<span class="string">'20190629'</span>,periods=<span class="number">6</span>) <span class="comment"># 日期 index</span></span><br><span class="line">print(dates)</span><br><span class="line"></span><br><span class="line">df = pd.DataFrame(np.random.randn(<span class="number">6</span>,<span class="number">4</span>),index=dates,columns=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>])</span><br><span class="line">print(df)</span><br><span class="line"></span><br><span class="line">df1 = pd.DataFrame(np.arange(<span class="number">12</span>).reshape((<span class="number">3</span>,<span class="number">4</span>)))</span><br><span class="line">print(df1)</span><br><span class="line"></span><br><span class="line">df2 = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'A'</span>:<span class="number">1.0</span>,</span><br><span class="line">    <span class="string">'B'</span>:pd.Timestamp(<span class="string">'20181215'</span>),</span><br><span class="line">    <span class="string">'C'</span>:pd.Series(<span class="number">1</span>,index=list(range(<span class="number">4</span>)),dtype=<span class="string">'float64'</span>),</span><br><span class="line">    <span class="string">'D'</span>:np.array([<span class="number">3</span>]*<span class="number">4</span>,dtype=<span class="string">'int32'</span>),</span><br><span class="line">    <span class="string">'E'</span>:pd.Categorical([<span class="string">'test'</span>,<span class="string">'train'</span>,<span class="string">'test'</span>,<span class="string">'train'</span>]),</span><br><span class="line">    <span class="string">'F'</span>:<span class="string">'foo'</span>,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">print(df2)</span><br><span class="line">print(<span class="string">f'dtype:\n<span class="subst">&#123;df2.dtypes&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'index:\n<span class="subst">&#123;df2.index&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'columns:\n<span class="subst">&#123;df2.columns&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'values:\n<span class="subst">&#123;df2.values&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Desc:\n<span class="subst">&#123;df2.describe()&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f'T:\n<span class="subst">&#123;df2.T&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">print(df2.sort_index(axis=<span class="number">0</span>,ascending=<span class="literal">False</span>))</span><br><span class="line">print(df2.sort_index(axis=<span class="number">1</span>,ascending=<span class="literal">False</span>))</span><br><span class="line">print(df2.sort_values(by=<span class="string">'E'</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-选择数据"><a href="#Pandas-选择数据" class="headerlink" title="Pandas 选择数据"></a>Pandas 选择数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">dates = pd.date_range(start=<span class="string">'20190629'</span>,periods=<span class="number">6</span>)</span><br><span class="line">df = pd.DataFrame(np.arange(<span class="number">24</span>).reshape((<span class="number">6</span>,<span class="number">4</span>)),index=dates,columns=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>])</span><br><span class="line"></span><br><span class="line">print(df,end=<span class="string">'\n\n'</span>)</span><br><span class="line"></span><br><span class="line">print(df[<span class="string">'A'</span>],df.A,end=<span class="string">'\n\n'</span>,sep=<span class="string">'\n\n'</span>) <span class="comment"># 列</span></span><br><span class="line">print(df[<span class="number">0</span>:<span class="number">3</span>],df[<span class="string">'20190629'</span>:<span class="string">'20190701'</span>],end=<span class="string">'\n\n'</span>,sep=<span class="string">'\n\n'</span>) <span class="comment"># 行</span></span><br><span class="line">print(df[<span class="number">0</span>:<span class="number">3</span>][<span class="string">'A'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># select by label: loc</span></span><br><span class="line">print(df.loc[<span class="string">'20190629'</span>],</span><br><span class="line">      df.loc[<span class="string">'20190629'</span>,[<span class="string">'A'</span>,<span class="string">'B'</span>]],sep=<span class="string">'\n\n'</span>,end=<span class="string">'\n\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># select by position: iloc</span></span><br><span class="line">print(df.iloc[<span class="number">1</span>,<span class="number">1</span>],</span><br><span class="line">      df.iloc[:,<span class="number">1</span>:<span class="number">3</span>],</span><br><span class="line">      df.iloc[[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>],<span class="number">1</span>:<span class="number">4</span>],sep=<span class="string">'\n\n'</span>,end=<span class="string">'\n\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># mixed selection: ix :: this way is deprecated.</span></span><br><span class="line"><span class="comment"># print(df.ix[:3,['A','B']])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Boolean indexing</span></span><br><span class="line">print(df[df.A &gt; <span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-设置值"><a href="#Pandas-设置值" class="headerlink" title="Pandas 设置值"></a>Pandas 设置值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">dates = pd.date_range(start=<span class="string">'20190629'</span>,periods=<span class="number">6</span>)</span><br><span class="line">df = pd.DataFrame(np.arange(<span class="number">24</span>).reshape((<span class="number">6</span>,<span class="number">4</span>)),index=dates,columns=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>])</span><br><span class="line"></span><br><span class="line">df.iloc[<span class="number">1</span>,<span class="number">2</span>] = <span class="number">2222</span></span><br><span class="line">df.loc[<span class="string">'20190701'</span>,<span class="string">'C'</span>] = <span class="number">3333</span></span><br><span class="line">df.B[df.A &gt; <span class="number">8</span>] = <span class="number">0</span></span><br><span class="line">print(df)</span><br><span class="line"></span><br><span class="line">df[<span class="string">'E'</span>] = np.nan</span><br><span class="line">df[<span class="string">'F'</span>] = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],index=pd.date_range(start=<span class="string">'20190629'</span>,periods=<span class="number">6</span>))</span><br><span class="line">print(df)</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-处理丢失数据"><a href="#Pandas-处理丢失数据" class="headerlink" title="Pandas 处理丢失数据"></a>Pandas 处理丢失数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">dates = pd.date_range(start=<span class="string">'20190629'</span>,periods=<span class="number">6</span>)</span><br><span class="line">df = pd.DataFrame(np.arange(<span class="number">24</span>).reshape((<span class="number">6</span>,<span class="number">4</span>)),index=dates,columns=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>])</span><br><span class="line"></span><br><span class="line">df.iloc[<span class="number">0</span>,<span class="number">1</span>] = np.nan</span><br><span class="line">df.iloc[<span class="number">1</span>,<span class="number">2</span>] = <span class="literal">None</span></span><br><span class="line">print(df)</span><br><span class="line"></span><br><span class="line">print(df.dropna(axis=<span class="number">0</span>,how=<span class="string">'any'</span>)) <span class="comment"># how = &#123;'any','all'&#125; 删除丢失数据</span></span><br><span class="line">print(df.dropna(axis=<span class="number">1</span>,how=<span class="string">'any'</span>)) <span class="comment"># how = &#123;'any','all'&#125;</span></span><br><span class="line"></span><br><span class="line">print(df.fillna(value=<span class="number">0</span>)) <span class="comment"># 使用value填充丢失数据</span></span><br><span class="line"></span><br><span class="line">print(df.isnull()) <span class="comment"># 判断是否丢失数据</span></span><br><span class="line"></span><br><span class="line">print(np.any(df.isnull()) == <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-导入-amp-导出-数据"><a href="#Pandas-导入-amp-导出-数据" class="headerlink" title="Pandas 导入 &amp; 导出 数据"></a>Pandas 导入 &amp; 导出 数据</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Format Type</th>
+<th>Data Description</th>
+<th>Reader</th>
+<th>Writer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">text</td>
+<td>CSV</td>
+<td>read_csv</td>
+<td>to_csv</td>
+</tr>
+<tr>
+<td style="text-align:left">text</td>
+<td>JSON</td>
+<td>read_json</td>
+<td>to_json</td>
+</tr>
+<tr>
+<td style="text-align:left">text</td>
+<td>HTML</td>
+<td>read_html</td>
+<td>to_html</td>
+</tr>
+<tr>
+<td style="text-align:left">text</td>
+<td>Local clipboard</td>
+<td>read_clipboard</td>
+<td>to_clipboard</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>MS Excel</td>
+<td>read_excel</td>
+<td>to_excel</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>HDF5 Format</td>
+<td>read_hdf</td>
+<td>to_hdf</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>Feather Format</td>
+<td>read_feather</td>
+<td>to_feather</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>Parquet Format</td>
+<td>read_parquet</td>
+<td>to_parquet</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>Msgpack</td>
+<td>read_msgpack</td>
+<td>to_msgpack</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>Stata</td>
+<td>read_stata</td>
+<td>to_stata</td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>SAS</td>
+<td>read_sas</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">binary</td>
+<td>Python Pickle Format</td>
+<td>read_pickle</td>
+<td>to_pickle</td>
+</tr>
+<tr>
+<td style="text-align:left">SQL</td>
+<td>SQL</td>
+<td>read_sql</td>
+<td>to_sql</td>
+</tr>
+<tr>
+<td style="text-align:left">SQL</td>
+<td>Google Big Query</td>
+<td>read_gbq</td>
+<td>to_gbq</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">df = pd.read_csv(<span class="string">'Student.csv'</span>)</span><br><span class="line">print(df)</span><br><span class="line"></span><br><span class="line">df.to_pickle(<span class="string">'student.pickle'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-合并-concat"><a href="#Pandas-合并-concat" class="headerlink" title="Pandas 合并  concat"></a>Pandas 合并  concat</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># concatenating</span></span><br><span class="line"></span><br><span class="line">df1 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">0</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line">df2 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">1</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line">df3 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">2</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line"></span><br><span class="line">res = pd.concat([df1,df2,df3],axis=<span class="number">0</span>)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line">res = pd.concat([df1,df2,df3],axis=<span class="number">0</span>,ignore_index=<span class="literal">True</span>)<span class="comment"># ignore_index 重新对index排序</span></span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line">res = pd.concat([df1,df2,df3],axis=<span class="number">1</span>)</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># join = ['inner','outer']  default:outer</span></span><br><span class="line">df1 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">0</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>],index=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">df2 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">1</span>,columns=[<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>],index=[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = pd.concat([df1,df2],axis=0)</span></span><br><span class="line">res = pd.concat([df1,df2],axis=<span class="number">0</span>,join=<span class="string">'inner'</span>,ignore_index=<span class="literal">True</span>)</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># join axes</span></span><br><span class="line">df1 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">0</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>],index=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">df2 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">1</span>,columns=[<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>],index=[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = pd.concat([df1,df2],axis=1,join_axes=[df1.index]) # 横向合并时，指定合并的index，</span></span><br><span class="line">res = pd.concat([df1,df2],axis=<span class="number">0</span>,join_axes=[df1.columns])</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># append</span></span><br><span class="line">df1 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">0</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line">df2 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">1</span>,columns=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line">df3 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">4</span>))*<span class="number">1</span>,columns=[<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>],index=[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = df1.append(df2,ignore_index=True)</span></span><br><span class="line"><span class="comment"># res = df1.append([df2,df3])</span></span><br><span class="line">s = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],index=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>])</span><br><span class="line">res = df1.append(s,ignore_index=<span class="literal">True</span>)</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-合并-merge"><a href="#Pandas-合并-merge" class="headerlink" title="Pandas 合并  merge"></a>Pandas 合并  merge</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">merge two df by key/keys (may be used in database)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">left = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'key'</span>:[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>],</span><br><span class="line">    <span class="string">'A'</span>:[<span class="string">'A0'</span>,<span class="string">'A1'</span>,<span class="string">'A2'</span>,<span class="string">'A3'</span>],</span><br><span class="line">    <span class="string">'B'</span>:[<span class="string">'B0'</span>,<span class="string">'B1'</span>,<span class="string">'B2'</span>,<span class="string">'B3'</span>],</span><br><span class="line">&#125;)</span><br><span class="line">right = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'key'</span>:[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>],</span><br><span class="line">    <span class="string">'C'</span>:[<span class="string">'C0'</span>,<span class="string">'C1'</span>,<span class="string">'C2'</span>,<span class="string">'C3'</span>],</span><br><span class="line">    <span class="string">'D'</span>:[<span class="string">'D0'</span>,<span class="string">'D1'</span>,<span class="string">'D2'</span>,<span class="string">'D3'</span>],</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">print(left)</span><br><span class="line">print(right)</span><br><span class="line"></span><br><span class="line">res = pd.merge(left,right,on=<span class="string">'key'</span>) <span class="comment"># merge by the column named 'key'</span></span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">consider two keys</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">left = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'key1'</span>:[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K1'</span>,<span class="string">'K3'</span>],</span><br><span class="line">    <span class="string">'key2'</span>:[<span class="string">'K0'</span>,<span class="string">'K0'</span>,<span class="string">'K0'</span>,<span class="string">'K2'</span>],</span><br><span class="line">    <span class="string">'A'</span>:[<span class="string">'A0'</span>,<span class="string">'A1'</span>,<span class="string">'A2'</span>,<span class="string">'A3'</span>],</span><br><span class="line">    <span class="string">'B'</span>:[<span class="string">'B0'</span>,<span class="string">'B1'</span>,<span class="string">'B2'</span>,<span class="string">'B3'</span>],</span><br><span class="line">&#125;)</span><br><span class="line">right = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'key1'</span>:[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>],</span><br><span class="line">    <span class="string">'key2'</span>:[<span class="string">'K0'</span>,<span class="string">'K0'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>],</span><br><span class="line">    <span class="string">'C'</span>:[<span class="string">'C0'</span>,<span class="string">'C1'</span>,<span class="string">'C2'</span>,<span class="string">'C3'</span>],</span><br><span class="line">    <span class="string">'D'</span>:[<span class="string">'D0'</span>,<span class="string">'D1'</span>,<span class="string">'D2'</span>,<span class="string">'D3'</span>],</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">print(left)</span><br><span class="line">print(right)</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = pd.merge(left,right,on=['key1','key2'])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># how = ['left', 'right', 'outer', 'inner'] default:inner 合并方式</span></span><br><span class="line">res = pd.merge(left,right,on=[<span class="string">'key1'</span>,<span class="string">'key2'</span>],how=<span class="string">'left'</span>)</span><br><span class="line"></span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># indicator</span></span><br><span class="line"></span><br><span class="line">df1 = pd.DataFrame(&#123;<span class="string">'col1'</span>:[<span class="number">0</span>,<span class="number">1</span>],<span class="string">'col_left'</span>:[<span class="string">'a'</span>,<span class="string">'b'</span>]&#125;)</span><br><span class="line">df2 = pd.DataFrame(&#123;<span class="string">'col1'</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>],<span class="string">'col_right'</span>:[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]&#125;)</span><br><span class="line"></span><br><span class="line">print(df1)</span><br><span class="line">print(df2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = pd.merge(df1,df2,on='col1',how='outer',indicator=True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># give the indicator a custome name</span></span><br><span class="line">res = pd.merge(df1,df2,on=<span class="string">'col1'</span>,how=<span class="string">'outer'</span>,indicator=<span class="string">'indicator_name'</span>)</span><br><span class="line"></span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># merge by index</span></span><br><span class="line"></span><br><span class="line">left = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'A'</span>:[<span class="string">'A0'</span>,<span class="string">'A1'</span>,<span class="string">'A2'</span>,<span class="string">'A3'</span>],</span><br><span class="line">    <span class="string">'B'</span>:[<span class="string">'B0'</span>,<span class="string">'B1'</span>,<span class="string">'B2'</span>,<span class="string">'B3'</span>],</span><br><span class="line">&#125;,index=[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>])</span><br><span class="line"></span><br><span class="line">right = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'C'</span>:[<span class="string">'C0'</span>,<span class="string">'C1'</span>,<span class="string">'C2'</span>,<span class="string">'C3'</span>],</span><br><span class="line">    <span class="string">'D'</span>:[<span class="string">'D0'</span>,<span class="string">'D1'</span>,<span class="string">'D2'</span>,<span class="string">'D3'</span>],</span><br><span class="line">&#125;,index=[<span class="string">'K0'</span>,<span class="string">'K2'</span>,<span class="string">'K3'</span>,<span class="string">'K4'</span>])</span><br><span class="line"></span><br><span class="line">print(left)</span><br><span class="line">print(right)</span><br><span class="line"></span><br><span class="line"><span class="comment"># res = pd.merge(left,right,left_index=True,right_index=True,how='outer')</span></span><br><span class="line">res = pd.merge(left,right,left_index=<span class="literal">True</span>,right_index=<span class="literal">True</span>,how=<span class="string">'inner'</span>)</span><br><span class="line">print(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># handle overlapping</span></span><br><span class="line"></span><br><span class="line">boys = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'k'</span>:[<span class="string">'K0'</span>,<span class="string">'K1'</span>,<span class="string">'K2'</span>],</span><br><span class="line">    <span class="string">'age'</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">girls = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">'k'</span>:[<span class="string">'K0'</span>,<span class="string">'K0'</span>,<span class="string">'K1'</span>],</span><br><span class="line">    <span class="string">'age'</span>:[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">res = pd.merge(boys,girls,on=<span class="string">'k'</span>,suffixes=[<span class="string">'_boy'</span>,<span class="string">'_girl'</span>],how=<span class="string">'inner'</span>)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># join</span></span><br></pre></td></tr></table></figure>
+<h3 id="Pandas-plot-图表"><a href="#Pandas-plot-图表" class="headerlink" title="Pandas plot 图表"></a>Pandas plot 图表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Series</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># data = pd.Series(np.random.randn(1000),index=np.arange(1000))</span></span><br><span class="line"></span><br><span class="line">data = pd.DataFrame(np.random.randn(<span class="number">1000</span>,<span class="number">4</span>),index=np.arange(<span class="number">1000</span>),columns=list(<span class="string">'ABCD'</span>))</span><br><span class="line">data = data.cumsum() <span class="comment"># 类是reduce，累加</span></span><br><span class="line">data.plot()</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot method:</span></span><br><span class="line"><span class="comment"># 'bar','hist','plot','scatter','kde','area','box','hexbin','pie'</span></span><br><span class="line"></span><br><span class="line">ax = data.plot.scatter(x=<span class="string">'A'</span>,y=<span class="string">'B'</span>,color=<span class="string">'DarkBlue'</span>,label=<span class="string">'Class 1'</span>)</span><br><span class="line">data.plot.scatter(x=<span class="string">'A'</span>,y=<span class="string">'C'</span>,color=<span class="string">'DarkGreen'</span>,label=<span class="string">'Class 2'</span>,ax=ax)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/my/images/numpy_and_pandas/output_40_0.png" alt="png"></p>
+<p><img src="/my/images/numpy_and_pandas/output_40_1.png" alt="png"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2112,7 +2407,7 @@ dhclient 获取IP
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2145,7 +2440,9 @@ dhclient 获取IP
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2354,6 +2651,8 @@ dhclient 获取IP
 
   
   
+    
+      
     
       
     
