@@ -252,7 +252,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -270,7 +270,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">14</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">15</span></a>
 
   </li>
 
@@ -306,6 +306,429 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/27/PyTorch-Tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/27/PyTorch-Tutorial/" class="post-title-link" itemprop="url">PyTorch-Tutorial</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-27 16:03:14" itemprop="dateCreated datePublished" datetime="2019-09-27T16:03:14+08:00">2019-09-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 11:48:19" itemprop="dateModified" datetime="2019-11-06T11:48:19+08:00">2019-11-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Pytorch-Tutorial"><a href="#Pytorch-Tutorial" class="headerlink" title="Pytorch Tutorial"></a>Pytorch Tutorial</h1><h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.empty(<span class="number">5</span>)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([-7.0454e+16,  4.5602e-41, -7.0454e+16,  4.5602e-41,  4.4842e-44])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-0.2868, -0.7095, -0.2244,  0.0359, -0.0446],
+        [ 0.9009, -1.4887,  1.1688, -0.8644, -0.2834],
+        [ 0.6291, -0.7237,  0.1425,  0.7541, -0.8514]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.zeros(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.long)</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([5.5000, 3.0000])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = x.new_ones(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.double)</span><br><span class="line">print(x)</span><br><span class="line">x = torch.randn_like(x, dtype=torch.float)    <span class="comment"># override dtype!</span></span><br><span class="line">x</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[ 0.5359, -0.6125,  0.4776],
+        [ 1.6412, -0.6522,  1.3568],
+        [ 0.5305, -1.7568,  1.7467],
+        [-0.2996, -0.2183, -0.9193],
+        [ 1.4179, -0.1998, -0.9144]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(x.size())</span><br></pre></td></tr></table></figure>
+<pre><code>torch.Size([5, 3])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y = torch.randn(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">print(x + y)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-0.7118, -0.8840,  2.0376],
+        [-0.6116, -1.1469,  1.6384],
+        [ 0.6491, -2.3616,  2.1900],
+        [-0.7521, -1.1007, -1.9134],
+        [-0.2323, -0.4377,  0.5033]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(torch.add(x, y))</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-0.7118, -0.8840,  2.0376],
+        [-0.6116, -1.1469,  1.6384],
+        [ 0.6491, -2.3616,  2.1900],
+        [-0.7521, -1.1007, -1.9134],
+        [-0.2323, -0.4377,  0.5033]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line">torch.add(x, y, out=result)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-0.7118, -0.8840,  2.0376],
+        [-0.6116, -1.1469,  1.6384],
+        [ 0.6491, -2.3616,  2.1900],
+        [-0.7521, -1.1007, -1.9134],
+        [-0.2323, -0.4377,  0.5033]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># adds x to y</span></span><br><span class="line">y.add_(x)</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[-0.1759, -1.4965,  2.5152],
+        [ 1.0296, -1.7991,  2.9952],
+        [ 1.1797, -4.1185,  3.9367],
+        [-1.0517, -1.3190, -2.8327],
+        [ 1.1856, -0.6375, -0.4111]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(x[:, <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([-0.6125, -0.6522, -1.7568, -0.2183, -0.1998])
+</code></pre><p><strong>Resizing:</strong> If you want to resize/reshape tensor, you can use <code>torch.view</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">y = x.view(<span class="number">16</span>)</span><br><span class="line">z = x.view(<span class="number">-1</span>, <span class="number">8</span>)  <span class="comment"># the size -1 is inferred from other dimensions</span></span><br><span class="line">print(x.size(), y.size(), z.size())</span><br></pre></td></tr></table></figure>
+<pre><code>torch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])
+</code></pre><p>If you have a one element tensor, use <code>.item()</code> to get the value as a Python number</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">1</span>)</span><br><span class="line">print(x)</span><br><span class="line">print(x.item())</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([-0.5195])
+-0.5194937586784363
+</code></pre><h2 id="Converting-a-Torch-Tensor-to-a-NumPy-Array"><a href="#Converting-a-Torch-Tensor-to-a-NumPy-Array" class="headerlink" title="Converting a Torch Tensor to a NumPy Array"></a>Converting a Torch Tensor to a NumPy Array</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = torch.ones(<span class="number">5</span>)</span><br><span class="line">print(a)</span><br><span class="line">b = a.numpy()</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([1., 1., 1., 1., 1.])
+[1. 1. 1. 1. 1.]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.add_(<span class="number">1</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([2., 2., 2., 2., 2.])
+[2. 2. 2. 2. 2.]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.ones(<span class="number">5</span>)</span><br><span class="line">b = torch.from_numpy(a)</span><br><span class="line">np.add(a, <span class="number">1</span>, out=a)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
+<pre><code>[2. 2. 2. 2. 2.]
+tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
+</code></pre><h2 id="AUTOGRAD-AUTOMATIC-DIFFERENTIATION"><a href="#AUTOGRAD-AUTOMATIC-DIFFERENTIATION" class="headerlink" title="AUTOGRAD: AUTOMATIC DIFFERENTIATION"></a>AUTOGRAD: AUTOMATIC DIFFERENTIATION</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.ones(<span class="number">2</span>, <span class="number">2</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">print(x)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[1., 1.],
+        [1., 1.]], requires_grad=True)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y = x + <span class="number">2</span></span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[3., 3.],
+        [3., 3.]], grad_fn=&lt;AddBackward0&gt;)
+</code></pre><p><code>y</code> was created as a result of an operation, so it has a <code>grad_fn</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(y.grad_fn)</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;AddBackward0 object at 0x7f1f65224a58&gt;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">z = y * y * <span class="number">3</span></span><br><span class="line">out = z.mean()</span><br><span class="line">print(z, out)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[27., 27.],
+        [27., 27.]], grad_fn=&lt;MulBackward0&gt;) tensor(27., grad_fn=&lt;MeanBackward0&gt;)
+</code></pre><p><code>.requires_grad_( ... )</code> changes an existing Tensor’s <code>requires_grad</code> flag in-place. The input flag defaults to <code>False</code> if not given.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = torch.randn(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">a = ((a * <span class="number">3</span>) / (a - <span class="number">1</span>))</span><br><span class="line">print(a.requires_grad)</span><br><span class="line">a.requires_grad_(<span class="literal">True</span>)</span><br><span class="line">print(a.requires_grad)</span><br><span class="line">b = (a * a).sum()</span><br><span class="line">print(b.grad_fn)</span><br></pre></td></tr></table></figure>
+<pre><code>False
+True
+&lt;SumBackward0 object at 0x7f1f65a18ba8&gt;
+</code></pre><p>Let’s backprop now. Because <code>out</code> contains a single scalar, <code>out.backward()</code> is equivalent to <code>out.backward(torch.tensor(1.))</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out.backward()</span><br></pre></td></tr></table></figure>
+<p>Print gradients d(out)/dx</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(x.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[4.5000, 4.5000],
+        [4.5000, 4.5000]])
+</code></pre><p>You should have got a matrix of <code>4.5</code>. Let’s call the <code>out</code> Tensor “o”. We have that $o = \frac{1}{4}\sum_i z_i$, $z_i = 3(x_i+2)^2$ and $z_i\bigr\rvert_{x_i=1} = 27$. Therefore, $\frac{\partial o}{\partial x_i} = \frac{3}{2}(x_i+2)$, hence $\frac{\partial o}{\partial x_i}\bigr\rvert_{x_i=1} = \frac{9}{2} = 4.5$.</p>
+<p>Mathematically, if you have a vector valued function $\vec{y}=f(\vec{x})$, then the gradient of $\vec{y}$  with respect to $\vec{x}$  is a Jacobian matrix:</p>
+<script type="math/tex; mode=display">\begin{split}J=\left(\begin{array}{ccc}
+ \frac{\partial y_{1}}{\partial x_{1}} & \cdots & \frac{\partial y_{1}}{\partial x_{n}}\\
+ \vdots & \ddots & \vdots\\
+ \frac{\partial y_{m}}{\partial x_{1}} & \cdots & \frac{\partial y_{m}}{\partial x_{n}}
+ \end{array}\right)\end{split}</script><p>Generally speaking, <code>torch.autograd</code> is an engine for computing vector-Jacobian product. That is, given any vector $v=\left(\begin{array}{cccc} v_{1} &amp; v_{2} &amp; \cdots &amp; v_{m}\end{array}\right)^{T}$, compute the product $v^{T}\cdot J$. If $v$ happens to be the gradient of a scalar function $l=g\left(\vec{y}\right)$, that is, $v=\left(\begin{array}{ccc}\frac{\partial l}{\partial y_{1}} &amp; \cdots &amp; \frac{\partial l}{\partial y_{m}}\end{array}\right)^{T}$, then by the chain rule, the vector-Jacobian product would be the gradient of $l$ with respect to $\vec{x}$ :</p>
+<script type="math/tex; mode=display">\begin{split}J^{T}\cdot v=\left(\begin{array}{ccc}
+ \frac{\partial y_{1}}{\partial x_{1}} & \cdots & \frac{\partial y_{m}}{\partial x_{1}}\\
+ \vdots & \ddots & \vdots\\
+ \frac{\partial y_{1}}{\partial x_{n}} & \cdots & \frac{\partial y_{m}}{\partial x_{n}}
+ \end{array}\right)\left(\begin{array}{c}
+ \frac{\partial l}{\partial y_{1}}\\
+ \vdots\\
+ \frac{\partial l}{\partial y_{m}}
+ \end{array}\right)=\left(\begin{array}{c}
+ \frac{\partial l}{\partial x_{1}}\\
+ \vdots\\
+ \frac{\partial l}{\partial x_{n}}
+ \end{array}\right)\end{split}</script><p> (Note that $v^T⋅J$ gives a row vector which can be treated as a column vector by taking $J^T⋅v$.)</p>
+<p>This characteristic of vector-Jacobian product makes it very convenient to feed external gradients into a model that has non-scalar output.</p>
+<p>Now let’s take a look at an example of vector-Jacobian product:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">3</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">y = x * <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> y.data.norm() &lt; <span class="number">1000</span>: <span class="comment"># y.data 的 2 范数</span></span><br><span class="line">    y = y * <span class="number">2</span></span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([ 243.8343, 1859.5187,  433.1491], grad_fn=&lt;MulBackward0&gt;)
+</code></pre><p>Now in this case <code>y</code> is no longer a scalar. <code>torch.autograd</code> could not compute the full Jacobian directly, but if we just want the vector-Jacobian product, simply pass the vector to <code>backward</code> as argument:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v = torch.tensor([<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">0.0001</span>], dtype=torch.float)</span><br><span class="line">y.backward(v)</span><br><span class="line">print(x.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([1.0240e+02, 1.0240e+03, 1.0240e-01])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(x.requires_grad)</span><br><span class="line">print((x ** <span class="number">2</span>).requires_grad)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    print((x ** <span class="number">2</span>).requires_grad)</span><br></pre></td></tr></table></figure>
+<pre><code>True
+True
+False
+</code></pre><h2 id="NEURAL-NETWORKS"><a href="#NEURAL-NETWORKS" class="headerlink" title="NEURAL NETWORKS"></a>NEURAL NETWORKS</h2><p>Neural networks can be constructed using the <code>torch.nn</code> package.</p>
+<p>Now that you had a glimpse of <code>autograd</code>, <code>nn</code> depends on <code>autograd</code> to define models and differentiate them. An <code>nn.Module</code> contains layers, and a method <code>forward(input)</code>that returns the <code>output</code>.</p>
+<p>For example, look at this network that classifies digit images:</p>
+<p><img src="https://pytorch.org/tutorials/_images/mnist.png" alt="fsd"></p>
+<h3 id="Define-the-network"><a href="#Define-the-network" class="headerlink" title="Define the network"></a>Define the network</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net,self).__init__()</span><br><span class="line">        <span class="comment"># 1 input image channel, 6 output channels, 3x3 square convolution</span></span><br><span class="line">        <span class="comment"># kernel</span></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">6</span>, <span class="number">3</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, <span class="number">3</span>)</span><br><span class="line">        <span class="comment"># an affine operation: y = Wx + b</span></span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">16</span> * <span class="number">6</span> * <span class="number">6</span>, <span class="number">120</span>)  <span class="comment"># 6*6 from image dimension</span></span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">120</span>, <span class="number">84</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">84</span>, <span class="number">10</span>) </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># Max pooling over a (2, 2) window</span></span><br><span class="line">        x = F.max_pool2d(F.relu(self.conv1(x)), (<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">        <span class="comment"># If the size is a square you can only specify a single number</span></span><br><span class="line">        x = F.max_pool2d(F.relu(self.conv2(x)), <span class="number">2</span>)</span><br><span class="line">        x = x.view(<span class="number">-1</span>, self.num_flat_features(x))</span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">num_flat_features</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        size = x.size()[<span class="number">1</span>:]  <span class="comment"># all dimensions except the batch dimension</span></span><br><span class="line">        num_features = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> size:</span><br><span class="line">            num_features *= s</span><br><span class="line">        <span class="keyword">return</span> num_features</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">net = Net()</span><br><span class="line">print(net)</span><br></pre></td></tr></table></figure>
+<pre><code>Net(
+  (conv1): Conv2d(1, 6, kernel_size=(3, 3), stride=(1, 1))
+  (conv2): Conv2d(6, 16, kernel_size=(3, 3), stride=(1, 1))
+  (fc1): Linear(in_features=576, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+</code></pre><p>You just have to define the <code>forward</code> function, and the <code>backward</code> function (where gradients are computed) is automatically defined for you using <code>autograd</code>. You can use any of the Tensor operations in the <code>forward</code> function.</p>
+<p>The learnable parameters of a model are returned by <code>net.parameters()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">params = list(net.parameters())</span><br><span class="line">print(len(params))</span><br><span class="line">print(params[<span class="number">0</span>].size())  <span class="comment"># conv1's .weight</span></span><br></pre></td></tr></table></figure>
+<pre><code>10
+torch.Size([6, 1, 3, 3])
+</code></pre><p>Let try a random 32x32 input. Note: expected input size of this net (LeNet) is 32x32. To use this net on MNIST dataset, please resize the images from the dataset to 32x32.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input = torch.randn(<span class="number">1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">32</span>)</span><br><span class="line">out = net(input)</span><br><span class="line">print(out)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[ 0.0251,  0.0173,  0.0737, -0.0636,  0.0445, -0.0363,  0.0201,  0.0686,
+         -0.1066,  0.0272]], grad_fn=&lt;AddmmBackward&gt;)
+</code></pre><p>Zero the gradient buffers of all parameters and backprops with random gradients:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.zero_grad()</span><br><span class="line">out.backward(torch.randn(<span class="number">1</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+<p>For example, <code>nn.Conv2d</code> will take in a 4D Tensor of <code>nSamples x nChannels x Height x Width</code>.</p>
+<p>If you have a single sample, just use <code>input.unsqueeze(0)</code> to add a fake batch dimension.</p>
+<p>Recap:</p>
+<ul>
+<li><code>torch.Tensor</code> - A multi-dimensional array with support for autograd operations like <code>backward()</code>. Also holds the gradient w.r.t. the tensor.</li>
+<li><code>nn.Module</code> - Neural network module. Convenient way of encapsulating parameters, with helpers for moving them to GPU, exporting, loading, etc.</li>
+<li><code>nn.Parameter</code> - A kind of Tensor, that is automatically registered as a parameter when assigned as an attribute to a <code>Module</code>.</li>
+<li><code>autograd.Function</code> - Implements forward and backward definitions of an <code>autograd</code> operation. Every <code>Tensor</code> operation creates at least a single <code>Function</code> node that connects to functions that created a <code>Tensor</code> and encodes its history.</li>
+</ul>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>A loss function takes the (output, target) pair of inputs, and computes a value that estimates how far away the output is from the target.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output = net(input)</span><br><span class="line">target = torch.randn(<span class="number">10</span>)  <span class="comment"># a dummy target, for example</span></span><br><span class="line">target = target.view(<span class="number">1</span>, <span class="number">-1</span>)  <span class="comment"># make it the same shape as output</span></span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">loss = criterion(output, target)</span><br><span class="line">print(loss)</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[ 0.0251,  0.0173,  0.0737, -0.0636,  0.0445, -0.0363,  0.0201,  0.0686,
+         -0.1066,  0.0272]], grad_fn=&lt;AddmmBackward&gt;)
+tensor([[ 0.9742,  0.1312, -0.3844, -0.8399, -0.9474, -0.1069,  0.2654, -0.1648,
+          0.0786, -1.5961]])
+tensor(0.5499, grad_fn=&lt;MseLossBackward&gt;)
+</code></pre><p>Now, if you follow <code>loss</code> in the backward direction, using its <code>.grad_fn</code> attribute, you will see a graph of computations that looks like this:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input -&gt; conv2d -&gt; relu -&gt; maxpool2d -&gt; conv2d -&gt; relu -&gt; maxpool2d</span><br><span class="line">      -&gt; view -&gt; linear -&gt; relu -&gt; linear -&gt; relu -&gt; linear</span><br><span class="line">      -&gt; MSELoss</span><br><span class="line">      -&gt; loss</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(loss.grad_fn)  <span class="comment"># MSELoss</span></span><br><span class="line">print(loss.grad_fn.next_functions[<span class="number">0</span>][<span class="number">0</span>])  <span class="comment"># Linear</span></span><br><span class="line">print(loss.grad_fn.next_functions[<span class="number">0</span>][<span class="number">0</span>].next_functions[<span class="number">0</span>][<span class="number">0</span>])  <span class="comment"># ReLU</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;MseLossBackward object at 0x7f8589ab59b0&gt;
+&lt;AddmmBackward object at 0x7f85894d5400&gt;
+&lt;AccumulateGrad object at 0x7f8589ab59b0&gt;
+</code></pre><h3 id="Backprop"><a href="#Backprop" class="headerlink" title="Backprop"></a>Backprop</h3><p>To backpropagate the error all we have to do is to <code>loss.backward()</code>. You need to clear the existing gradients though, else gradients will be accumulated to existing gradients.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">net.zero_grad()     <span class="comment"># zeroes the gradient buffers of all parameters</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'conv1.bias.grad before backward'</span>)</span><br><span class="line">print(net.conv1.bias.grad)</span><br><span class="line"></span><br><span class="line">loss.backward()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'conv1.bias.grad after backward'</span>)</span><br><span class="line">print(net.conv1.bias.grad)</span><br></pre></td></tr></table></figure>
+<pre><code>conv1.bias.grad before backward
+tensor([0., 0., 0., 0., 0., 0.])
+conv1.bias.grad after backward
+tensor([-0.0092,  0.0072, -0.0021, -0.0014,  0.0019, -0.0038])
+</code></pre><h3 id="Update-the-weights"><a href="#Update-the-weights" class="headerlink" title="Update the weights"></a>Update the weights</h3><p>The simplest update rule used in practice is the Stochastic Gradient Descent (SGD):</p>
+<p><code>weight = weight - learning_rate * gradient</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> net.parameters():</span><br><span class="line">    f.data.sub_(f.grad.data * learning_rate)</span><br></pre></td></tr></table></figure>
+<p>However, as you use neural networks, you want to use various different update rules such as SGD, Nesterov-SGD, Adam, RMSProp, etc. To enable this, we built a small package: <code>torch.optim</code> that implements all these methods. Using it is very simple:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="comment"># create your optimizer</span></span><br><span class="line">optimizer = optim.SGD(net.parameters(), lr=<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># in your training loop:</span></span><br><span class="line">optimizer.zero_grad()   <span class="comment"># zero the gradient buffers</span></span><br><span class="line">output = net(input)</span><br><span class="line">loss = criterion(output, target)</span><br><span class="line">loss.backward()</span><br><span class="line">optimizer.step()    <span class="comment"># Does the update</span></span><br></pre></td></tr></table></figure>
+<h2 id="TRAINING-A-CLASSIFIER"><a href="#TRAINING-A-CLASSIFIER" class="headerlink" title="TRAINING A CLASSIFIER"></a>TRAINING A CLASSIFIER</h2><h3 id="What-about-data"><a href="#What-about-data" class="headerlink" title="What about data?"></a>What about data?</h3><p>Generally, when you have to deal with image, text, audio or video data, you can use standard python packages that load data into a numpy array. Then you can convert this array into a <code>torch.*Tensor</code>.</p>
+<ul>
+<li>For images, packages such as <code>Pillow</code>, <code>OpenCV</code> are useful</li>
+<li>For audio, packages such as <code>scipy</code> and <code>librosa</code></li>
+<li>For text, either raw Python or Cython based loading, or NLTK and SpaCy are useful</li>
+</ul>
+<p>Specifically for vision, we have created a package called <code>torchvision</code>, that has data loaders for common datasets such as Imagenet, CIFAR10, MNIST, etc. and data transformers for images, viz., <code>torchvision.datasets</code> and <code>torch.utils.data.DataLoader</code>.</p>
+<p>For this tutorial, we will use the CIFAR10 dataset. It has the classes: ‘airplane’, ‘automobile’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. The images in CIFAR-10 are of size 3x32x32, i.e. 3-channel color images of 32x32 pixels in size.</p>
+<p><img src="https://pytorch.org/tutorials/_images/cifar10.png" alt></p>
+<h3 id="Training-an-image-classifier"><a href="#Training-an-image-classifier" class="headerlink" title="Training an image classifier"></a>Training an image classifier</h3><p>We will do the following steps in order:</p>
+<ol>
+<li>Load and normalizing the CIFAR10 training and test datasets <code>using torchvision</code></li>
+<li>Define a Convolutional Neural Network</li>
+<li>Define a loss function</li>
+<li>Train the network on the training data</li>
+<li>Test the network on the test data</li>
+</ol>
+<h4 id="1-Loading-and-normalizing-CIFAR10"><a href="#1-Loading-and-normalizing-CIFAR10" class="headerlink" title="1. Loading and normalizing CIFAR10"></a>1. Loading and normalizing CIFAR10</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br></pre></td></tr></table></figure>
+<p>The output of torchvision datasets are PILImage images of range [0, 1]. We transform them to Tensors of normalized range [-1, 1]. .. note:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If running on Windows and you get a BrokenPipeError, try setting</span><br><span class="line">the num_worker of torch.utils.data.DataLoader() to 0.</span><br></pre></td></tr></table></figure></p>
+<p>Note: transforms.Normalize(mean,std)</p>
+<p>z-score 规范化(零均值规范化)</p>
+<script type="math/tex; mode=display">
+input = \frac{input - mean}{std}</script><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">transform = transforms.Compose(</span><br><span class="line">    [transforms.ToTensor(),</span><br><span class="line">     transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))])</span><br><span class="line"></span><br><span class="line">trainset = torchvision.datasets.CIFAR10(root=<span class="string">'./data'</span>, train=<span class="literal">True</span>,</span><br><span class="line">                                        download=<span class="literal">True</span>, transform=transform)</span><br><span class="line">trainloader = torch.utils.data.DataLoader(trainset, batch_size=<span class="number">4</span>,</span><br><span class="line">                                          shuffle=<span class="literal">True</span>, num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">testset = torchvision.datasets.CIFAR10(root=<span class="string">'./data'</span>, train=<span class="literal">False</span>,</span><br><span class="line">                                       download=<span class="literal">True</span>, transform=transform)</span><br><span class="line">testloader = torch.utils.data.DataLoader(testset, batch_size=<span class="number">4</span>,</span><br><span class="line">                                         shuffle=<span class="literal">False</span>, num_workers=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">classes = (<span class="string">'plane'</span>, <span class="string">'car'</span>, <span class="string">'bird'</span>, <span class="string">'cat'</span>,</span><br><span class="line">           <span class="string">'deer'</span>, <span class="string">'dog'</span>, <span class="string">'frog'</span>, <span class="string">'horse'</span>, <span class="string">'ship'</span>, <span class="string">'truck'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz
+
+
+100.0%
+
+Files already downloaded and verified
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># functions to show an image</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imshow</span><span class="params">(img)</span>:</span></span><br><span class="line">    img = img / <span class="number">2</span> + <span class="number">0.5</span>     <span class="comment"># unnormalize</span></span><br><span class="line">    npimg = img.numpy()</span><br><span class="line">    plt.imshow(np.transpose(npimg, (<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)))</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># get some random training images</span></span><br><span class="line">dataiter = iter(trainloader)</span><br><span class="line">images, labels = dataiter.next() <span class="comment"># image size(4, 1, 32, 32) nSamples nChannels Height Width</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># show images</span></span><br><span class="line">imshow(torchvision.utils.make_grid(images))</span><br><span class="line"><span class="comment"># print labels</span></span><br><span class="line">print(<span class="string">' '</span>.join(<span class="string">'%5s'</span> % classes[labels[j]] <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>)))</span><br></pre></td></tr></table></figure>
+<p><img src="images/output_74_0.png" alt="png"></p>
+<pre><code>  cat horse  deer truck
+</code></pre><h4 id="2-Define-a-Convolutional-Neural-Network"><a href="#2-Define-a-Convolutional-Neural-Network" class="headerlink" title="2. Define a` Convolutional Neural Network"></a>2. Define a` Convolutional Neural Network</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">6</span>, <span class="number">5</span>)</span><br><span class="line">        self.pool = nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, <span class="number">5</span>)</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">120</span>, <span class="number">84</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">84</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = self.pool(F.relu(self.conv1(x)))</span><br><span class="line">        x = self.pool(F.relu(self.conv2(x)))</span><br><span class="line">        x = x.view(<span class="number">-1</span>, <span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>)</span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">net = Net()</span><br></pre></td></tr></table></figure>
+<h4 id="3-Define-a-Loss-function-and-optimizer"><a href="#3-Define-a-Loss-function-and-optimizer" class="headerlink" title="3. Define a Loss function and optimizer"></a>3. Define a Loss function and optimizer</h4><p>Let’s use a Classification Cross-Entropy loss and SGD with momentum.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line">optimizer = optim.SGD(net.parameters(), lr=<span class="number">0.001</span>, momentum=<span class="number">0.9</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="4-Train-the-network"><a href="#4-Train-the-network" class="headerlink" title="4. Train the network"></a>4. Train the network</h4><p>This is when things start to get interesting. We simply have to loop over our data iterator, and feed the inputs to the network and optimize.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">2</span>):  <span class="comment"># loop over the dataset multiple times</span></span><br><span class="line"></span><br><span class="line">    running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> i, data <span class="keyword">in</span> enumerate(trainloader, <span class="number">0</span>):</span><br><span class="line">        <span class="comment"># get the inputs; data is a list of [inputs, labels]</span></span><br><span class="line">        inputs, labels = data</span><br><span class="line"></span><br><span class="line">        <span class="comment"># zero the parameter gradients</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># forward + backward + optimize</span></span><br><span class="line">        outputs = net(inputs)</span><br><span class="line">        loss = criterion(outputs, labels)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print statistics</span></span><br><span class="line">        running_loss += loss.item()</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2000</span> == <span class="number">1999</span>:    <span class="comment"># print every 2000 mini-batches</span></span><br><span class="line">            print(<span class="string">'[%d, %5d] loss: %.3f'</span> %</span><br><span class="line">                  (epoch + <span class="number">1</span>, i + <span class="number">1</span>, running_loss / <span class="number">2000</span>))</span><br><span class="line">            running_loss = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'Finished Training'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>[1,  2000] loss: 2.242
+[1,  4000] loss: 1.987
+[1,  6000] loss: 1.758
+[1,  8000] loss: 1.639
+[1, 10000] loss: 1.543
+[1, 12000] loss: 1.508
+[2,  2000] loss: 1.426
+[2,  4000] loss: 1.390
+[2,  6000] loss: 1.363
+[2,  8000] loss: 1.351
+[2, 10000] loss: 1.335
+[2, 12000] loss: 1.299
+Finished Training
+</code></pre><h4 id="5-Test-the-network-on-the-test-data"><a href="#5-Test-the-network-on-the-test-data" class="headerlink" title="5. Test the network on the test data"></a>5. Test the network on the test data</h4><p>We have trained the network for 2 passes over the training dataset. But we need to check if the network has learnt anything at all.</p>
+<p>We will check this by predicting the class label that the neural network outputs, and checking it against the ground-truth. If the prediction is correct, we add the sample to the list of correct predictions.</p>
+<p>Okay, first step. Let us display an image from the test set to get familiar.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataiter = iter(testloader)</span><br><span class="line">images, labels = dataiter.next()</span><br><span class="line"></span><br><span class="line"><span class="comment"># print images</span></span><br><span class="line">imshow(torchvision.utils.make_grid(images))</span><br><span class="line">print(<span class="string">'GroundTruth: '</span>, <span class="string">' '</span>.join(<span class="string">'%5s'</span> % classes[labels[j]] <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>)))</span><br></pre></td></tr></table></figure>
+<p><img src="images/output_82_0.png" alt="png"></p>
+<pre><code>GroundTruth:    cat  ship  ship plane
+</code></pre><p>Okay, now let us see what the neural network thinks these examples above are:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outputs = net(images)</span><br></pre></td></tr></table></figure>
+<p>The outputs are energies for the 10 classes. The higher the energy for a class, the more the network thinks that the image is of the particular class. So, let’s get the index of the highest energy:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">_, predicted = torch.max(outputs, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Predicted: '</span>, <span class="string">' '</span>.join(<span class="string">'%5s'</span> % classes[predicted[j]]</span><br><span class="line">                              <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>)))</span><br></pre></td></tr></table></figure>
+<pre><code>Predicted:    cat  ship  ship  ship
+</code></pre><p>Let us look at how the network performs on the whole dataset.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">correct = <span class="number">0</span></span><br><span class="line">total = <span class="number">0</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> testloader:</span><br><span class="line">        images, labels = data</span><br><span class="line">        outputs = net(images)</span><br><span class="line">        _, predicted = torch.max(outputs.data, <span class="number">1</span>)</span><br><span class="line">        total += labels.size(<span class="number">0</span>)</span><br><span class="line">        correct += (predicted == labels).sum().item()</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Accuracy of the network on the 10000 test images: %d %%'</span> % (</span><br><span class="line">    <span class="number">100</span> * correct / total))</span><br></pre></td></tr></table></figure>
+<pre><code>Accuracy of the network on the 10000 test images: 53 %
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class_correct = list(<span class="number">0.</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line">class_total = list(<span class="number">0.</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> testloader:</span><br><span class="line">        images, labels = data</span><br><span class="line">        outputs = net(images)</span><br><span class="line">        _, predicted = torch.max(outputs, <span class="number">1</span>)</span><br><span class="line">        c = (predicted == labels).squeeze()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">            label = labels[i]</span><br><span class="line">            class_correct[label] += c[i].item()</span><br><span class="line">            class_total[label] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    print(<span class="string">'Accuracy of %5s : %2d %%'</span> % (</span><br><span class="line">        classes[i], <span class="number">100</span> * class_correct[i] / class_total[i]))</span><br></pre></td></tr></table></figure>
+<pre><code>Accuracy of plane : 57 %
+Accuracy of   car : 67 %
+Accuracy of  bird : 22 %
+Accuracy of   cat : 46 %
+Accuracy of  deer : 61 %
+Accuracy of   dog : 28 %
+Accuracy of  frog : 53 %
+Accuracy of horse : 65 %
+Accuracy of  ship : 79 %
+Accuracy of truck : 53 %
+</code></pre><h3 id="Training-on-GPU"><a href="#Training-on-GPU" class="headerlink" title="Training on GPU"></a>Training on GPU</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">device = torch.device(<span class="string">"cuda:0"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Assuming that we are on a CUDA machine, this should print a CUDA device:</span></span><br><span class="line"></span><br><span class="line">print(device)</span><br><span class="line"></span><br><span class="line">net.to(device)</span><br><span class="line"></span><br><span class="line">inputs, labels = data[<span class="number">0</span>].to(device), data[<span class="number">1</span>].to(device)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2407,7 +2830,7 @@ dhclient 获取IP
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2442,7 +2865,9 @@ dhclient 获取IP
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2651,6 +3076,8 @@ dhclient 获取IP
 
   
   
+    
+      
     
       
     

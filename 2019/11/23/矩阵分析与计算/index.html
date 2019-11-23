@@ -94,20 +94,17 @@
 
 
 
-  <meta name="description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
+  <meta name="description" content="矩阵分析与计算 回顾矩阵和分析重点知识点和内容  范数 向量范数 $L_1,L_2,L_p$ 矩阵范数 $m1,m_\infty,F$ 算子范数：极大列和范数，极大行和范数，谱范数 算子范数和矩阵范数的关系 条件范数$cond(A)$在误差估计的应用 正规矩阵，Hermite矩阵（对称举证的推广），酉矩阵（正交矩阵的推广），正定举证 距离，赋范线性空间  矩阵的特征值 Smith标准型  $\la">
 <meta property="og:type" content="article">
-<meta property="og:title" content="已知语言构建文法">
-<meta property="og:url" content="http://yoursite.com/2019/11/14/已知语言构建文法/index.html">
+<meta property="og:title" content="矩阵分析与计算">
+<meta property="og:url" content="http://yoursite.com/2019/11/23/矩阵分析与计算/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
+<meta property="og:description" content="矩阵分析与计算 回顾矩阵和分析重点知识点和内容  范数 向量范数 $L_1,L_2,L_p$ 矩阵范数 $m1,m_\infty,F$ 算子范数：极大列和范数，极大行和范数，谱范数 算子范数和矩阵范数的关系 条件范数$cond(A)$在误差估计的应用 正规矩阵，Hermite矩阵（对称举证的推广），酉矩阵（正交矩阵的推广），正定举证 距离，赋范线性空间  矩阵的特征值 Smith标准型  $\la">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/电路转换图.png">
-<meta property="og:image" content="http://yoursite.com/images/电路状态转换图2.png">
-<meta property="og:updated_time" content="2019-11-15T05:52:04.489Z">
+<meta property="og:updated_time" content="2019-11-23T06:51:40.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="已知语言构建文法">
-<meta name="twitter:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
-<meta name="twitter:image" content="http://yoursite.com/images/电路转换图.png">
+<meta name="twitter:title" content="矩阵分析与计算">
+<meta name="twitter:description" content="矩阵分析与计算 回顾矩阵和分析重点知识点和内容  范数 向量范数 $L_1,L_2,L_p$ 矩阵范数 $m1,m_\infty,F$ 算子范数：极大列和范数，极大行和范数，谱范数 算子范数和矩阵范数的关系 条件范数$cond(A)$在误差估计的应用 正规矩阵，Hermite矩阵（对称举证的推广），酉矩阵（正交矩阵的推广），正定举证 距离，赋范线性空间  矩阵的特征值 Smith标准型  $\la">
 
 
 
@@ -115,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/11/14/已知语言构建文法/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/23/矩阵分析与计算/">
 
 
 
@@ -125,7 +122,7 @@
   };
 </script>
 
-  <title>已知语言构建文法 | Dongxian's Blog</title>
+  <title>矩阵分析与计算 | Dongxian's Blog</title>
   
 
 
@@ -328,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/已知语言构建文法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/23/矩阵分析与计算/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -345,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">已知语言构建文法
+          <h1 class="post-title" itemprop="name headline">矩阵分析与计算
 
               
             
@@ -371,24 +368,12 @@
                 
               
 
-              <time title="创建时间：2019-11-14 11:27:11" itemprop="dateCreated datePublished" datetime="2019-11-14T11:27:11+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-23 14:31:19 / 修改时间：14:51:40" itemprop="dateCreated datePublished" datetime="2019-11-23T14:31:19+08:00">2019-11-23</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-15 13:52:04" itemprop="dateModified" datetime="2019-11-15T13:52:04+08:00">2019-11-15</time>
               
             
           </span>
@@ -405,7 +390,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/形式语言和自动机/" itemprop="url" rel="index"><span itemprop="name">形式语言和自动机</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程回顾/" itemprop="url" rel="index"><span itemprop="name">课程回顾</span></a></span>
 
                 
                 
@@ -440,113 +425,60 @@
       
 
       
-        <h1 id="已知语言构建文法"><a href="#已知语言构建文法" class="headerlink" title="已知语言构建文法"></a>已知语言构建文法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>常用方法</p>
-<ul>
-<li>对称法</li>
-<li>逐步求精法（分解法）</li>
-<li>等价法</li>
-<li>电路状态转换法</li>
-<li>混合法（混合上面的方法）</li>
+        <h1 id="矩阵分析与计算"><a href="#矩阵分析与计算" class="headerlink" title="矩阵分析与计算"></a>矩阵分析与计算</h1><blockquote>
+<p>回顾矩阵和分析重点知识点和内容</p>
+</blockquote>
+<h2 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h2><ul>
+<li>向量范数 $L_1,L_2,L_p$</li>
+<li>矩阵范数 $m1,m_\infty,F$</li>
+<li>算子范数：极大列和范数，极大行和范数，谱范数</li>
+<li>算子范数和矩阵范数的关系</li>
+<li>条件范数$cond(A)$在误差估计的应用</li>
+<li>正规矩阵，Hermite矩阵（对称举证的推广），酉矩阵（正交矩阵的推广），正定举证</li>
+<li>距离，赋范线性空间</li>
 </ul>
-<h2 id="对称法"><a href="#对称法" class="headerlink" title="对称法"></a>对称法</h2><p>适用于存在对称性的语言。</p>
-<p>两点：</p>
-<ol>
-<li>找出对称轴</li>
-<li>找出对称性</li>
-</ol>
-<p>例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$</p>
-<p>观察语言：</p>
+<h2 id="矩阵的特征值"><a href="#矩阵的特征值" class="headerlink" title="矩阵的特征值"></a>矩阵的特征值</h2><ul>
+<li><p>Smith标准型</p>
+</li>
+<li><p>$\lambda$-矩阵，不变因子，行列式因子，初等因子</p>
+</li>
+<li><p>Jordan标准型</p>
+</li>
+<li><p>盖尔圆，特征值的隔离</p>
+</li>
+<li><p>幂迭代法，逆幂迭代法 求主特征值和特征向量，以下为幂迭代法的公式</p>
 <script type="math/tex; mode=display">
 \begin{split}
-& when \; n=1, L=aab \\
-& when \; n=2, L=aaaabb \rightarrow \; L=aa\;aab\;b
-\end{split}</script><p>所以推出文法：</p>
-<script type="math/tex; mode=display">
-\begin{split}
-& S \rightarrow aaSb \\
-& S \rightarrow aab
-\end{split}</script><h2 id="逐步求精法（分解法）"><a href="#逐步求精法（分解法）" class="headerlink" title="逐步求精法（分解法）"></a>逐步求精法（分解法）</h2><p>两种：自上而下 或者从左向右</p>
-<p>前提：语言中各成分之间没有关联。</p>
-<p>例题：$L=\{a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T\}$</p>
-<ol>
-<li><p>自上而下求精法</p>
-<script type="math/tex; mode=display">
-S\rightarrow ABC,\; A \rightarrow aA|a,\; B \rightarrow bB|b,\; C  \rightarrow cC|c</script><p>分析：将$a^i,b^j,c^k$各自看成一个整体，由$i \ge 1$，语言中最少存在一个$a$，所以可以写成这样的文法：$A \rightarrow aA|a$。同理可以得到其他两个$B \rightarrow bB|b,\; C \rightarrow cC|c$。所以$S \rightarrow ABC$。</p>
-</li>
-<li><p>从左向右求精法</p>
-<script type="math/tex; mode=display">
-S \rightarrow aS|aA,\; A\rightarrow bA|bB,\; B\rightarrow cB|c</script><p>分析：$a^ib^jc^k=a^*a^{i-1}b^jc^k$，其中$i-1 \ge 0$。</p>
-<p>当$i-1\ge 1$时，$S \rightarrow aS$；当$i-1=0$时，$S \rightarrow aA$。</p>
-<p>$A$对应的语言是$b^jc^k$，同理推出$A\rightarrow bA|bB$。</p>
-</li>
-</ol>
-<h2 id="等价法"><a href="#等价法" class="headerlink" title="等价法"></a>等价法</h2><p>产生式两边具有相同的特性</p>
-<p>例题：$L=\{\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega\}$</p>
-<p>在语言中，a和b的数量一样多。</p>
-<p>首先写出下面三个产生式：</p>
-<p>当以a开头时，$S \rightarrow aA$；</p>
-<p>当以b开头时，$S \rightarrow bB$；</p>
-<p>$S$可以为空：$S \rightarrow \varepsilon$</p>
-<p>在$S、A、B$中，a和b的数量满足：</p>
-<script type="math/tex; mode=display">
-\begin{split} 
-& S \quad |a|=|b| \\
-& A \quad |a|+1 = |b| \\
-& B \quad |b|+1 = |a|
-\end{split}</script><p>在$A$中</p>
-<ul>
-<li><p>若以b开头：$A\rightarrow bS|b$</p>
-</li>
-<li><p>若以a开头：$A \rightarrow aAA \quad (aA == S)$</p>
-</li>
+& u_0 = v_0\\
+& v_k = Av_{k-1}\\
+& m_k = \max v_k\\
+& u_k = \frac{v_k}{m_k}\\
+\end{split}</script></li>
 </ul>
-<p>同理 $B \rightarrow bS|b|bBB$</p>
-<p>所以最后得到的文法是：</p>
-<script type="math/tex; mode=display">
-S \rightarrow aA|bB|\varepsilon \\
-A \rightarrow bS|b|aAA \\
-B \rightarrow aS|a|bBB</script><h2 id="电路状态转换法"><a href="#电路状态转换法" class="headerlink" title="电路状态转换法"></a>电路状态转换法</h2><p>适用于语言对元素的奇偶有要求的。</p>
-<p>电路状态的概念：0代表偶数，1代表奇数。</p>
-<p>比如000代表语言中的a,b,c的个数都是偶数。</p>
-<p><img src="/images/电路转换图.png" alt="电路转换图"></p>
-<p>解题步骤：</p>
-<ol>
-<li><p>构建电路状态转换图</p>
-<ul>
-<li>确定状态，如果有n个元素，则存在$2^n$个状态。</li>
-<li>然后链接状态</li>
+<h2 id="矩阵分解和广义逆"><a href="#矩阵分解和广义逆" class="headerlink" title="矩阵分解和广义逆"></a>矩阵分解和广义逆</h2><ul>
+<li>三角分解，Doolittle 分解</li>
+<li>Chomlesky 分解</li>
+<li>QR分解</li>
+<li>满秩分解</li>
+<li>奇异值分解</li>
+<li>广义逆</li>
+<li>Moore-Penrose 逆的直接解法：满秩分解，奇异值分解</li>
 </ul>
-</li>
-<li><p>确定开始状态和结束状态</p>
-<p>开始状态和结束状态是相对的，根据题目情况确定。</p>
-<ol>
-<li>以全是0为结束状态，以题目要求为开始状态。</li>
-<li>以题目要求作为结束状态，以全是0为开始状态。</li>
-</ol>
-<p>比如对于某种L，以a或b开头，c结尾，abc数量皆为偶数，则开始状态不唯一，所以不能用 全是0作为开始状态，而结束状态是唯一的，所以可拿全是0作为结束状态。</p>
-</li>
-<li><p>命名各个状态</p>
-<p>初始状态用S，其他状态用A、B、C…..命名。</p>
-</li>
-<li><p>写出相应的产生式</p>
-<p>每条边的变化对应一条产生式</p>
-<p>对结束状态要增加一条产生式$S \rightarrow \varepsilon$</p>
-<p>严格的说最后可以写出$2^{n(n+1)}+1$条产生式。</p>
-</li>
-</ol>
-<p>例题：$L=\{\omega| \omega \in (0,1)^*, 1的数量是偶数\}$</p>
-<p>电路状态转换图如下所示：</p>
-<p><img src="/images/电路状态转换图2.png" alt="电路状态转换图2"></p>
-<p>本题中，只有两个状态：</p>
-<p>S：1的数量是偶数，A：1的数量是奇数。</p>
-<p>S组作为终止状态。</p>
-<p>根据状态转换图写出产生式：</p>
-<script type="math/tex; mode=display">
-S \rightarrow 0S|1A|\varepsilon \\
-A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a href="#混合法（混合上面的方法）" class="headerlink" title="混合法（混合上面的方法）"></a>混合法（混合上面的方法）</h2><p>常用的如：分解法+对称法/分解法+电路转换法等。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://blog.csdn.net/Follower_JC/article/details/84036349" target="_blank" rel="noopener">https://blog.csdn.net/Follower_JC/article/details/84036349</a></li>
-</ol>
+<h2 id="矩阵的数值计算"><a href="#矩阵的数值计算" class="headerlink" title="矩阵的数值计算"></a>矩阵的数值计算</h2><ul>
+<li>Gauss 消元法，选列主元。</li>
+<li>三角分解</li>
+<li>平方根，改进平方跟</li>
+<li>…</li>
+<li>J迭代法，G-S迭代法，SOR迭代法</li>
+<li>极小化方法：（将矩阵计算转为泛函极值问题）最速下降法，共轭梯度法</li>
+</ul>
+<h2 id="最优化方法"><a href="#最优化方法" class="headerlink" title="最优化方法"></a>最优化方法</h2><ul>
+<li>单纯形法</li>
+<li>K-K-T点求解</li>
+<li>最速下降法，牛顿法，阻尼牛顿法，共轭梯度法</li>
+<li>罚函数法：外点罚函数，内点罚函数</li>
+<li>广义乘子法</li>
+</ul>
 
       
     </div>
@@ -577,8 +509,8 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/12/vim快捷键篇/" rel="next" title="vim快捷键篇">
-                <i class="fa fa-chevron-left"></i> vim快捷键篇
+              <a href="/2019/11/15/常用IDE快捷键/" rel="next" title="常用IDE快捷键">
+                <i class="fa fa-chevron-left"></i> 常用IDE快捷键
               </a>
             
           </div>
@@ -586,10 +518,6 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/14/优化方法/" rel="prev" title="优化方法">
-                优化方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -756,7 +684,7 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#已知语言构建文法"><span class="nav-number">1.</span> <span class="nav-text">已知语言构建文法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对称法"><span class="nav-number">1.2.</span> <span class="nav-text">对称法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐步求精法（分解法）"><span class="nav-number">1.3.</span> <span class="nav-text">逐步求精法（分解法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等价法"><span class="nav-number">1.4.</span> <span class="nav-text">等价法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#电路状态转换法"><span class="nav-number">1.5.</span> <span class="nav-text">电路状态转换法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混合法（混合上面的方法）"><span class="nav-number">1.6.</span> <span class="nav-text">混合法（混合上面的方法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矩阵分析与计算"><span class="nav-number">1.</span> <span class="nav-text">矩阵分析与计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#范数"><span class="nav-number">1.1.</span> <span class="nav-text">范数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的特征值"><span class="nav-number">1.2.</span> <span class="nav-text">矩阵的特征值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵分解和广义逆"><span class="nav-number">1.3.</span> <span class="nav-text">矩阵分解和广义逆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#矩阵的数值计算"><span class="nav-number">1.4.</span> <span class="nav-text">矩阵的数值计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最优化方法"><span class="nav-number">1.5.</span> <span class="nav-text">最优化方法</span></a></li></ol></li></ol></div>
             
 
           </div>
