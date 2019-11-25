@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+  <meta name="description" content="机器学习 FormulaLinear Regression The Least Mean Square (LMS) Algorithm  h_\theta(x) = \sum_{i=1}^{n}\theta_i x_i = \theta^T xParameters Parameters  \theta     Cost function      \begin{split}    J_l(\the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chomsky文法">
-<meta property="og:url" content="http://yoursite.com/2019/11/06/Chomsky文法/index.html">
+<meta property="og:title" content="基础机器学习公式">
+<meta property="og:url" content="http://yoursite.com/2019/11/25/基础机器学习公式/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+<meta property="og:description" content="机器学习 FormulaLinear Regression The Least Mean Square (LMS) Algorithm  h_\theta(x) = \sum_{i=1}^{n}\theta_i x_i = \theta^T xParameters Parameters  \theta     Cost function      \begin{split}    J_l(\the">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T03:42:55.048Z">
+<meta property="og:updated_time" content="2019-11-25T04:41:38.884Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chomsky文法">
-<meta name="twitter:description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+<meta name="twitter:title" content="基础机器学习公式">
+<meta name="twitter:description" content="机器学习 FormulaLinear Regression The Least Mean Square (LMS) Algorithm  h_\theta(x) = \sum_{i=1}^{n}\theta_i x_i = \theta^T xParameters Parameters  \theta     Cost function      \begin{split}    J_l(\the">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/11/06/Chomsky文法/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/25/基础机器学习公式/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Chomsky文法 | Dongxian's Blog</title>
+  <title>基础机器学习公式 | Dongxian's Blog</title>
   
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Chomsky文法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/25/基础机器学习公式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -342,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Chomsky文法
+          <h1 class="post-title" itemprop="name headline">基础机器学习公式
 
               
             
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="创建时间：2019-11-06 11:06:56 / 修改时间：11:42:55" itemprop="dateCreated datePublished" datetime="2019-11-06T11:06:56+08:00">2019-11-06</time>
+              <time title="创建时间：2019-11-25 12:36:41 / 修改时间：12:41:38" itemprop="dateCreated datePublished" datetime="2019-11-25T12:36:41+08:00">2019-11-25</time>
             
 
             
@@ -390,7 +390,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/形式语言和自动机/" itemprop="url" rel="index"><span itemprop="name">形式语言和自动机</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
 
                 
                 
@@ -425,25 +425,126 @@
       
 
       
-        <h1 id="Chomsky-文法"><a href="#Chomsky-文法" class="headerlink" title="Chomsky 文法"></a>Chomsky 文法</h1><p>定义：四元组 $G(V,T,P,S)$</p>
-<ul>
-<li>$V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。</li>
-<li>$T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $</li>
-<li>$P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+ - T^+$，产生式右部$\beta \in (V \cup T)^*$</li>
-<li>$S$：文法的开始符号，也叫识别符号，$S \in V$</li>
-</ul>
-<h2 id="0型文法"><a href="#0型文法" class="headerlink" title="0型文法"></a>0型文法</h2><p>也叫短语结构文法，对应的语言叫0型语言，短语结构语言或者递归可枚举集。</p>
-<h2 id="1型文法"><a href="#1型文法" class="headerlink" title="1型文法"></a>1型文法</h2><p>在0型文法的基础上，如果对于$\forall  \alpha \to \beta \in P$，且$|\beta| \ge |\alpha|$，或如果对于$\forall xUy  \to xuy \in P$，且$|xuy| \ge |xUy|$，其中$U \in V,\quad x,y \in V^*,\quad u\in V^*$，则该文法为1型文法，或上下文有关文法，对应的语言叫1型语言，或上下文有关语言。</p>
-<h2 id="2型文法"><a href="#2型文法" class="headerlink" title="2型文法"></a>2型文法</h2><p>在1型文法的基础上，如果对于$\forall \alpha \to \beta \in P$，且$\alpha \in V$，则该文法为2型文法或上下文无关文法，其对应的语言为2型语言或上下文无关的语言。</p>
-<h2 id="3型文法"><a href="#3型文法" class="headerlink" title="3型文法"></a>3型文法</h2><p>在2型文法的基础上，如果$\forall \alpha \to \beta \in P$，且$\alpha \to \beta$均具有形式</p>
+        <h1 id="机器学习-Formula"><a href="#机器学习-Formula" class="headerlink" title="机器学习 Formula"></a>机器学习 Formula</h1><h2 id="Linear-Regression"><a href="#Linear-Regression" class="headerlink" title="Linear Regression"></a>Linear Regression</h2><ol>
+<li><p>The Least Mean Square (<strong>LMS</strong>) Algorithm</p>
 <script type="math/tex; mode=display">
-A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in T$，则该文法为3型文法，也称正则文法或正规文法，其对应的语言为3型语言，或正则语言或正规语言。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>0型文法无限制</li>
-<li>1型文法产生式左边长度大于右边</li>
-<li>2型文法产生式左边为单个非终结符</li>
+h_\theta(x) = \sum_{i=1}^{n}\theta_i x_i = \theta^T xParameters</script><ul>
+<li>Parameters <script type="math/tex; mode=display">
+\theta</script></li>
+</ul>
+</li>
 </ol>
-
+<ul>
+<li>Cost function</li>
+</ul>
+<script type="math/tex; mode=display">
+   \begin{split}
+   J_l(\theta) & = \frac{1}{2} \sum_{i=1}^{m} (h_\theta(x^{(i)})-y^{(i)})^2 \\
+   & = \frac{1}{2} \sum_{i=1}^{m} (\theta^T x^{(i)}-y^{(i)})^2
+   \end{split}</script><ul>
+<li>Goal</li>
+</ul>
+<script type="math/tex; mode=display">
+   \theta^*=arg_\theta \; minJ_l(\theta)</script><ol>
+<li><p>Close-form Solution of LMS</p>
+<script type="math/tex; mode=display">
+J_l(\theta) = \frac{1}{2} \sum_{i=1}^{m} (h_\theta(x^{(i)})-y^{(i)})^2 = \frac{1}{2}(X\theta - y)^T(X\theta - y)</script><script type="math/tex; mode=display">
+\begin{split}
+\nabla_\theta J(\theta) &= \nabla_\theta \frac{1}{2} (X\theta - y)^T(X\theta - y)\\
+& = \frac{1}{2} \nabla_\theta (\theta^TX^TX\theta - \theta^TX^Ty - y^TX\theta + y^Ty) \\
+& = \frac{1}{2} \nabla_\theta tr(\theta^TX^TX\theta - \theta^TX^Ty - y^TX\theta + y^Ty) \\
+& = \frac{1}{2} \nabla_\theta (tr\theta^TX^TX\theta - 2tr\theta^TX\theta) \\
+& = X^TX\theta - X^Ty
+\end{split}</script><script type="math/tex; mode=display">
+\theta^* = (X^TX)^{-1}X^Ty</script></li>
+<li><p>Gradient Descent for Linear Regression</p>
+<ul>
+<li>Gradient<script type="math/tex; mode=display">
+\begin{split}
+\frac{\partial J_l(\theta)}{\partial \theta} & = \frac{1}{2}\frac{\partial}{\partial \theta}\sum_{i=1}^{n} (h_\theta (x^{(i)}) - y^{(i)})^2 \\
+& = \frac{1}{2} 2 \sum_{i=1}^n (h_\theta (x^{(i)}) - y^{(i)}) \frac{\partial}{\partial \theta}(h_\theta (x^{(i)}) - y^{(i)}) \\
+& = \sum_{i=1}^n (h_\theta (x^{(i)}) - y^{(i)}) \frac{\partial}{\partial \theta}(\theta^T x^{(i)}) \\
+& = \sum_{i=1}^n (h_\theta (x^{(i)}) - y^{(i)})x^{(i)}
+\end{split}</script></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>Gradient Descent (GD) Optimization<script type="math/tex; mode=display">
+   \theta: = \theta - \alpha\frac{\partial}{\partial \theta} J_l(\theta) = \theta - \alpha \sum_{i=1}^n (h_\theta (x^{(i)}) - y^{(i)})x^{(i)}</script></li>
+</ul>
+<h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><ul>
+<li><p>Sigmoid Function:</p>
+<script type="math/tex; mode=display">
+\begin{split}
+& \delta(z) = \frac{1}{1+e^{-z}} \\
+& \frac{d\delta}{dz} = \delta(z)(1-\delta(z))
+\end{split}</script></li>
+<li><p>Hypothesis</p>
+<script type="math/tex; mode=display">
+\begin{split}
+& p(y=1 | x;\theta) = h_\theta(x) = \delta(\theta^Tx) = \frac{1}{1+e^{-\theta^Tx}} \\
+& p(y=0 | x;\theta) = 1 - h_\theta(x)
+\end{split}</script><p>or</p>
+<script type="math/tex; mode=display">
+p(y|x;\theta) = (h_\theta(x))^y(1-h_\theta(x))^{1-y} = (\frac{1}{1+e^{-\theta^Tx}})^y(1-\frac{1}{1+e^{-\theta^Tx}})^{1-y}</script></li>
+<li><p>Conditional Likelihood Function</p>
+<script type="math/tex; mode=display">
+\begin{split}
+L(\theta) & = \prod_{i=1}^N p(y^{(i)}|x^{(i)};\theta)\\
+& = \prod_{i=1}^N (h_\theta(x^{(i)}))^{y^{(i)}}(1-h_\theta(x^{(i)}))^{(1-y)^{(i)}} \\
+& = \prod_{i=1}^N (\frac{1}{1+e^{-\theta^Tx^{(i)}}})^{y^{(i)}}(1-\frac{1}{1+e^{-\theta^Tx^{(i)}}})^{(1-y)^{(i)}}
+\end{split}</script></li>
+<li><p>Maximum Likelihood Estimation</p>
+<script type="math/tex; mode=display">
+\max_{\theta} L(\theta) \Leftrightarrow = \max_{\theta} \sum_{i=1}^{n}y^{(i)}\log{}{h_\theta(x^{(i)}) + (1-y^{(i)})\log{}{}}1-h_\theta(x^{(i)})</script><blockquote>
+<p> The neg log-likelihood function is also known as the <strong>Cross-Entropy</strong> cost function</p>
+</blockquote>
+</li>
+<li><p>Unconstraint Optimization Methods</p>
+<ul>
+<li>Gradient Descent</li>
+</ul>
+</li>
+<li><p>Stochastic Gradient Descent</p>
+<ul>
+<li>Newtom Method</li>
+</ul>
+</li>
+<li><p>Quasi-Newtom Method</p>
+<ul>
+<li>Conjugate Gradient</li>
+</ul>
+</li>
+<li>waiting….</li>
+</ul>
+<h2 id="Softmax-Regression"><a href="#Softmax-Regression" class="headerlink" title="Softmax Regression"></a>Softmax Regression</h2><ul>
+<li>Softmax Regression is a multi-class classification model, also called Multi-class Logistic Regression;</li>
+<li>It is also known as the Maximum Entropy Model (in NLP);</li>
+<li>It is one of the most used classification algorithms</li>
+</ul>
+<h3 id="Model-Description"><a href="#Model-Description" class="headerlink" title="Model Description"></a>Model Description</h3><ul>
+<li><p>Model Hypothesis</p>
+<script type="math/tex; mode=display">
+\begin{split}
+& p(y=j|x;\theta) = h_j(x) = \frac{e^{\theta_j^Tx}}{1+\sum_{j^{'}=1}^{c-1}e^{\theta_{j^{'}}^Tx}}, j=1,\dots,C-1 \\
+& p(y=C|x;\theta) = h_C(x) = \frac{1}{1+\sum_{j^{'}=1}^{c-1}e^{\theta_{j^{'}}^Tx}}
+\end{split}</script></li>
+<li><p>Model Hypothesis (Compact Form)</p>
+<script type="math/tex; mode=display">
+p(y=j|x;\theta) = h_j(x) = \frac{e^{\theta_j^Tx}}{\sum_{j^{'}=1}^{c-1}e^{\theta_{j^{'}}^Tx}}, j=1,\dots,C \quad where \; \theta_C =  \vec{0}</script></li>
+<li><p>Parameters</p>
+<script type="math/tex; mode=display">
+\theta_{C \times M}</script></li>
+</ul>
+<h3 id="Maximun-Likelihood-Estimation"><a href="#Maximun-Likelihood-Estimation" class="headerlink" title="Maximun Likelihood Estimation"></a>Maximun Likelihood Estimation</h3><p>(Conditional) Log-likelihood</p>
+<script type="math/tex; mode=display">
+\begin{split}
+l(\theta) & = \sum_{i=1}^N \log{p(y^{(i)}|x^{(i)};\theta)} \\
+& = \sum_{i=1}^N \log \prod_{j=1}^C \big(\frac{e^{\theta_j^Tx}}{\sum_{j^{'}=1}^{C}e^{\theta_{j^{'}}^Tx}}\big)^{1\{y^{(i)}=j\}} \\
+& = \sum_{i=1}^{N}\sum_{j=1}^{C}\bold{1}\{y^{(i)}=j\}\log \big(\frac{e^{\theta_j^Tx}}{\sum_{j^{'}=1}^{C}e^{\theta_{j^{'}}^Tx}}\big)\\
+& = \sum_{i=1}^{N}\sum_{j=1}^{C}\bold{1}\{y^{(i)}=j\}\log h_j(x^{(i)})
+\end{split}</script>
       
     </div>
 
@@ -473,8 +574,8 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/02/CPP快速教程/" rel="next" title="C++快速教程">
-                <i class="fa fa-chevron-left"></i> C++快速教程
+              <a href="/2019/11/23/矩阵分析与计算/" rel="next" title="矩阵分析与计算">
+                <i class="fa fa-chevron-left"></i> 矩阵分析与计算
               </a>
             
           </div>
@@ -482,10 +583,6 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/12/设计模式/" rel="prev" title="设计模式">
-                设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -650,7 +747,7 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chomsky-文法"><span class="nav-number">1.</span> <span class="nav-text">Chomsky 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0型文法"><span class="nav-number">1.1.</span> <span class="nav-text">0型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1型文法"><span class="nav-number">1.2.</span> <span class="nav-text">1型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2型文法"><span class="nav-number">1.3.</span> <span class="nav-text">2型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3型文法"><span class="nav-number">1.4.</span> <span class="nav-text">3型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习-Formula"><span class="nav-number">1.</span> <span class="nav-text">机器学习 Formula</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-Regression"><span class="nav-number">1.1.</span> <span class="nav-text">Linear Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">1.2.</span> <span class="nav-text">Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-Regression"><span class="nav-number">1.3.</span> <span class="nav-text">Softmax Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Description"><span class="nav-number">1.3.1.</span> <span class="nav-text">Model Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximun-Likelihood-Estimation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Maximun Likelihood Estimation</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
