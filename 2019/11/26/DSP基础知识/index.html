@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+  <meta name="description" content="数字信号处理 记录DSP的一些概念和理论知识   信号：随着时间、空间或其他自变量而变化的物理量。 数学描述：  s_1(t) = 5t \\ s_2(t)=20t^2 \\ s(x,y)=3x+2xy+10y^2可以存在多个自变量，如表示平面空间上的坐标。 上面描述的信号属于一类准确定义的信号，指定了对于自变量的函数依赖关系。 但是有些情况下的函数关系是未知的或太复杂以至于难以使用。 例如，某种">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Chomsky文法">
-<meta property="og:url" content="http://yoursite.com/2019/11/06/Chomsky文法/index.html">
+<meta property="og:title" content="DSP基础知识">
+<meta property="og:url" content="http://yoursite.com/2019/11/26/DSP基础知识/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+<meta property="og:description" content="数字信号处理 记录DSP的一些概念和理论知识   信号：随着时间、空间或其他自变量而变化的物理量。 数学描述：  s_1(t) = 5t \\ s_2(t)=20t^2 \\ s(x,y)=3x+2xy+10y^2可以存在多个自变量，如表示平面空间上的坐标。 上面描述的信号属于一类准确定义的信号，指定了对于自变量的函数依赖关系。 但是有些情况下的函数关系是未知的或太复杂以至于难以使用。 例如，某种">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T03:42:55.048Z">
+<meta property="og:updated_time" content="2019-11-26T06:47:46.157Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chomsky文法">
-<meta name="twitter:description" content="Chomsky 文法定义：四元组 $G(V,T,P,S)$  $V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。 $T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $ $P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+">
+<meta name="twitter:title" content="DSP基础知识">
+<meta name="twitter:description" content="数字信号处理 记录DSP的一些概念和理论知识   信号：随着时间、空间或其他自变量而变化的物理量。 数学描述：  s_1(t) = 5t \\ s_2(t)=20t^2 \\ s(x,y)=3x+2xy+10y^2可以存在多个自变量，如表示平面空间上的坐标。 上面描述的信号属于一类准确定义的信号，指定了对于自变量的函数依赖关系。 但是有些情况下的函数关系是未知的或太复杂以至于难以使用。 例如，某种">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/11/06/Chomsky文法/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/26/DSP基础知识/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Chomsky文法 | Dongxian's Blog</title>
+  <title>DSP基础知识 | Dongxian's Blog</title>
   
 
 
@@ -325,7 +325,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Chomsky文法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DSP基础知识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -342,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Chomsky文法
+          <h1 class="post-title" itemprop="name headline">DSP基础知识
 
               
             
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="创建时间：2019-11-06 11:06:56 / 修改时间：11:42:55" itemprop="dateCreated datePublished" datetime="2019-11-06T11:06:56+08:00">2019-11-06</time>
+              <time title="创建时间：2019-11-26 10:53:46 / 修改时间：14:47:46" itemprop="dateCreated datePublished" datetime="2019-11-26T10:53:46+08:00">2019-11-26</time>
             
 
             
@@ -390,7 +390,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/形式语言和自动机/" itemprop="url" rel="index"><span itemprop="name">形式语言和自动机</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程/" itemprop="url" rel="index"><span itemprop="name">课程</span></a></span>
 
                 
                 
@@ -425,24 +425,82 @@
       
 
       
-        <h1 id="Chomsky-文法"><a href="#Chomsky-文法" class="headerlink" title="Chomsky 文法"></a>Chomsky 文法</h1><p>定义：四元组 $G(V,T,P,S)$</p>
+        <h1 id="数字信号处理"><a href="#数字信号处理" class="headerlink" title="数字信号处理"></a>数字信号处理</h1><blockquote>
+<p>记录DSP的一些概念和理论知识</p>
+</blockquote>
 <ul>
-<li>$V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。</li>
-<li>$T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $</li>
-<li>$P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+ - T^+$，产生式右部$\beta \in (V \cup T)^*$</li>
-<li>$S$：文法的开始符号，也叫识别符号，$S \in V$</li>
-</ul>
-<h2 id="0型文法"><a href="#0型文法" class="headerlink" title="0型文法"></a>0型文法</h2><p>也叫短语结构文法，对应的语言叫0型语言，短语结构语言或者递归可枚举集。</p>
-<h2 id="1型文法"><a href="#1型文法" class="headerlink" title="1型文法"></a>1型文法</h2><p>在0型文法的基础上，如果对于$\forall  \alpha \to \beta \in P$，且$|\beta| \ge |\alpha|$，或如果对于$\forall xUy  \to xuy \in P$，且$|xuy| \ge |xUy|$，其中$U \in V,\quad x,y \in V^*,\quad u\in V^*$，则该文法为1型文法，或上下文有关文法，对应的语言叫1型语言，或上下文有关语言。</p>
-<h2 id="2型文法"><a href="#2型文法" class="headerlink" title="2型文法"></a>2型文法</h2><p>在1型文法的基础上，如果对于$\forall \alpha \to \beta \in P$，且$\alpha \in V$，则该文法为2型文法或上下文无关文法，其对应的语言为2型语言或上下文无关的语言。</p>
-<h2 id="3型文法"><a href="#3型文法" class="headerlink" title="3型文法"></a>3型文法</h2><p>在2型文法的基础上，如果$\forall \alpha \to \beta \in P$，且$\alpha \to \beta$均具有形式</p>
+<li><p>信号：随着时间、空间或其他自变量而变化的物理量。</p>
+<p>数学描述：</p>
 <script type="math/tex; mode=display">
-A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in T$，则该文法为3型文法，也称正则文法或正规文法，其对应的语言为3型语言，或正则语言或正规语言。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>0型文法无限制</li>
-<li>1型文法产生式左边长度大于右边</li>
-<li>2型文法产生式左边为单个非终结符</li>
-</ol>
+s_1(t) = 5t \\
+s_2(t)=20t^2 \\
+s(x,y)=3x+2xy+10y^2</script><p>可以存在多个自变量，如表示平面空间上的坐标。</p>
+<p>上面描述的信号属于一类准确定义的信号，指定了对于自变量的函数依赖关系。</p>
+<p>但是有些情况下的函数关系是未知的或太复杂以至于难以使用。</p>
+<p>例如，某种语音信号无法用上面的表达式函数进行描述。</p>
+<p>一般来说，一段语音可被高精度的表示为几种不同幅度和频率的总和，即</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^N A_i(t) \sin[2\pi F_i(t)t+\theta_i(t)]</script><p>其中，$|A_i(t)|,|F_i(t)|,|\theta_i(t)|$分别是正弦信号的(可能时变的)幅度、频率和相位的集合。</p>
+</li>
+<li><p>生成信号：通常和某系统相关联，以对某些刺激或压力作出响应。</p>
+</li>
+<li><p>信号处理的含义从有用信号中对噪声和干扰信号进行滤波。</p>
+</li>
+<li><p>模数(A/D)转换器：模拟信号和数字处理器之间的接口，输出数字信号，作为数字处理器的输入。</p>
+</li>
+<li><p>数模(D/A)转换器：数字域到模拟域的接口，将信号以模拟的形式提供给用户。</p>
+</li>
+<li><p>数字信号处理的优点：灵活配置、精度高、存储方便、价格便宜。</p>
+</li>
+<li><p>数字处理的局限性：受限于A/D转换器和数字信号处理器的运算速度。</p>
+</li>
+<li><p>多通道信号：采用矢量表示信号。</p>
+</li>
+<li><p>多维信号：多个自变量的函数。单个自变量的函数称为一维信号。</p>
+</li>
+<li><p>连续时间信号：模拟信号，在每个时间值上有定义且在一个连续的区间内取值的信号。数学上可采用一个连续变量的函数描述。</p>
+</li>
+<li><p>离散时间信号：定义在某些特定的时间值上，时间点不需要是等距的，实际上为了简单和数学易于处理，通常等间隔取值。</p>
+</li>
+<li><p>采样：在离散时间点上选择模拟信号值。</p>
+</li>
+<li><p>连续值信号：信号的值是连续的。信号在一个有限或无限范围内取所有可能的值。</p>
+</li>
+<li><p>离散值信号：信号的值是离散的。信号只在可能取值的有限集上取值。</p>
+</li>
+<li><p>量化：将连续值信号转化为离散值信号的过程，基本上是一个近似过程。量化可以只通过四舍五入或截断完成。</p>
+</li>
+<li><p>确定性信号：任何可以被一个显式数学表达式、一个数据表或者一个定义好的规则所唯一描述的信号。强调信号的过去、现在、将来的所有取值可以准确知道，不存在任何不确定性。</p>
+</li>
+<li><p>随机信号：无法被数学公式显式表达到一个合理的精度或这描述太复杂以至于没有实际用处，在时间轴上以不可知的方式展开。例如噪声生成器的输出、地震信号、语音信号。</p>
+</li>
+<li><p>随机信号的理论分析基于概率论和随机过程。</p>
+</li>
+<li><p>欧拉公式：$e^{ix}=\cos x + i\sin x$，i是复数单位。</p>
+</li>
+<li><p>能量信号和功率信号</p>
+<ul>
+<li>离散时间信号$x(n)$的能量$E \equiv \sum_{n=-\infty}^\infty |x(n)|^2$</li>
+<li>离散时间信号的平均功率：$P=\lim_{N \rightarrow \infty} \frac{1}{2N+1} \sum_{n=-N}^N |x(n)|^2$</li>
+<li>有限区间$-N \le n \le N$内定义的信号能量$E_N= \sum_{n=-N}^N |x(n)|^2$</li>
+</ul>
+</li>
+<li><p>周期信号和非周期信号</p>
+<ul>
+<li>信号$x(n)$是周期为$N(N\gt 0)$的周期信号当且仅当$x(n+N)=x(n)$</li>
+</ul>
+</li>
+<li><p>对称(偶)和反对称(奇)信号</p>
+<ul>
+<li>$x(-n)=x(n)$</li>
+<li>$x(-n)=-x(n)$</li>
+</ul>
+</li>
+<li><p>因果系统和非因果系统</p>
+</li>
+<li><p>稳定系统与不稳定系统</p>
+</li>
+</ul>
 
       
     </div>
@@ -473,8 +531,8 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/02/CPP快速教程/" rel="next" title="C++快速教程">
-                <i class="fa fa-chevron-left"></i> C++快速教程
+              <a href="/2019/11/26/pacman常用命令/" rel="next" title="pacman常用命令">
+                <i class="fa fa-chevron-left"></i> pacman常用命令
               </a>
             
           </div>
@@ -483,8 +541,8 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/12/设计模式/" rel="prev" title="设计模式">
-                设计模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/26/编辑距离算法/" rel="prev" title="编辑距离算法">
+                编辑距离算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -652,7 +710,7 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chomsky-文法"><span class="nav-number">1.</span> <span class="nav-text">Chomsky 文法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0型文法"><span class="nav-number">1.1.</span> <span class="nav-text">0型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1型文法"><span class="nav-number">1.2.</span> <span class="nav-text">1型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2型文法"><span class="nav-number">1.3.</span> <span class="nav-text">2型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3型文法"><span class="nav-number">1.4.</span> <span class="nav-text">3型文法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数字信号处理"><span class="nav-number">1.</span> <span class="nav-text">数字信号处理</span></a></li></ol></div>
             
 
           </div>

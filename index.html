@@ -252,7 +252,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">10</span></a>
 
   </li>
         
@@ -270,7 +270,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">17</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">19</span></a>
 
   </li>
 
@@ -306,6 +306,459 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/编辑距离算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/26/编辑距离算法/" class="post-title-link" itemprop="url">编辑距离算法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-26 15:20:51 / 修改时间：15:45:32" itemprop="dateCreated datePublished" datetime="2019-11-26T15:20:51+08:00">2019-11-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="编辑距离-Edit-Distance"><a href="#编辑距离-Edit-Distance" class="headerlink" title="编辑距离 Edit Distance"></a>编辑距离 Edit Distance</h1><blockquote>
+<p>指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括将一个字符替换成另一个字符，插入一个字符，删除一个字符。又称<code>Levenshtein</code>距离</p>
+</blockquote>
+<p>三种基本操作：插入，删除，替换</p>
+<h2 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h2><ol>
+<li>A和B的长度为0返回另一个字符串的长度。</li>
+<li>初始化矩阵，shape：(n+1)(m+1)，第一行和第一列从0开始增长，如果A[i]==B[j]，temp=0，否则为1.然后在矩阵<code>mat[i][j]</code>中赋值为<code>mat[i-1][j]+1,mat[i][j-1]+1,mat[i-1][j-1]+temp</code>三者中的最小值，这三个操作分别对应插入、删除、替换。</li>
+</ol>
+<p>3.扫描完后，返回矩阵的最后一个值<code>mat[n][m]</code>即是它们的距离。</p>
+<p>相似度公式:$\frac{1-mat[n][m]}{\max(n,m)}$</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>C</th>
+<th>o</th>
+<th>w</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>a</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>t</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑距离算法</span></span><br><span class="line">A = <span class="string">'Cat'</span></span><br><span class="line">B = <span class="string">'Cow'</span></span><br><span class="line"></span><br><span class="line">n, m = len(A)+<span class="number">1</span>, len(B)+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">matrix = [[<span class="number">0</span>]*m <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    matrix[i][<span class="number">0</span>] = i</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> range(m):</span><br><span class="line">    matrix[<span class="number">0</span>][j] = j</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, m):</span><br><span class="line">        tmp = <span class="number">0</span> <span class="keyword">if</span> A[i<span class="number">-1</span>] == B[j<span class="number">-1</span>] <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">        matrix[i][j] = min(matrix[i<span class="number">-1</span>][j]+<span class="number">1</span>, matrix[i]</span><br><span class="line">                           [j<span class="number">-1</span>]+<span class="number">1</span>, matrix[i<span class="number">-1</span>][j<span class="number">-1</span>]+tmp)</span><br><span class="line"></span><br><span class="line">print(<span class="string">f'编辑距离:<span class="subst">&#123;matrix[n<span class="number">-1</span>][m<span class="number">-1</span>]&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'相似度:<span class="subst">&#123;<span class="number">1</span>-matrix[n<span class="number">-1</span>][m<span class="number">-1</span>]/max(n<span class="number">-1</span>,m<span class="number">-1</span>)&#125;</span>'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://blog.csdn.net/chichoxian/article/details/53944188" target="_blank" rel="noopener">https://blog.csdn.net/chichoxian/article/details/53944188</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/DSP基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/26/DSP基础知识/" class="post-title-link" itemprop="url">DSP基础知识</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-26 10:53:46 / 修改时间：14:47:46" itemprop="dateCreated datePublished" datetime="2019-11-26T10:53:46+08:00">2019-11-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程/" itemprop="url" rel="index"><span itemprop="name">课程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="数字信号处理"><a href="#数字信号处理" class="headerlink" title="数字信号处理"></a>数字信号处理</h1><blockquote>
+<p>记录DSP的一些概念和理论知识</p>
+</blockquote>
+<ul>
+<li><p>信号：随着时间、空间或其他自变量而变化的物理量。</p>
+<p>数学描述：</p>
+<script type="math/tex; mode=display">
+s_1(t) = 5t \\
+s_2(t)=20t^2 \\
+s(x,y)=3x+2xy+10y^2</script><p>可以存在多个自变量，如表示平面空间上的坐标。</p>
+<p>上面描述的信号属于一类准确定义的信号，指定了对于自变量的函数依赖关系。</p>
+<p>但是有些情况下的函数关系是未知的或太复杂以至于难以使用。</p>
+<p>例如，某种语音信号无法用上面的表达式函数进行描述。</p>
+<p>一般来说，一段语音可被高精度的表示为几种不同幅度和频率的总和，即</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^N A_i(t) \sin[2\pi F_i(t)t+\theta_i(t)]</script><p>其中，$|A_i(t)|,|F_i(t)|,|\theta_i(t)|$分别是正弦信号的(可能时变的)幅度、频率和相位的集合。</p>
+</li>
+<li><p>生成信号：通常和某系统相关联，以对某些刺激或压力作出响应。</p>
+</li>
+<li><p>信号处理的含义从有用信号中对噪声和干扰信号进行滤波。</p>
+</li>
+<li><p>模数(A/D)转换器：模拟信号和数字处理器之间的接口，输出数字信号，作为数字处理器的输入。</p>
+</li>
+<li><p>数模(D/A)转换器：数字域到模拟域的接口，将信号以模拟的形式提供给用户。</p>
+</li>
+<li><p>数字信号处理的优点：灵活配置、精度高、存储方便、价格便宜。</p>
+</li>
+<li><p>数字处理的局限性：受限于A/D转换器和数字信号处理器的运算速度。</p>
+</li>
+<li><p>多通道信号：采用矢量表示信号。</p>
+</li>
+<li><p>多维信号：多个自变量的函数。单个自变量的函数称为一维信号。</p>
+</li>
+<li><p>连续时间信号：模拟信号，在每个时间值上有定义且在一个连续的区间内取值的信号。数学上可采用一个连续变量的函数描述。</p>
+</li>
+<li><p>离散时间信号：定义在某些特定的时间值上，时间点不需要是等距的，实际上为了简单和数学易于处理，通常等间隔取值。</p>
+</li>
+<li><p>采样：在离散时间点上选择模拟信号值。</p>
+</li>
+<li><p>连续值信号：信号的值是连续的。信号在一个有限或无限范围内取所有可能的值。</p>
+</li>
+<li><p>离散值信号：信号的值是离散的。信号只在可能取值的有限集上取值。</p>
+</li>
+<li><p>量化：将连续值信号转化为离散值信号的过程，基本上是一个近似过程。量化可以只通过四舍五入或截断完成。</p>
+</li>
+<li><p>确定性信号：任何可以被一个显式数学表达式、一个数据表或者一个定义好的规则所唯一描述的信号。强调信号的过去、现在、将来的所有取值可以准确知道，不存在任何不确定性。</p>
+</li>
+<li><p>随机信号：无法被数学公式显式表达到一个合理的精度或这描述太复杂以至于没有实际用处，在时间轴上以不可知的方式展开。例如噪声生成器的输出、地震信号、语音信号。</p>
+</li>
+<li><p>随机信号的理论分析基于概率论和随机过程。</p>
+</li>
+<li><p>欧拉公式：$e^{ix}=\cos x + i\sin x$，i是复数单位。</p>
+</li>
+<li><p>能量信号和功率信号</p>
+<ul>
+<li>离散时间信号$x(n)$的能量$E \equiv \sum_{n=-\infty}^\infty |x(n)|^2$</li>
+<li>离散时间信号的平均功率：$P=\lim_{N \rightarrow \infty} \frac{1}{2N+1} \sum_{n=-N}^N |x(n)|^2$</li>
+<li>有限区间$-N \le n \le N$内定义的信号能量$E_N= \sum_{n=-N}^N |x(n)|^2$</li>
+</ul>
+</li>
+<li><p>周期信号和非周期信号</p>
+<ul>
+<li>信号$x(n)$是周期为$N(N\gt 0)$的周期信号当且仅当$x(n+N)=x(n)$</li>
+</ul>
+</li>
+<li><p>对称(偶)和反对称(奇)信号</p>
+<ul>
+<li>$x(-n)=x(n)$</li>
+<li>$x(-n)=-x(n)$</li>
+</ul>
+</li>
+<li><p>因果系统和非因果系统</p>
+</li>
+<li><p>稳定系统与不稳定系统</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -816,12 +1269,24 @@ l(\theta) & = \sum_{i=1}^N \log{p(y^{(i)}|x^{(i)};\theta)} \\
                 
               
 
-              <time title="创建时间：2019-11-23 14:31:19 / 修改时间：14:51:40" itemprop="dateCreated datePublished" datetime="2019-11-23T14:31:19+08:00">2019-11-23</time>
+              <time title="创建时间：2019-11-23 14:31:19" itemprop="dateCreated datePublished" datetime="2019-11-23T14:31:19+08:00">2019-11-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-26 10:54:23" itemprop="dateModified" datetime="2019-11-26T10:54:23+08:00">2019-11-26</time>
               
             
           </span>
@@ -838,7 +1303,7 @@ l(\theta) & = \sum_{i=1}^N \log{p(y^{(i)}|x^{(i)};\theta)} \\
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程回顾/" itemprop="url" rel="index"><span itemprop="name">课程回顾</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程/" itemprop="url" rel="index"><span itemprop="name">课程</span></a></span>
 
                 
                 
@@ -875,7 +1340,7 @@ l(\theta) & = \sum_{i=1}^N \log{p(y^{(i)}|x^{(i)};\theta)} \\
       
         
           
-            <h1 id="矩阵分析与计算"><a href="#矩阵分析与计算" class="headerlink" title="矩阵分析与计算"></a>矩阵分析与计算</h1><blockquote>
+            <h1 id="矩阵分析与计算回顾"><a href="#矩阵分析与计算回顾" class="headerlink" title="矩阵分析与计算回顾"></a>矩阵分析与计算回顾</h1><blockquote>
 <p>回顾矩阵和分析重点知识点和内容</p>
 </blockquote>
 <h2 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h2><ul>
@@ -2531,359 +2996,6 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/06/Chomsky文法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Dongxian Gu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dongxian's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/06/Chomsky文法/" class="post-title-link" itemprop="url">Chomsky文法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-06 11:06:56 / 修改时间：11:42:55" itemprop="dateCreated datePublished" datetime="2019-11-06T11:06:56+08:00">2019-11-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/形式语言和自动机/" itemprop="url" rel="index"><span itemprop="name">形式语言和自动机</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Chomsky-文法"><a href="#Chomsky-文法" class="headerlink" title="Chomsky 文法"></a>Chomsky 文法</h1><p>定义：四元组 $G(V,T,P,S)$</p>
-<ul>
-<li>$V$: 变量的非空有穷集合，是一个语法范畴，$V$的元素叫做语法变量或非终结符。</li>
-<li>$T$：终结符的非空有限集，$T$的元素叫做终结符，满足$V\cap T = \varnothing $</li>
-<li>$P$：产生式的非空有穷集合，$P$中的产生式形式为$\alpha \to \beta$，产生式左部$\alpha \in (V \cup T)^+ - T^+$，产生式右部$\beta \in (V \cup T)^*$</li>
-<li>$S$：文法的开始符号，也叫识别符号，$S \in V$</li>
-</ul>
-<h2 id="0型文法"><a href="#0型文法" class="headerlink" title="0型文法"></a>0型文法</h2><p>也叫短语结构文法，对应的语言叫0型语言，短语结构语言或者递归可枚举集。</p>
-<h2 id="1型文法"><a href="#1型文法" class="headerlink" title="1型文法"></a>1型文法</h2><p>在0型文法的基础上，如果对于$\forall  \alpha \to \beta \in P$，且$|\beta| \ge |\alpha|$，或如果对于$\forall xUy  \to xuy \in P$，且$|xuy| \ge |xUy|$，其中$U \in V,\quad x,y \in V^*,\quad u\in V^*$，则该文法为1型文法，或上下文有关文法，对应的语言叫1型语言，或上下文有关语言。</p>
-<h2 id="2型文法"><a href="#2型文法" class="headerlink" title="2型文法"></a>2型文法</h2><p>在1型文法的基础上，如果对于$\forall \alpha \to \beta \in P$，且$\alpha \in V$，则该文法为2型文法或上下文无关文法，其对应的语言为2型语言或上下文无关的语言。</p>
-<h2 id="3型文法"><a href="#3型文法" class="headerlink" title="3型文法"></a>3型文法</h2><p>在2型文法的基础上，如果$\forall \alpha \to \beta \in P$，且$\alpha \to \beta$均具有形式</p>
-<script type="math/tex; mode=display">
-A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in T$，则该文法为3型文法，也称正则文法或正规文法，其对应的语言为3型语言，或正则语言或正规语言。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>0型文法无限制</li>
-<li>1型文法产生式左边长度大于右边</li>
-<li>2型文法产生式左边为单个非终结符</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/CPP快速教程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Dongxian Gu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dongxian's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/02/CPP快速教程/" class="post-title-link" itemprop="url">C++快速教程</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-02 13:29:53" itemprop="dateCreated datePublished" datetime="2019-11-02T13:29:53+08:00">2019-11-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-06 11:49:02" itemprop="dateModified" datetime="2019-11-06T11:49:02+08:00">2019-11-06</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="The-Tutorial-about-C"><a href="#The-Tutorial-about-C" class="headerlink" title="The Tutorial about C++"></a>The Tutorial about C++</h1><h2 id="Part-One"><a href="#Part-One" class="headerlink" title="Part One"></a>Part One</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This is a comment</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Multi-line comment</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Tells the compiler iostream library which contains the function cout</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Allows us to use vectors</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Allows us to use strings</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Allow us to work with files</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Allows functions in the std namespace to be used without their prefix</span></span><br><span class="line"><span class="comment">// std::cout becomes cout</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------- FUNCTIONS ----------</span></span><br><span class="line"><span class="comment">// The function has return type, function name and attributes with </span></span><br><span class="line"><span class="comment">// their data types</span></span><br><span class="line"><span class="comment">// The attribute data types must match the value passed in</span></span><br><span class="line"><span class="comment">// This data is passed by value</span></span><br><span class="line"><span class="comment">// You can define default values to attributes as long as they come last</span></span><br><span class="line"><span class="comment">// This is known as a function prototype</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">addNumbers</span><span class="params">(<span class="keyword">int</span> firstNum, <span class="keyword">int</span> secondNum = <span class="number">0</span>)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">int</span> combinedValue = firstNum + secondNum;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> combinedValue;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// An overloaded function has the same name, but different attributes</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">addNumbers</span><span class="params">(<span class="keyword">int</span> firstNum, <span class="keyword">int</span> secondNum, <span class="keyword">int</span> thirdNum)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> firstNum + secondNum + thirdNum;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A recursive function is one that calls itself</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFactorial</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> sum;</span><br><span class="line">	<span class="keyword">if</span>(number == <span class="number">1</span>) sum = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span> sum = (getFactorial(number - <span class="number">1</span>) * number);</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// getFactorial(2) [Returns 2] * 3</span></span><br><span class="line">	<span class="comment">// getFactorial(1) [Returns 1] * 2 &lt;This value goes above&gt;</span></span><br><span class="line">	<span class="comment">// 2 * 3 = 6</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Doesn't have a return type so use void</span></span><br><span class="line"><span class="comment">// Since I'm getting a pointer use int*</span></span><br><span class="line"><span class="comment">// Refer to the referenced variable with *age</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">makeMeYoung</span><span class="params">(<span class="keyword">int</span>* age)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"I used to be "</span> &lt;&lt; *age &lt;&lt; <span class="built_in">endl</span>;	</span><br><span class="line">	*age = <span class="number">21</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A function that receives a reference can manipulate the value globally</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">actYourAge</span><span class="params">(<span class="keyword">int</span>&amp; age)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	age = <span class="number">39</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------- END OF FUNCTIONS ----------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------- CLASSES ----------</span></span><br><span class="line"><span class="comment">// classes start with the name class</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// private variables are only available to methods in the class</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">int</span> weight;</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// A static variable shares the same value with every object in the class</span></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> numOfAnimals;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Public variables can be accessed by anything with access to the object</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> height;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getWeight</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> weight;&#125;</span><br><span class="line">	<span class="function"><span class="built_in">string</span> <span class="title">getName</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> name;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">int</span> cm)</span></span>&#123; height = cm; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setWeight</span><span class="params">(<span class="keyword">int</span> kg)</span></span>&#123; weight = kg; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="built_in">string</span> dogName)</span></span>&#123; name = dogName; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Declared as a prototype</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setAll</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="built_in">string</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Declare the constructor</span></span><br><span class="line">	Animal(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="built_in">string</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Declare the deconstructor</span></span><br><span class="line">	~Animal();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// An overloaded constructor called when no data is passed</span></span><br><span class="line">	Animal();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// protected members are available to members of the same class and </span></span><br><span class="line">	<span class="comment">// sub classes</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Static methods aren't attached to an object and can only access</span></span><br><span class="line">	<span class="comment">// static member variables</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getNumOfAnimals</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> numOfAnimals; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// This method will be overwritten in Dog</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> Animal::numOfAnimals = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Define the protoype method setAll</span></span><br><span class="line"><span class="keyword">void</span> Animal::setAll(<span class="keyword">int</span> height, <span class="keyword">int</span> weight, <span class="built_in">string</span> name)&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// This is used to refer to an object created of this class type</span></span><br><span class="line">	<span class="keyword">this</span> -&gt; height = height;</span><br><span class="line">	<span class="keyword">this</span> -&gt; weight = weight;</span><br><span class="line">	<span class="keyword">this</span> -&gt; name = name;</span><br><span class="line">	Animal::numOfAnimals++;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A constructor is called when an object is created</span></span><br><span class="line">Animal::Animal(<span class="keyword">int</span> height, <span class="keyword">int</span> weight, <span class="built_in">string</span> name) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span> -&gt; height = height;</span><br><span class="line">	<span class="keyword">this</span> -&gt; weight = weight;</span><br><span class="line">	<span class="keyword">this</span> -&gt; name = name;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The destructor is called when an object is destroyed</span></span><br><span class="line">Animal::~Animal() &#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Animal "</span> &lt;&lt; <span class="keyword">this</span> -&gt; name &lt;&lt; <span class="string">" destroyed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A constructor called when no attributes are passed</span></span><br><span class="line">Animal::Animal() &#123;</span><br><span class="line">	numOfAnimals++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This method prints object info to screen and will be overwritten</span></span><br><span class="line"><span class="keyword">void</span> Animal::toString()&#123;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span> -&gt; name &lt;&lt; <span class="string">" is "</span> &lt;&lt; <span class="keyword">this</span> -&gt; height &lt;&lt; <span class="string">" cms tall and "</span></span><br><span class="line">		&lt;&lt; <span class="keyword">this</span> -&gt; weight &lt;&lt; <span class="string">" kgs in weight"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// We can inherit the variables and methods of other classes</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> :</span> <span class="keyword">public</span> Animal&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="built_in">string</span> sound = <span class="string">"Woof"</span>;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">getSound</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; sound &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Declare the constructor</span></span><br><span class="line">		Dog(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="built_in">string</span>, <span class="built_in">string</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Declare the default constructor and call the default superclass</span></span><br><span class="line">		<span class="comment">// constructor</span></span><br><span class="line">		Dog() : Animal()&#123;&#125;;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Overwrite toString</span></span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dog constructor passes the right attributes to the superclass</span></span><br><span class="line"><span class="comment">// constructor and then handles the attribute bark that remains</span></span><br><span class="line">Dog::Dog(<span class="keyword">int</span> height, <span class="keyword">int</span> weight, <span class="built_in">string</span> name, <span class="built_in">string</span> bark) : </span><br><span class="line">Animal(height, weight, name)&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span> -&gt; sound = bark;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// toString method overwritten</span></span><br><span class="line"><span class="keyword">void</span> Dog::toString()&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Because the attributes were private in Animal they must be retrieved </span></span><br><span class="line">	<span class="comment">// by called the get methods</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="keyword">this</span> -&gt; getName() &lt;&lt; <span class="string">" is "</span> &lt;&lt; <span class="keyword">this</span> -&gt; getHeight() &lt;&lt; </span><br><span class="line">		<span class="string">" cms tall and "</span> &lt;&lt; <span class="keyword">this</span> -&gt; getWeight() &lt;&lt; <span class="string">" kgs in weight and says "</span> &lt;&lt; </span><br><span class="line">		<span class="keyword">this</span> -&gt; sound &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------- END OF CLASSES ----------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// This is where execution begins. Attributes can be sent to main</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// cout outputs text and a carriage return with endl</span></span><br><span class="line">	<span class="comment">// Statements must end with a semicolon</span></span><br><span class="line">	<span class="comment">// Strings must be surrounded by "</span></span><br><span class="line">	<span class="comment">// &lt;&lt; sends the text via standard output to the screen</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello Internet"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- VARIABLES / DATA TYPES ----------</span></span><br><span class="line">	<span class="comment">// Variables start with a letter and can contain letters, numbers and _</span></span><br><span class="line">	<span class="comment">// They are case sensitive</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// A value that won't change is a constant</span></span><br><span class="line">	<span class="comment">// Starts with const and it should be uppercase</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">double</span> PI = <span class="number">3.1415926535</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// chars can contain 1 character that are surrounded with ' and is one byte in size</span></span><br><span class="line">	<span class="keyword">char</span> myGrade = <span class="string">'A'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// bools have the value of (true/1) or (false/0)</span></span><br><span class="line">	<span class="keyword">bool</span> isHappy = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ints are whole numbers</span></span><br><span class="line">	<span class="keyword">int</span> myAge = <span class="number">39</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// floats are floating point numbers accurate to about 6 decimals</span></span><br><span class="line">	<span class="keyword">float</span> favNum = <span class="number">3.141592</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// doubles are floating point numbers accurate to about 15 digits</span></span><br><span class="line">	<span class="keyword">double</span> otherFavNum = <span class="number">1.6180339887</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can output a variable value like this</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Favorite Number "</span> &lt;&lt; favNum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Other types include</span></span><br><span class="line">	<span class="comment">// short int : At least 16 bits</span></span><br><span class="line">	<span class="comment">// long int : At least 32 bits</span></span><br><span class="line">	<span class="comment">// long long int : At least 64 bits</span></span><br><span class="line">	<span class="comment">// unsigned int : Same size as signed version</span></span><br><span class="line">	<span class="comment">// long double : Not less then double</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can get the number of bytes for a data type with sizeof</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of int "</span> &lt;&lt; <span class="keyword">sizeof</span>(myAge) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of char "</span> &lt;&lt; <span class="keyword">sizeof</span>(myGrade) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of bool "</span> &lt;&lt; <span class="keyword">sizeof</span>(isHappy) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of float "</span> &lt;&lt; <span class="keyword">sizeof</span>(favNum) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of double "</span> &lt;&lt; <span class="keyword">sizeof</span>(otherFavNum) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> largestInt = <span class="number">2147483647</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Largest int "</span> &lt;&lt; largestInt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- ARITHMETIC ----------</span></span><br><span class="line">	<span class="comment">// The arithmetic operators are +, -, *, /, %, ++, --</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5 + 2 = "</span> &lt;&lt; <span class="number">5</span>+<span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5 - 2 = "</span> &lt;&lt; <span class="number">5</span><span class="number">-2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5 * 2 = "</span> &lt;&lt; <span class="number">5</span>*<span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5 / 2 = "</span> &lt;&lt; <span class="number">5</span>/<span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5 % 2 = "</span> &lt;&lt; <span class="number">5</span>%<span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> five = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5++ = "</span> &lt;&lt; five++ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"++5 = "</span> &lt;&lt; ++five &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"5-- = "</span> &lt;&lt; five-- &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"--5 = "</span> &lt;&lt; --five &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Shorthand assignment operators</span></span><br><span class="line">	<span class="comment">// a += b == a = a + b</span></span><br><span class="line">	<span class="comment">// There is also -=, *=, /=, %=</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Order of Operation states * and / is performed before + and -</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"1 + 2 - 3 * 2 = "</span> &lt;&lt; <span class="number">1</span> + <span class="number">2</span> - <span class="number">3</span> * <span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"(1 + 2 - 3) * 2 = "</span> &lt;&lt; (<span class="number">1</span> + <span class="number">2</span> - <span class="number">3</span>) * <span class="number">2</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- CASTING ----------</span></span><br><span class="line">	<span class="comment">// You convert from one data type to another by casting</span></span><br><span class="line">	<span class="comment">// char, int, float, double</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"4 / 5 = "</span> &lt;&lt; <span class="number">4</span> / <span class="number">5</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"4 / 5 = "</span> &lt;&lt; (<span class="keyword">float</span>) <span class="number">4</span> / <span class="number">5</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- IF STATEMENT ----------</span></span><br><span class="line">	<span class="comment">// Executes different code depending upon a condition</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Comparison operators include ==, !=, &gt;, &lt;, &gt;=, &lt;=</span></span><br><span class="line">	<span class="comment">// Will return true (1) if the comparison is true, or false (0)</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Logical operators include &amp;&amp;, ||, !</span></span><br><span class="line">	<span class="comment">// Used to test 2 or more conditionals</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> age = <span class="number">70</span>;</span><br><span class="line">	<span class="keyword">int</span> ageAtLastExam = <span class="number">16</span>;</span><br><span class="line">	<span class="keyword">bool</span> isNotIntoxicated = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>((age &gt;= <span class="number">1</span>) &amp;&amp; (age &lt; <span class="number">16</span>))&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You can't drive"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span>(!isNotIntoxicated)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You can't drive"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span>(age &gt;= <span class="number">80</span> &amp;&amp; ((age &gt; <span class="number">100</span>) || ((age - ageAtLastExam) &gt; <span class="number">5</span>)))&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You can't drive"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You can drive"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- SWITCH STATEMENT ----------</span></span><br><span class="line">	<span class="comment">// switch is used when you have a limited number of possible options</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> greetingOption = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">switch</span>(greetingOption)&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span> :</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"bonjour"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">2</span> :</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hola"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> <span class="number">3</span> :</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hallo"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">default</span> :</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- TERNARY OPERATOR ----------</span></span><br><span class="line">	<span class="comment">// Performs an assignment based on a condition</span></span><br><span class="line">	<span class="comment">// variable = (condition) ? if true : if false</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> largestNum = (<span class="number">5</span> &gt; <span class="number">2</span>) ? <span class="number">5</span> : <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The biggest number is "</span> &lt;&lt; largestNum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- ARRAYS ----------</span></span><br><span class="line">	<span class="comment">// Arrays store multiple values of the same type</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// You must provide a data type and the size of the array</span></span><br><span class="line">	<span class="keyword">int</span> myFavNums[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can declare and add values in one step</span></span><br><span class="line">	<span class="keyword">int</span> badNums[<span class="number">5</span>] = &#123;<span class="number">4</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">24</span>, <span class="number">34</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The first item in the array has the label (index) of 0</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Bad Number 1: "</span> &lt;&lt; badNums[<span class="number">0</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can create multidimensional arrays</span></span><br><span class="line">	<span class="keyword">char</span> myName[<span class="number">5</span>][<span class="number">5</span>] = &#123;&#123;<span class="string">'D'</span>,<span class="string">'e'</span>,<span class="string">'r'</span>,<span class="string">'e'</span>,<span class="string">'k'</span>&#125;,&#123;<span class="string">'B'</span>,<span class="string">'a'</span>,<span class="string">'n'</span>,<span class="string">'a'</span>,<span class="string">'s'</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"2nd Letter in 2nd Array: "</span> &lt;&lt; myName[<span class="number">1</span>][<span class="number">1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can change a value in an array using its index</span></span><br><span class="line">	myName[<span class="number">0</span>][<span class="number">2</span>] = <span class="string">'e'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"New Value "</span> &lt;&lt; myName[<span class="number">0</span>][<span class="number">2</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- FOR LOOP ----------</span></span><br><span class="line">	<span class="comment">// Continues to execute code as long as a condition is true</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can also cycle through an array by nesting for loops</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">5</span>; j++)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">5</span>; k++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; myName[j][k];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- WHILE LOOP ----------</span></span><br><span class="line">	<span class="comment">// Use a while loop when you don't know ahead of time when a loop will end</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Generate a random number between 1 and 100</span></span><br><span class="line">	<span class="keyword">int</span> randNum = (rand() % <span class="number">100</span>) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(randNum != <span class="number">100</span>)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; randNum &lt;&lt; <span class="string">", "</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Used to get you out of the loop</span></span><br><span class="line">		randNum = (rand() % <span class="number">100</span>) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can do the same as the for loop like this</span></span><br><span class="line">	<span class="comment">// Create an index to iterate out side the while loop</span></span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(index &lt;= <span class="number">10</span>)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; index &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Increment inside the loop</span></span><br><span class="line">		index++;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- DO WHILE LOOP ----------</span></span><br><span class="line">	<span class="comment">// Used when you want to execute what is in the loop at least once</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Used to store a series of characters</span></span><br><span class="line">	<span class="built_in">string</span> numberGuessed;</span><br><span class="line">	<span class="keyword">int</span> intNumberGuessed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">	    <span class="built_in">cout</span> &lt;&lt; <span class="string">"Guess between 1 and 10: "</span>;</span><br><span class="line"></span><br><span class="line">	    <span class="comment">// Allows for user input</span></span><br><span class="line">	    <span class="comment">// Pass the source and destination of the input</span></span><br><span class="line">	    getline (<span class="built_in">cin</span>,numberGuessed);</span><br><span class="line"></span><br><span class="line">	    <span class="comment">// stoi converts the string into an integer</span></span><br><span class="line">	    intNumberGuessed = stoi(numberGuessed);</span><br><span class="line">	    <span class="built_in">cout</span> &lt;&lt; intNumberGuessed &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	    <span class="comment">// We'll continue looping until the number entered is 4</span></span><br><span class="line">	&#125; <span class="keyword">while</span> (intNumberGuessed != <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">	  <span class="built_in">cout</span> &lt;&lt; <span class="string">"You Win"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- STRINGS ----------</span></span><br><span class="line">	<span class="comment">// The string library class provides a string object</span></span><br><span class="line">	<span class="comment">// You must always surround strings with "</span></span><br><span class="line">	<span class="comment">// Unlike the char arrays in c, the string object automatically resizes</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// The C way of making a string</span></span><br><span class="line">	<span class="keyword">char</span> happyArray[<span class="number">6</span>] = &#123;<span class="string">'H'</span>, <span class="string">'a'</span>, <span class="string">'p'</span>, <span class="string">'p'</span>, <span class="string">'y'</span>, <span class="string">'\0'</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// The C++ way</span></span><br><span class="line">	<span class="built_in">string</span> birthdayString = <span class="string">" Birthday"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can combine / concatenate strings with +</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; happyArray + birthdayString &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">string</span> yourName;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"What is your name? "</span>;</span><br><span class="line">	getline (<span class="built_in">cin</span>,yourName);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Hello "</span> &lt;&lt; yourName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">double</span> eulersConstant = <span class="number">.57721</span>;</span><br><span class="line">	<span class="built_in">string</span> eulerGuess;</span><br><span class="line">	<span class="keyword">double</span> eulerGuessDouble;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"What is Euler's Constant? "</span>;</span><br><span class="line">	getline (<span class="built_in">cin</span>,eulerGuess);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Converts a string into a double</span></span><br><span class="line">	<span class="comment">// stof() for floats</span></span><br><span class="line">	eulerGuessDouble = stod(eulerGuess);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(eulerGuessDouble == eulersConstant)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You are right"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"You are wrong"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Size returns the number of characters</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of string "</span> &lt;&lt; eulerGuess.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// empty tells you if string is empty or not</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Is string empty "</span> &lt;&lt; eulerGuess.empty() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// append adds strings together</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; eulerGuess.append(<span class="string">" was your guess"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">string</span> dogString = <span class="string">"dog"</span>;</span><br><span class="line">	<span class="built_in">string</span> catString = <span class="string">"cat"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Compare returns a 0 for a match, 1 if less than, -1 if greater then</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; dogString.compare(catString) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; dogString.compare(dogString) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; catString.compare(dogString) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// assign copies a value to another string </span></span><br><span class="line">	<span class="built_in">string</span> wholeName = yourName.assign(yourName);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; wholeName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can get a substring as well by defining the starting index and the</span></span><br><span class="line">	<span class="comment">// number of characters to copy</span></span><br><span class="line">	<span class="built_in">string</span> firstName = wholeName.assign(wholeName, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; firstName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// find returns the index for the string your searching for starting</span></span><br><span class="line">	<span class="comment">// from the index defined</span></span><br><span class="line">	<span class="keyword">int</span> lastNameIndex = yourName.find(<span class="string">"Banas"</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Index for last name "</span> &lt;&lt; lastNameIndex &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// insert places a string in the index defined</span></span><br><span class="line">	yourName.insert(<span class="number">5</span>, <span class="string">" Justin"</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; yourName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// erase will delete 6 characters starting at index 7</span></span><br><span class="line">	yourName.erase(<span class="number">6</span>,<span class="number">7</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; yourName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// replace 5 characters starting at index 6 with the string Maximus</span></span><br><span class="line">	yourName.replace(<span class="number">6</span>,<span class="number">5</span>,<span class="string">"Maximus"</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; yourName &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- VECTORS ----------</span></span><br><span class="line">	<span class="comment">// Vectors are like arrays, but their size can change</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; lotteryNumVect(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> lotteryNumArray[<span class="number">5</span>] = &#123;<span class="number">4</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">24</span>, <span class="number">34</span>&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Add the array to the vector starting at the beginning of the vector</span></span><br><span class="line">	lotteryNumVect.insert(lotteryNumVect.begin(), lotteryNumArray, lotteryNumArray+<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Insert a value into the 5th index</span></span><br><span class="line">	lotteryNumVect.insert(lotteryNumVect.begin()+<span class="number">5</span>, <span class="number">44</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// at gets the value in the specified index</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Value in 5 "</span> &lt;&lt; lotteryNumVect.at(<span class="number">5</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// push_back adds a value at the end of a vector</span></span><br><span class="line">	lotteryNumVect.push_back(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// back gets the value in the final index</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Final Value "</span> &lt;&lt; lotteryNumVect.back() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// pop_back removes the final element</span></span><br><span class="line">	lotteryNumVect.pop_back();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// front returns the first element</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"First Element "</span> &lt;&lt; lotteryNumVect.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// back returns the last element</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Last Element "</span> &lt;&lt; lotteryNumVect.back() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// empty tells you if the vector is empty</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Vector Empty "</span> &lt;&lt; lotteryNumVect.empty() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// size returns the total number of elements</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Number of Vector Elements "</span> &lt;&lt; lotteryNumVect.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- FUNCTIONS ----------</span></span><br><span class="line">	<span class="comment">// Functions allow you to reuse and better organize your code</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; addNumbers(<span class="number">1</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can't access values created in functions (Out of Scope)</span></span><br><span class="line">	<span class="comment">// cout &lt;&lt; combinedValue &lt;&lt; endl;</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; addNumbers(<span class="number">1</span>, <span class="number">5</span>, <span class="number">6</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"The factorial of 3 is "</span> &lt;&lt; getFactorial(<span class="number">3</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- FILE I/O ----------</span></span><br><span class="line">	<span class="comment">// We can read and write to files using text or machine readable binary</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">string</span> steveQuote = <span class="string">"A day without sunshine is like, you know, night"</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create an output filestream and if the file doesn't exist create it</span></span><br><span class="line">	<span class="function">ofstream <span class="title">writer</span><span class="params">(<span class="string">"stevequote.txt"</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Verify that the file stream object was created</span></span><br><span class="line">	<span class="keyword">if</span>(! writer)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Error opening file"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Signal that an error occurred</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Write the text to the file</span></span><br><span class="line">		writer &lt;&lt; steveQuote &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Close the file</span></span><br><span class="line">		writer.close();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Open a stream to append to whats there with ios::app</span></span><br><span class="line">	<span class="comment">// ios::binary : Treat the file as binary</span></span><br><span class="line">	<span class="comment">// ios::in : Open a file to read input</span></span><br><span class="line">	<span class="comment">// ios::trunc : Default</span></span><br><span class="line">	<span class="comment">// ios::out : Open a file to write output</span></span><br><span class="line">	<span class="function">ofstream <span class="title">writer2</span><span class="params">(<span class="string">"stevequote.txt"</span>, ios::app)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(! writer2)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Error opening file"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Signal that an error occurred</span></span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">		writer2 &lt;&lt; <span class="string">"\n- Steve Martin"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		writer2.close();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> letter;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Read characters from a file using an input file stream</span></span><br><span class="line">	<span class="function">ifstream <span class="title">reader</span><span class="params">(<span class="string">"stevequote.txt"</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(! reader)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"Error opening file"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Read each character from the stream until end of file</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; ! reader.eof(); i++)&#123;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Get the next letter and output it</span></span><br><span class="line">			reader.get(letter);</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; letter;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		reader.close();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- EXCEPTION HANDLING ----------</span></span><br><span class="line">	<span class="comment">// You can be prepared for potential problems with exception handling</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> number = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(number != <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="number">2</span>/number &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">throw</span>(number);</span><br><span class="line"></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">catch</span>(<span class="keyword">int</span> number)&#123;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; number &lt;&lt; <span class="string">" is not valid input"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- POINTERS ----------</span></span><br><span class="line">	<span class="comment">// When data is stored it is stored in an appropriately sized box based</span></span><br><span class="line">	<span class="comment">// on its data type </span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> myAge = <span class="number">39</span>;</span><br><span class="line">	<span class="keyword">char</span> myGrade = <span class="string">'A'</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of int "</span> &lt;&lt; <span class="keyword">sizeof</span>(myAge) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Size of char "</span> &lt;&lt; <span class="keyword">sizeof</span>(myGrade) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can reference the box (memory address) where data is stored with </span></span><br><span class="line">	<span class="comment">// the &amp; reference operator</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"myAge is located at "</span> &lt;&lt; &amp;myAge &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// A pointer can store a memory address</span></span><br><span class="line">	<span class="comment">// The data type must be the same as the data referenced and it is followed</span></span><br><span class="line">	<span class="comment">// by a *</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>* agePtr = &amp;myAge;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can access the memory address and the data </span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Address of pointer "</span> &lt;&lt; agePtr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// * is the dereference or indirection operator</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Data at memory address "</span> &lt;&lt; *agePtr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> badNums[<span class="number">5</span>] = &#123;<span class="number">4</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">24</span>, <span class="number">34</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>* numArrayPtr = badNums;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can increment through an array using a pointer with ++ or --</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Address "</span> &lt;&lt; numArrayPtr &lt;&lt; <span class="string">" Value "</span> &lt;&lt; *numArrayPtr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	numArrayPtr++; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Address "</span> &lt;&lt; numArrayPtr &lt;&lt; <span class="string">" Value "</span> &lt;&lt; *numArrayPtr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// An array name is just a pointer to the array</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Address "</span> &lt;&lt; badNums &lt;&lt; <span class="string">" Value "</span> &lt;&lt; *badNums &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// When you pass a variable to a function you are passing the value</span></span><br><span class="line">	<span class="comment">// When you pass a pointer to a function you are passing a reference</span></span><br><span class="line">	<span class="comment">// that can be changed</span></span><br><span class="line"></span><br><span class="line">	makeMeYoung(&amp;myAge);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"I'm "</span> &lt;&lt; myAge &lt;&lt; <span class="string">" years old now"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// &amp; denotes that ageRef will be a reference to the assigned variable</span></span><br><span class="line">	<span class="keyword">int</span>&amp; ageRef = myAge;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"ageRef : "</span> &lt;&lt; ageRef &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// It can manipulate the other variables data</span></span><br><span class="line">	ageRef++; </span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"myAge : "</span> &lt;&lt; myAge &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// You can pass the reference to a function</span></span><br><span class="line">	actYourAge(ageRef);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"myAge : "</span> &lt;&lt; myAge &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// When deciding on whether to use pointers or references</span></span><br><span class="line">	<span class="comment">// Use Pointers if you don't want to initialize at declaration, or if</span></span><br><span class="line">	<span class="comment">// you need to assign another variable</span></span><br><span class="line">	<span class="comment">// otherwise use a reference</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// ---------- CLASSES &amp; OBJECTS ----------</span></span><br><span class="line">	<span class="comment">// Classes are the blueprints for modeling real world objects</span></span><br><span class="line">	<span class="comment">// Real world objects have attributes, classes have members / variables</span></span><br><span class="line">	<span class="comment">// Real world objects have abilities, classes have methods / functions</span></span><br><span class="line">	<span class="comment">// Classes believe in hiding data (encapsulation) from outside code</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// Declare a Animal type object</span></span><br><span class="line">	Animal fred;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Set the values for the Animal</span></span><br><span class="line">	fred.setHeight(<span class="number">33</span>);</span><br><span class="line">	fred.setWeight(<span class="number">10</span>);</span><br><span class="line">	fred.setName(<span class="string">"Fred"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Get the values for the Animal</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; fred.getName() &lt;&lt; <span class="string">" is "</span> &lt;&lt; fred.getHeight() &lt;&lt; <span class="string">" cms tall and "</span></span><br><span class="line">		&lt;&lt; fred.getWeight() &lt;&lt; <span class="string">" kgs in weight"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	fred.setAll(<span class="number">34</span>, <span class="number">12</span>, <span class="string">"Fred"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; fred.getName() &lt;&lt; <span class="string">" is "</span> &lt;&lt; fred.getHeight() &lt;&lt; <span class="string">" cms tall and "</span></span><br><span class="line">		&lt;&lt; fred.getWeight() &lt;&lt; <span class="string">" kgs in weight"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Creating an object using the constructor</span></span><br><span class="line">	<span class="function">Animal <span class="title">tom</span><span class="params">(<span class="number">36</span>, <span class="number">15</span>, <span class="string">"Tom"</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; tom.getName() &lt;&lt; <span class="string">" is "</span> &lt;&lt; tom.getHeight() &lt;&lt; <span class="string">" cms tall and "</span></span><br><span class="line">		&lt;&lt; tom.getWeight() &lt;&lt; <span class="string">" kgs in weight"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Demonstrate the inheriting class Dog</span></span><br><span class="line">	<span class="function">Dog <span class="title">spot</span><span class="params">(<span class="number">38</span>, <span class="number">16</span>, <span class="string">"Spot"</span>, <span class="string">"Woof"</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// static methods are called by using the class name and the scope operator</span></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"Number of Animals "</span> &lt;&lt; Animal::getNumOfAnimals() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	spot.getSound();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Test the toString method that will be overwritten</span></span><br><span class="line">	tom.toString();</span><br><span class="line">	spot.toString();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// We can call the superclass version of a method with the class name </span></span><br><span class="line">	<span class="comment">// and the scope operator</span></span><br><span class="line">	spot.Animal::toString();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// When a function finishes it must return an integer value</span></span><br><span class="line">	<span class="comment">// Zero means that the function ended with success</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Part-Two"><a href="#Part-Two" class="headerlink" title="Part Two"></a>Part Two</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Virtual Methods and Polymorphism</span></span><br><span class="line"><span class="comment">// Polymorpism allows you to treat subclasses as their superclass and yet</span></span><br><span class="line"><span class="comment">// call the correct overwritten methods in the subclass automatically</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">getFamily</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"We are Animals"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// When we define a method as virtual we know that Animal</span></span><br><span class="line">		<span class="comment">// will be a base class that may have this method overwritten</span></span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">getClass</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I'm an Animal"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> :</span> <span class="keyword">public</span> Animal&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">getClass</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I'm a Dog"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GermanShepard</span> :</span> <span class="keyword">public</span> Dog&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">getClass</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I'm a German Shepard"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">getDerived</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"I'm an Animal and Dog"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">whatClassAreYou</span><span class="params">(Animal *animal)</span></span>&#123; </span><br><span class="line">	animal -&gt; getClass(); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	Animal *animal = <span class="keyword">new</span> Animal;</span><br><span class="line">	Dog *dog = <span class="keyword">new</span> Dog;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// If a method is marked virtual or not doesn't matter if we call the method</span></span><br><span class="line">	<span class="comment">// directly from the object</span></span><br><span class="line">	animal-&gt;getClass();</span><br><span class="line">	dog-&gt;getClass();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// If getClass is not marked as virtual outside functions won't look for </span></span><br><span class="line">	<span class="comment">// overwritten methods in subclasses however</span></span><br><span class="line">	whatClassAreYou(animal);</span><br><span class="line">	whatClassAreYou(dog);</span><br><span class="line"></span><br><span class="line">	Dog spot;</span><br><span class="line">	GermanShepard max;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// A base class can call derived class methods as long as they exist </span></span><br><span class="line">	<span class="comment">// in the base class</span></span><br><span class="line">	Animal* ptrDog = &amp;spot;</span><br><span class="line">	Animal* ptrGShepard = &amp;max;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Call the method not overwritten in the super class Animal</span></span><br><span class="line">	ptrDog -&gt; getFamily();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Since getClass was overwritten in Dog call the Dog version</span></span><br><span class="line">	ptrDog -&gt; getClass();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Call to the super class</span></span><br><span class="line">	ptrGShepard -&gt; getFamily();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Call to the overwritten GermanShepard version</span></span><br><span class="line">	ptrGShepard -&gt; getClass();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Part-Three"><a href="#Part-Three" class="headerlink" title="Part Three"></a>Part Three</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Polymorpism allows you to treat subclasses as their superclass and yet</span></span><br><span class="line"><span class="comment">// call the correct overwritten methods in the subclass automatically</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"The Animal says grrrr"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// The Animal class could be a capability class that exists</span></span><br><span class="line">		<span class="comment">// only to be derived from by containing only virtual methods</span></span><br><span class="line">		<span class="comment">// that do nothing</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> :</span> <span class="keyword">public</span> Animal&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"The Cat says meow"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> :</span> <span class="keyword">public</span> Animal&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">makeSound</span><span class="params">()</span></span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"The Dog says woof"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// An abstract data type is a class that acts as the base to other classes</span></span><br><span class="line"><span class="comment">// They stand out because its methods are initialized with zero</span></span><br><span class="line"><span class="comment">// A pure virtual method must be overwritten by subclasses</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span>&#123;</span></span><br><span class="line">	<span class="keyword">public</span> : </span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getNumWheels</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">		<span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">getNumDoors</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StationWagon</span> :</span> <span class="keyword">public</span> Car&#123;</span><br><span class="line">	<span class="keyword">public</span> :</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">getNumWheels</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Station Wagon has 4 Wheels"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">getNumDoors</span><span class="params">()</span> </span>&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"Station Wagon has 4 Doors"</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">		StationWagon() &#123; &#125;</span><br><span class="line">		~StationWagon();</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	Animal* pCat = <span class="keyword">new</span> Cat;</span><br><span class="line">	Animal* pDog = <span class="keyword">new</span> Dog;</span><br><span class="line"></span><br><span class="line">	pCat -&gt; makeSound();</span><br><span class="line">	pDog -&gt; makeSound();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create a StationWagon using the abstract data type Car</span></span><br><span class="line">	Car* stationWagon = <span class="keyword">new</span> StationWagon();</span><br><span class="line"></span><br><span class="line">	stationWagon -&gt; getNumWheels();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2932,7 +3044,7 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2967,7 +3079,9 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3178,9 +3292,9 @@ A \to w \\ A \to wB \\ A \to \varepsilon</script><p>其中，$A,B \in V,\; w \in
   
     
       
-    
-      
         
+      
+    
       
     
       
