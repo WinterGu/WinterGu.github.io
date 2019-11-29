@@ -270,7 +270,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">21</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">22</span></a>
 
   </li>
 
@@ -306,6 +306,169 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/29/Keras初体验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/29/Keras初体验/" class="post-title-link" itemprop="url">Keras初体验</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-29 16:37:48 / 修改时间：16:46:51" itemprop="dateCreated datePublished" datetime="2019-11-29T16:37:48+08:00">2019-11-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Keras-初体验"><a href="#Keras-初体验" class="headerlink" title="Keras 初体验"></a>Keras 初体验</h1><h2 id="使用内置struct加载mnist手写字符数据集"><a href="#使用内置struct加载mnist手写字符数据集" class="headerlink" title="使用内置struct加载mnist手写字符数据集"></a>使用内置<code>struct</code>加载<code>mnist</code>手写字符数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># load mnist dataset</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadImageSet</span><span class="params">(filename)</span>:</span></span><br><span class="line">    imgfile = open(filename, <span class="string">'rb'</span>)</span><br><span class="line">    buffers = imgfile.read()</span><br><span class="line"></span><br><span class="line">    head = struct.unpack_from(<span class="string">'&gt;IIII'</span>, buffers, <span class="number">0</span>)<span class="comment"># 读取前四个int，解析返回列表</span></span><br><span class="line">    offset = struct.calcsize(<span class="string">'&gt;IIII'</span>) <span class="comment"># 计算前四个int大小</span></span><br><span class="line"></span><br><span class="line">    imgNum = head[<span class="number">1</span>]</span><br><span class="line">    width = head[<span class="number">2</span>]</span><br><span class="line">    height = head[<span class="number">3</span>]</span><br><span class="line">    bits = imgNum*width*height</span><br><span class="line">    bitstr = <span class="string">'&gt;'</span>+str(bits)+<span class="string">'B'</span></span><br><span class="line">    print(bitstr)</span><br><span class="line">    data = struct.unpack_from(bitstr, buffers, offset)</span><br><span class="line">    data = np.reshape(data, (imgNum, width*height))</span><br><span class="line">    imgfile.close()</span><br><span class="line">    <span class="keyword">return</span> data, head</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadLabel</span><span class="params">(filename)</span>:</span></span><br><span class="line">    imgfile = open(filename, <span class="string">'rb'</span>)</span><br><span class="line">    buffers = imgfile.read()</span><br><span class="line"></span><br><span class="line">    head = struct.unpack_from(<span class="string">'&gt;II'</span>, buffers, <span class="number">0</span>)</span><br><span class="line">    offset = struct.calcsize(<span class="string">'&gt;II'</span>)</span><br><span class="line"></span><br><span class="line">    imgNum = head[<span class="number">1</span>]</span><br><span class="line">    bits = imgNum</span><br><span class="line">    bitstr = <span class="string">'&gt;'</span>+str(bits)+<span class="string">'B'</span></span><br><span class="line">    print(bitstr)</span><br><span class="line">    data = struct.unpack_from(bitstr, buffers, offset)</span><br><span class="line">    data = np.reshape(data, (imgNum, <span class="number">1</span>))</span><br><span class="line">    imgfile.close()</span><br><span class="line">    <span class="keyword">return</span> data, head</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">train_data, train_head = loadImageSet(<span class="string">'./mnist/train-images.idx3-ubyte'</span>)</span><br><span class="line">label_data, label_head = loadLabel(<span class="string">'./mnist/train-labels-idx1-ubyte'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Train\n"</span>)</span><br><span class="line">print(<span class="string">f'Head information:<span class="subst">&#123;train_head&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Shape:<span class="subst">&#123;train_data.shape&#125;</span>'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Label\n"</span>)</span><br><span class="line">print(<span class="string">f'Head information:<span class="subst">&#123;label_head&#125;</span>'</span>)</span><br><span class="line">print(<span class="string">f'Shape:<span class="subst">&#123;label_data.shape&#125;</span>'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="构建模型并训练"><a href="#构建模型并训练" class="headerlink" title="构建模型并训练"></a>构建模型并训练</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">one_hot</span><span class="params">(data,n)</span>:</span></span><br><span class="line">    num = data.shape[<span class="number">0</span>]</span><br><span class="line">    res = np.zeros((num,n))</span><br><span class="line">    <span class="keyword">for</span> i,v <span class="keyword">in</span> enumerate(data):</span><br><span class="line">        res[i,v]= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">label_data = one_hot(label_data,<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">model = Sequential()</span><br><span class="line"></span><br><span class="line">model.add(Dense(input_dim=<span class="number">28</span>*<span class="number">28</span>, units=<span class="number">500</span>,activation=<span class="string">'sigmoid'</span>))</span><br><span class="line">model.add(Dense(units=<span class="number">500</span>,activation=<span class="string">'sigmoid'</span>))</span><br><span class="line">model.add(Dense(units=<span class="number">10</span>,activation=<span class="string">'softmax'</span>))</span><br><span class="line"></span><br><span class="line">model.compile(loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">              optimizer=<span class="string">'adam'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line">model.fit(train_data, label_y, batch_size=<span class="number">100</span>, epochs=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="测试模型"><a href="#测试模型" class="headerlink" title="测试模型"></a>测试模型</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test_data = loadImageSet(<span class="string">'./mnist/t10k-images-idx3-ubyte'</span>)[<span class="number">0</span>]</span><br><span class="line">test_label = one_hot(loadLabel(<span class="string">'./mnist/t10k-labels-idx1-ubyte'</span>)[<span class="number">0</span>],<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">score = model.evaluate(test_data,test_label)</span><br><span class="line">print(<span class="string">'Total loss on Testing Set:'</span>,score[<span class="number">0</span>])</span><br><span class="line">print(<span class="string">'Accuracy of  Testing Set:'</span>,score[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -4842,285 +5005,6 @@ f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</scrip
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/14/已知语言构建文法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Dongxian Gu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dongxian's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/14/已知语言构建文法/" class="post-title-link" itemprop="url">已知语言构建文法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-14 11:27:11" itemprop="dateCreated datePublished" datetime="2019-11-14T11:27:11+08:00">2019-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-11-28 11:05:13" itemprop="dateModified" datetime="2019-11-28T11:05:13+08:00">2019-11-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/课程/" itemprop="url" rel="index"><span itemprop="name">课程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="已知语言构建文法"><a href="#已知语言构建文法" class="headerlink" title="已知语言构建文法"></a>已知语言构建文法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>常用方法</p>
-<ul>
-<li>对称法</li>
-<li>逐步求精法（分解法）</li>
-<li>等价法</li>
-<li>电路状态转换法</li>
-<li>混合法（混合上面的方法）</li>
-</ul>
-<h2 id="对称法"><a href="#对称法" class="headerlink" title="对称法"></a>对称法</h2><p>适用于存在对称性的语言。</p>
-<p>两点：</p>
-<ol>
-<li>找出对称轴</li>
-<li>找出对称性</li>
-</ol>
-<p>例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$</p>
-<p>观察语言：</p>
-<script type="math/tex; mode=display">
-\begin{split}
-& when \; n=1, L=aab \\
-& when \; n=2, L=aaaabb \rightarrow \; L=aa\;aab\;b
-\end{split}</script><p>所以推出文法：</p>
-<script type="math/tex; mode=display">
-\begin{split}
-& S \rightarrow aaSb \\
-& S \rightarrow aab
-\end{split}</script><h2 id="逐步求精法（分解法）"><a href="#逐步求精法（分解法）" class="headerlink" title="逐步求精法（分解法）"></a>逐步求精法（分解法）</h2><p>两种：自上而下 或者从左向右</p>
-<p>前提：语言中各成分之间没有关联。</p>
-<p>例题：$L=\{a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T\}$</p>
-<ol>
-<li><p>自上而下求精法</p>
-<script type="math/tex; mode=display">
-S\rightarrow ABC,\; A \rightarrow aA|a,\; B \rightarrow bB|b,\; C  \rightarrow cC|c</script><p>分析：将$a^i,b^j,c^k$各自看成一个整体，由$i \ge 1$，语言中最少存在一个$a$，所以可以写成这样的文法：$A \rightarrow aA|a$。同理可以得到其他两个$B \rightarrow bB|b,\; C \rightarrow cC|c$。所以$S \rightarrow ABC$。</p>
-</li>
-<li><p>从左向右求精法</p>
-<script type="math/tex; mode=display">
-S \rightarrow aS|aA,\; A\rightarrow bA|bB,\; B\rightarrow cB|c</script><p>分析：$a^ib^jc^k=a^*a^{i-1}b^jc^k$，其中$i-1 \ge 0$。</p>
-<p>当$i-1\ge 1$时，$S \rightarrow aS$；当$i-1=0$时，$S \rightarrow aA$。</p>
-<p>$A$对应的语言是$b^jc^k$，同理推出$A\rightarrow bA|bB$。</p>
-</li>
-</ol>
-<h2 id="等价法"><a href="#等价法" class="headerlink" title="等价法"></a>等价法</h2><p>产生式两边具有相同的特性</p>
-<p>例题：$L=\{\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega\}$</p>
-<p>在语言中，a和b的数量一样多。</p>
-<p>首先写出下面三个产生式：</p>
-<p>当以a开头时，$S \rightarrow aA$；</p>
-<p>当以b开头时，$S \rightarrow bB$；</p>
-<p>$S$可以为空：$S \rightarrow \varepsilon$</p>
-<p>在$S、A、B$中，a和b的数量满足：</p>
-<script type="math/tex; mode=display">
-\begin{split} 
-& S \quad |a|=|b| \\
-& A \quad |a|+1 = |b| \\
-& B \quad |b|+1 = |a|
-\end{split}</script><p>在$A$中</p>
-<ul>
-<li><p>若以b开头：$A\rightarrow bS|b$</p>
-</li>
-<li><p>若以a开头：$A \rightarrow aAA \quad (aA == S)$</p>
-</li>
-</ul>
-<p>同理 $B \rightarrow bS|b|bBB$</p>
-<p>所以最后得到的文法是：</p>
-<script type="math/tex; mode=display">
-S \rightarrow aA|bB|\varepsilon \\
-A \rightarrow bS|b|aAA \\
-B \rightarrow aS|a|bBB</script><h2 id="电路状态转换法"><a href="#电路状态转换法" class="headerlink" title="电路状态转换法"></a>电路状态转换法</h2><p>适用于语言对元素的奇偶有要求的。</p>
-<p>电路状态的概念：0代表偶数，1代表奇数。</p>
-<p>比如000代表语言中的a,b,c的个数都是偶数。</p>
-<p><img src="/images/电路转换图.png" alt="电路转换图"></p>
-<p>解题步骤：</p>
-<ol>
-<li><p>构建电路状态转换图</p>
-<ul>
-<li>确定状态，如果有n个元素，则存在$2^n$个状态。</li>
-<li>然后链接状态</li>
-</ul>
-</li>
-<li><p>确定开始状态和结束状态</p>
-<p>开始状态和结束状态是相对的，根据题目情况确定。</p>
-<ol>
-<li>以全是0为结束状态，以题目要求为开始状态。</li>
-<li>以题目要求作为结束状态，以全是0为开始状态。</li>
-</ol>
-<p>比如对于某种L，以a或b开头，c结尾，abc数量皆为偶数，则开始状态不唯一，所以不能用 全是0作为开始状态，而结束状态是唯一的，所以可拿全是0作为结束状态。</p>
-</li>
-<li><p>命名各个状态</p>
-<p>初始状态用S，其他状态用A、B、C…..命名。</p>
-</li>
-<li><p>写出相应的产生式</p>
-<p>每条边的变化对应一条产生式</p>
-<p>对结束状态要增加一条产生式$S \rightarrow \varepsilon$</p>
-<p>严格的说最后可以写出$2^{n(n+1)}+1$条产生式。</p>
-</li>
-</ol>
-<p>例题：$L=\{\omega| \omega \in (0,1)^*, 1的数量是偶数\}$</p>
-<p>电路状态转换图如下所示：</p>
-<p><img src="/images/电路状态转换图2.png" alt="电路状态转换图2"></p>
-<p>本题中，只有两个状态：</p>
-<p>S：1的数量是偶数，A：1的数量是奇数。</p>
-<p>S组作为终止状态。</p>
-<p>根据状态转换图写出产生式：</p>
-<script type="math/tex; mode=display">
-S \rightarrow 0S|1A|\varepsilon \\
-A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a href="#混合法（混合上面的方法）" class="headerlink" title="混合法（混合上面的方法）"></a>混合法（混合上面的方法）</h2><p>常用的如：分解法+对称法/分解法+电路转换法等。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://blog.csdn.net/Follower_JC/article/details/84036349" target="_blank" rel="noopener">https://blog.csdn.net/Follower_JC/article/details/84036349</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -5169,7 +5053,7 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -5415,9 +5299,9 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
   
     
       
-        
-      
     
+      
+        
       
     
       
