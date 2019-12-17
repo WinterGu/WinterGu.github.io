@@ -367,12 +367,24 @@
                 
               
 
-              <time title="创建时间：2019-12-07 20:59:18 / 修改时间：22:21:36" itemprop="dateCreated datePublished" datetime="2019-12-07T20:59:18+08:00">2019-12-07</time>
+              <time title="创建时间：2019-12-07 20:59:18" itemprop="dateCreated datePublished" datetime="2019-12-07T20:59:18+08:00">2019-12-07</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-12-17 10:45:16" itemprop="dateModified" datetime="2019-12-17T10:45:16+08:00">2019-12-17</time>
               
             
           </span>
@@ -454,12 +466,12 @@ E(f;D)=\frac{1}{m}\sum_{i=1}^m(f(x_i)-y_i)^2</script><p>更一般的，对于数
 <script type="math/tex; mode=display">
 E(f;D) = \int_{x\sim D}(f(x)-y)^2p(x)dx</script><h4 id="错误率和精度"><a href="#错误率和精度" class="headerlink" title="错误率和精度"></a>错误率和精度</h4><p>分类任务中最常用的两种性能度量。</p>
 <ul>
-<li>错误率：分类错误的样本数占样本总数的比例。<script type="math/tex; mode=display">
+<li><p>错误率：分类错误的样本数占样本总数的比例。</p>
+<script type="math/tex; mode=display">
 E(f;D)=\frac{1}{m}\sum_{i=1}^m\mathbb{I}(f(x_i)\neq y_i) \\
 E(f;D)=\frac{1}{m}\int_{x\sim D}\mathbb{I}(f(x)\neq y)p(x)dx</script></li>
-</ul>
-<ul>
-<li>精度：分类正确的样本数占样本总数的比例。<script type="math/tex; mode=display">
+<li><p>精度：分类正确的样本数占样本总数的比例。</p>
+<script type="math/tex; mode=display">
 acc(f;D)=\frac{1}{m}\sum_{i=1}^m\mathbb{I}(f(x_i) = y_i)=1-E(f;D) \\
 acc(f;D)=\frac{1}{m}\int_{x\sim D}\mathbb{I}(f(x) = y)p(x)dx=1-E(f;D)</script></li>
 </ul>
@@ -493,10 +505,9 @@ acc(f;D)=\frac{1}{m}\int_{x\sim D}\mathbb{I}(f(x) = y)p(x)dx=1-E(f;D)</script></
 </table>
 </div>
 <ul>
-<li>查准率$P$<script type="math/tex; mode=display">
+<li><p>查准率$P$</p>
+<script type="math/tex; mode=display">
 P = \frac{TP}{TP+FP}</script></li>
-</ul>
-<ul>
 <li><p>查全率$R$</p>
 <script type="math/tex; mode=display">
 R = \frac{TP}{TP+FN}</script></li>
@@ -518,7 +529,47 @@ F_\beta=\frac{(1+\beta^2 \times P \times R)}{(\beta^2\times P)+R}</script><block
 <p>​    $\beta \gt 1$查全率影响更大，$\beta \lt 1$查准率影响更大</p>
 </li>
 </ul>
-<h4 id="ROC-和-AUC"><a href="#ROC-和-AUC" class="headerlink" title="$ROC$和$AUC$"></a>$ROC$和$AUC$</h4><h3 id="经验E"><a href="#经验E" class="headerlink" title="经验E"></a>经验E</h3><h2 id="容量、过拟合和欠拟合"><a href="#容量、过拟合和欠拟合" class="headerlink" title="容量、过拟合和欠拟合"></a>容量、过拟合和欠拟合</h2><h3 id="没有免费午餐定理"><a href="#没有免费午餐定理" class="headerlink" title="没有免费午餐定理"></a>没有免费午餐定理</h3><h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><h2 id="超参集和验证集"><a href="#超参集和验证集" class="headerlink" title="超参集和验证集"></a>超参集和验证集</h2><h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3>
+<h4 id="ROC-和-AUC"><a href="#ROC-和-AUC" class="headerlink" title="$ROC$和$AUC$"></a>$ROC$和$AUC$</h4><ul>
+<li>真正例率$(True\;Positive\;Rate,\; TPR)$ == 查全率<script type="math/tex; mode=display">
+TPR = \frac{TP}{TP+FN}</script></li>
+</ul>
+<ul>
+<li><p>假正例率$(False\;Positive\;Rate,\; TPR)$ == 反例的查全率</p>
+<script type="math/tex; mode=display">
+FPR = \frac{FP}{TN+FP}</script></li>
+<li><p>$ROC$曲线，$TPR$为$y$轴，$FPR$为$x$轴。$TPR$ 越高，$FPR$ 越小，我们的模型和算法就越高效。几何角度就是$ROC$曲线下的面积越大，模型越优秀，即$AUC(Area\;Under\;Cruve)$</p>
+</li>
+</ul>
+<h3 id="经验E"><a href="#经验E" class="headerlink" title="经验E"></a>经验E</h3><p>数据即经验</p>
+<p>根据学习过程中的不同经验，机器学习算法分为无监督和监督算法。</p>
+<h2 id="容量、过拟合和欠拟合"><a href="#容量、过拟合和欠拟合" class="headerlink" title="容量、过拟合和欠拟合"></a>容量、过拟合和欠拟合</h2><ul>
+<li>泛化：在未观测到的输入上表现良好的能力。</li>
+<li>训练误差：训练集上的计算error</li>
+<li>决定机器学习算法是否良好的因素<ol>
+<li>降低训练误差</li>
+<li>缩小训练误差和测试误差的差距</li>
+</ol>
+</li>
+<li>欠拟合$(underfitting)$：模型不能在训练集上获得足够低的误差。</li>
+<li>过拟合$(overfitting)$：训练误差和测试误差之间的差距太大。</li>
+<li>模型的<strong>容量</strong>$(capacity)$：拟合各种函数的能力。调整容量可以调整模型偏向于过拟合和欠拟合。</li>
+<li>容量低的模型可能很难拟合训练集。容量高的模型可能会出现过拟合。</li>
+<li>假设空间$(hypothesis\;space)$：即学习算法可以选择为解决方案的函数集。</li>
+</ul>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><ul>
+<li>正则化：修改学习算法，使其降低泛化误差而非训练误差。<ul>
+<li>使用<strong>权重衰减</strong>修改线性回归的训练标准，使其偏好于平方$T^2$范数较小的权重。</li>
+</ul>
+</li>
+</ul>
+<h2 id="超参集和验证集"><a href="#超参集和验证集" class="headerlink" title="超参集和验证集"></a>超参集和验证集</h2><ul>
+<li>超参数：设置控制算法行为，超参数的值不是通过学习算法本身学习出来的。</li>
+<li>验证集：用于挑选超参数的数据子集。Normally, eight percent of trained set is used to train, others are used to validate.</li>
+</ul>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><ul>
+<li>k-折交叉验证：将数据集分成k个不重合的子集。测试误差可以估计为k次计算后的平均测试误差。第i次测试时，数据的第i个子集用于测试集，其他的数据用于训练集。</li>
+</ul>
+
           
         
       
