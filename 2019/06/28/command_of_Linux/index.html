@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Linux Linux 系统下的命令  常用的命令 fdisk -l  查看当前分区挂载信息 mkfs  mke2fs 格式化一个未格式化的分区 mount /dev/**  data/   挂载这个设备到 data目录上 umount /dev/** 卸载设备 ls -s -S -a -l -t -F filename  查看文件和文件夹信息 cd pwd 显示当前所在目录 mkdir 创建一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统常用命令">
+<meta property="og:url" content="http://yoursite.com/2019/06/28/command_of_Linux/index.html">
+<meta property="og:site_name" content="Dongxian&#39;s Blog">
+<meta property="og:description" content="Linux Linux 系统下的命令  常用的命令 fdisk -l  查看当前分区挂载信息 mkfs  mke2fs 格式化一个未格式化的分区 mount /dev/**  data/   挂载这个设备到 data目录上 umount /dev/** 卸载设备 ls -s -S -a -l -t -F filename  查看文件和文件夹信息 cd pwd 显示当前所在目录 mkdir 创建一个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-06T03:48:37.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统常用命令">
+<meta name="twitter:description" content="Linux Linux 系统下的命令  常用的命令 fdisk -l  查看当前分区挂载信息 mkfs  mke2fs 格式化一个未格式化的分区 mount /dev/**  data/   挂载这个设备到 data目录上 umount /dev/** 卸载设备 ls -s -S -a -l -t -F filename  查看文件和文件夹信息 cd pwd 显示当前所在目录 mkdir 创建一个">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/06/28/command_of_Linux/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Linux系统常用命令 | Dongxian's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dongxian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">2</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">25</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/command_of_Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux系统常用命令
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-28 20:32:02" itemprop="dateCreated datePublished" datetime="2019-06-28T20:32:02+08:00">2019-06-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 11:48:37" itemprop="dateModified" datetime="2019-11-06T11:48:37+08:00">2019-11-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><blockquote>
+<p>Linux 系统下的命令</p>
+</blockquote>
+<h2 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h2><ul>
+<li>fdisk -l  查看当前分区挂载信息</li>
+<li>mkfs  mke2fs 格式化一个未格式化的分区</li>
+<li>mount /dev/**  data/   挂载这个设备到 data目录上</li>
+<li>umount /dev/** 卸载设备</li>
+<li>ls -s -S -a -l -t -F filename  查看文件和文件夹信息</li>
+<li>cd</li>
+<li>pwd 显示当前所在目录</li>
+<li>mkdir 创建一个文件夹</li>
+<li>rmdir 删除一个文件</li>
+<li>touch 创建一个文件</li>
+<li>cat -a -n -b -s 显示文件内容</li>
+<li>cat file.txt | ls 分页显示</li>
+<li>cat &gt; 文件名 在命令行里输入文件内容 Cirl+D 退出</li>
+<li>cat file1 file2 &gt; file3 把file1和file2 输入到file3</li>
+<li>cat file2 &gt;&gt; file1 给文件file1 追加内容</li>
+<li>cp  f1 f2 文件复制 -i 安全访问的复制</li>
+<li>rm 文件/目录  删除文件 -i -r 递归处理 -f 强制删除 -v 显示执行过程 -d 直接吧目录的硬链接数据删成0</li>
+<li>mv 文件移动</li>
+<li><p>chmod +/-/= 权限类型 文件1  文件2 。。。</p>
+<pre><code>  1. + 增加权限 -去除权限 =给予指定权限 删除其他权限
+  2. r读w写x可执行
+  3. u/g/o/a 所有者/所在组/其他用户/所有用户  a+rw 所有用户读写权限  ug+r 所有者和组增加读权限
+</code></pre></li>
+<li><p>grep 查找指定文件字符串 -i 不区分大小写</p>
+</li>
+<li>head -2 file 显示文件前两行内容</li>
+<li>tail -1 file 显示文件最后一行内容</li>
+<li>wc -l 显示行数 -w显示单词书 -m显示字符数 统计文件的行数单词数和字符数</li>
+<li>sort 对文件内容进行排序</li>
+<li>sort -t”:” -k2 file 指定每列的分隔符为：，根据文件的第二列排序输出</li>
+<li>find file/dir  查看当前目录下的文件和目录</li>
+<li>which 命令 查看命令所在的目录</li>
+<li>whereis 文件名 查找可执行的命令和包含该文件名的字符串</li>
+<li>locate 文件名 查找文件</li>
+<li>bzip2 file1 file2 ..压缩命令</li>
+<li>bunzip2 文件名 解压命令</li>
+<li>gzip 文件压缩解压命令 -d 解压</li>
+<li>unzip 解压.zip文件 -d 解压到指定目录 -n 不覆盖原来存在的文件 -v查看文件目录不解压 -o以默认方式覆盖已经存在的文件</li>
+<li>zcat 和 bzcat 查看压缩文件内容 不解压</li>
+<li>zcat 文件名  查看.gz 文件</li>
+<li>bzcat 文件名 查看.bz2 文件</li>
+<li>tar 命令 对文件和目录进行打包</li>
+<li>tar [-选项] [备份的文件名] [要打包的目录或文件]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>创建新的打包文件</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>抽取.tar 文件的内容</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>打包后用gzip压缩或者解压</td>
+</tr>
+<tr>
+<td>-j</td>
+<td>就打包后用bzip2进行压缩或者解压操作</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>查看一个打包文件的目录</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>使用文件或设备</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>在压缩或解压后显示详细的文件清单</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="磁盘内容"><a href="#磁盘内容" class="headerlink" title="　磁盘内容"></a>　磁盘内容</h2><ul>
+<li><p>mount</p>
+<p>  mount -t 文件类型 -o 挂接方式 device path</p>
+</li>
+</ul>
+<blockquote>
+<p>-t iso9660/ntfs/msdos/smbfs/vfat/nfs -o loop(将文件当作硬盘分区挂接到系统)/iocharset(指定访问的文件<br>系统的字符集)/ro 采用只读的方式挂接/device 要挂接的设备 /rw 采用读写挂接 /dir 设备在系统的挂接点</p>
+</blockquote>
+<p>光盘文件的挂接</p>
+<pre><code>mount -o loop -t iso9660 /ss.iso /mnt/ss
+</code></pre><ul>
+<li>fdisk -l 查看系统的硬盘和硬盘分区情况</li>
+<li>umount 挂载点或设备 卸载一个设备</li>
+<li>df 查看当前硬盘的分区信息</li>
+<li>df -a 显示所有文件分区和硬盘</li>
+<li>df -i 列出i-nodes的使用量</li>
+<li>df -k 大小以KB为单位</li>
+<li>df -h MB</li>
+<li>df -t 列出某个文件系统的分区磁盘使用情况</li>
+<li>df -x 列出不是某个文件系统分区磁盘的使用情况</li>
+<li><p>df -t 列出每个分区所属文件系统的名称</p>
+</li>
+<li><p>du 命令 查看当前目录下所有文件和目录的信息</p>
+</li>
+</ul>
+<blockquote>
+<p>-a -h -b -c最后加上总计 -s列出各文件大小的总和 -x值计算属于同一个文件系统的文件</p>
+</blockquote>
+<ul>
+<li><p>fsck 分区名 硬盘检测 只能由root使用</p>
+</li>
+<li><p>shutdown [选项] [时间] [警告信息]</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>关闭系统服务安全关机</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>不关机只发出警告信息</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>通知服务后重启</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>在规定的时间关机</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code>shutdown -h +2 两分钟后关机
+</code></pre><ul>
+<li>half 关机 ==shutdown -h</li>
+<li><p>half -f 强制关机</p>
+</li>
+<li><p>poweroff 关机</p>
+</li>
+<li><p>reboot 重启</p>
+</li>
+<li><p>init 命令 切换ubuntu的运行级别</p>
+</li>
+<li>init [0-7] 0代表关机 6代表重新启动</li>
+</ul>
+<h2 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h2><ul>
+<li>echo [选项] [字符串] 显示命令行中的字符串 用于输出提示信息</li>
+</ul>
+<blockquote>
+<p>-n 输出字符串 光标不换行</p>
+</blockquote>
+<h3 id="more命令和less命令"><a href="#more命令和less命令" class="headerlink" title="more命令和less命令"></a>more命令和less命令</h3><blockquote>
+<p>对文件内容或查询结果进行分屏显示</p>
+</blockquote>
+<ul>
+<li>more [选项] file</li>
+<li>less [选项] file</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-p</td>
+<td>不滚动，清屏</td>
+</tr>
+<tr>
+<td>+n</td>
+<td>从第n行开始</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>将连续的空行压缩成一个空格</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="help命令和man命令"><a href="#help命令和man命令" class="headerlink" title="help命令和man命令"></a>help命令和man命令</h3><blockquote>
+<p>显示某个命令的格式用法</p>
+</blockquote>
+<ul>
+<li><p>help/man 命令</p>
+</li>
+<li><p>cal 显示日历</p>
+</li>
+<li>cal [选项]  -m 以星期一为每周的第一天显示 -y 显示今年年历 -就以凯撒历显示</li>
+<li>cal 当前月</li>
+<li>cal 2000 2000年年历</li>
+<li><p>cal 5 2000 2000年5月</p>
+</li>
+<li><p>date命令 显示和设定系统的时间日期</p>
+</li>
+<li><p>ps [选项]查看进程信息</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e</td>
+<td>显示所有进程</td>
+</tr>
+<tr>
+<td>a</td>
+<td>显示所有终端下的进程</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>以全格式显示</td>
+</tr>
+<tr>
+<td>u</td>
+<td>面向用户的格式显示</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>显示正在运行的进程</td>
+</tr>
+<tr>
+<td>x</td>
+<td>显示所有不控制终端的进程</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>以用户定义的格式显示</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>查看当前用户进程的优先级</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>nice 命令</p>
+<blockquote>
+<p>改变进程优先级</p>
+</blockquote>
+<ul>
+<li><p>nice [选项] -n为-20-19的值 值越小优先级越高</p>
+<p>  nice -10</p>
+</li>
+<li><p>renice [+/-n] [-g 命令名] [-p 进程标识码] [-u 进程所有者]</p>
+</li>
+<li><p>fg 命令 使挂起的进程返回前台执行 fg n 代表进程序号</p>
+</li>
+<li><p>bg 命令 激活被挂起的进程，使之在后台运行</p>
+</li>
+<li><p>kill [-信号] PID 终止进程</p>
+</li>
+<li><p>top 命令 监视系统进程</p>
+</li>
+<li>top [选项]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c</td>
+<td>显示整个命令行</td>
+</tr>
+<tr>
+<td>d</td>
+<td>指定屏幕刷新秒数，默认3s刷新一次</td>
+</tr>
+<tr>
+<td>i</td>
+<td>不显示任何闲置或僵死的进程</td>
+</tr>
+<tr>
+<td>n</td>
+<td>指定每秒内监控信息的更新次数</td>
+</tr>
+<tr>
+<td>p</td>
+<td>进程标识码列表</td>
+</tr>
+<tr>
+<td>s</td>
+<td>是top在安全模式下运行</td>
+</tr>
+<tr>
+<td>S</td>
+<td>使用累计模式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>last 命令 列出目前与过去登陆系统用户的信息</p>
+<ul>
+<li>last [-adRx] [-f] [-n] [账号名称] [终端机标号]</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>把从何处登入系统的主机名称或IP地址显示在最后一行</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>把地址转换成主机名称</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定记录文件</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>设置列出名单的显示列数</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>不显示登入系统的主机名称或IP</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>显示系统关机，重新开机以及执行等级改变等信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>free 查看系统内存情况 -m 以MB显示</li>
+</ul>
+<p>增加用户</p>
+<pre><code>useradd [-u uid] [-g group] [-d home_dir] [-s shell] [-c comment] [-m
+[-k skeldir]] [-N] [-f incavtive] [-e expire] login`
+</code></pre><blockquote>
+<p>例子：增加一个jack用户，指定宿主目录为/home/jack shell为/bin/bash</p>
+</blockquote>
+<pre><code>sudo useradd -u 1001 -d /home/jack -m -s /bin/bash jack
+</code></pre><p>增加成功，但是还不能登入系统，因为没有密码</p>
+<pre><code>sudo passwd jack 设置jack密码
+</code></pre><ul>
+<li>userdel 删除用户信息</li>
+<li>userdel [-r] login</li>
+</ul>
+<p><code>userdel -r jack 删除jack用户</code></p>
+<p>groupadd 组增加 groupdel 组删除</p>
+<ul>
+<li>sudo passwd root 给root重设密码 激活root</li>
+<li>su root 切换到root</li>
+<li><p>sudo passwd -l root 锁定root</p>
+</li>
+<li><p>sudo 命令既super do 指以超级管理员的身份执行</p>
+</li>
+<li>passwd  用户  修改用户密码</li>
+<li>su 用户 切换用户 su root 当前root激活可以切换</li>
+</ul>
+<h3 id="APT"><a href="#APT" class="headerlink" title="APT"></a>APT</h3><ul>
+<li>apt-get 命令</li>
+<li>aptitude 命令</li>
+</ul>
+<p><code>sudo apt-get dist-upgrade 更新所有软件</code></p>
+<h3 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h3><ul>
+<li>ifconfig 不带参数的显示当前网卡信息</li>
+</ul>
+<blockquote>
+<p>修改网卡地址: ifconfig 设备名称 IP地址  netmask 子网掩码</p>
+</blockquote>
+<pre><code>sudo ifconfig eth12 192.168.157.141 netmask 255.255.255.0
+</code></pre><ul>
+<li>DNS 配置 cat /etc/resolv.conf</li>
+<li><p>HOST cat /etc/hosts</p>
+</li>
+<li><p>hostname 命令修改和显示主机名 -i 显示IP</p>
+</li>
+</ul>
+<h3 id="网路命令"><a href="#网路命令" class="headerlink" title="网路命令"></a>网路命令</h3><ul>
+<li>ifconfig -interface [options] address</li>
+</ul>
+<blockquote>
+<p>-interface 指定网络接口名如 eth0、eth1</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>up</td>
+<td>激活指定的网络接口</td>
+</tr>
+<tr>
+<td>down</td>
+<td>关闭指定网络接口</td>
+</tr>
+<tr>
+<td>broadcast address</td>
+<td>设置接口广播地址</td>
+</tr>
+<tr>
+<td>pointopoint</td>
+<td>启用点对点方式</td>
+</tr>
+<tr>
+<td>address</td>
+<td>设置指定接口设备IP地址</td>
+</tr>
+<tr>
+<td>netmask address</td>
+<td>设置接口子网掩码</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>ping命令 测试主机网络是否畅通</li>
+</ul>
+<p><code>ping [选项] 主机名或IP</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>设置响应次数</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>使用Socket的SO_DEBUG功能</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>极限检查</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>指定收发时间间隔单位为s</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>byte 设置数据包大小</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>记录路由过程</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>忽略普通的路由表直接发送到远程主机</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>设置填满数据包的范本样式</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>不显示命令的执行过程只显示结果</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>设置存活数值TTL</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>详细显示命令的执行过程</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>netstat 命令 检查网络端口的连接情况</li>
+</ul>
+<p>netstat [选项]</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>显示所有有效的连接信息</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>显示路由的信息</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>显示interface网络界面信息的内容</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>使用IP代替名称，显示网络情况</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>显示计时器</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>在线帮助</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>持续列出网络状态</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>显示TCP连接情况</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>显示UDP连接情况</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示命令执行过程</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>显示RAW传输协议连接情况</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>ftp命令和bye命令</li>
+</ul>
+<blockquote>
+<p>ftp 登录FTP服务器，该命令允许用户使用FTP协议进行文件的传输，文件的上传和下载</p>
+</blockquote>
+<pre><code>ftp 主机名/IP
+</code></pre><blockquote>
+<p>bye 退出ftp服务器</p>
+</blockquote>
+<p>ftp 内部命令<br>|||<br>|—-|—-|<br>|ls|列出远程机的当前目录|<br>|cd|改变远程机的工作目录|<br>|lcd|改变本地的工作目录|<br>|close|终止当前的ftp命令|<br>|hash|每次传输完数据缓冲区的数据就显示一个#号|<br>|get|从远程机传送指定文件到本机|<br>|put|从本地传送指定文件到远程机|<br>|quit|断开与远程机的连接，退出ftp|</p>
+<ul>
+<li>telnet 命令logout命令</li>
+</ul>
+<p><code>telnet [选项] 主机名/IP地址</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>尝试自动登录远端系统</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>不读取用户专属目录里的.telentrc文件</td>
+</tr>
+<tr>
+<td>-8</td>
+<td>允许使用8位字符资料，包括输入输出</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>指定要登录远端计算机的用户名称</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>使用别名指定远端主机的名称</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>指定文件记录相关信息</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>logout 下线命令</p>
+<ul>
+<li>rlogin 命令 远程登录</li>
+</ul>
+<p><code>rlogin 主机名/IP地址</code></p>
+<ul>
+<li>route命令 表示手工修改产生和查看路由表</li>
+</ul>
+<p><code>route [选项] targetaddress [选项]</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-add</td>
+<td>增加路由</td>
+</tr>
+<tr>
+<td>-delete</td>
+<td>删除路由</td>
+</tr>
+<tr>
+<td>-net</td>
+<td>路由到达的是一个网络，而不是一台主机</td>
+</tr>
+<tr>
+<td>-host</td>
+<td>路由到达的是一台主机</td>
+</tr>
+<tr>
+<td>-netmask Nm</td>
+<td>指定路由的子网掩码</td>
+</tr>
+<tr>
+<td>gw</td>
+<td>指定路由的网关</td>
+</tr>
+<tr>
+<td>[dev]If</td>
+<td>强迫路由连接指定接口</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例子：为了访问网络，必须把计算机的IP地址设置成Linux的默认路由，增加一个路由<br>route add 0.0.0.0 1 Array 192.168.1.1</p>
+<ul>
+<li>finger 命令 用来查询一台主机上的登录帐号的信息，通常会显示用户名名，主目录，停滞时间，登录时间，登录Shell等</li>
+</ul>
+<p><code>finger [选项] [使用者] [用户名@主机名]</code><br>-s -l -p</p>
+<ul>
+<li>mail 命令 发送邮件</li>
+</ul>
+<p>Mail [-s subject] [-c address] [-b address] mail -f [mailbox]mail [-u user]</p>
+<h3 id="Curl"><a href="#Curl" class="headerlink" title="Curl"></a>Curl</h3><pre><code>curl -I 网址   //返回响应头
+curl -A testagent 网址 //代理访问
+curl -e 网址1 网址2 //伪装网址的来源
+curl -i 网址 //在返回的数据中显示响应头
+curl --cacert CA证书 网址
+curl -v 网址 //显示一次请求的过程
+curl -X POST 网址 //指定访问网址的方式
+</code></pre><h3 id="Tool-Command"><a href="#Tool-Command" class="headerlink" title="Tool Command"></a>Tool Command</h3><p>清除卸载后的配置文件</p>
+<pre><code>dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |sudo xargs dpkg -P
+</code></pre><h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p>使用权限 : 所有使用者</p>
+<p>使用方式 :<code>chmod [-cfvR] [--help] [--version] mode file...</code></p>
+<p>说明 :</p>
+<blockquote>
+<p>Linux/Unix 的档案调用权限分为三级 : 档案拥有者、群组、其他。利用 chmod 可以藉以控制档案如何被他人所调用。</p>
+</blockquote>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>mode : 权限设定字串</p>
+<p>格式如下 : <code>[ugoa...][[+-=][rwxX]...][,...]</code>，其中</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u</td>
+<td>表示该档案的拥有者</td>
+</tr>
+<tr>
+<td>g</td>
+<td>表示与该档案的拥有者属于同一个群体(group)者</td>
+</tr>
+<tr>
+<td>o</td>
+<td>表示其他以外的人</td>
+</tr>
+<tr>
+<td>a</td>
+<td>表示这三者皆是。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>表示增加权限</td>
+</tr>
+<tr>
+<td>-</td>
+<td>表示取消权限</td>
+</tr>
+<tr>
+<td>-</td>
+<td>= 表示唯一设定权限。</td>
+</tr>
+<tr>
+<td>r</td>
+<td>表示可读取</td>
+</tr>
+<tr>
+<td>w</td>
+<td>表示可写入</td>
+</tr>
+<tr>
+<td>x</td>
+<td>表示可执行</td>
+</tr>
+<tr>
+<td>X</td>
+<td>表示只有当该档案是个子目录或者该档案已经被设定过为可执行。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>若该档案权限确实已经更改，才显示其更改动作</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>若该档案权限无法被更改也不要显示错误讯息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示权限变更的详细资料</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>对目前目录下的所有档案与子目录进行相同的权限变更(即以递回的方式逐个变更)</td>
+</tr>
+<tr>
+<td>—help</td>
+<td>显示辅助说明</td>
+</tr>
+<tr>
+<td>—version</td>
+<td>显示版本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>范例 :将档案 file1.txt 设为所有人皆可读取 :<br><code>chmod ugo+r file1.txt</code></p>
+<p>将档案 file1.txt 设为所有人皆可读取:<br><code>chmod a+r file1.txt</code></p>
+<p>将档案 file1.txt 与 file2.txt 设为该档案拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入:<br><code>chmod ug+w,o-w file1.txt file2.txt</code></p>
+<p>将 ex1.py 设定为只有该档案拥有者可以执行:<br><code>chmod u+x ex1.py</code></p>
+<p>将目前目录下的所有档案与子目录皆设为任何人可读取<br><code>chmod -R a+r *</code></p>
+<p>此外chmod也可以用数字来表示权限如 chmod 777 file<br>语法为：<code>chmod abc file</code></p>
+<p>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<p>r=4，w=2，x=1<br>若要rwx属性则4+2+1=7；<br>若要rw-属性则4+2=6；<br>若要r-x属性则4+1=5。</p>
+<p>范例：<br><code>chmod a=rwx file</code>和<code>chmod 777 file</code>效果相同</p>
+<p><code>chmod ug=rwx,o=x file</code>和<code>chmod 771 file</code>效果相同</p>
+<p>若用chmod 4755 filename可使此程序具有root的权限.</p>
+<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><p>使用权限 : root</p>
+<p>使用方式 : <code>chmod [-cfhvR] [--help] [--version] user[] file...</code></p>
+<blockquote>
+<p>Linux/Unix 是多人多工作业系统，所有的档案皆有拥有者。利用 chown 可以将档案的拥有者加以改变。一般来说，这个指令只有是由 系统管理者(root)所使用，<br>一般使用者没有权限可以改变别人的档案拥有者，也没有权限可以自己的档案拥有者改设为别人。只有系统管理者(root)才 有这样的权限。</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td>新的档案拥有者的使用者</td>
+</tr>
+<tr>
+<td>IDgroup</td>
+<td>新的档案拥有者的使用者群体(group)</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>若该档案拥有者确实已经更改，才显示其更改动作</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>若该档案拥有者无法被更改也不要显示错误讯息</td>
+</tr>
+<tr>
+<td>-h</td>
+<td>只对于连结 (link)进行变更，而非该 link 真正指向的档案</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示拥有者变更的详细资料</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>对目前目录下的所有档案与子目录进行相同的拥有者 变更(即以递回的方式逐个变更)</td>
+</tr>
+<tr>
+<td>—help</td>
+<td>显示辅助说明</td>
+</tr>
+<tr>
+<td>—version</td>
+<td>显示版本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>范例 :<br>将档案 file1.txt 的拥有者设为 users 群体的使用者 jessie :</p>
+<p><code>chown jessie:users file1.txt</code></p>
+<p>将目前目录下的所有档案与子目录的拥有者皆设为 users 群体的使用者 lamport :</p>
+<p><code>chmod -R lamport:users *</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-rw———- (600)</td>
+<td>只有属主有读写权限。</td>
+</tr>
+<tr>
+<td>-rw-r—r— (644)</td>
+<td>只有属主有读写权限；而属组用户和其他用户只有读权限。</td>
+</tr>
+<tr>
+<td>-rwx——— (700)</td>
+<td>只有属主有读、写、执行权限。</td>
+</tr>
+<tr>
+<td>-rwxr-xr-x (755)</td>
+<td>属主有读、写、执行权限；而属组用户和其他用户只有读、执行权限。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>-rwx—x—x (711)|属主有读、写、执行权限；而属组用户和其他用户只有执行权限。<br>|-rw-rw-rw- (666)|所有用户都有文件读、写权限。这种做法不可取。|<br>|-rwxrwxrwx (777)|所有用户都有读、写、执行权限。更不可取的做法。|</p>
+<p>以下是对目录的两个普通设定:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>drwx——— (700)</td>
+<td>只有属主可在目录中读、写。</td>
+</tr>
+<tr>
+<td>drwxr-xr-x (755)</td>
+<td>所有用户可读该目录，但只有属主才能改变目录中的内容。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>运行 .sh 文件类型的文件：</p>
+<p>用file命令测试一下看是什么类型的</p>
+<pre><code>file xxxx.sh
+</code></pre><p>如果是Bourne-Again shell script 可以<code>sh xxxx.sh</code> 或者<code>chmod +x xxxx.sh</code>再<code>./xxx.sh</code></p>
+<p>一般 .sh 的直接添加x(可执行属性)<code>chmod +x xxx.sh</code> 然后<code>./xxx.sh</code>就可以了</p>
+<h2 id="特殊命令"><a href="#特殊命令" class="headerlink" title="特殊命令"></a>特殊命令</h2><p>查看当前静态文件系统信息</p>
+<pre><code>cat /etc/fstab
+</code></pre><p>查看当前系统磁盘的UUID</p>
+<pre><code>ls /dev/disk/by-uuid
+</code></pre><p>重新获取IP</p>
+<pre><code>dhclient -r 释放IP
+dhclient 获取IP
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/28/Ement/" rel="next" title="Ement">
+                <i class="fa fa-chevron-left"></i> Ement
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/29/python-advanced-tutorial/" rel="prev" title="Python教程">
+                Python教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4" alt="Dongxian Gu">
+            
+              <p class="site-author-name" itemprop="name">Dongxian Gu</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+        
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+        
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux"><span class="nav-number">1.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的命令"><span class="nav-number">1.1.</span> <span class="nav-text">常用的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘内容"><span class="nav-number">1.2.</span> <span class="nav-text">　磁盘内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他常用命令"><span class="nav-number">1.3.</span> <span class="nav-text">其他常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more命令和less命令"><span class="nav-number">1.3.1.</span> <span class="nav-text">more命令和less命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help命令和man命令"><span class="nav-number">1.3.2.</span> <span class="nav-text">help命令和man命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#APT"><span class="nav-number">1.3.3.</span> <span class="nav-text">APT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置"><span class="nav-number">1.3.4.</span> <span class="nav-text">网络配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网路命令"><span class="nav-number">1.3.5.</span> <span class="nav-text">网路命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Curl"><span class="nav-number">1.3.6.</span> <span class="nav-text">Curl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tool-Command"><span class="nav-number">1.3.7.</span> <span class="nav-text">Tool Command</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">1.3.8.</span> <span class="nav-text">chmod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-number">1.3.8.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chown"><span class="nav-number">1.3.9.</span> <span class="nav-text">chown</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊命令"><span class="nav-number">1.4.</span> <span class="nav-text">特殊命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian Gu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+</body>
+</html>
