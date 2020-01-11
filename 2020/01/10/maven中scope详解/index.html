@@ -94,13 +94,17 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Dongxian&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/categories/数学/index.html">
+  <meta name="description" content="maven中scope详解前言前言 Maven 的哲学思想是，约定优于配置（Convention Over Configuration），Maven 依赖中 scope 的默认值是compile Scope 指定了依赖（第三方jar包）的 作用范围 作用范围包括，所在项目的测试、编译、运行、打包等生命周期 其中，编译和运行还分为 测试代码的编译和运行 非测试代码的编译和运行    scope分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven中scope详解">
+<meta property="og:url" content="http://yoursite.com/2020/01/10/maven中scope详解/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
+<meta property="og:description" content="maven中scope详解前言前言 Maven 的哲学思想是，约定优于配置（Convention Over Configuration），Maven 依赖中 scope 的默认值是compile Scope 指定了依赖（第三方jar包）的 作用范围 作用范围包括，所在项目的测试、编译、运行、打包等生命周期 其中，编译和运行还分为 测试代码的编译和运行 非测试代码的编译和运行    scope分类">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-10T07:56:20.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dongxian&#39;s Blog">
+<meta name="twitter:title" content="maven中scope详解">
+<meta name="twitter:description" content="maven中scope详解前言前言 Maven 的哲学思想是，约定优于配置（Convention Over Configuration），Maven 依赖中 scope 的默认值是compile Scope 指定了依赖（第三方jar包）的 作用范围 作用范围包括，所在项目的测试、编译、运行、打包等生命周期 其中，编译和运行还分为 测试代码的编译和运行 非测试代码的编译和运行    scope分类">
 
 
 
@@ -108,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/categories/数学/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/10/maven中scope详解/">
 
 
 
@@ -118,7 +122,7 @@
   };
 </script>
 
-  <title>分类: 数学 | Dongxian's Blog</title>
+  <title>maven中scope详解 | Dongxian's Blog</title>
   
 
 
@@ -166,7 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,7 +244,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
 
     
     
@@ -330,80 +334,240 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>数学<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/10/maven中scope详解/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/11/14/优化方法/" itemprop="url">
-            
-              <span itemprop="name">优化方法</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">maven中scope详解
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-14T19:37:05+08:00" content="2019-11-14">
-          11-14
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-10 15:50:14 / 修改时间：15:56:20" itemprop="dateCreated datePublished" datetime="2020-01-10T15:50:14+08:00">2020-01-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="maven中scope详解"><a href="#maven中scope详解" class="headerlink" title="maven中scope详解"></a>maven中scope详解</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h5 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h5><ul>
+<li>Maven 的哲学思想是，约定优于配置（Convention Over Configuration），Maven 依赖中 scope 的默认值是<strong>compile</strong></li>
+<li>Scope 指定了依赖（第三方jar包）的 <strong>作用范围</strong></li>
+<li>作用范围包括，所在项目的<strong>测试、编译、运行、打包等</strong>生命周期</li>
+<li>其中，编译和运行还分为<ul>
+<li><strong>测试代码</strong>的编译和运行</li>
+<li><strong>非测试代码</strong>的编译和运行</li>
+</ul>
+</li>
+</ul>
+<h2 id="scope分类"><a href="#scope分类" class="headerlink" title="scope分类"></a>scope分类</h2><ol>
+<li><p>test 测试范围</p>
+<p>测试范围的依赖（第三方jar包），<strong>针对测试相关代码的编译和运行</strong>，在<strong>通常代码</strong>的编译和运行时都不需要，只有在<strong>有关测试的代码编译和运行测试代码阶段</strong>可用</p>
+</li>
+<li><p>compile 编译范围</p>
+<p><strong>依赖默认范围</strong>，该依赖需要参与当前项目的<strong>编译、测试、运行、打包</strong></p>
+</li>
+<li><p>runtime 运行时范围</p>
+<p>表示依赖<strong>无需参与当前项目的编译</strong>，但是后期的<strong>运行和测试</strong>需要参与，不参与编译能运行成功吗？？</p>
+<p>与 compile 相比，<strong>跳过编译</strong>而已</p>
+<p>比如，你可能在编译的时候需要 JDBC API JAR，只有在 <strong>运行时</strong>才需要 JDBC</p>
+<p>貌似是编译时<strong>该包不参与</strong>，运行时参与<strong>？</strong></p>
+</li>
+<li><p>provided 表明该依赖已经提供，故只在未提供时才被使用</p>
+<p>应用场景是你定义了一个Servlet，此刻得需要Servlet-api.jar 才能编译成功，但是当你达成<strong>war 包</strong>时，你并不想将 Servlet-api.jar 包进去，因为<strong>Tomcat等容器会提供</strong></p>
+<p>跟compile 类似，说明JDK、容器或使用者会<strong>提供这个依赖</strong>，如Servlet.jar</p>
+<p>这个依赖只作用在<strong> 编译和测试</strong>，该依赖会由系统组件提供，不需<strong>手动添加</strong>，只存在<strong>编译、运行、测试阶段</strong>，打包是不用包进去，打包阶段做了<strong>exclude</strong>动作</p>
+<p>没有传递性</p>
+</li>
+<li><p>system</p>
+<p>被依赖项<strong>不会从maven仓库下载</strong>，而是<strong>从本地系统指定路径下寻找</strong>，需要 systemPath 属性</p>
+</li>
+</ol>
+<h2 id="scope-的传递依赖"><a href="#scope-的传递依赖" class="headerlink" title="scope 的传递依赖"></a>scope 的传递依赖</h2><p> A -&gt; B -&gt; C, 当前项目 A，A依赖于B，B依赖于C，知道B在 A中的scope，怎么知道 C在 A 中的 scope</p>
+<ul>
+<li>即，<strong>A需不需要 C的问题</strong>，本质由 <strong>C在B中的scope决定</strong></li>
+<li>当 C 在 B 中的scope 是test 或 provided 时，C <strong>直接被丢弃</strong>，<strong>A不依赖C</strong></li>
+<li>否则 A 依赖 C，C的scope <strong>继承与B 的scope</strong></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>链接：<a href="https://www.jianshu.com/p/a9bd44a83dc5" target="_blank" rel="noopener">https://www.jianshu.com/p/a9bd44a83dc5</a></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/10/Awk命令的使用/" rel="next" title="Awk命令的使用">
+                <i class="fa fa-chevron-left"></i> Awk命令的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/11/遗传算法Java实现/" rel="prev" title="遗传算法Java实现">
+                遗传算法Java实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -423,8 +587,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -528,6 +701,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#maven中scope详解"><span class="nav-number">1.</span> <span class="nav-text">maven中scope详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前言-1"><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">前言</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#scope分类"><span class="nav-number">1.2.</span> <span class="nav-text">scope分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scope-的传递依赖"><span class="nav-number">1.3.</span> <span class="nav-text">scope 的传递依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -680,6 +870,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
 
   
 
@@ -695,6 +889,8 @@
 
   
 
+
+  
 
 
   
