@@ -1,6 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Nginx一般配置</title>
+    <url>/2020/01/19/Nginx%E4%B8%80%E8%88%AC%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="Nginx一般配置"><a href="#Nginx一般配置" class="headerlink" title="Nginx一般配置"></a>Nginx一般配置</h1><blockquote>
+<p>一般后台项目配置到Nginx中</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">http</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Basic Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="string">sendfile</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nopush</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nodelay</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">keepalive_timeout</span> <span class="number">65</span><span class="string">;</span></span><br><span class="line">	<span class="string">types_hash_max_size</span> <span class="number">2048</span><span class="string">;</span></span><br><span class="line">	<span class="comment"># server_tokens off;</span></span><br><span class="line">	<span class="comment"># server_names_hash_bucket_size 64;</span></span><br><span class="line">	<span class="comment"># server_name_in_redirect off;</span></span><br><span class="line">	<span class="string">include</span> <span class="string">/etc/nginx/mime.types;</span></span><br><span class="line">	<span class="string">default_type</span> <span class="string">application/octet-stream;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># SSL Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	<span class="string">ssl_protocols</span> <span class="string">TLSv1</span> <span class="string">TLSv1.1</span> <span class="string">TLSv1.2;</span> <span class="comment"># Dropping SSLv3, ref: POODLE</span></span><br><span class="line">	<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">return</span> <span class="number">301</span> <span class="attr">https://$http_host$request_uri;</span></span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">    		<span class="string">proxy_pass</span>      <span class="attr">http://127.0.0.1:8000;</span> <span class="comment"># 代理本地地址</span></span><br><span class="line">   		<span class="string">&#125;</span></span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line">    <span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="comment"># SSL 配置</span></span><br><span class="line"> 		<span class="string">listen</span> <span class="number">443</span><span class="string">;</span></span><br><span class="line">		<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">		<span class="string">ssl_session_timeout</span> <span class="number">5</span><span class="string">m;</span></span><br><span class="line">		<span class="string">ssl_protocols</span>  <span class="string">SSLv2</span> <span class="string">SSLv3</span> <span class="string">TLSv1;</span></span><br><span class="line">		<span class="string">ssl_ciphers</span>  <span class="attr">HIGH:!aNULL:!MD5;</span></span><br><span class="line">		<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span>		</span><br><span class="line"> </span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	    	<span class="string">proxy_pass</span>      <span class="attr">http://127.0.0.1:8000;</span> <span class="comment"># tomcat服务器地址</span></span><br><span class="line">	  		<span class="comment">#  root /usr/share/nginx/html/;  # 本地静态网页路径</span></span><br><span class="line">		<span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="comment"># 配置 ws/wss</span></span><br><span class="line">	<span class="string">upstream</span> <span class="string">websocket</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">server</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9001;</span>  </span><br><span class="line">	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">listen</span> <span class="number">8888</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">    	<span class="string">ssl_session_timeout</span> <span class="number">20</span><span class="string">m;</span></span><br><span class="line">   	 	<span class="string">ssl_verify_client</span> <span class="string">off;</span></span><br><span class="line">    	<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	        <span class="string">proxy_pass</span> <span class="attr">http://websocket;</span>  </span><br><span class="line">       		<span class="string">proxy_http_version</span> <span class="number">1.1</span><span class="string">;</span>  </span><br><span class="line">        	<span class="string">proxy_set_header</span> <span class="string">Connection</span> <span class="string">"Upgrade"</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Go语言学习</title>
+    <url>/2020/01/18/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="Go语言学习"><a href="#Go语言学习" class="headerlink" title="Go语言学习"></a>Go语言学习</h1><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ol>
+<li>布尔型<br>布尔型的值只可以是常量 true 或者 false。一个简单的例子：var b bool = true。</li>
+<li>数字类型<br>整型 int 和浮点型 float32、float64，Go 语言支持整型和浮点型数字，并且支持复数，其中位的运算采用补码。</li>
+<li>字符串类型:<br>字符串就是一串固定长度的字符连接起来的字符序列。Go 的字符串是由单个字节连接起来的。Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本。</li>
+<li>派生类型:<br>包括：<ul>
+<li>指针类型（Pointer）</li>
+<li>数组类型</li>
+<li>结构化类型(struct)</li>
+<li>Channel 类型</li>
+<li>函数类型</li>
+<li>切片类型</li>
+<li>接口类型（interface）</li>
+<li>Map 类型</li>
+</ul>
+</li>
+</ol>
+<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p><a href="https://blog.csdn.net/xiaoyida11/article/details/51554022" target="_blank" rel="noopener">参考链接</a></p>
+<h2 id="变量-variance"><a href="#变量-variance" class="headerlink" title="变量 variance"></a>变量 variance</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">string</span> = <span class="string">"string"</span></span><br><span class="line"><span class="keyword">var</span> vname vtype <span class="comment">//自动赋初始值 </span></span><br><span class="line">vname = value</span><br><span class="line"><span class="keyword">var</span> v_name = value <span class="comment">// 自动判断类型</span></span><br><span class="line">v_name := value <span class="comment">// 声明新的变量，v_name 不是新变量编译出错</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>数值类型（包括complex64/128）为 0</p>
+</li>
+<li><p>布尔类型为 false</p>
+</li>
+<li><p>字符串为 “”（空字符串）</p>
+</li>
+<li><p>以下几种类型为 nil：</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="keyword">string</span>] <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">chan</span> <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="title">var</span> <span class="title">a</span> <span class="title">error</span> // <span class="title">error</span> 是接口</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//类型相同多个变量, 非全局变量</span></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 <span class="keyword">type</span></span><br><span class="line">vname1, vname2, vname3 = v1, v2, v3</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 = v1, v2, v3 <span class="comment">// 和 python 很像,不需要显示声明类型，自动推断</span></span><br><span class="line"></span><br><span class="line">vname1, vname2, vname3 := v1, v2, v3 <span class="comment">// 出现在 := 左侧的变量不应该是已经被声明过的，否则会导致编译错误</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种因式分解关键字的写法一般用于声明全局变量</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    vname1 v_type1</span><br><span class="line">    vname2 v_type2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>值类型和引用类型</p>
+<blockquote>
+<p>所有像 int、float、bool 和 string 这些基本类型都属于值类型，使用这些类型的变量直接指向存在内存中的值：</p>
+</blockquote>
+<p>通过 <code>&amp;i</code> 来获取变量 <code>i</code> 的内存地址</p>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> identifier [<span class="keyword">type</span>] = value</span><br><span class="line"><span class="keyword">const</span> c_name1, c_name2 = value1, value2</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Unknown = <span class="number">0</span></span><br><span class="line">    Female = <span class="number">1</span></span><br><span class="line">    Male = <span class="number">2</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>iota</p>
+<blockquote>
+<p>iota，特殊常量，可以认为是一个可以被编译器修改的常量。<br>iota 在 const关键字出现时将被重置为 0(const 内部的第一行之前)，const 中每新增一行常量声明将使 iota 计数一次(iota 可理解为 const 语句块中的行索引)。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="literal">iota</span>   <span class="comment">//0</span></span><br><span class="line">	b          <span class="comment">//1</span></span><br><span class="line">	c          <span class="comment">//2</span></span><br><span class="line">	d = <span class="string">"ha"</span>   <span class="comment">//独立值，iota += 1</span></span><br><span class="line">	e          <span class="comment">//"ha"   iota += 1</span></span><br><span class="line">	f = <span class="number">100</span>    <span class="comment">//iota +=1</span></span><br><span class="line">	g          <span class="comment">//100  iota +=1</span></span><br><span class="line">	h = <span class="literal">iota</span>   <span class="comment">//7,恢复计数</span></span><br><span class="line">	i          <span class="comment">//8</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
+<li>算术运算符</li>
+<li>关系运算符</li>
+<li>逻辑运算符</li>
+<li>位运算符</li>
+<li>赋值运算符</li>
+<li>其他运算符</li>
+</ul>
+<p>运算符优先级</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>* / % &lt;&lt; &gt;&gt; &amp; &amp;^</td>
+</tr>
+<tr>
+<td>4</td>
+<td>+ - \</td>
+<td>\^</td>
+</tr>
+<tr>
+<td>3</td>
+<td>== != &lt; &lt;= &gt; &gt;=</td>
+</tr>
+<tr>
+<td>2</td>
+<td>&amp;&amp;</td>
+</tr>
+<tr>
+<td>1</td>
+<td>\</td>
+<td>\</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> 布尔表达式 &#123;</span><br><span class="line">   <span class="comment">/* 在布尔表达式为 true 时执行 */</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">/* 在布尔表达式为 false 时执行 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> var1 &#123;</span><br><span class="line">    <span class="keyword">case</span> val1:</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">case</span> val2:</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>switch 语句还可以被用于 type-switch 来判断某个 interface 变量中实际存储的变量类型。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> x.(<span class="keyword">type</span>)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">type</span>:</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">type</span>:</span><br><span class="line">       statement(s); </span><br><span class="line">    <span class="comment">/* 你可以定义任意个数的case */</span></span><br><span class="line">    <span class="keyword">default</span>: <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 fallthrough 会强制执行后面的 case 语句，fallthrough 不会判断下一条 case 的表达式结果是否为 true。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"1、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">true</span>:</span><br><span class="line">            fmt.Println(<span class="string">"2、case 条件语句为 true"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"3、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">true</span>:</span><br><span class="line">            fmt.Println(<span class="string">"4、case 条件语句为 true"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"5、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">            fmt.Println(<span class="string">"6、默认 case"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。</p>
+<p>select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);</span><br><span class="line">    <span class="comment">/* 你可以定义任意数量的 case */</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个 case 都必须是一个通信</li>
+<li>所有 channel 表达式都会被求值</li>
+<li>所有被发送的表达式都会被求值</li>
+<li>如果任意某个通信可以进行，它就执行，其他被忽略。</li>
+<li>如果有多个 case 都可以运行，Select 会随机公平地选出一个执行。其他不会执行。</li>
+<li>否则：<ul>
+<li>如果有 default 子句，则执行该语句。</li>
+<li>如果没有 default 子句，select 将阻塞，直到某个通信可以运行；Go 不会重新对 channel 或值进行求值。</li>
+</ul>
+</li>
+</ul>
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> [condition |  ( init; condition; increment ) | Range]</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">for</span> [condition |  ( init; condition; increment ) | Range]</span><br><span class="line">   &#123;</span><br><span class="line">      statement(s);</span><br><span class="line">   &#125;</span><br><span class="line">   statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>break</li>
+<li>continue</li>
+<li>goto</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">function_name</span><span class="params">( [parameter list] )</span> [<span class="title">return_types</span>]</span> &#123;</span><br><span class="line">   函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>func：函数由 func 开始声明</li>
+<li>function_name：函数名称，函数名和参数列表一起构成了函数签名。</li>
+<li>parameter list：参数列表，参数就像一个占位符，当函数被调用时，你可以将值传递给参数，这个值被称为实际参数。参数列表指定的是参数类型、顺序、及参数个数。参数是可选的，也就是说函数也可以不包含参数。</li>
+<li>return_types：返回类型，函数返回一列值。return_types 是该列值的数据类型。有些功能不需要返回值，这种情况下 return_types 不是必须的。</li>
+<li>函数体：函数定义的代码集合。</li>
+</ul>
+<p>函数参数</p>
+<ul>
+<li><p>值传递</p>
+<blockquote>
+<p>默认</p>
+</blockquote>
+</li>
+<li><p>引用传递</p>
+<blockquote>
+<p>引用传递指针参数传递到函数内</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义交换值函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(x *<span class="keyword">int</span>, y *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> temp <span class="keyword">int</span></span><br><span class="line">   temp = *x    <span class="comment">/* 保持 x 地址上的值 */</span></span><br><span class="line">   *x = *y      <span class="comment">/* 将 y 值赋给 x */</span></span><br><span class="line">   *y = temp    <span class="comment">/* 将 temp 值赋给 y */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数用法</p>
+<ul>
+<li>函数作为另外一个函数的实参：函数定义后可作为另外一个函数的实参数传入</li>
+<li>闭包：闭包是匿名函数，可在动态编程中使用</li>
+<li><p>方法：方法就是一个包含了接受者的函数</p>
+<blockquote>
+<p>Go 语言中同时有函数和方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。所有给定类型的方法属于该类型的方法集。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(variable_name variable_data_type)</span> <span class="title">function_name</span><span class="params">()</span> [<span class="title">return_type</span>]</span>&#123;</span><br><span class="line">   <span class="comment">/* 函数体*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>变量声明的位置</p>
+<ul>
+<li><p>函数内定义的变量称为局部变量</p>
+<blockquote>
+<p>作用域只在函数体内，参数和返回值变量也是局部变量。</p>
+</blockquote>
+</li>
+<li><p>函数外定义的变量称为全局变量</p>
+<blockquote>
+<p>全局变量可以在整个包甚至外部包（被导出后）使用。</p>
+</blockquote>
+</li>
+<li>函数定义中的变量称为形式参数<blockquote>
+<p>形式参数会作为函数的局部变量来使用。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>声明数组</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> variable_name [SIZE] variable_type</span><br></pre></td></tr></table></figure>
+<p>初始化数组<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> balance = [<span class="number">5</span>]<span class="keyword">float32</span>&#123;<span class="number">1000.0</span>, <span class="number">2.0</span>, <span class="number">3.4</span>, <span class="number">7.0</span>, <span class="number">50.0</span>&#125;</span><br><span class="line"><span class="keyword">var</span> balance = [...]<span class="keyword">float32</span>&#123;<span class="number">1000.0</span>, <span class="number">2.0</span>, <span class="number">3.4</span>, <span class="number">7.0</span>, <span class="number">50.0</span>&#125;</span><br><span class="line">balance[<span class="number">4</span>] = <span class="number">50.0</span></span><br></pre></td></tr></table></figure></p>
+<p>多维数组</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> variable_name [SIZE1][SIZE2]...[SIZEN] variable_type</span><br><span class="line">a = [<span class="number">3</span>][<span class="number">4</span>]<span class="keyword">int</span>&#123;  </span><br><span class="line"> &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; ,   <span class="comment">/*  第一行索引为 0 */</span></span><br><span class="line"> &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125; ,   <span class="comment">/*  第二行索引为 1 */</span></span><br><span class="line"> &#123;<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>&#125;,   <span class="comment">/* 第三行索引为 2 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数组参数</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">void myFunction(param [<span class="number">10</span>]<span class="keyword">int</span>)</span><br><span class="line">&#123;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void myFunction(param []<span class="keyword">int</span>)</span><br><span class="line">&#123;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> var_name *<span class="keyword">var</span>-<span class="keyword">type</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> a <span class="keyword">int</span>= <span class="number">20</span>   <span class="comment">/* 声明实际变量 */</span></span><br><span class="line">   <span class="keyword">var</span> ip *<span class="keyword">int</span>        <span class="comment">/* 声明指针变量 */</span></span><br><span class="line"></span><br><span class="line">   ip = &amp;a  <span class="comment">/* 指针变量的存储地址 */</span></span><br><span class="line"></span><br><span class="line">   fmt.Printf(<span class="string">"a 变量的地址是: %x\n"</span>, &amp;a  )</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 指针变量的存储地址 */</span></span><br><span class="line">   fmt.Printf(<span class="string">"ip 变量储存的指针地址: %x\n"</span>, ip )</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 使用指针访问值 */</span></span><br><span class="line">   fmt.Printf(<span class="string">"*ip 变量的值: %d\n"</span>, *ip )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>定义</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> struct_variable_type <span class="keyword">struct</span> &#123;</span><br><span class="line">   member definition</span><br><span class="line">   member definition</span><br><span class="line">   ...</span><br><span class="line">   member definition</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">variable_name := structure_variable_type &#123;value1, value2...valuen&#125;</span><br><span class="line">或</span><br><span class="line">variable_name := structure_variable_type &#123; key1: value1, key2: value2..., keyn: valuen&#125;</span><br></pre></td></tr></table></figure>
+<p>访问成员：<code>结构体.成员名</code></p>
+<p>结构体指针</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> struct_pointer *Books</span><br></pre></td></tr></table></figure>
+<h2 id="切片-Slice"><a href="#切片-Slice" class="headerlink" title="切片 Slice"></a>切片 Slice</h2><p>声明一个未指定大小的数组来定义切片<br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> identifier []<span class="keyword">type</span></span><br></pre></td></tr></table></figure></p>
+<p>使用make()函数来创建切片:</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> slice1 []<span class="keyword">type</span> = <span class="built_in">make</span>([]<span class="keyword">type</span>, <span class="built_in">len</span>)</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">slice1 := <span class="built_in">make</span>([]<span class="keyword">type</span>, <span class="built_in">len</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="built_in">make</span>([]T, length, capacity)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>length 初始长度</li>
+<li>capacity 容量</li>
+</ul>
+<p>初始化切片</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">s :=[] <span class="keyword">int</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125; </span><br><span class="line">s := arr[:] </span><br><span class="line">s := arr[startIndex:endIndex] </span><br><span class="line">s := arr[startIndex:] </span><br><span class="line">s := arr[:endIndex] </span><br><span class="line">s1 := s[startIndex:endIndex] </span><br><span class="line">s :=<span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>,<span class="built_in">cap</span>)</span><br></pre></td></tr></table></figure>
+<p>len() 和 cap() 函数</p>
+<ul>
+<li>切片是可索引的，并且可以由 len() 方法获取长度。</li>
+<li>切片提供了计算容量的方法 cap() 可以测量切片最长可以达到多少。</li>
+</ul>
+<p>一个切片在未初始化之前默认为 nil，长度为 0，实例如下：</p>
+<p>切片截取<br>设置下限及上限来设置截取切片 <code>[lower-bound:upper-bound]</code></p>
+<p>append() 和 copy() 函数</p>
+<ul>
+<li>拷贝切片的 copy 方法</li>
+<li>向切片追加新元素的 append 方法</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers []<span class="keyword">int</span></span><br><span class="line"><span class="comment">/* 允许追加空切片 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">0</span>)</span><br><span class="line"><span class="comment">/* 向切片添加一个元素 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">1</span>)</span><br><span class="line"><span class="comment">/* 同时添加多个元素 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment">/* 创建切片 numbers1 是之前切片的两倍容量*/</span></span><br><span class="line">numbers1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(numbers), (<span class="built_in">cap</span>(numbers))*<span class="number">2</span>)</span><br><span class="line"><span class="comment">/* 拷贝 numbers 的内容到 numbers1 */</span></span><br><span class="line"><span class="built_in">copy</span>(numbers1,numbers)</span><br></pre></td></tr></table></figure>
+<h2 id="Range-范围"><a href="#Range-范围" class="headerlink" title="Range 范围"></a>Range 范围</h2><blockquote>
+<p>Go 语言中 range 关键字用于 for 循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)的元素。在数组和切片中它返回元素的索引和索引对应的值，在集合中返回 key-value 对。</p>
+</blockquote>
+<h2 id="Map-集合"><a href="#Map-集合" class="headerlink" title="Map(集合)"></a>Map(集合)</h2><blockquote>
+<p>Map 是一种无序的键值对的集合。Map 最重要的一点是通过 key 来快速检索数据，key 类似于索引，指向数据的值。<br>Map 是一种集合，所以我们可以像迭代数组和切片那样迭代它。不过，Map 是无序的，我们无法决定它的返回顺序，这是因为 Map 是使用 hash 表来实现的。</p>
+</blockquote>
+<p>定义 Map</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 声明变量，默认 map 是 nil */</span></span><br><span class="line"><span class="keyword">var</span> map_variable <span class="keyword">map</span>[key_data_type]value_data_type</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用 make 函数 */</span></span><br><span class="line">map_variable := <span class="built_in">make</span>(<span class="keyword">map</span>[key_data_type]value_data_type)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> country := <span class="keyword">range</span> countryCapitalMap &#123;</span><br><span class="line">   fmt.Println(country, <span class="string">"首都是"</span>, countryCapitalMap [country])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*查看元素在集合中是否存在 */</span></span><br><span class="line">capital, ok := countryCapitalMap [ <span class="string">"American"</span> ] <span class="comment">/*如果确定是真实的,则存在,否则不存在 */</span></span><br><span class="line"><span class="keyword">if</span> (ok) &#123;</span><br><span class="line">    fmt.Println(<span class="string">"American 的首都是"</span>, capital)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"American 的首都不存在"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>delete() 函数</p>
+<blockquote>
+<p>delete() 函数用于删除集合的元素, 参数为 map 和其对应的 key。实例如下：</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="built_in">delete</span>(countryCapitalMap, <span class="string">"Key"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">type_name(expression)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> sum <span class="keyword">int</span> = <span class="number">17</span></span><br><span class="line">   <span class="keyword">var</span> count <span class="keyword">int</span> = <span class="number">5</span></span><br><span class="line">   <span class="keyword">var</span> mean <span class="keyword">float32</span></span><br><span class="line">   </span><br><span class="line">   mean = <span class="keyword">float32</span>(sum)/<span class="keyword">float32</span>(count)</span><br><span class="line">   fmt.Printf(<span class="string">"mean 的值为: %f\n"</span>,mean)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 定义接口 */</span></span><br><span class="line"><span class="keyword">type</span> interface_name <span class="keyword">interface</span> &#123;</span><br><span class="line">   method_name1 [return_type]</span><br><span class="line">   method_name2 [return_type]</span><br><span class="line">   method_name3 [return_type]</span><br><span class="line">   ...</span><br><span class="line">   method_namen [return_type]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 定义结构体 */</span></span><br><span class="line"><span class="keyword">type</span> struct_name <span class="keyword">struct</span> &#123;</span><br><span class="line">   <span class="comment">/* variables */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 实现接口方法 */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(struct_name_variable struct_name)</span> <span class="title">method_name1</span><span class="params">()</span> [<span class="title">return_type</span>]</span> &#123;</span><br><span class="line">   <span class="comment">/* 方法实现 */</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(struct_name_variable struct_name)</span> <span class="title">method_namen</span><span class="params">()</span> [<span class="title">return_type</span>]</span> &#123;</span><br><span class="line">   <span class="comment">/* 方法实现*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>Go 语言通过内置的错误接口提供了非常简单的错误处理机制。</p>
+<p>error类型是一个接口类型，这是它的定义：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sqrt</span><span class="params">(f <span class="keyword">float64</span>)</span> <span class="params">(<span class="keyword">float64</span>, error)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> f &lt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, errors.New(<span class="string">"math: square root of negative number"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>Go 语言支持并发，我们只需要通过 go 关键字来开启 goroutine 即可。</p>
+<p>goroutine 是轻量级线程，goroutine 的调度是由 Golang 运行时进行管理的。</p>
+<p>goroutine 语法格式：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> 函数名( 参数列表 )</span><br></pre></td></tr></table></figure>
+<p>通道（channel）:是用来传递数据的一个数据结构。</p>
+<blockquote>
+<p>通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 &lt;- 用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ch &lt;- v    <span class="comment">// 把 v 发送到通道 ch</span></span><br><span class="line">v := &lt;-ch  <span class="comment">// 从 ch 接收数据</span></span><br><span class="line">           <span class="comment">// 并把值赋给 v</span></span><br></pre></td></tr></table></figure>
+<p>声明一个通道很简单，我们使用chan关键字即可，通道在使用前必须先创建：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br></pre></td></tr></table></figure>
+<p>通道缓冲区<br>Channel buffer<br>通道可以设置缓冲区，通过 make 的第二个参数指定缓冲区大小：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<p>带缓冲区的通道允许发送端的数据发送和接收端的数据获取处于异步状态，就是说发送端发送的数据可以放在缓冲区里面，可以等待接收端去获取数据，而不是立刻需要接收端去获取数据。</p>
+<p>不过由于缓冲区的大小是有限的，所以还是必须有接收端来接收数据的，否则缓冲区一满，数据发送端就无法再发送数据了。</p>
+<p>注意：如果通道不带缓冲，发送方会阻塞直到接收方从通道中接收了值。如果通道带缓冲，发送方则会阻塞直到发送的值被拷贝到缓冲区内；如果缓冲区已满，则意味着需要等待直到某个接收方获取到一个值。接收方在有值可以接收之前会一直阻塞。</p>
+<p>Go 遍历通道与关闭通道</p>
+<p>通过 <code>range</code> 关键字来实现遍历读取到的数据，类似于与数组或切片。格式如下：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">v, ok := &lt;-ch</span><br></pre></td></tr></table></figure>
+<p>如果通道接收不到数据后 ok 就为 false，这时通道就可以使用 close() 函数来关闭。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fibonacci</span><span class="params">(n <span class="keyword">int</span>, c <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        x, y := <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">                c &lt;- x</span><br><span class="line">                x, y = y, x+y</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">close</span>(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">go</span> fibonacci(<span class="built_in">cap</span>(c), c)</span><br><span class="line">        <span class="comment">// range 函数遍历每个从通道接收到的数据，因为 c 在发送完 10 个</span></span><br><span class="line">        <span class="comment">// 数据之后就关闭了通道，所以这里我们 range 函数在接收到 10 个数据</span></span><br><span class="line">        <span class="comment">// 之后就结束了。如果上面的 c 通道不关闭，那么 range 函数就不</span></span><br><span class="line">        <span class="comment">// 会结束，从而在接收第 11 个数据的时候就阻塞了。</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="keyword">range</span> c &#123;</span><br><span class="line">                fmt.Println(i)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>遗传算法Java实现</title>
     <url>/2020/01/11/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95Java%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="遗传算法Java实现"><a href="#遗传算法Java实现" class="headerlink" title="遗传算法Java实现"></a>遗传算法Java实现</h1><blockquote>
