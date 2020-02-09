@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git提交格式</title>
+    <url>/2020/02/09/git%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="Git-提交格式"><a href="#Git-提交格式" class="headerlink" title="Git 提交格式"></a>Git 提交格式</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>前段时间从网络上看到一张图片，图片描述的是对Git提交Action中message的格式建议。因此，整理下便于未来时常回顾。</p>
+</blockquote>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>格式如下，其中type用于描述代码变化的类型，Scope描述代码修改的范围，Subject简短的描述变化的内容</p>
+<p><code>type(scope): subject</code></p>
+<p><code>BODY(Optional)</code></p>
+<p><code>FOOTER(Optional)</code></p>
+<h2 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h2><ul>
+<li>feat - 一个新的特性</li>
+<li>fix - Bug的解决</li>
+<li>docs - 文档的改变</li>
+<li>style - 样式的改变，格式改变，删除空格或冒号等</li>
+<li>refactor - 修改代码，不是为了解决bug或增加新特性。重构</li>
+<li>perf - 改善software行为</li>
+<li>chore - 改变构建的流程</li>
+</ul>
+<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><p>一个短语用于描述被改变的代码的部分。例如“（userservice）”</p>
+<h2 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h2><p>对改变的部分作一个间断的描述</p>
+<h2 id="Body-optional"><a href="#Body-optional" class="headerlink" title="Body(optional)"></a>Body(optional)</h2><p>在Subject 下面增加空行，然后开始描述额外的上下文信息。</p>
+<h2 id="Footer-optional"><a href="#Footer-optional" class="headerlink" title="Footer(optional)"></a>Footer(optional)</h2><p>用于参考受代码更改影响的问题，例如 “Fixes # 13”</p>
+<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><img src="/images/Git_Commit_Format.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+  </entry>
+  <entry>
     <title>nmap基础教程</title>
     <url>/2020/02/05/nmap%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="nmap基础教程"><a href="#nmap基础教程" class="headerlink" title="nmap基础教程"></a>nmap基础教程</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Nmap主机扫描工具</p>
