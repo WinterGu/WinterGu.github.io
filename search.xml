@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>neo4j基础教程</title>
+    <url>/2020/02/18/neo4j%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="Neo4j-教程-基础版"><a href="#Neo4j-教程-基础版" class="headerlink" title="Neo4j 教程 基础版"></a>Neo4j 教程 基础版</h1><h2 id="Create-a-node"><a href="#Create-a-node" class="headerlink" title="Create a node"></a>Create a node</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE (ee:Person &#123; name: &quot;Emil&quot;, from: &quot;China&quot;, Age: 22&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>CREATE</code> : create data</li>
+<li><code>()</code>: indicate a node</li>
+<li><code>ee:Person</code>: a variable ‘ee’ and label ‘Person’ for the new node</li>
+<li>brackets to add properties to the node</li>
+</ul>
+<h2 id="Finding-nodes"><a href="#Finding-nodes" class="headerlink" title="Finding nodes"></a>Finding nodes</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MATCH (ee:Person) WHERE ee.name=&quot;Emil&quot; RETURN ee;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MATCH</code>: specify a pattern of nodes and relationship</li>
+<li><code>(ee:Person)</code>: a single node pattern with label ‘Person’ which will assign matches to the variable ‘ee’ </li>
+<li><code>WHERE</code>: constrain results</li>
+<li><code>ee.name=&quot;Emil&quot;</code>: compare name property to the value ‘Emil’</li>
+<li><code>RETURN</code>: request particular results</li>
+</ul>
+<h2 id="Create-more"><a href="#Create-more" class="headerlink" title="Create more"></a>Create more</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MATCH (ee:Person) WHERE ee.name = &quot;Emil&quot;</span><br><span class="line">CREATE (js:Person &#123; name: &quot;Johan&quot;, from: &quot;Sweden&quot;, learn: &quot;surfing&quot; &#125;),</span><br><span class="line">(ir:Person &#123; name: &quot;Ian&quot;, from: &quot;England&quot;, title: &quot;author&quot; &#125;),</span><br><span class="line">(rvb:Person &#123; name: &quot;Rik&quot;, from: &quot;Belgium&quot;, pet: &quot;Orval&quot; &#125;),</span><br><span class="line">(ally:Person &#123; name: &quot;Allison&quot;, from: &quot;California&quot;, hobby: &quot;surfing&quot; &#125;),</span><br><span class="line">(ee)-[:KNOWS &#123;since: 2001&#125;]-&gt;(js),(ee)-[:KNOWS &#123;rating: 5&#125;]-&gt;(ir),</span><br><span class="line">(js)-[:KNOWS]-&gt;(ir),(js)-[:KNOWS]-&gt;(rvb),</span><br><span class="line">(ir)-[:KNOWS]-&gt;(js),(ir)-[:KNOWS]-&gt;(ally),</span><br><span class="line">(rvb)-[:KNOWS]-&gt;(ally)</span><br></pre></td></tr></table></figure>
+<p> create many nodes and relationships at once.</p>
+<h2 id="Pattern-matching"><a href="#Pattern-matching" class="headerlink" title="Pattern matching"></a>Pattern matching</h2><p>Describe what to find in the graph</p>
+<p>For instance, a pattern can be used to find Emil’s friends:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MATCH (ee:Person)-[:KNOWS]-(friends)</span><br><span class="line">WHERE ee.name = &quot;Emil&quot; RETURN ee, friends</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>MATCH</code>clause to describe the pattern from known Nodes to found Nodes</li>
+<li><code>(ee)</code>starts the pattern with a Person (qualified by WHERE)</li>
+<li><code>-[:KNOWS]-</code>matches “KNOWS” relationships (in either direction)</li>
+<li><code>(friends)</code>will be bound to Emil’s friends </li>
+</ul>
+<h2 id="Recommend"><a href="#Recommend" class="headerlink" title="Recommend"></a>Recommend</h2><p>Using patterns</p>
+<p>Pattern matching can be used to make recommendations. Johan is learning to surf, so he may want to find a new friend who already does:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)</span><br><span class="line">WHERE js.name = &quot;Johan&quot; AND surfer.hobby = &quot;surfing&quot;</span><br><span class="line">RETURN DISTINCT surfer</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>()</code>empty parenthesis to ignore these nodes</li>
+<li><code>DISTINCT</code>because more than one path will match the pattern</li>
+<li><code>surfer</code>will contain Allison, a friend of a friend who surfs</li>
+</ul>
+<h2 id="Analyze"><a href="#Analyze" class="headerlink" title="Analyze"></a>Analyze</h2><p>Using the visual query plan</p>
+<p>Understand how your query works by prepending <code>EXPLAIN</code> or <code>PROFILE</code>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PROFILE MATCH (js:Person)-[:KNOWS]-()-[:KNOWS]-(surfer)</span><br><span class="line">WHERE js.name = &quot;Johan&quot; AND surfer.hobby = &quot;surfing&quot;</span><br><span class="line">RETURN DISTINCT surfer</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+  </entry>
+  <entry>
     <title>git提交格式</title>
     <url>/2020/02/09/git%E6%8F%90%E4%BA%A4%E6%A0%BC%E5%BC%8F/</url>
     <content><![CDATA[<h1 id="Git-提交格式"><a href="#Git-提交格式" class="headerlink" title="Git 提交格式"></a>Git 提交格式</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
