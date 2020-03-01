@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Text_Encoding</title>
+    <url>/2020/03/01/Text-Encoding/</url>
+    <content><![CDATA[<h1 id="文本编码"><a href="#文本编码" class="headerlink" title="文本编码"></a>文本编码</h1><h2 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h2><p>假设词汇表中共计$N$个word，则展开一个<code>N</code>维的Vector，对应word的位置赋值为1,其他位置为0。</p>
+<p>For example:</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Time flies like an arrow.</span><br><span class="line">Fruit flies like a banana.</span><br></pre></td></tr></table></figure>
+<p>词汇表的长度为8：<code>{time, fruit, flies, like, an, arrow, banana }</code>。应次每个word都可以表示为 8-D Vector。</p>
+<p>因此，对于短语和句子，文档可以简单的表示为连续词的 与或 运算。</p>
+<p><code>like a banana</code>能够表示为<code>{0,0,0,1,1,0,0,1}</code></p>
+<h2 id="TF-Representation"><a href="#TF-Representation" class="headerlink" title="TF Representation"></a>TF Representation</h2><p>短语，句子或文档的TF表示能够简单表示为连续词的one-hot vector的和。</p>
+<p><code>Fruit flies like time flies a fruit:[1,2,2,1,1,0,0,0]</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">one_hot_vectorizer = CountVectorizer(binary=<span class="literal">True</span>)</span><br><span class="line">one_hot = one_hot_vectorizer.fit_transform(corpus).toarray()</span><br><span class="line">vocab = one_hot_vectorizer.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(one_hot, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="TF-IDF-Representation"><a href="#TF-IDF-Representation" class="headerlink" title="TF-IDF Representation"></a>TF-IDF Representation</h2><script type="math/tex; mode=display">
+IDF(w)=\log\frac{N}{n_w}</script><p><code>TF: Term Frequency</code></p>
+<p><code>IDF: Inverse-Document-Frequency</code></p>
+<ul>
+<li>$n_w$s：是文档中包括 <code>w</code>的数量</li>
+<li>$N$：是文档的数量</li>
+</ul>
+<script type="math/tex; mode=display">
+TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少，则IDF越高，说明词的重要性越大。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">tfidf = TfidfVectorizer()</span><br><span class="line">vectors = tfidf.fit_transform(corpus).toarray()</span><br><span class="line">vocab = tfidf.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(vectors, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>NLP</category>
+      </categories>
+  </entry>
+  <entry>
     <title>neo4j基础教程</title>
     <url>/2020/02/18/neo4j%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="Neo4j-教程-基础版"><a href="#Neo4j-教程-基础版" class="headerlink" title="Neo4j 教程 基础版"></a>Neo4j 教程 基础版</h1><h2 id="Create-a-node"><a href="#Create-a-node" class="headerlink" title="Create a node"></a>Create a node</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE (ee:Person &#123; name: &quot;Emil&quot;, from: &quot;China&quot;, Age: 22&#125;)</span><br></pre></td></tr></table></figure>
