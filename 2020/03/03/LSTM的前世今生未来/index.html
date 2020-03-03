@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="LSTM的理解、推导、扩展https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html RNN(Recurrent neural networks) 回归神经网络从一个时刻到下一个时刻，我们的大脑像一个功能在不停运作：接受外在的信息，产生内在的想法，并采取行动和产生新的想法。当我们看到熊的图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSTM的前世今生未来">
+<meta property="og:url" content="http://yoursite.com/2020/03/03/LSTM的前世今生未来/index.html">
+<meta property="og:site_name" content="Dongxian&#39;s Blog">
+<meta property="og:description" content="LSTM的理解、推导、扩展https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html RNN(Recurrent neural networks) 回归神经网络从一个时刻到下一个时刻，我们的大脑像一个功能在不停运作：接受外在的信息，产生内在的想法，并采取行动和产生新的想法。当我们看到熊的图">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_SingleRNNcell.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_ComposedRNNcells.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_StateLoop.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_SentenceTimeStep.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_WordTimeStep.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_WordTimeStep_SeparateRNNs.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_VanillaRNNcell.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_PrototypeLSTMCell.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_GRUCell.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_PseudoLSTMCell.png">
+<meta property="og:image" content="http://yoursite.com/images/LSTM/NH_BasicLSTMCell.png">
+<meta property="og:updated_time" content="2020-03-03T11:50:49.978Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LSTM的前世今生未来">
+<meta name="twitter:description" content="LSTM的理解、推导、扩展https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html RNN(Recurrent neural networks) 回归神经网络从一个时刻到下一个时刻，我们的大脑像一个功能在不停运作：接受外在的信息，产生内在的想法，并采取行动和产生新的想法。当我们看到熊的图">
+<meta name="twitter:image" content="http://yoursite.com/images/LSTM/NH_SingleRNNcell.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/03/03/LSTM的前世今生未来/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>LSTM的前世今生未来 | Dongxian's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dongxian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">2</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/LSTM的前世今生未来/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LSTM的前世今生未来
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-03 09:10:37 / 修改时间：19:50:49" itemprop="dateCreated datePublished" datetime="2020-03-03T09:10:37+08:00">2020-03-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DL/" itemprop="url" rel="index"><span itemprop="name">DL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="LSTM的理解、推导、扩展"><a href="#LSTM的理解、推导、扩展" class="headerlink" title="LSTM的理解、推导、扩展"></a>LSTM的理解、推导、扩展</h1><p><a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html</a></p>
+<h2 id="RNN-Recurrent-neural-networks-回归神经网络"><a href="#RNN-Recurrent-neural-networks-回归神经网络" class="headerlink" title="RNN(Recurrent neural networks) 回归神经网络"></a>RNN(Recurrent neural networks) 回归神经网络</h2><p>从一个时刻到下一个时刻，我们的大脑像一个功能在不停运作：接受外在的信息，产生内在的想法，并采取行动和产生新的想法。当我们看到熊的图片，我们可能会想到“熊”这个单词。这种行为可以用Feedforward neural network来模拟。</p>
+<p>但是我们的大脑并不只是一次的运行，它在不停的反复运行，根据之前的经验，不断产生新的想法。这是一个循环的过程。因此我们可以用RNN来建模。</p>
+<p>RNN由相同的前馈神经网络组成，每个时间刻或时间步长，我们将其称为RNN cell。这是RNN的最为广泛的定义。</p>
+<p>单个RNN Cell</p>
+<p><img src="/images/LSTM/NH_SingleRNNcell.png" alt></p>
+<p>三个RNN Cells</p>
+<p><img src="/images/LSTM/NH_ComposedRNNcells.png" alt></p>
+<p>我们将周期性的输出看作可以传到下一个timestep的“状态”，因此RNN Cell接受先前的转台和当前的输入。</p>
+<p>RNN Cell数学描述</p>
+<script type="math/tex; mode=display">
+\begin{pmatrix}
+S_t \\
+O_t
+\end{pmatrix}
+=f
+\begin{pmatrix}
+S_{t-1} \\
+x_t
+\end{pmatrix}</script><ul>
+<li>$s<em>t\;and\;s</em>{t-1}$是当前的状态和之前的转台</li>
+<li>$o_t$是我们当前的输出</li>
+<li>$x_t$是当前的输入（可以为空的）</li>
+<li>$f$是我们的循环函数</li>
+</ul>
+<p>我们的大脑就是类似的运作，当前的活动取代之前的活动。因为每个RNN Cell是相同的，它们被看作一样的，每个timestep的RNN Cell的状态被覆盖。</p>
+<p><img src="/images/LSTM/NH_StateLoop.png" alt></p>
+<h2 id="RNNs能够做什么；选择timestep"><a href="#RNNs能够做什么；选择timestep" class="headerlink" title="RNNs能够做什么；选择timestep"></a>RNNs能够做什么；选择timestep</h2><p>RNN的结构非常的常见的，理论上，它可以做任何事。如果我们给这个NN内部的每个Cell至少一个隐含层，每个Cell就变成了一个通用的函数近似器。这就意味着 RNN Cell 能够模拟任何函数。理论上可以模拟大脑。但是实际上训练和设计一个RNN完成这样的任务是完全不同的。</p>
+<p>通过将RNN和大脑进行类比，我们可以将使用RNN处理任务就是一个人类来处理同样的任务。</p>
+<p>比如，当考虑英语到发育的翻译。一个人读一个句子<code>the cate sat on the mat</code>，停顿一个然后写出了法语的<code>le chat s&#39;assit sur le tapis</code>。为了使用RNN模拟这个行为，我们唯一的选择就决定每个timestep应该做了什么，它决定输入和输出的形式以及如何和外部的世界相互作用。</p>
+<p>其中一个选择，根据内容设置timestep，也就是将完整的句子作为一个timestep，这种情况下，RNN变成了 FNN。</p>
+<p><img src="/images/LSTM/NH_SentenceTimeStep.png" alt></p>
+<p>当翻译句子的时候，最后状态并不重要，但是如果当前句子只是段落的一个部分的话，它也许是重要的，因为它可能包含前面句子的信息。上面的初始状态是空白，但是当评估单个序列的时候，将初始状态作为变量训练是游泳的，最好的初始状态可能不是空白状态。</p>
+<p>我们可以将每个单词甚至每个字符当成一个timestep。</p>
+<p><img src="/images/LSTM/NH_WordTimeStep.png" alt></p>
+<p>在第一个timestep后，状态包含了<code>the</code>的内部表示，第二个timestep，内部表示变成<code>the cat</code>，类似这样，网络的前三个步骤不产生任何输出，当接受到空白输入可以产生输出，因为它知道输入已经停止。当完成输出后，产生一个空白输出表示输出完成。</p>
+<p>实际上，想深度LSTMs这样的RNN架构也无法很好的执行多任务，比如阅读和翻译。因此为了解决这个问题，可以将网络分成多个RNN，每个RNN专门用于一个任务。在上面的任务中，我们可以用英文（蓝色）的Encoder和一个用法文(红色)读取Decoder网络组合。</p>
+<p><img src="/images/LSTM/NH_WordTimeStep_SeparateRNNs.png" alt></p>
+<p>关于<a href="https://arxiv.org/pdf/1406.1078v3.pdf" target="_blank" rel="noopener">RNN  Encoder-Decoder model</a></p>
+<p>虽然有两个独立的网络，但是它仍然符合RNN的定义：我们将循环函数定义成一个分裂函数，这个函数除了其他输入外，还需要一个输入来判断使用那个分裂函数。</p>
+<p>timestep不一定基于内容，也可以基于实际的时间单位，比如时间步长为1秒，每秒强制读取5个字符。</p>
+<p>我们也可以让RNN决定什么时候准备好进入下一个输入，甚至决定输入应该是什么。这就类似人类如何在一段较长的时间内专注于某些单词或短语来翻译它们。为此，我们能够使用RNN的输出动态的确定下一个输入。例如，RNN可能有这样的输出动作，比如再次读取最后一个输入，回溯5个timestep等等。基于注意力的翻译模型就是一个成功的例子：在每个timestep接受整个英语序列，并且由RNN Cell决定哪些部分和当前生成的法语单词相关性最高。</p>
+<p>英译法的例子没有任何特别，无论我们选择什么样的人工任务，我们都可以选择不同的timestep来建立RNN 模型，甚至可以重构手写数字识别这样的事情，启动一次性函数（single timestep）是典型的方法。</p>
+<h2 id="The-vanilla-RNN"><a href="#The-vanilla-RNN" class="headerlink" title="The vanilla RNN"></a>The vanilla RNN</h2><p>我们已经从大局上了解了RNN，现在让我看看那RNN Cell 的内部结构。最简单那的RNN Cell 是一个单层的神经网络，其输出即作为单元的当前的输出，也作为RNN当前的状态。</p>
+<p><img src="/images/LSTM/NH_VanillaRNNcell.png" alt></p>
+<p>注意，钱一个状态vector和当前的状态vector的大小是相同的。</p>
+<p>下面vanilla RNN Cell的数学描述</p>
+<script type="math/tex; mode=display">
+s_t=\phi(Ws_{t-1}+Ux_t+b)</script><p>在这里：</p>
+<ul>
+<li>$\phi$是一个激活函数，例如 <code>Sigmod,tanh,ReLU</code></li>
+<li>$s_t\in \mathbb{R}^n$是当前状态（和当前输出）</li>
+<li>$s_{t-1}\in \mathbb{R}^n$是先前的状态</li>
+<li>$x_t \in \mathbb{R}^m$是当前的输入</li>
+<li>$W \in \mathbb{R}^{n \times n},U \in \mathbb{R}^{m \times n},b \in \mathbb{R}^n$是权重和偏差</li>
+<li>$n,m$是状态和输入的大小</li>
+</ul>
+<p>这个基本的 RNN Cell是非常强大的，虽然没有满足singel cell内通用函数逼近的标准。但是，一系列组合的vanilla RNN是 Turing complete，因此能够实现任何算法。但是在实践中存在一个问题：用BP训练普通的RNN是非常困难的。原因是由于重复使用同一个非线性函数引起的信息变形、消失和爆炸的敏感性问题。</p>
+<h2 id="Information-morphing-and-vanishing-and-exploding-sensitivity（信息变形、消息和爆炸敏感性）"><a href="#Information-morphing-and-vanishing-and-exploding-sensitivity（信息变形、消息和爆炸敏感性）" class="headerlink" title="Information morphing and vanishing and exploding sensitivity（信息变形、消息和爆炸敏感性）"></a>Information morphing and vanishing and exploding sensitivity（信息变形、消息和爆炸敏感性）</h2><p>与其描述大脑，不如将整个世界使用RNN建模：从每个时刻到下一个时刻，世界的状态被极其复杂的循环函数修改。</p>
+<p>正如爱因斯坦的相对论可得过去的改变是新信息的引入。直接说，这种新信息的引入是循环函数（时间流动）的结果。因此我们可以认为信息本身是一种变化。它被循环函数影响，造成信息的消失、爆炸或者是波动。</p>
+<ol>
+<li><p>信息变形</p>
+<p>如果信息不变化，当我们很难利用过去的信息。信息的最佳可用状态可能发生在过去的某个时刻。除了需要学习如何利用当前的信息，我们还需要从当前状态获取到最初的状态。如果这可能的话，这会导致学习困难或差的结果。</p>
+<p>易得，信息变形发生在普通的RNN中。实际上，假设一个RNN Cell可以在没有外部输入的情况下完全保持先前的状态。$F(x)=\phi(Ws<em>{t-1}+b)$是一个关于$s</em>{t-1}$的恒等函数。但是这个恒等函数是线性的，$F(x)$是非线性的。所以存在矛盾。因此，RNN无法避免的从一个timestep到下一个timestep。对于普通的RNN，即使输出$s_t=x_t$这种任务也是不可能的。</p>
+</li>
+<li><p>梯度消失和梯度爆炸</p>
+<p>当利用BP训练RNNs。BP是基于梯度的算法，如果梯度爆炸我们就无法训练模型，如果梯度消失，就无法学习长期的依赖，因此BP对最近的干扰非常敏感，以至于非常难训练。</p>
+</li>
+</ol>
+<h2 id="消失敏感度的数学充分条件"><a href="#消失敏感度的数学充分条件" class="headerlink" title="消失敏感度的数学充分条件"></a>消失敏感度的数学充分条件</h2><p>这里将展示一个证明普通RNN梯度消息的充分条件的数学证明。</p>
+<p>假设：$s_t$是时间$t$的状态向量，$\Delta v$是在时间$t$由状态变化向量$\Delta s_t$引起的向量$v$的变化。我们的目标是提供一个数学上的充分条件。使得当$k \to \infty $在时间 $t+k$  的状态变化导致在时间$t$的状态消失。也就是证明：</p>
+<script type="math/tex; mode=display">
+\lim_{k \to \infty} \frac{\Delta s_{t+k}}{\Delta s_t} = 0</script><p>首先，根据对普通RNN Cell的定义，我们有：</p>
+<script type="math/tex; mode=display">
+s_{t+1}=\phi(z_t)\quad where \quad z_t=Ws_t+Ux_{t+1}+b</script><p>使用多变量的中值定理，我们得到$\exist c \in [z_t, z_t+\Delta z_t]$</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\Delta S_{t+1} &  = [\phi'(c)]\Delta z_t\\ 
+&= [\phi'(c)]\Delta(Ws_t)\\
+&= [\phi'(c)]W\Delta s_t
+\end{align}</script><p>$||A||$表示矩阵2范数，$|v|$表示Euclidean 向量范数。并定义：</p>
+<script type="math/tex; mode=display">
+\gamma = \sup_{c \in [z_t, z_t+\Delta z_t] } ||[\phi'(c)]||</script><p>注意，对于sigmod, $\gamma \le \frac{1}{4}$对于 tanh，$\gamma \le 1$。</p>
+<p>考虑两边的向量番薯，我们可以得到，第一个不等式来源2范数（使用两次），第二个来源于上界的定义：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+|\Delta S_{t+1}| &= |[\phi'(c)]W\Delta s_t| \\
+& \le [\phi'(c)]||W|||\Delta s_t| \\
+& \le \gamma||W|||\Delta s_t| \\
+& = ||\gamma W|||\Delta s_t|
+\end{align}</script><p>将上面的等式在k个时间步长上展开，我们可以得到$|\Delta s_{t+k}| \le ||\gamma W||^k|\Delta s_t|$，因此：</p>
+<script type="math/tex; mode=display">
+\frac{|\Delta s_{t+k}|}{|\Delta s_t|} \le ||\gamma W||^k</script><p>所以，如果$||\gamma W||^k \lt 1$。我们可以得到$\frac{|\Delta s_{t+k}|}{|\Delta s_t|}$随时间指数衰减的充分条件。</p>
+<p>因为对于logistic sigmod 和 tanh分别有界于 $\frac{1}{4}$和$1$，这说明，当$||W||$小于4或1是梯度消失的充分条件。</p>
+<p>最直接的教训，如果我们权重初始化$W$太小的话，RNN则可能由于消失的梯度导致无法学习。</p>
+<h2 id="避免梯度消失的最小权重初始化"><a href="#避免梯度消失的最小权重初始化" class="headerlink" title="避免梯度消失的最小权重初始化"></a>避免梯度消失的最小权重初始化</h2><p>找到一个合适的权重初始化对于避免梯度消失是非常由于那个的。扩展上面的分析，找到$W$的初始化使得我们经可能相等，从而得到一个好的结果。</p>
+<p>首先，假设$\phi = \tanh \; and \; \gamma = 1$ ，也可以假设$\phi = \sigma \; and \; \gamma = \frac{1}{4}$ 得到一个不同的结果。</p>
+<p>我们的目标是找到$W$的初始化，其中：</p>
+<ol>
+<li>$||\gamma W|| = 1$</li>
+<li>我们尽可能接近上面的等式。</li>
+</ol>
+<p>从点1开始，因为我们将$\gamma = 1$，我得到$||W||=1$。从点2开始，我们应该尝试将$W$的<a href="[https://baike.baidu.com/item/%E5%A5%87%E5%BC%82%E5%80%BC](https://baike.baidu.com/item/奇异值">奇异值</a>)设置为1,而不仅仅是最大值，如果$W$的奇异值等于1,因为着$W$的每列范数都等于1，这意味这对于$j$列我们有：</p>
+<script type="math/tex; mode=display">
+\sum_iw^2_{ij}=1</script><p>$j$列有$n$个条目，我们从相同的随机分布中选择每个条目，所以我们能找到一个随机权重$w$的分布：</p>
+<script type="math/tex; mode=display">
+n\mathbb{E}(w^2) = 1</script><p>现在假设我们想在区间$[-R,R]$内均匀的初始化$w$，所以$w$的均值为0。所以，根据定义，$\mathbb{E}(w^2)$是它的方差$\mathbb{V}(w)$。在区间$[a,b]$内的均匀分布的方差是$\frac{(b-a)^2}{12}$。所以我们得到$\mathbb{V}(w)=\frac{R^2}{3}$。将这个带入到我们的方程中得到：</p>
+<script type="math/tex; mode=display">
+n\frac{R^2}{3}=1</script><p>所以：</p>
+<script type="math/tex; mode=display">
+R=\frac{\sqrt 3}{\sqrt n}</script><p>这表明我们使用区间为$[- \frac{\sqrt 3}{\sqrt n},\frac{\sqrt 3}{\sqrt n}]$的均匀分布来初始化权重，</p>
+<h2 id="处理梯度消失和爆炸"><a href="#处理梯度消失和爆炸" class="headerlink" title="处理梯度消失和爆炸"></a>处理梯度消失和爆炸</h2><p>如果梯度爆炸，BP将变得无效，因为我们在前面的层得到NaN值。一个简单的解决方案是修剪梯度到最大值。这样在实践中可以预防 NaN 值，从而能够继续训练。</p>
+<p>梯度消失和普通RNN会出现的情况，从上面看，好的初始权重是很重要的，但这只会影响训练的开始，那训练的中间部分呢。Pascanu等人（2013）提出了一个方法——引入正则化项(regularization term)。</p>
+<h2 id="LSTM背后的直觉"><a href="#LSTM背后的直觉" class="headerlink" title="LSTM背后的直觉"></a>LSTM背后的直觉</h2><p>信息被RNN Cell变形导致原始信息的丢失，可能对最终信息产生各种各样的影响，甚至导致完全不同的结果。</p>
+<p>如何保证信息的完整性，这是LSTMs的基本原则：为了确保真实时间的信息完整性，我们会将它记录下来。书写是对当前状态的增加：它是一种创造和破坏的行为，当你记录下它，主题本身不会变形，并且反向传递的误差梯度是恒定的。</p>
+<p>避免信息变形：对LSTM状态的改变通过不明确的加减法显式的写入，便于在没有外界的干预下，状态的每个元素保持稳定。</p>
+<p>LSTM的原则是写下来。实际上，这意味着任何状态改变都是增量，因此：</p>
+<script type="math/tex; mode=display">
+s_{t+1} = s_t+\Delta s_{t+1}</script><p>LSTM的基本挑战：无法控制和无法协调的写入会导致混乱和溢出，并且很难恢复。</p>
+<h2 id="选择性的控制和协调写入"><a href="#选择性的控制和协调写入" class="headerlink" title="选择性的控制和协调写入"></a>选择性的控制和协调写入</h2><p>LSTM的基本挑战和保持状态的关键是：写入什么，读取什么，忘记什么（干扰信息）</p>
+<p>选择性的形式：有选择的写、有选择的读、有选择的忘记</p>
+<p>在上面的基础上，增加两个步骤，得到LSTM：</p>
+<ul>
+<li>确定一种选择机制</li>
+<li>将碎片粘和起来</li>
+</ul>
+<h2 id="门选择机制"><a href="#门选择机制" class="headerlink" title="门选择机制"></a>门选择机制</h2><p>利用状态大小的读、写和忘记向量来做这些决定，这些决定置于0-1之间，指定每个状态元素读、写和忘记的百分比。虽然读、写和忘记看作二元决定更加自然，但是我们需要一个可微函数来实现我们的决定，logisic sigmod是一个自然而然的选择，它是可微的，并产生0-1之间的连续值。</p>
+<p>我们读、写和忘记向量称为”门”，我们可以用简单的函数来计算它们，就像我们对RNN所做的一样：single NN。我们在时间 time step t事的三个门表示为$i_t$ 输入门（写）；$o_t$ 输出门（读）$f_t$遗忘门（记忆）。</p>
+<p>可以发现这里有两个相矛盾的地方：</p>
+<ul>
+<li>有点像先有鸡还是先有蛋，通常建议先读后写——在写入状态前，读取先前的状态，这样即使开始是空白状态，我们也可以从中读取，输入门和输出门表明了相反的时间关系。</li>
+<li>遗忘门是用来遗忘的，实际上有着记忆门的作用，如1表示记住一切，而不是遗忘一切。</li>
+</ul>
+<p>下面是这些门的数学定义：（注意它们的相似之处）</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& i_t = \sigma(W_is_{t-1}+U_ix_t+b_i) \\
+& o_t = \sigma(W_os_{t-1}+U_ox_t+b_o) \\
+& f_t = \sigma(W_fs_{t-1}+U_fx_t+b_f) 
+\end{align}</script><p>当然也可以使用更加复杂的函数。</p>
+<h2 id="将门组合在得到LSTM原型"><a href="#将门组合在得到LSTM原型" class="headerlink" title="将门组合在得到LSTM原型"></a>将门组合在得到LSTM原型</h2><p>如果没有输入门，是用输出门应该先读取先前的状态，以产生下一次写的状态。输出门自然在输入门之前。</p>
+<p>LSTM的基本原则是：我们的写入应该增加到之前的状态。因此，我们应该计算$\Delta s_t$，而不是$s_t$。因此候选写入的可能是$\Delta s_t$。把它记作$\bar{s}_t$。</p>
+<p>我们采用和在普通RNN上计算状态的一样的方式计算$\bar{s}<em>t$。首先通过输出门乘先前的状态$o_t \odot s</em>{t-1}$。</p>
+<script type="math/tex; mode=display">
+\bar{s}_t = \phi(W(o_t \odot s_{t-1})+ Ux_t+b)</script><p>注意$\odot$表示逐元素相乘，$o_t$是我们的输出门。</p>
+<p>$\bar{s}_t$只是一个候选写作，因为我们使用的是选择行写入和输入门。因此我们使用$\bar{s}_t$和输入门$i_t$逐元素相乘，来获得我们真正的写入。$i_t \odot \bar{s}_t$</p>
+<p>最后一部是将这个增加到我们之前的状态上，但是我们需要有一个遗忘机制。因此，在增加任何到我们之前的状态之前，我们通过遗忘门进行逐乘操作。最后的LSTM原型的公式为：</p>
+<script type="math/tex; mode=display">
+s_t = f_t \odot s_{t-1}+i_t\odot \bar{s}_t</script><p>我们将所有的公式整合起来，就可以得到LSTM Cell的全部信息。</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><script type="math/tex; mode=display">
+\begin{align}
+& i_t = \sigma(W_is_{t-1}+U_ix_t+b_i) \\
+& o_t = \sigma(W_os_{t-1}+U_ox_t+b_o) \\
+& f_t = \sigma(W_fs_{t-1}+U_fx_t+b_f) \\
+
+\\
+& \bar{s}_t = \phi(W(o_t \odot s_{t-1})+Ux_t+b) \\
+& s_t = f_t \odot s_{t-1}+i_t \odot \bar{s}_t
+\end{align}</script><p>下面是图示的样子：</p>
+<p><img src="/images/LSTM/NH_PrototypeLSTMCell.png" alt></p>
+<p>理论上，这个原型可以工作，但是在实践中。采取的选择措施无法克服LSTM的基本问题：选择性遗忘和选择性写入在开始训练时的不协调，可能导致状态的迅速变大和混乱。由于状态可能是无界的，门和候选写入经常会变得饱和。</p>
+<h2 id="三种模型：归一化模型、GRU、伪LSTM"><a href="#三种模型：归一化模型、GRU、伪LSTM" class="headerlink" title="三种模型：归一化模型、GRU、伪LSTM"></a>三种模型：归一化模型、GRU、伪LSTM</h2><p>由于上面的LSTM原型采取的选择性措施不够强大，无法克服LSTM的基本问题。</p>
+<h3 id="归一化原型：规范化的软界限"><a href="#归一化原型：规范化的软界限" class="headerlink" title="归一化原型：规范化的软界限"></a>归一化原型：规范化的软界限</h3><p>我们可以通过状态归一化来增加一个软约束。初步测试中一个有用的方法是将$s_t$除以$\sqrt{Var(s_t)+1}$。这里增加1来防止初始的零状态。我们也可以在除以方差之前减去平均状态。但在初步测试中似乎没有帮助。然后，我们也考虑为表达性增加规模和移位因素，即层标准化。但该模型冒险进入了层标准化LSTM的范围。</p>
+<h3 id="GRU-通过写-遗忘耦合或覆盖的硬约束"><a href="#GRU-通过写-遗忘耦合或覆盖的硬约束" class="headerlink" title="GRU:通过写-遗忘耦合或覆盖的硬约束"></a>GRU:通过写-遗忘耦合或覆盖的硬约束</h3><p>与其进行选择性的写入和遗忘，不如放弃一些表达性，将我们的遗忘门设置为1减去输入门来进行选择性的重写。</p>
+<script type="math/tex; mode=display">
+s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s<em>t$变成了$s</em>{t-1}$和$\bar{s}<em>t$的加权平均数。当$s</em>{t-1}$和$\bar{s}_t$被约束，那它也是被约束的。如果我们使用$\phi= \tanh$（它的输出被限制在$(-1,1)$）。</p>
+<p>这就是<code>GRU(gated recurrent unit)</code>。为了符合GRU中的术语，我们将覆盖门成为更新门，并记作$z_t$。虽然叫做更新门，它的操作是通过指出之前状态我们不想更新的百分比来不更新。因此，更新门和原型LSTM中的遗忘门$f_t$是一样的，并且输入门通过$1-z_t$计算得到。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& r_t = \sigma(W_rs_{t-1}+U_rx_t+b_r)\\
+& z_t = \sigma(W_zs_{t-1}+U_zx_t+b_z)\\
+\\
+& \bar{s}_t = \phi(W(r_t \odot s_{t-1})+Ux_t+b)\\
+& s_t = z_t \odot s_{t-1}+(1-z_t) \odot \bar{s}_t
+
+\end{align}</script><p><img src="/images/LSTM/NH_GRUCell.png" alt></p>
+<h3 id="伪-LSTM-基于非线性压缩的硬约束"><a href="#伪-LSTM-基于非线性压缩的硬约束" class="headerlink" title="伪 LSTM: 基于非线性压缩的硬约束"></a>伪 LSTM: 基于非线性压缩的硬约束</h3><script type="math/tex; mode=display">
+\begin{align}
+& i_t = \sigma(W_i(\phi(s_{t-1}))+U_ix_t+b_i)\\
+& o_t = \sigma(W_o(\phi(s_{t-1}))+U_ox_t+b_o)\\
+& f_t = \sigma(W_f(\phi(s_{t-1}))+U_fx_t+b_f)\\
+\\
+& \bar{s}_t = \phi(W(o_t \odot \phi(s_{t-1}))+Ux_t+b)\\
+& s_t = f_t \odot s_{t-1}+ i_t \odot \bar{s}_t\\
+\\
+& rnn_{out}=\phi(s_t)
+\end{align}</script><p><img src="/images/LSTM/NH_PseudoLSTMCell.png" alt></p>
+<h2 id="推导LSTM"><a href="#推导LSTM" class="headerlink" title="推导LSTM"></a>推导LSTM</h2><p>上面有许多LSTM变体，真正的LSTM将读操作放在写操作之后。</p>
+<p>写入操作放在RNN单元读取操作之前，我们需要在正常状态下从一个time step 到下一个 time step传递一个预先门的“阴影状态”。</p>
+<p>为了符合描述LSTM常用的字母，我们需要将主状态$s<em>t$变成$c_t$（c表示cell）。我们对候选写入作一个相应的变动$\bar{c}_t$。我们还需要一个单独的隐藏状态$h_t$(h是隐藏状态)。他的状态和我们的常规状态相同，$h</em>{t-1}$类似我们原型LSTM中的门控先验状态$o<em>t \odot s</em>{t-1}$。，除此它还被一个非线性函数压缩。因此，我们的LSTM在 $t$得到是一组紧密相关的向量：$(c<em>{t-1}, h</em>{t-1}) \quad where \quad h<em>{t-1}=o</em>{t-1} \odot \phi(c_{t-1})$</p>
+<p>$h_{t-1}$的产生导致了和我们的伪LSTM两个不同</p>
+<ul>
+<li>标准的LSTM使用$h<em>{t-1}=o</em>{t-1} \odot \phi(c<em>{t-1})$来计算门，而不是使用$\phi(c</em>{t-1})$来计算门。</li>
+<li>标准的LSTM使用$h_t=o_t \odot \phi (c_t)$作为代替$\phi(c_t)$作为外部输出，它受到输出门的控制</li>
+</ul>
+<p>基本的LSTM</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& i_t = \sigma(W_ih_{t-1}+U_ix_t+b_i)\\
+& o_t = \sigma(W_oh_{t-1}+U_ox_t+b_o)\\
+& f_t = \sigma(W_fh_{t-1}+U_fx_t+b_f)\\
+\\
+& \bar{c}_t = \phi(Wh_{t-1}+Ux_t+b)\\
+& s_t = f_t \odot c_{t-1}+ i_t \odot \bar{c}_t\\
+\\
+& h_t = o_t \odot \phi(c_t)\\
+\\
+& rnn_{out}=h_t
+\end{align}</script><p><img src="/images/LSTM/NH_BasicLSTMCell.png" alt></p>
+<h2 id="The-LSTM-with-peepholes"><a href="#The-LSTM-with-peepholes" class="headerlink" title="The LSTM with peepholes"></a>The LSTM with peepholes</h2><script type="math/tex; mode=display">
+\begin{equation}
+\begin{split}
+i_t &= \sigma(W_ih_{t-1} + U_ix_t + P_ic_{t-1} + b_i) \\
+f_t &= \sigma(W_fh_{t-1} + U_fx_t + P_fc_{t-1} + b_f) \\
+\\
+\tilde{c_t}& = \phi(Wh_{t-1} + Ux_t + b)\\
+c_t &= f_t \odot c_{t-1} + i_t \odot \tilde{c}_t\\
+\\
+o_t &= \sigma(W_oh_{t-1} + U_ox_t + P_oc_{t} + b_o) \\
+\\
+h_t &= o_t \odot \phi(c_t)\\
+\\
+\text{rnn}_{out} & = h_t
+\end{split}
+\end{equation}</script>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/01/Text-Encoding/" rel="next" title="Text_Encoding">
+                <i class="fa fa-chevron-left"></i> Text_Encoding
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4" alt="Dongxian Gu">
+            
+              <p class="site-author-name" itemprop="name">Dongxian Gu</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+        
+         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+        
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LSTM的理解、推导、扩展"><span class="nav-number">1.</span> <span class="nav-text">LSTM的理解、推导、扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN-Recurrent-neural-networks-回归神经网络"><span class="nav-number">1.1.</span> <span class="nav-text">RNN(Recurrent neural networks) 回归神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNNs能够做什么；选择timestep"><span class="nav-number">1.2.</span> <span class="nav-text">RNNs能够做什么；选择timestep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-vanilla-RNN"><span class="nav-number">1.3.</span> <span class="nav-text">The vanilla RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Information-morphing-and-vanishing-and-exploding-sensitivity（信息变形、消息和爆炸敏感性）"><span class="nav-number">1.4.</span> <span class="nav-text">Information morphing and vanishing and exploding sensitivity（信息变形、消息和爆炸敏感性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消失敏感度的数学充分条件"><span class="nav-number">1.5.</span> <span class="nav-text">消失敏感度的数学充分条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免梯度消失的最小权重初始化"><span class="nav-number">1.6.</span> <span class="nav-text">避免梯度消失的最小权重初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理梯度消失和爆炸"><span class="nav-number">1.7.</span> <span class="nav-text">处理梯度消失和爆炸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM背后的直觉"><span class="nav-number">1.8.</span> <span class="nav-text">LSTM背后的直觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择性的控制和协调写入"><span class="nav-number">1.9.</span> <span class="nav-text">选择性的控制和协调写入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#门选择机制"><span class="nav-number">1.10.</span> <span class="nav-text">门选择机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将门组合在得到LSTM原型"><span class="nav-number">1.11.</span> <span class="nav-text">将门组合在得到LSTM原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">1.12.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种模型：归一化模型、GRU、伪LSTM"><span class="nav-number">1.13.</span> <span class="nav-text">三种模型：归一化模型、GRU、伪LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#归一化原型：规范化的软界限"><span class="nav-number">1.13.1.</span> <span class="nav-text">归一化原型：规范化的软界限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GRU-通过写-遗忘耦合或覆盖的硬约束"><span class="nav-number">1.13.2.</span> <span class="nav-text">GRU:通过写-遗忘耦合或覆盖的硬约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪-LSTM-基于非线性压缩的硬约束"><span class="nav-number">1.13.3.</span> <span class="nav-text">伪 LSTM: 基于非线性压缩的硬约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推导LSTM"><span class="nav-number">1.14.</span> <span class="nav-text">推导LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-LSTM-with-peepholes"><span class="nav-number">1.15.</span> <span class="nav-text">The LSTM with peepholes</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian Gu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+</body>
+</html>
