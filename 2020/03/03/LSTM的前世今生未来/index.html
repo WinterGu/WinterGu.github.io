@@ -112,7 +112,7 @@
 <meta property="og:image" content="http://yoursite.com/images/LSTM/NH_GRUCell.png">
 <meta property="og:image" content="http://yoursite.com/images/LSTM/NH_PseudoLSTMCell.png">
 <meta property="og:image" content="http://yoursite.com/images/LSTM/NH_BasicLSTMCell.png">
-<meta property="og:updated_time" content="2020-03-03T11:50:49.978Z">
+<meta property="og:updated_time" content="2020-03-04T04:25:20.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LSTM的前世今生未来">
 <meta name="twitter:description" content="LSTM的理解、推导、扩展https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html RNN(Recurrent neural networks) 回归神经网络从一个时刻到下一个时刻，我们的大脑像一个功能在不停运作：接受外在的信息，产生内在的想法，并采取行动和产生新的想法。当我们看到熊的图">
@@ -285,7 +285,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">39</span></a>
 
   </li>
 
@@ -409,12 +409,24 @@
                 
               
 
-              <time title="创建时间：2020-03-03 09:10:37 / 修改时间：19:50:49" itemprop="dateCreated datePublished" datetime="2020-03-03T09:10:37+08:00">2020-03-03</time>
+              <time title="创建时间：2020-03-03 09:10:37" itemprop="dateCreated datePublished" datetime="2020-03-03T09:10:37+08:00">2020-03-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-04 12:25:20" itemprop="dateModified" datetime="2020-03-04T12:25:20+08:00">2020-03-04</time>
               
             
           </span>
@@ -547,7 +559,7 @@ s_t=\phi(Ws_{t-1}+Ux_t+b)</script><p>在这里：</p>
 <script type="math/tex; mode=display">
 \lim_{k \to \infty} \frac{\Delta s_{t+k}}{\Delta s_t} = 0</script><p>首先，根据对普通RNN Cell的定义，我们有：</p>
 <script type="math/tex; mode=display">
-s_{t+1}=\phi(z_t)\quad where \quad z_t=Ws_t+Ux_{t+1}+b</script><p>使用多变量的中值定理，我们得到$\exist c \in [z_t, z_t+\Delta z_t]$</p>
+s_{t+1}=\phi(z_t)\quad where \quad z_t=Ws_t+Ux_{t+1}+b</script><p>使用多变量的中值定理，我们得到$\exists c \in [z_t, z_t+\Delta z_t]$</p>
 <script type="math/tex; mode=display">
 \begin{align}
 \Delta S_{t+1} &  = [\phi'(c)]\Delta z_t\\ 
@@ -737,6 +749,10 @@ h_t &= o_t \odot \phi(c_t)\\
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/03/04/Transformer-All-is-all-you-need/" rel="prev" title="Transformer-All-is-all-you-need">
+                Transformer-All-is-all-you-need <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -806,7 +822,7 @@ h_t &= o_t \odot \phi(c_t)\\
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
