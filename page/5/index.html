@@ -94,24 +94,13 @@
 
 
 
-  <meta name="description" content="Self-Attention详解https://jalammar.github.io/illustrated-transformer/  对于 Self-Attention，其中Q(query),K(key),V(value)三个矩阵都来源同一个输入，首先需要计算Q和K之间的点乘，然后除以一个标准尺度$\sqrt{d_k}$，它是query和key向量的维度。再试用Softmax将结果归一化为概">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Self-Attention">
-<meta property="og:url" content="http://yoursite.com/2020/03/05/Self-Attention/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Dongxian&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="Self-Attention详解https://jalammar.github.io/illustrated-transformer/  对于 Self-Attention，其中Q(query),K(key),V(value)三个矩阵都来源同一个输入，首先需要计算Q和K之间的点乘，然后除以一个标准尺度$\sqrt{d_k}$，它是query和key向量的维度。再试用Softmax将结果归一化为概">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w.jpg">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-f64cbdcf1d883ede36b26067e34f4e3e_720w.jpg">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-03d0a60b60a0a28f52ed903c76bb9a22_720w.jpg">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-087b831f622f83e4529c1bbf646530f0_720w.jpg">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-eea2dcbfa49df9fb799ef8e6997260bf_720w.jpg">
-<meta property="og:image" content="http://yoursite.com/images/Self-Attention/v2-752c1c91e1b4dbca1b64f59a7e026b9b_720w.jpg">
-<meta property="og:updated_time" content="2020-03-05T15:00:20.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Self-Attention">
-<meta name="twitter:description" content="Self-Attention详解https://jalammar.github.io/illustrated-transformer/  对于 Self-Attention，其中Q(query),K(key),V(value)三个矩阵都来源同一个输入，首先需要计算Q和K之间的点乘，然后除以一个标准尺度$\sqrt{d_k}$，它是query和key向量的维度。再试用Softmax将结果归一化为概">
-<meta name="twitter:image" content="http://yoursite.com/images/Self-Attention/v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w.jpg">
+<meta name="twitter:title" content="Dongxian&#39;s Blog">
 
 
 
@@ -119,7 +108,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2020/03/05/Self-Attention/">
+  <link rel="canonical" href="http://yoursite.com/page/5/">
 
 
 
@@ -129,7 +118,7 @@
   };
 </script>
 
-  <title>Self-Attention | Dongxian's Blog</title>
+  <title>Dongxian's Blog</title>
   
 
 
@@ -177,7 +166,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -344,9 +334,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -361,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/Self-Attention/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/28/Ement/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -378,8 +368,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Self-Attention
-
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/28/Ement/" class="post-title-link" itemprop="url">Ement</a>
               
             
           </h1>
@@ -404,12 +396,24 @@
                 
               
 
-              <time title="创建时间：2020-03-05 22:29:37 / 修改时间：23:00:20" itemprop="dateCreated datePublished" datetime="2020-03-05T22:29:37+08:00">2020-03-05</time>
+              <time title="创建时间：2019-06-28 17:31:14" itemprop="dateCreated datePublished" datetime="2019-06-28T17:31:14+08:00">2019-06-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-06 11:49:16" itemprop="dateModified" datetime="2019-11-06T11:49:16+08:00">2019-11-06</time>
               
             
           </span>
@@ -426,7 +430,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DL/" itemprop="url" rel="index"><span itemprop="name">DL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
 
                 
                 
@@ -442,13 +446,6 @@
           
           
 
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -468,28 +465,32 @@
       
 
       
-        <h1 id="Self-Attention详解"><a href="#Self-Attention详解" class="headerlink" title="　Self-Attention详解"></a>　Self-Attention详解</h1><p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-transformer/</a></p>
-<p><img src="/images/Self-Attention/v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w.jpg" alt="v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w"></p>
-<p>对于 Self-Attention，其中<code>Q(query),K(key),V(value)</code>三个矩阵都来源同一个输入，首先需要计算<code>Q</code>和<code>K</code>之间的点乘，然后除以一个标准尺度$\sqrt{d_k}$，它是query和key向量的维度。再试用Softmax将结果归一化为概率分布，然后在乘以矩阵$V$就得到权重和的表示，整个过程可以表示成：</p>
-<script type="math/tex; mode=display">
-Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/images/Self-Attention/v2-f64cbdcf1d883ede36b26067e34f4e3e_720w.jpg" alt="v2-f64cbdcf1d883ede36b26067e34f4e3e_720w"></p>
-<p>假如需要翻译词组 <code>Thinking Machines</code> ，其中<code>Thinking</code>的输入嵌入向量用$x_1$表示，<code>Machines</code>的嵌入向量用$x_2$表示。</p>
-<p>当处理<code>Thinking</code>这个词，需要计算句中所有词和它的Attention Score，将词作为搜索的query，和句子中所有词的key来匹配，看看相关度多高。使用$q_1$代表<code>Thinking</code>的query vector，$k_1,k_2$分别表示<code>Thinking,Machines</code>对应的key vector，计算<code>Thinking</code>的Attention Score，只需要计算$q_1$和$k_1,k_2$的点乘。同理计算<code>Machines</code>的Attention Score计算$q_2$和$k2_1,k_2$的点乘。然后再进行放缩，和softmax归一化。</p>
-<p><img src="/images/Self-Attention/v2-03d0a60b60a0a28f52ed903c76bb9a22_720w.jpg" alt="v2-03d0a60b60a0a28f52ed903c76bb9a22_720w"></p>
-<p>显然当前的单词与自身的Attention score 一般最大。其他单词和当前单词的重要程度有相应分数。然后再将Attention Score和value vector相乘，得到加权后的向量。</p>
-<p><img src="/images/Self-Attention/v2-087b831f622f83e4529c1bbf646530f0_720w.jpg" alt="v2-087b831f622f83e4529c1bbf646530f0_720w"></p>
-<p>如果将输入的所有向量合并成矩阵形式，则其中的query、key、value向量也可并称矩阵形式表示。</p>
-<p><img src="/images/Self-Attention/v2-eea2dcbfa49df9fb799ef8e6997260bf_720w.jpg" alt="v2-eea2dcbfa49df9fb799ef8e6997260bf_720w"></p>
-<p>其中，$W^Q,W^K,W^V$是我们模型训练过程中学习到的合适参数。</p>
-<p><img src="/images/Self-Attention/v2-752c1c91e1b4dbca1b64f59a7e026b9b_720w.jpg" alt="v2-752c1c91e1b4dbca1b64f59a7e026b9b_720w"></p>
-<p>Multi-head就是使用多个Q，K，V，然后将得到的多个$Z$拼接起来，在乘以矩阵$W^o$来计算出layer的输出。</p>
-<p>对于encoder就是利用这些基本单元叠加，其中key，query，value来自前一层的输出，所以encoder中的每个位置都可以关注到之前一层中encoder的所有位置。</p>
-<p>对于decoder，由两个和encoder不同的地方</p>
-<ul>
-<li>第一级的 Masked Multi-head，其中的key，query，value均来自前一层的decoder的输出，但是加入了Mask操作，即只能关注到前面已经翻译过了的输出的词语，没有的翻译的无法知道。</li>
-<li>第二级的 Multi-head Attention 的输入来自前一级和encoder的输出：query来自前一级的decoder，key和value来自encoder的输出，这样decoder的每个每个位置可以关注到输入序列的情况。</li>
-</ul>
+        
+          
+            <p>
+              Ement 语法
+生成 html 框架
 
+使用! 或者 html:5 生成 html5基本代码
+使用 html:xt 和 html:4s 生成html4过渡型和严格型
+
+
+生成帯class 和 id的标签
+
+生成class的标签 标签名.class名。例：div.aaa
+生成id的标签 标签名#id
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/06/28/Ement/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
@@ -512,32 +513,12 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/03/05/Neural-Network-Primer/" rel="next" title="Neural-Network-Primer">
-                <i class="fa fa-chevron-left"></i> Neural-Network-Primer
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/11/Nodejs初探/" rel="prev" title="Nodejs初探">
-                Nodejs初探 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -547,15 +528,18 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
   </article>
 
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -575,17 +559,8 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -693,23 +668,6 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Self-Attention详解"><span class="nav-number">1.</span> <span class="nav-text">　Self-Attention详解</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
@@ -862,10 +820,6 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
 
 
   
-  <script src="/js/scrollspy.js?v=7.1.2"></script>
-<script src="/js/post-details.js?v=7.1.2"></script>
-
-
 
   
 
@@ -881,8 +835,6 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
 
   
 
-
-  
 
 
   
@@ -1219,47 +1171,11 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
 
   
   
-
-  
     
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
       
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
-    }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
     
+  
+
   
 
 
