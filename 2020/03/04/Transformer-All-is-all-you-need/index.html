@@ -94,22 +94,22 @@
 
 
 
-  <meta name="description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog 安德烈 · 卡帕西的博客The">
+  <meta name="description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer-All-is-all-you-need">
 <meta property="og:url" content="http://yoursite.com/2020/03/04/Transformer-All-is-all-you-need/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog 安德烈 · 卡帕西的博客The">
+<meta property="og:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/MultiStepAttention.gif">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/encoder.png">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/MultiHead.png">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/transform20fps.gif">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/CoreferenceResolution.png">
-<meta property="og:updated_time" content="2020-03-04T16:54:47.183Z">
+<meta property="og:updated_time" content="2020-03-12T10:50:38.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Transformer-All-is-all-you-need">
-<meta name="twitter:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog 安德烈 · 卡帕西的博客The">
+<meta name="twitter:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
 <meta name="twitter:image" content="http://yoursite.com/images/Transformer/MultiStepAttention.gif">
 
 
@@ -261,7 +261,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -279,7 +279,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
 
@@ -420,7 +420,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-05 00:54:47" itemprop="dateModified" datetime="2020-03-05T00:54:47+08:00">2020-03-05</time>
+                <time title="修改时间：2020-03-12 18:50:38" itemprop="dateModified" datetime="2020-03-12T18:50:38+08:00">2020-03-12</time>
               
             
           </span>
@@ -438,6 +438,13 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
 
                 
                 
@@ -482,10 +489,10 @@
         <h1 id="The-Transformer-Attention-is-all-you-need"><a href="#The-Transformer-Attention-is-all-you-need" class="headerlink" title="The Transformer - Attention is all you need"></a>The Transformer - Attention is all you need</h1><p>参考来源：<a href="https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj" target="_blank" rel="noopener">https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj</a></p>
 <p>前置知识：</p>
 <ul>
-<li>RNN – Andrej Karpathy’s blog 安德烈 · 卡帕西的博客<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks 递归神经网络的不合理有效性</a></li>
-<li>Seq2Seq - Nathan Lintz Seq2seq-Nathan Lintz<a href="https://indico.io/blog/sequence-modeling-neuralnets-part1/" target="_blank" rel="noopener">Sequence Modeling With Neural Networks (Part 1): Language &amp; Seq2Seq 基于神经网络的序列建模(上) : 语言与 Seq2Seq</a>, Part2 、第二部分<a href="https://indico.io/blog/sequence-modeling-neural-networks-part2-attention-models/" target="_blank" rel="noopener">Sequence modeling with attention 注意序列建模</a></li>
-<li>LSTM – Christopher Olah’s blog 克里斯托弗 · 奥拉的博客<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks 理解 LSTM 网络</a> and R2Rt.com <a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">Written Memories: Understanding, Deriving and Extending the LSTM 书面记忆: LSTM 的理解、推导与扩展</a>.</li>
-<li>Attention – Christopher Olah 注意-Christopher Olah<a href="https://distill.pub/2016/augmented-rnns/#attentional-interfaces" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks 注意与增强递归神经网络</a></li>
+<li>RNN – Andrej Karpathy’s blog <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks </a></li>
+<li>Seq2Seq - Nathan Lintz Seq2seq-Nathan Lintz<a href="https://indico.io/blog/sequence-modeling-neuralnets-part1/" target="_blank" rel="noopener">Sequence Modeling With Neural Networks (Part 1): Language &amp; Seq2Seq</a>, Part2 <a href="https://indico.io/blog/sequence-modeling-neural-networks-part2-attention-models/" target="_blank" rel="noopener">Sequence modeling with attention</a></li>
+<li>LSTM – Christopher Olah’s blog <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks </a> and R2Rt.com <a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">Written Memories: Understanding, Deriving and Extending the LSTM</a>.</li>
+<li>Attention – Christopher Olah<a href="https://distill.pub/2016/augmented-rnns/#attentional-interfaces" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks</a></li>
 </ul>
 <h2 id="算法的目标"><a href="#算法的目标" class="headerlink" title="算法的目标"></a>算法的目标</h2><ul>
 <li><code>Seq2Seq的并行化：RNN/CNN</code>处理有序的逐字的序列是并行的障碍。<code>Transformer</code>通过使用注意力机制和对序列中字符的位置编码来替换递归结构来获得并行化运行，反过来，这也导致训练时间的明显减少。</li>
@@ -533,8 +540,8 @@
 <p>通常，<code>Transformer</code>的<code>encoder</code>将输入序列映射到连续表示$z$，反过来，$z$被<code>decoder</code>用来生成输出，例如一次一个字符。</p>
 <p><code>encoder</code>的最终状态是一个固定长度的向量$z$。$z$必须<code>encode</code>包含原始句子的全部信息。因此$z$也被成为句子嵌入(sentence embedding)。</p>
 <p><code>encoder-decoder</code>模型在它的每一步设计为<code>auto-regressive</code>（自回归）。使用前面生成的字符作为额外的输入来生成下一个字符时。</p>
-<p>$x<em>i+y</em>{i-1} \to y_i$</p>
-<h2 id="基于Encoder-Decoder的Transformer"><a href="#基于Encoder-Decoder的Transformer" class="headerlink" title="基于Encoder-Decoder的Transformer"></a>基于Encoder-Decoder的Transformer</h2><p>在<code>Transformer</code>（如<code>ByteNet</code>或<code>ConvS2S</code>)中，<code>decoder</code>是直接堆在<code>encoder</code>上面。<code>Encoder</code>和<code>Decoder</code>都是由相同的层堆积而成的。每个堆积层都是由两种一般类型的子层组成的：</p>
+<script type="math/tex; mode=display">
+x_i+y_{i-1} \to y_i</script><h2 id="基于Encoder-Decoder的Transformer"><a href="#基于Encoder-Decoder的Transformer" class="headerlink" title="基于Encoder-Decoder的Transformer"></a>基于Encoder-Decoder的Transformer</h2><p>在<code>Transformer</code>（如<code>ByteNet</code>或<code>ConvS2S</code>)中，<code>decoder</code>是直接堆在<code>encoder</code>上面。<code>Encoder</code>和<code>Decoder</code>都是由相同的层堆积而成的。每个堆积层都是由两种一般类型的子层组成的：</p>
 <ul>
 <li><code>multi-head self-attention mechanism</code> </li>
 <li><code>position-wise fully connected FNN</code></li>
@@ -612,7 +619,7 @@ head_i = Attention(QW_i^Q,KW_i^K,VW_i^V)</script></li>
 <script type="math/tex; mode=display">
 MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \quad W_0 \in  \mathbb{R^{d_{hd_v} \times d_{model}}}</script></li>
 </ul>
-<p><code>Transformer</code>使用 <code>multi-head</code> ($d<em>{model}/h$维的并行的<code>attention</code>函数) <code>attention</code>  替代 单个($d</em>{model}维$)的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和s<code>ingle-head attention</code>是相似的。</p>
+<p><code>Transformer</code>使用 <code>multi-head</code> （ $d_{model}/h $ 维的并行的<code>attention</code>函数） <code>attention</code>  替代 单个（ $d_{model}$维）的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和<code>single-head attention</code>是相似的。</p>
 <p><code>Transformer</code>模仿了经典的注意力机制，在<code>encoder-decoder attention layers</code> 的<code>queries</code>是来自前面的<code>decoder layer</code>。 <code>keys</code> 和 <code>values</code>来源<code>encoder</code>的输出。因此，在<code>decoder</code>上的每个位置能够观察到输出序列的所有位置。</p>
 <h3 id="Self-Attention-（SA"><a href="#Self-Attention-（SA" class="headerlink" title="Self-Attention （SA)"></a>Self-Attention （SA)</h3><p>See <a href="https://mchromiak.github.io/articles/2017/Sep/01/Primer-NN/#attention-basis" target="_blank" rel="noopener">Attention Primer</a> for basics on attention.</p>
 <p>在<code>encoder</code>中，<code>self-attention layer</code> 处理来自同一个位置的输入<code>queries，keys，values</code>。encoder中的每个位置都可以观察到来自前面 layer of the encoder 的所有位置。</p>
@@ -630,7 +637,7 @@ MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \qua
 </ul>
 <h3 id="Position-wise-FFN"><a href="#Position-wise-FFN" class="headerlink" title="Position-wise FFN"></a>Position-wise FFN</h3><p>在encoder和decoder最后那个，attention子层由一个全连接的FNN来处理。它应用在每个单独的位置上，同时意味着两个线性变换和一个ReLU</p>
 <script type="math/tex; mode=display">
-FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d<em>{model}=512$，inner0layer 是$d</em>{ff}=2048$</p>
+FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d_{model}=512$，inner0layer 是$d_{ff}=2048$</p>
 <h2 id="算法的伪代码or流程图"><a href="#算法的伪代码or流程图" class="headerlink" title="算法的伪代码or流程图"></a>算法的伪代码or流程图</h2><p><img src="/images/Transformer/transform20fps.gif" alt></p>
 <center>图4：在英译法的Transformer的逐步变换</center>
 
@@ -768,7 +775,7 @@ FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -809,7 +816,13 @@ FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -844,7 +857,7 @@ FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
 
           
         
-         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
         
           
 

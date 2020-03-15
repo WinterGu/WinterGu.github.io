@@ -94,19 +94,19 @@
 
 
 
-  <meta name="description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L={a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2, L">
+  <meta name="description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="已知语言构建文法">
 <meta property="og:url" content="http://yoursite.com/2019/11/14/已知语言构建文法/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L={a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2, L">
+<meta property="og:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/电路转换图.png">
 <meta property="og:image" content="http://yoursite.com/images/电路状态转换图2.png">
 <meta property="og:updated_time" content="2019-11-28T03:05:13.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="已知语言构建文法">
-<meta name="twitter:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L={a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2, L">
+<meta name="twitter:description" content="已知语言构建文法概述常用方法  对称法 逐步求精法（分解法） 等价法 电路状态转换法 混合法（混合上面的方法）  对称法适用于存在对称性的语言。 两点：  找出对称轴 找出对称性  例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$ 观察语言：  \begin{split} &amp; when \; n=1, L=aab \\ &amp; when \; n=2,">
 <meta name="twitter:image" content="http://yoursite.com/images/电路转换图.png">
 
 
@@ -258,7 +258,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -276,7 +276,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
 
@@ -490,7 +490,7 @@
 <li>找出对称轴</li>
 <li>找出对称性</li>
 </ol>
-<p>例题：$L={a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T}$</p>
+<p>例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$</p>
 <p>观察语言：</p>
 <script type="math/tex; mode=display">
 \begin{split}
@@ -503,7 +503,7 @@
 & S \rightarrow aab
 \end{split}</script><h2 id="逐步求精法（分解法）"><a href="#逐步求精法（分解法）" class="headerlink" title="逐步求精法（分解法）"></a>逐步求精法（分解法）</h2><p>两种：自上而下 或者从左向右</p>
 <p>前提：语言中各成分之间没有关联。</p>
-<p>例题：$L={a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T}$</p>
+<p>例题：$L=\{a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T\}$</p>
 <ol>
 <li><p>自上而下求精法</p>
 <script type="math/tex; mode=display">
@@ -517,7 +517,7 @@ S \rightarrow aS|aA,\; A\rightarrow bA|bB,\; B\rightarrow cB|c</script><p>分析
 </li>
 </ol>
 <h2 id="等价法"><a href="#等价法" class="headerlink" title="等价法"></a>等价法</h2><p>产生式两边具有相同的特性</p>
-<p>例题：$L={\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega}$</p>
+<p>例题：$L=\{\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega\}$</p>
 <p>在语言中，a和b的数量一样多。</p>
 <p>首先写出下面三个产生式：</p>
 <p>当以a开头时，$S \rightarrow aA$；</p>
@@ -570,7 +570,7 @@ B \rightarrow aS|a|bBB</script><h2 id="电路状态转换法"><a href="#电路�
 <p>严格的说最后可以写出$2^{n(n+1)}+1$条产生式。</p>
 </li>
 </ol>
-<p>例题：$L={\omega| \omega \in (0,1)^*, 1的数量是偶数}$</p>
+<p>例题：$L=\{\omega| \omega \in (0,1)^*, 1的数量是偶数\}$</p>
 <p>电路状态转换图如下所示：</p>
 <p><img src="/images/电路状态转换图2.png" alt="电路状态转换图2"></p>
 <p>本题中，只有两个状态：</p>
@@ -696,7 +696,7 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -737,7 +737,13 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -772,7 +778,7 @@ A \rightarrow 0A|1S</script><h2 id="混合法（混合上面的方法）"><a hre
 
           
         
-         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
         
           
 

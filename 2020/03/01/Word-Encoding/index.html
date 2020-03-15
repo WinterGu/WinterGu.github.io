@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="词编码（表示）One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, ban">
+<meta property="og:type" content="article">
+<meta property="og:title" content="词编码（表示）">
+<meta property="og:url" content="http://yoursite.com/2020/03/01/Word-Encoding/index.html">
+<meta property="og:site_name" content="Dongxian&#39;s Blog">
+<meta property="og:description" content="词编码（表示）One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, ban">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/WordEmbedding/CBOW.jpg">
+<meta property="og:image" content="http://yoursite.com/images/WordEmbedding/Skip-Gram-Net.jpg">
+<meta property="og:image" content="http://yoursite.com/images/WordEmbedding/Embedding_Relation.jpg">
+<meta property="og:updated_time" content="2020-03-13T07:47:22.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="词编码（表示）">
+<meta name="twitter:description" content="词编码（表示）One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, ban">
+<meta name="twitter:image" content="http://yoursite.com/images/WordEmbedding/CBOW.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/03/01/Word-Encoding/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>词编码（表示） | Dongxian's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dongxian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">2</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/Word-Encoding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">词编码（表示）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-01 19:39:49" itemprop="dateCreated datePublished" datetime="2020-03-01T19:39:49+08:00">2020-03-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-13 15:47:22" itemprop="dateModified" datetime="2020-03-13T15:47:22+08:00">2020-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="词编码（表示）"><a href="#词编码（表示）" class="headerlink" title="词编码（表示）"></a>词编码（表示）</h1><h2 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h2><p>假设词汇表中共计$N$个word，则展开一个<code>N</code>维的Vector，对应word的位置赋值为1,其他位置为0。</p>
+<p>For example:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Time flies like an arrow.</span><br><span class="line">Fruit flies like a banana.</span><br></pre></td></tr></table></figure>
+<p>词汇表的长度为8：<code>{time, fruit, flies, like, an, arrow, banana }</code>。应次每个word都可以表示为 8-D Vector。</p>
+<p>因此，对于短语和句子，文档可以简单的表示为连续词的 与或 运算。</p>
+<p><code>like a banana</code>能够表示为<code>{0,0,0,1,1,0,0,1}</code></p>
+<p>问题：无法衡量词之间的相似度，维度太高。</p>
+<h2 id="TF-Representation"><a href="#TF-Representation" class="headerlink" title="TF Representation"></a>TF Representation</h2><p>短语，句子或文档的TF表示能够简单表示为连续词的one-hot vector的和。</p>
+<p><code>Fruit flies like time flies a fruit:[1,2,2,1,1,0,0,0]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">one_hot_vectorizer = CountVectorizer(binary=<span class="literal">True</span>)</span><br><span class="line">one_hot = one_hot_vectorizer.fit_transform(corpus).toarray()</span><br><span class="line">vocab = one_hot_vectorizer.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(one_hot, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="TF-IDF-Representation"><a href="#TF-IDF-Representation" class="headerlink" title="TF-IDF Representation"></a>TF-IDF Representation</h2><script type="math/tex; mode=display">
+IDF(w)=\log\frac{N}{n_w}</script><p><code>TF: Term Frequency</code></p>
+<p><code>IDF: Inverse-Document-Frequency</code></p>
+<ul>
+<li>$n_w$s：是文档中包括 <code>w</code>的数量</li>
+<li>$N$：是文档的数量</li>
+</ul>
+<script type="math/tex; mode=display">
+TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少，则IDF越高，说明词的重要性越大。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">tfidf = TfidfVectorizer()</span><br><span class="line">vectors = tfidf.fit_transform(corpus).toarray()</span><br><span class="line">vocab = tfidf.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(vectors, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="基于奇异值分解（SVD）的方法"><a href="#基于奇异值分解（SVD）的方法" class="headerlink" title="基于奇异值分解（SVD）的方法"></a>基于奇异值分解（SVD）的方法</h2><p>这是一种构造词向量的方法。</p>
+<ol>
+<li>第一步，遍历全部的文本数据集，统计词出现的次数；</li>
+<li>然后使用矩阵$X$来表示所有次数的情况；</li>
+<li>接着对$X$进行SVD得到$USV^T$的分解</li>
+<li>最后使用U的行作为所有词表中词的词向量。</li>
+</ol>
+<p>对于矩阵$X$，可以采用两种方法：全文 or 窗口长度。</p>
+<ul>
+<li><p>词-文档矩阵</p>
+<p>建立词组文档矩阵$X$，遍历海量文件，每次词组$i$出现在文件$j$中时，将对应的$X_{ij}$的值加1。矩阵的形状为$\mathbb{R}^{|V|\times M}$，矩阵，矩阵将会非常大，并且和文档个数$M$有关。所以需要采取办法进行处理和优化。</p>
+<p>最终词-文档的共现矩阵最终将会得到泛化的主题（比如某类词汇将会产生相似的表示），这就是所谓的浅层语义分析（LSA,Latent Semantic Analysis）</p>
+</li>
+<li><p>基于窗口的共现矩阵</p>
+<p>将矩阵$X$记录的词频情况变成一个相关性矩阵。</p>
+<p>对$X$进行SVD，观察奇异值（矩阵的对角元素），根据我们期望保留的多少进行截断（保留前多少个维度），将子矩阵$U_{1:|V|,1:k}$作为词向量矩阵，这样，对于词表中的每个词，都使用一个$k$维的向量表示。窗口长度容易捕获到语法和语义信息。</p>
+</li>
+</ul>
+<p>问题</p>
+<ul>
+<li>矩阵的维度会经常变化（新的词语经常会增加，语料库的大小也会随时变化）。</li>
+<li>矩阵是非常稀疏的，因为大多数词并不同时出现。</li>
+<li>矩阵的维度通常非常高（≈106×106），需要大量的存储</li>
+<li>训练需要$O(n^2)$的复杂度</li>
+<li>对于新词或者新的文档很难及时更新</li>
+<li>需要专门对矩阵$X$进行特殊处理，以应对词组频率的极度不平衡的状况</li>
+</ul>
+<p>解决方案：直接学习低维度的词向量</p>
+<p>将最重要的信息存储在固定的，低维度的向量里：密集向量（dense vector)，维数通常是25-1000<br>然而，如何降维？</p>
+<h2 id="基于迭代的方法"><a href="#基于迭代的方法" class="headerlink" title="基于迭代的方法"></a>基于迭代的方法</h2><blockquote>
+<p>通过一步步的迭代的学习，最终得出每个单词基于其上下文的条件概率。</p>
+</blockquote>
+<h3 id="n-gram"><a href="#n-gram" class="headerlink" title="n-gram"></a>n-gram</h3><blockquote>
+<p>单个词出现的概率只和它前面固定数目的词有关。</p>
+</blockquote>
+<p>主要方法，在语料中统计各种词串出现的次数来计算概率以及平滑处理，将计算得到的概率值进行存储，下一次计算直接找出相关的概率参数，进行连乘。</p>
+<p>建立概率模型，其中包含了已知和未知的参数，每增加一个训练样本，就能学习到一点点未知参数的信息。</p>
+<p>每次迭代过程中，模型需要能够评估误差，根据误差进行更新参数。</p>
+<h2 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h2><p>根据上下文内容预测中心词的表示。</p>
+<p><img src="/images/WordEmbedding/CBOW.jpg" alt="CBOW"></p>
+<p>连续词袋（Continuous  Bag of Word）模型中的符号：</p>
+<ul>
+<li>$W_i$：单词表 $V$ 中的第 $i$个单词, one-hot 向量</li>
+<li>$v \in \mathbb{R}^{n \times |V|}$：输入词矩阵</li>
+<li>$v_i$：$V$的第$i$列，$n$ 维 $W_i$的输入向量</li>
+<li>$U \in \mathbb{R}^{|V| \times n}$：输出词矩阵</li>
+<li>$U_i$：$U$ 的第 $i$ 行，$n$ 维 $W_i$ 的输出向量</li>
+</ul>
+<p>整个过程如下：</p>
+<ol>
+<li>对于输入上下文长度为$m$个词，生成的独热向量$(x^{c-m},\cdots,x^{c-1},x^{c+1},\cdots,x^{c+m})$，作为模型的输入。</li>
+<li>得到上下文的嵌入词向量$(v_{c-m}=Vx^{c-m},\cdots,v_{c+m}=Vx^{c+m})$</li>
+<li>将这些向量取平均值$\hat{v}=\frac{v_{c-m}+\cdots+v_{c+m}}{2m}$</li>
+<li>产生一个得分向量$z=U\hat{v}$</li>
+<li>将得分向量概率归一化$\hat{y}=softmax(z)$</li>
+<li>希望产生的概率分布和真实的概率分布$y$相匹配，其中真实的概率分布就是我们期望的词的独热向量。</li>
+</ol>
+<p>如何得到矩阵$U,V$</p>
+<p>Loss function: Cross-Entroy，使用Gradient Descend去更新矩阵中的参数。</p>
+<p>从Information Theroy的角度来评估两个概率分布的差异。最为广泛的的方法就是使用交叉熵：</p>
+<script type="math/tex; mode=display">
+H(\hat{y},y)=-\sum_{j=1}^{|V|} y_j\log {\hat{y}_j}</script><h2 id="Skip-Gram"><a href="#Skip-Gram" class="headerlink" title="Skip-Gram"></a>Skip-Gram</h2><p><strong>CBOW</strong>的思路将中心词作为目标向量，周围的词作为输入。而<strong>Skip-Gram</strong>和它正好想法，将中心词作为输入，来预测周围词。</p>
+<p><img src="/images/WordEmbedding/Skip-Gram-Net.jpg" alt="Skip-Gram-Net"></p>
+<p>和<strong>CBOW</strong>模型十分相似，只是交换了输入和输出的位置。输入向量为中心词的独热向量，输出向量为中心词的周围向量。</p>
+<p>假设一段话</p>
+<p><code>the quick brown fox jumped over the lazy dog</code></p>
+<p>取左右窗口为1，则数据集中的（上下文信息，中心词）的数据为：</p>
+<p><code>([the, brown], quick), ([quick, fox], brown), ([brown, jumped], fox), ...</code></p>
+<p>而<strong>Skip-Gram</strong>通过中心词来预测上下文信息，因此转换成如下形式:</p>
+<p><code>(quick, the), (quick, brown), (brown, quick), (brown, fox), ...</code></p>
+<p>整个计算过程可以分为以下几步：</p>
+<ol>
+<li>生成独热变量$x$</li>
+<li>上下文的词向量$v_c= Vx$</li>
+<li>不需要取平均值，因此，$\hat{v}=v_c$</li>
+<li>$U=Uv_c$得到2m个得分向量$U_{c−m},⋯,U_{c−1},U_{c+1},⋯,U_{c+m}$，如果上下文取一个词，就是$U_{c-1},U_{c+1}$</li>
+<li>将得分向量转换成概率分布，$y=softmax(u)$</li>
+<li>希望产生的概率分布和真实的分布相匹配$y^{c−m},⋯,y^{c−1},,y^{c+1}⋯,y^{c+m}$</li>
+</ol>
+<p>为模型设定一个目标/损失函数。不过不同的地方是我们这里需要引入朴素贝叶斯假设来将联合概率拆分成独立概率相乘。只要给出了中心词，所有的输出词是完全独立的。使用随机梯度下降算法(SGD)来进行最优化求解，并且使用mini-batch方法 (通常batch_size在16到512之间)。可以用随机梯度下降法去更新未知参数的梯度。</p>
+<h2 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h2><p><strong>Word2Vec</strong>是一个预测模型，用于学习Word Embedding，实现的模型就是上面的两种：CBOW和Skip-Gram。</p>
+<ul>
+<li>CBOW 从输入的上下文信息来预测目标词</li>
+<li>Skip-gram 模型则是相反的，从目标词来预测上下文信息</li>
+</ul>
+<p>区别上，CBOW适合在小规模的数据集上，能够对分布式的信息进行平滑处理；而Skip-Gram适合在大规模的数据集熵。</p>
+<p>其中Embedding也可以来捕捉关系：</p>
+<p><img src="/images/WordEmbedding/Embedding_Relation.jpg" alt="Embedding_Relation"></p>
+<h2 id="VSM-Vector-Space-Models"><a href="#VSM-Vector-Space-Models" class="headerlink" title="VSM,Vector Space Models"></a>VSM,Vector Space Models</h2><blockquote>
+<p>将词表示成一个连续的词向量，并且语义上接近的词对应的向量在空间上也是接近的。</p>
+</blockquote>
+<p><strong>分布式假说理论</strong>：如果两个词的上下文相同，那么两个词所表示的语义也是一样的；换言之，两个词的语义是否相同或相似，取决于两个词的上下文内容，上下文相同表示两个词是可以等价替换的。</p>
+<p>生成Word Embedding 的两类方法：</p>
+<ul>
+<li><p>计数法：e.g Latent Semantic Analysis</p>
+<p>在大规模的语料中统计词语和邻近词语的共现频率，然后将每个词映射为稠密的向量表示。</p>
+</li>
+<li><p>预测法 ：e.g neural probabilistic language model</p>
+<p>直接使用词语的邻近信息来得到预测词的词向量（词向量通常作为模型的训练参数）</p>
+</li>
+</ul>
+<h2 id="词向量任务评估"><a href="#词向量任务评估" class="headerlink" title="词向量任务评估"></a>词向量任务评估</h2><h3 id="内部任务评价"><a href="#内部任务评价" class="headerlink" title="　内部任务评价"></a>　内部任务评价</h3><p>内部任务评价的特点如下：</p>
+<ul>
+<li>一般是在一个特定的子任务中进行评测</li>
+<li>计算很快</li>
+<li>有助于理解相关的系统</li>
+<li>在实际的NLP任务中表现好坏，可能需要外部关联实际应用</li>
+</ul>
+<h3 id="方法：词向量类比"><a href="#方法：词向量类比" class="headerlink" title="方法：词向量类比"></a>方法：词向量类比</h3><p>我们先输入一组不完整的类比 a:b::c:? 内部任务评价系统找出最大化余弦相似度的词向量<br>理想情况下，我们想得到$x_b−x_a=x_d−x_c$(例如，王后–国王 = 女演员 – 男演员)。于是$x_b−x_a+x_c=x_d$, 所以我们只需要找出一个与$x_b−x_a+x_c$的标准化内积（比如余弦相似度）取最大值的词向量就可以了。</p>
+<h3 id="方法：相关性评价"><a href="#方法：相关性评价" class="headerlink" title="方法：相关性评价"></a>方法：相关性评价</h3><p>另外一个评测词向量质量的简单方法是人为对两个词的相似度在一个固定区间内打分(比如说 0-10)，再跟对应向量的余弦相适度进行对比。</p>
+<p>相关参数</p>
+<ul>
+<li>词向量的维度</li>
+<li>资料库的大小</li>
+<li>资料源/类型</li>
+<li>上下文窗口的大小</li>
+<li>上下文的对称性</li>
+</ul>
+<p>一般而言，</p>
+<ul>
+<li>精度和使用的模型高度相关，因为这些生成词向量的方法所依据的特性是完全不同的(如同时出现的次数，奇异向量等。)</li>
+<li>文集量越大，精度越高，因为例子越多，生成的系统学习到的经验就更丰富。比如在完成词汇类比的例子中，系统如果之前没有接触测试词，就可能会生成错误的结果。</li>
+<li>如果维度特别低或特别高，精度就会比较低。低维度词向量无法捕捉文集中不同词语的不同意义。这可以视为我们模型复杂度过低而导致的高偏差。比如 “king”, “queen”, “man”, “woman” 这几个词，我们需要至少2个维度像”gender” 如 “leadership” 来把它们编译成 2-字节 词向量。 过低的维度将无法捕捉四个词之间的语义差别，而过高的维度将捕捉到一些对泛化能力没有用的噪音– 即高方差的问题。</li>
+</ul>
+<h3 id="外部任务评价"><a href="#外部任务评价" class="headerlink" title="　外部任务评价"></a>　外部任务评价</h3><p>外部任务评价的特点如下：</p>
+<ul>
+<li>在一个实际任务中进行评测</li>
+<li>需要花很长的时间来计算精度</li>
+<li>不太清楚是否是某个子系统或者其他子系统，又或是几个子系统互相作用引起的问题</li>
+<li>如果替换原有的子系统后获得精度提升，则说明替换很可能是有效的</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/18/neo4j基础教程/" rel="next" title="neo4j基础教程">
+                <i class="fa fa-chevron-left"></i> neo4j基础教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/03/LSTM的前世今生未来/" rel="prev" title="LSTM的前世今生未来">
+                LSTM的前世今生未来 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4" alt="Dongxian Gu">
+            
+              <p class="site-author-name" itemprop="name">Dongxian Gu</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+        
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
+        
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#词编码（表示）"><span class="nav-number">1.</span> <span class="nav-text">词编码（表示）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#One-hot-Representation"><span class="nav-number">1.1.</span> <span class="nav-text">One-hot Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TF-Representation"><span class="nav-number">1.2.</span> <span class="nav-text">TF Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TF-IDF-Representation"><span class="nav-number">1.3.</span> <span class="nav-text">TF-IDF Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于奇异值分解（SVD）的方法"><span class="nav-number">1.4.</span> <span class="nav-text">基于奇异值分解（SVD）的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于迭代的方法"><span class="nav-number">1.5.</span> <span class="nav-text">基于迭代的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#n-gram"><span class="nav-number">1.5.1.</span> <span class="nav-text">n-gram</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CBOW"><span class="nav-number">1.6.</span> <span class="nav-text">CBOW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Skip-Gram"><span class="nav-number">1.7.</span> <span class="nav-text">Skip-Gram</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word2Vec"><span class="nav-number">1.8.</span> <span class="nav-text">Word2Vec</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VSM-Vector-Space-Models"><span class="nav-number">1.9.</span> <span class="nav-text">VSM,Vector Space Models</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词向量任务评估"><span class="nav-number">1.10.</span> <span class="nav-text">词向量任务评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内部任务评价"><span class="nav-number">1.10.1.</span> <span class="nav-text">　内部任务评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法：词向量类比"><span class="nav-number">1.10.2.</span> <span class="nav-text">方法：词向量类比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法：相关性评价"><span class="nav-number">1.10.3.</span> <span class="nav-text">方法：相关性评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部任务评价"><span class="nav-number">1.10.4.</span> <span class="nav-text">　外部任务评价</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian Gu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+</body>
+</html>

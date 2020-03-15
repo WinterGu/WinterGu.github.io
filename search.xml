@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ELMo算法</title>
+    <url>/2020/03/14/ELMo%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="ELMo算法"><a href="#ELMo算法" class="headerlink" title="ELMo算法"></a>ELMo算法</h1><p>ELMo,(Embeddings from Language Models)</p>
+<p><a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="noopener">Paper</a></p>
+<p>Paper的author认为对词语进行表征应该兼顾的问题：</p>
+<ul>
+<li>词语在语义和语法上用法的特点</li>
+<li>随着语言环境的变化，用法也能够改变。</li>
+</ul>
+<p>这种算法的特点：每个词语的表征是整个输入语句的函数。</p>
+<p>通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LSTM模型，再利用LSTM产生词语的表征。</p>
+<p>在下游的NLP任务中，一般使用下游任务的Corpus（ignore label）对language model进行 微调，这种做法相当于到domain transfer，然后利用label的信息进行监督学习。</p>
+<p>ELMo对词语的表征是“深”的，它们是BiLSTM中所有层的内部表征的函数。因此可以产生丰富的词语特征。</p>
+<p>高层的LSTM的status可以捕捉到词语语义和语境相关的特征，因此可以来进行语义消歧，而底层的LSTM可以捕捉到语法方面的特征，可以做词性标注。将这两个结合起来，可以在下游的NLP Task中获得优势。</p>
+<h2 id="Bidirectional-language-model"><a href="#Bidirectional-language-model" class="headerlink" title="　Bidirectional language model"></a>　Bidirectional language model</h2><p>ELMo从意思上是从语言模型中得到的嵌入。具体而言就是 双向语言模型</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& forward\;LM: \quad p(t_1,t_2,\cdots,t_N) = \prod_{k=1}^N p(t_k|t_1,t_2,\cdots,t_k-1) \\ 
+& backward\;LM: \quad p(t_1,t_2,\cdots,t_N) = \prod_{k=1}^N p(t_k|t_{k+1},t_{k+2},\cdots,t_N)
+\end{align}</script><p>其中$t$表示各种token。</p>
+<p>对语言模型通常使用多层LSTM进行建模，ELMo的语言模型采用这种方式，使用叠加的双向LSTM来表示。</p>
+<p>假设，输入的符号记为  $\mathbf{x}_k^{LM}$ （通过token embedding 或 a CNN over characters生成），然后将它输入到$L$ layers of LSTMs。每个位置$k$，每一层的LSTM都产生对应的<code>context-dependent</code>的表征$\vec{h}_{k,j}^{LM}，where\;j=1,2,\cdots,L$。这里的$j$表示第几层上的表征。顶层的LSTM的输出表示为$\vec{h}_{k,L}^{LM}$，最后使用Softmax归一化来预测下一个token $t_{k+1}$。对于<code>backward LSTMs</code>，给定$(t_{k+1},\cdots,t_N)$，每一层$j$产生表示$\overleftarrow{h}_{k,j}^{LM}，where\;j=1,2,\cdots,L$。</p>
+<p>biLM将forward 和 backward 的LM集合起来。目标函数就是最大化前向和反向的对数似然函数。</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^N [\log p(t_k|t_1,\cdots,t_{k-1};\Theta_x,\overrightarrow{\Theta}_{LSTM},\Theta_s) + \log p(t_k|t+1,\cdots,t_{N};\Theta_x,\overleftarrow{\Theta}_{LSTM},\Theta_s)]</script><p>其中$\Theta_x$作为token表征，$\Theta_s$表示Softmax layer。</p>
+<h2 id="ELMo"><a href="#ELMo" class="headerlink" title="ELMo"></a>ELMo</h2><p>在biLM中，ELMo的任务是将中间层进行特定的组合。</p>
+<p>对于每个token $t_k$，$L-layer$的biLM需要计算出$2L+1$个表示</p>
+<script type="math/tex; mode=display">
+\begin{align}
+R_k &= \{\mathbf{x}_k^{LM},\overrightarrow{h}_{k,j}^{LM},\overleftarrow{h}_{k,j}^{LM}|j=1,\cdots,L\} \\
+& = \{h_{k,j}^{LM}|j=0,\cdots,L\}
+\end{align}</script><p>其中$h_{k,0}^{LM}$是token layer，$h_{k,j}^{LM} = [\overrightarrow{h}_{k,j}^{LM},\overleftarrow{h}_{k,j}^{LM}]$对应每一个biLSTM layer。</p>
+<p>对于下游的模型，ELMo 将$R$中的所有层合成一个单个向量，$\mathbf{ELMo}_k = E(R_k;\Theta_e)$。在TageLM和CoVe中只是简单的选择了高层的表示$E(R_k)=h_{k,L}^{LM}$。</p>
+<p>通常，ELMo根据具体任务计算出所有层的权重：</p>
+<script type="math/tex; mode=display">
+\mathbf{ELMo}_k^{task} = E(R_k;\Theta^{task}) = \gamma^{task} \sum_{j=0}^L s_j^{task} h_{k,j}^{LM}</script><p>其中，$s^{task}$是softmax标准化的权重，$\gamma^{task}$是一个标量，使得任务模型能够放缩整个ELMo向量。</p>
+<h2 id="Using-biLMs-for-supervised-NLP-task"><a href="#Using-biLMs-for-supervised-NLP-task" class="headerlink" title="Using biLMs for supervised NLP task"></a>Using biLMs for supervised NLP task</h2><p>给定一个预训练的biLM和对应NLP任务的监督学习模型。使用biLM来改善任务模型是一个简单的过程。只需要运行biLM然后记录下每个词的所有layer 表征。然后让任务模型学习所有表征的线性组合。</p>
+<p>首先考虑没有使用biLM最低层的监督学习模型，大部分NLP监督模型在最底层使用通用的架构，能够以一般的方式增加ELMo到模型中去。</p>
+<p>给定符号序列$(t_1,\cdots,t_N)$，使用预训练的词嵌入来对每个位置token构造上下文独立的符号表示$\mathbf{x}_k$。然后，这个模型将会产生上下文敏感的表示$\mathbf{h}_k$。</p>
+<p>增加ELMo到监督模型中，我们首先需要冻结biLM的权重参数，然后将$\mathbf{x}_k$和$\mathbf{ELMo}_k^{task}$连接起来，将ELMo的增强后表征$[\mathbf{x}_k;\mathbf{ELMo}_k^{task}]$输入到任务的网络中。</p>
+<p>作者发现，通过增加一定的Dropout到ELMo和通过$\lambda ||\mathbf{w}||_2^2$到loss正则化ELMo的权重。</p>
+<blockquote>
+<p>This imposes an inductive bias on the ELMo weights to<br>stay close to an average of all biLM layers.</p>
+</blockquote>
+<h2 id="Pre-trained-bidirectional-language-model-architecture"><a href="#Pre-trained-bidirectional-language-model-architecture" class="headerlink" title="Pre-trained bidirectional language model architecture"></a>Pre-trained bidirectional language model architecture</h2><p>特点：</p>
+<ul>
+<li>支持双向联合训练</li>
+<li>在LSTM layers之间增加了 residual connection</li>
+</ul>
+<p>最终，模型使用了4096 units L=2的 biLSTM，512-D的投影以及第一层到第二层使用residual connention。上下文不敏感表示使用 2048 character n-gram Conv filters。一个线性映射层将它下降到512-D的表示。</p>
+<p>结果，biLM为每个输入符号提供了三层表示。和传统词嵌入只提供一层的表示相反。</p>
+]]></content>
+      <categories>
+        <category>深度学习</category>
+        <category>NLP</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Nodejs初探</title>
     <url>/2020/03/11/Nodejs%E5%88%9D%E6%8E%A2/</url>
     <content><![CDATA[<h1 id="Nodejs初探"><a href="#Nodejs初探" class="headerlink" title="Nodejs初探"></a>Nodejs初探</h1><h2 id="EventEmitter"><a href="#EventEmitter" class="headerlink" title="EventEmitter"></a>EventEmitter</h2><blockquote>
@@ -1015,7 +1073,7 @@
 <li>可以通过向模板传递参数来动态渲染 HTML 页面。</li>
 </ul>
 <p>安装 Express 并将其保存到依赖列表中：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> cnpm install express --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install express --save</span></span><br></pre></td></tr></table></figure>
 <p>以上命令会将 Express 框架安装在当前目录的 <strong>node_modules</strong> 目录中， <strong>node_modules</strong> 目录下会自动创建 express 目录。以下几个重要的模块是需要与 express 框架一起安装的：</p>
 <ul>
 <li><strong>body-parser</strong> - node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。</li>
@@ -1202,7 +1260,7 @@
 </ul>
 <p>返回的对象除了拥有ChildProcess实例的所有方法，还有一个内建的通信信道。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> child_process = <span class="built_in">require</span>(<span class="string">'child_process'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++) &#123;</span><br><span class="line">   <span class="keyword">var</span> worker_process = child_process.fork(<span class="string">"support.js"</span>, [i]);    </span><br><span class="line"> </span><br><span class="line">   worker_process.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'子进程已退出，退出码 '</span> + code);</span><br><span class="line">   &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> cnpm install mysql</span><br></pre></td></tr></table></figure>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install mysql</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mysql      = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"><span class="keyword">var</span> connection = mysql.createConnection(&#123;</span><br><span class="line">  host     : <span class="string">'localhost'</span>,</span><br><span class="line">  user     : <span class="string">'root'</span>,</span><br><span class="line">  password : <span class="string">'123456'</span>,</span><br><span class="line">  database : <span class="string">'test'</span></span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">connection.connect();</span><br><span class="line"> </span><br><span class="line">connection.query(<span class="string">'SELECT 1 + 1 AS solution'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error, results, fields</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) <span class="keyword">throw</span> error;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'The solution is: '</span>, results[<span class="number">0</span>].solution);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
@@ -1330,7 +1388,7 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
 </ul>
 ]]></content>
       <categories>
-        <category>DL</category>
+        <category>深度学习</category>
       </categories>
   </entry>
   <entry>
@@ -1338,24 +1396,24 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
     <url>/2020/03/05/Neural-Network-Primer/</url>
     <content><![CDATA[<h1 id="神经网络基础"><a href="#神经网络基础" class="headerlink" title="神经网络基础"></a>神经网络基础</h1><p><strong>NLP:</strong> the Yoav Goldberg’s, 2016 <a href="https://www.jair.org/media/4992/live-4992-9623-jair.pdf" target="_blank" rel="noopener">A Primer on Neural Network Models for Natural Language Processing </a> 2016 a Primer on Neural Network Models for Natural Language Processing</p>
 <p>具有梯度下降的<code>RNN</code>入门</p>
-<iframe width="420" height="315" src="https://www.youtube.com/embed/aircAruvnKk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/IHZwWFHWa-w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/Ilg3gGewQ5U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/tIeHLnjs5U8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/ILsA4nyG7I0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<ul>
+<li><a href="https://www.youtube.com/embed/aircAruvnKk" target="_blank" rel="noopener">https://www.youtube.com/embed/aircAruvnKk</a></li>
+<li><a href="https://www.youtube.com/embed/IHZwWFHWa-w" target="_blank" rel="noopener">https://www.youtube.com/embed/IHZwWFHWa-w</a></li>
+<li><a href="https://www.youtube.com/embed/Ilg3gGewQ5U" target="_blank" rel="noopener">https://www.youtube.com/embed/Ilg3gGewQ5U</a></li>
+<li><a href="https://www.youtube.com/embed/tIeHLnjs5U8" target="_blank" rel="noopener">https://www.youtube.com/embed/tIeHLnjs5U8</a></li>
+<li><a href="https://www.youtube.com/embed/ILsA4nyG7I0" target="_blank" rel="noopener">https://www.youtube.com/embed/ILsA4nyG7I0</a></li>
+</ul>
 <p>CNN：Convolutional Neural Networks</p>
-<iframe width="416" height="311" src="https://www.youtube.com/embed/FmpDIaiMIeA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<ul>
+<li><a href="https://www.youtube.com/embed/FmpDIaiMIeA" target="_blank" rel="noopener">https://www.youtube.com/embed/FmpDIaiMIeA</a></li>
+</ul>
 <h2 id="激活函数-Activation-Functions"><a href="#激活函数-Activation-Functions" class="headerlink" title="激活函数 Activation Functions"></a>激活函数 Activation Functions</h2><p>激活函数由两种类型：饱和和非饱和。</p>
 <p>饱和意味这这个函数会挤压输入</p>
 <ul>
-<li>$f$是不饱和的 $\Lrarr\; (|\lim<em>{z\rarr - \infty} f(z)|= +\infty) \or (|\lim</em>{z\rarr + \infty} f(z)|= +\infty) $</li>
-<li>并且如果$f$不是不饱和的那他就是饱和的</li>
+<li><p>$f$是不饱和的 </p>
+<script type="math/tex; mode=display">\Leftrightarrow\; (|\lim_{z\rightarrow - \infty} f(z)|= +\rightarrow) \lor (|\lim_{z\rightarrow + \infty} f(z)|= +\infty)</script></li>
+<li><p>并且如果$f$不是不饱和的那他就是饱和的</p>
+</li>
 </ul>
 <h2 id="RNN-和-Feedforward-Neural-Nets（FNN）"><a href="#RNN-和-Feedforward-Neural-Nets（FNN）" class="headerlink" title="RNN 和　Feedforward Neural Nets（FNN）"></a>RNN 和　Feedforward Neural Nets（FNN）</h2><p><code>RNN</code>通过增加了对过去事件的内部表示在<code>FNN</code>的基础上得到了很大的改善。由于<code>RNN</code>能够很好的处理序列任务，因此以<code>RNN</code>为基础的深度学习在<code>seq2seq</code>上是非常成功的。应该注意到的是<code>RNN</code>是图灵完全的，并且有能够模拟任何程序的能力。</p>
 <blockquote>
@@ -1373,12 +1431,12 @@ Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/image
 </li>
 <li><p>条件输入成$c_i$来源<code>encoder</code>的输出$z$</p>
 <script type="math/tex; mode=display">
-input: (x_1,\cdots,x_m) \rarr_{maps}^{encoder} z = (z_1,\cdots,z_m) \rarr_{generates}^{decoder} output: (y_1,\cdots,y_n)</script></li>
+input: (x_1,\cdots,x_m) \rightarrow_{maps}^{encoder} z = (z_1,\cdots,z_m) \rightarrow_{generates}^{decoder} output: (y_1,\cdots,y_n)</script></li>
 </ul>
 <p>我们考虑成两种类型的模型，有或者没有attention，后面假设$\forall ic_i = z_m$(<a href="https://arxiv.org/abs/1406.1078" target="_blank" rel="noopener">Cho et al., 2014 </a>)</p>
 <p>此外，<code>encoder</code>的状态$h_m^E$作为一个压缩和固定长度的向量存在一个问题，它必须包含了输入句子的全部信息。但是这里它失去了一些信息。可以尝试使用一些启发式的方法来克服这个问题和改善<code>RNN</code>的性能</p>
 <ul>
-<li>Organize input : 多次反馈输入 或这 提供 反向的input作为输入</li>
+<li>Organize input : 多次输入 或 提供 逆向的序列作为输入</li>
 <li>Provide more memory： 提供更长的记忆能力，结果表示记忆越大，<code>RNN</code>在各种任务上的性能越好。</li>
 </ul>
 <p>因此，为了避免记忆的问题，产生了对Attention的研究。</p>
@@ -1420,14 +1478,14 @@ h=f(Wx+b)+\mathbf{x}</script><p>残差连接有助于解决梯度消失问题，
 <h3 id="Dense-connection"><a href="#Dense-connection" class="headerlink" title="Dense connection"></a>Dense connection</h3><h2 id="Position-Embeddings"><a href="#Position-Embeddings" class="headerlink" title="Position Embeddings"></a>Position Embeddings</h2><p>通常被用在非循环的网络中 （CNN），这种网络和循环网络不同，需要通过某种方式来保存序列输入符号的顺序。RNN通过循环的隐藏状态计算来学习序列中的位置。</p>
 <h2 id="Auto-regressive-自回归-（AR"><a href="#Auto-regressive-自回归-（AR" class="headerlink" title="Auto-regressive 自回归 （AR)"></a>Auto-regressive 自回归 （AR)</h2><p>自回归问题是未来观测分布的条件均值。在自回归模型中，我们使用变量的过去值的线性组合来预测感兴趣的变量。这个术语<code>autoregression</code>表明它是对变量自身的回归。在神经网络中，每个单元同时接收来自前一层和同一层内的前一层的输入时所理解的自回归。</p>
 <h2 id="End-to-End-learning-training"><a href="#End-to-End-learning-training" class="headerlink" title="End-to-End learning/training"></a>End-to-End learning/training</h2><p>训练一个模型最简单的方式就是在一端放入input，另一端获得output。神经网络的端到端学习仅仅以为了基于输入输出单一模型的网络权值优化。</p>
-<p>在某些情况下，一个模型不足以得到预期的输出。这就需要一个相互独立的训练模型组成管道。在大多数情况下，输入和输出是两个不同的范围。另一种情况是神经玩啦需要很多层才能拟合记忆。因此，它需要将一个大的神经网络划分成较小的神经网络组成的管道。另外要注意的是，这种分解技术不一定是有效的，因为这种方法将中间的输出在局部进行了优化。</p>
+<p>在某些情况下，一个模型不足以得到预期的输出。这就需要一个相互独立的训练模型组成管道。在大多数情况下，输入和输出是两个不同的范围。另一种情况是神经网络需要很多层才能拟合记忆。因此，它需要将一个大的神经网络划分成较小的神经网络组成的管道。另外要注意的是，这种分解技术不一定是有效的，因为这种方法将中间的输出在局部进行了优化。</p>
 <p>例子</p>
 <ul>
 <li>当训练机器人根据视觉来移动，一个模型可以用来对视觉输入（原始像素）的表示进行预处理，然后将处理的结果作为另一个模型的输入，这个模型负责决定机器人移动哪条腿。</li>
 <li>图像字幕，将原始的图像像素信息转换成文本描述图片</li>
 <li>语音识别，将语音转化成文本。</li>
 </ul>
-<h2 id="Hyper-parameters-meta-parameters-free-parameters"><a href="#Hyper-parameters-meta-parameters-free-parameters" class="headerlink" title="Hyper parameters (meta-parameters, free-parameters)"></a>Hyper parameters (meta-parameters, free-parameters)</h2><p>机器学习的关键是找到一个数学公式(模型)，其中的参数最适合数据。然而，训练不能直接从数据中发现模型高层次的属性，比如模型的复杂性和学习速度。这些属性也被叫做超参数。对于每个训练的模型的超参数都是在训练过程开始前预先定义的。超参数的值是重要的，但是需要额外的工作来决定。这些工作通过尝试不同的超参数值和训练不同的模型来完成。使用测试来比较，决定哪些超参数值应该被选择。比如最快的得到结果，需要较少的步骤。因此，可以通过模型选中间接地从数据中确定超参数。</p>
+<h2 id="Hyper-parameters-meta-parameters-free-parameters"><a href="#Hyper-parameters-meta-parameters-free-parameters" class="headerlink" title="Hyper parameters (meta-parameters, free-parameters)"></a>Hyper parameters (meta-parameters, free-parameters)</h2><p>机器学习的关键是找到一个数学公式(模型)，其中的参数最适合数据。然而，训练不能直接从数据中发现模型高层次的属性，比如模型的<strong>复杂性</strong>和<strong>学习速度</strong>。这些属性也被叫做<strong>超参数</strong>。对于每个训练的模型的超参数都是在训练过程开始前预先定义的。超参数的值是重要的，但是需要额外的工作来决定。这些工作通过尝试不同的超参数值和训练不同的模型来完成。使用测试来比较，决定哪些超参数值应该被选择。比如最快的得到结果，需要较少的步骤。因此，可以通过模型选中间接地从数据中确定超参数。</p>
 <p>解决机器学习问题的四个方式</p>
 <ul>
 <li>模型类型：比如FNN、RNN、SVN等等</li>
@@ -1468,7 +1526,7 @@ h=f(Wx+b)+\mathbf{x}</script><p>残差连接有助于解决梯度消失问题，
 <p>See <a href="http://cs231n.github.io/neural-networks-3/#anneal" target="_blank" rel="noopener">cs231n </a> on learning rate annealing and <a href="https://www.tensorflow.org/versions/r0.12/api_docs/python/train/decaying_the_learning_rate" target="_blank" rel="noopener">Tensorflow decaying learning rate </a>.</p>
 ]]></content>
       <categories>
-        <category>DL</category>
+        <category>深度学习</category>
       </categories>
   </entry>
   <entry>
@@ -1477,10 +1535,10 @@ h=f(Wx+b)+\mathbf{x}</script><p>残差连接有助于解决梯度消失问题，
     <content><![CDATA[<h1 id="The-Transformer-Attention-is-all-you-need"><a href="#The-Transformer-Attention-is-all-you-need" class="headerlink" title="The Transformer - Attention is all you need"></a>The Transformer - Attention is all you need</h1><p>参考来源：<a href="https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj" target="_blank" rel="noopener">https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj</a></p>
 <p>前置知识：</p>
 <ul>
-<li>RNN – Andrej Karpathy’s blog 安德烈 · 卡帕西的博客<a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks 递归神经网络的不合理有效性</a></li>
-<li>Seq2Seq - Nathan Lintz Seq2seq-Nathan Lintz<a href="https://indico.io/blog/sequence-modeling-neuralnets-part1/" target="_blank" rel="noopener">Sequence Modeling With Neural Networks (Part 1): Language &amp; Seq2Seq 基于神经网络的序列建模(上) : 语言与 Seq2Seq</a>, Part2 、第二部分<a href="https://indico.io/blog/sequence-modeling-neural-networks-part2-attention-models/" target="_blank" rel="noopener">Sequence modeling with attention 注意序列建模</a></li>
-<li>LSTM – Christopher Olah’s blog 克里斯托弗 · 奥拉的博客<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks 理解 LSTM 网络</a> and R2Rt.com <a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">Written Memories: Understanding, Deriving and Extending the LSTM 书面记忆: LSTM 的理解、推导与扩展</a>.</li>
-<li>Attention – Christopher Olah 注意-Christopher Olah<a href="https://distill.pub/2016/augmented-rnns/#attentional-interfaces" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks 注意与增强递归神经网络</a></li>
+<li>RNN – Andrej Karpathy’s blog <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks </a></li>
+<li>Seq2Seq - Nathan Lintz Seq2seq-Nathan Lintz<a href="https://indico.io/blog/sequence-modeling-neuralnets-part1/" target="_blank" rel="noopener">Sequence Modeling With Neural Networks (Part 1): Language &amp; Seq2Seq</a>, Part2 <a href="https://indico.io/blog/sequence-modeling-neural-networks-part2-attention-models/" target="_blank" rel="noopener">Sequence modeling with attention</a></li>
+<li>LSTM – Christopher Olah’s blog <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks </a> and R2Rt.com <a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">Written Memories: Understanding, Deriving and Extending the LSTM</a>.</li>
+<li>Attention – Christopher Olah<a href="https://distill.pub/2016/augmented-rnns/#attentional-interfaces" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks</a></li>
 </ul>
 <h2 id="算法的目标"><a href="#算法的目标" class="headerlink" title="算法的目标"></a>算法的目标</h2><ul>
 <li><code>Seq2Seq的并行化：RNN/CNN</code>处理有序的逐字的序列是并行的障碍。<code>Transformer</code>通过使用注意力机制和对序列中字符的位置编码来替换递归结构来获得并行化运行，反过来，这也导致训练时间的明显减少。</li>
@@ -1528,8 +1586,8 @@ h=f(Wx+b)+\mathbf{x}</script><p>残差连接有助于解决梯度消失问题，
 <p>通常，<code>Transformer</code>的<code>encoder</code>将输入序列映射到连续表示$z$，反过来，$z$被<code>decoder</code>用来生成输出，例如一次一个字符。</p>
 <p><code>encoder</code>的最终状态是一个固定长度的向量$z$。$z$必须<code>encode</code>包含原始句子的全部信息。因此$z$也被成为句子嵌入(sentence embedding)。</p>
 <p><code>encoder-decoder</code>模型在它的每一步设计为<code>auto-regressive</code>（自回归）。使用前面生成的字符作为额外的输入来生成下一个字符时。</p>
-<p>$x<em>i+y</em>{i-1} \to y_i$</p>
-<h2 id="基于Encoder-Decoder的Transformer"><a href="#基于Encoder-Decoder的Transformer" class="headerlink" title="基于Encoder-Decoder的Transformer"></a>基于Encoder-Decoder的Transformer</h2><p>在<code>Transformer</code>（如<code>ByteNet</code>或<code>ConvS2S</code>)中，<code>decoder</code>是直接堆在<code>encoder</code>上面。<code>Encoder</code>和<code>Decoder</code>都是由相同的层堆积而成的。每个堆积层都是由两种一般类型的子层组成的：</p>
+<script type="math/tex; mode=display">
+x_i+y_{i-1} \to y_i</script><h2 id="基于Encoder-Decoder的Transformer"><a href="#基于Encoder-Decoder的Transformer" class="headerlink" title="基于Encoder-Decoder的Transformer"></a>基于Encoder-Decoder的Transformer</h2><p>在<code>Transformer</code>（如<code>ByteNet</code>或<code>ConvS2S</code>)中，<code>decoder</code>是直接堆在<code>encoder</code>上面。<code>Encoder</code>和<code>Decoder</code>都是由相同的层堆积而成的。每个堆积层都是由两种一般类型的子层组成的：</p>
 <ul>
 <li><code>multi-head self-attention mechanism</code> </li>
 <li><code>position-wise fully connected FNN</code></li>
@@ -1607,7 +1665,7 @@ head_i = Attention(QW_i^Q,KW_i^K,VW_i^V)</script></li>
 <script type="math/tex; mode=display">
 MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \quad W_0 \in  \mathbb{R^{d_{hd_v} \times d_{model}}}</script></li>
 </ul>
-<p><code>Transformer</code>使用 <code>multi-head</code> ($d<em>{model}/h$维的并行的<code>attention</code>函数) <code>attention</code>  替代 单个($d</em>{model}维$)的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和s<code>ingle-head attention</code>是相似的。</p>
+<p><code>Transformer</code>使用 <code>multi-head</code> （ $d_{model}/h $ 维的并行的<code>attention</code>函数） <code>attention</code>  替代 单个（ $d_{model}$维）的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和<code>single-head attention</code>是相似的。</p>
 <p><code>Transformer</code>模仿了经典的注意力机制，在<code>encoder-decoder attention layers</code> 的<code>queries</code>是来自前面的<code>decoder layer</code>。 <code>keys</code> 和 <code>values</code>来源<code>encoder</code>的输出。因此，在<code>decoder</code>上的每个位置能够观察到输出序列的所有位置。</p>
 <h3 id="Self-Attention-（SA"><a href="#Self-Attention-（SA" class="headerlink" title="Self-Attention （SA)"></a>Self-Attention （SA)</h3><p>See <a href="https://mchromiak.github.io/articles/2017/Sep/01/Primer-NN/#attention-basis" target="_blank" rel="noopener">Attention Primer</a> for basics on attention.</p>
 <p>在<code>encoder</code>中，<code>self-attention layer</code> 处理来自同一个位置的输入<code>queries，keys，values</code>。encoder中的每个位置都可以观察到来自前面 layer of the encoder 的所有位置。</p>
@@ -1625,7 +1683,7 @@ MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \qua
 </ul>
 <h3 id="Position-wise-FFN"><a href="#Position-wise-FFN" class="headerlink" title="Position-wise FFN"></a>Position-wise FFN</h3><p>在encoder和decoder最后那个，attention子层由一个全连接的FNN来处理。它应用在每个单独的位置上，同时意味着两个线性变换和一个ReLU</p>
 <script type="math/tex; mode=display">
-FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d<em>{model}=512$，inner0layer 是$d</em>{ff}=2048$</p>
+FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d_{model}=512$，inner0layer 是$d_{ff}=2048$</p>
 <h2 id="算法的伪代码or流程图"><a href="#算法的伪代码or流程图" class="headerlink" title="算法的伪代码or流程图"></a>算法的伪代码or流程图</h2><p><img src="/images/Transformer/transform20fps.gif" alt></p>
 <center>图4：在英译法的Transformer的逐步变换</center>
 
@@ -1653,6 +1711,7 @@ FFN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
 ]]></content>
       <categories>
         <category>NLP</category>
+        <category>深度学习</category>
       </categories>
   </entry>
   <entry>
@@ -1678,7 +1737,7 @@ O_t
 S_{t-1} \\
 x_t
 \end{pmatrix}</script><ul>
-<li>$s<em>t\;and\;s</em>{t-1}$是当前的状态和之前的转台</li>
+<li>$s_t\;and\;s_{t-1}$是当前的状态和之前的转台</li>
 <li>$o_t$是我们当前的输出</li>
 <li>$x_t$是当前的输入（可以为空的）</li>
 <li>$f$是我们的循环函数</li>
@@ -1721,7 +1780,7 @@ s_t=\phi(Ws_{t-1}+Ux_t+b)</script><p>在这里：</p>
 <ol>
 <li><p>信息变形</p>
 <p>如果信息不变化，当我们很难利用过去的信息。信息的最佳可用状态可能发生在过去的某个时刻。除了需要学习如何利用当前的信息，我们还需要从当前状态获取到最初的状态。如果这可能的话，这会导致学习困难或差的结果。</p>
-<p>易得，信息变形发生在普通的RNN中。实际上，假设一个RNN Cell可以在没有外部输入的情况下完全保持先前的状态。$F(x)=\phi(Ws<em>{t-1}+b)$是一个关于$s</em>{t-1}$的恒等函数。但是这个恒等函数是线性的，$F(x)$是非线性的。所以存在矛盾。因此，RNN无法避免的从一个timestep到下一个timestep。对于普通的RNN，即使输出$s_t=x_t$这种任务也是不可能的。</p>
+<p>易得，信息变形发生在普通的RNN中。实际上，假设一个RNN Cell可以在没有外部输入的情况下完全保持先前的状态。$F(x)=\phi(Ws_{t-1}+b)$是一个关于$s_{t-1}$的恒等函数。但是这个恒等函数是线性的，$F(x)$是非线性的。所以存在矛盾。因此，RNN无法避免的从一个timestep到下一个timestep。对于普通的RNN，即使输出$s_t=x_t$这种任务也是不可能的。</p>
 </li>
 <li><p>梯度消失和梯度爆炸</p>
 <p>当利用BP训练RNNs。BP是基于梯度的算法，如果梯度爆炸我们就无法训练模型，如果梯度消失，就无法学习长期的依赖，因此BP对最近的干扰非常敏感，以至于非常难训练。</p>
@@ -1800,7 +1859,7 @@ s_{t+1} = s_t+\Delta s_{t+1}</script><p>LSTM的基本挑战：无法控制和无
 \end{align}</script><p>当然也可以使用更加复杂的函数。</p>
 <h2 id="将门组合在得到LSTM原型"><a href="#将门组合在得到LSTM原型" class="headerlink" title="将门组合在得到LSTM原型"></a>将门组合在得到LSTM原型</h2><p>如果没有输入门，是用输出门应该先读取先前的状态，以产生下一次写的状态。输出门自然在输入门之前。</p>
 <p>LSTM的基本原则是：我们的写入应该增加到之前的状态。因此，我们应该计算$\Delta s_t$，而不是$s_t$。因此候选写入的可能是$\Delta s_t$。把它记作$\bar{s}_t$。</p>
-<p>我们采用和在普通RNN上计算状态的一样的方式计算$\bar{s}<em>t$。首先通过输出门乘先前的状态$o_t \odot s</em>{t-1}$。</p>
+<p>我们采用和在普通RNN上计算状态的一样的方式计算$\bar{s}_t$。首先通过输出门乘先前的状态$o_t \odot s_{t-1}$。</p>
 <script type="math/tex; mode=display">
 \bar{s}_t = \phi(W(o_t \odot s_{t-1})+ Ux_t+b)</script><p>注意$\odot$表示逐元素相乘，$o_t$是我们的输出门。</p>
 <p>$\bar{s}_t$只是一个候选写作，因为我们使用的是选择行写入和输入门。因此我们使用$\bar{s}_t$和输入门$i_t$逐元素相乘，来获得我们真正的写入。$i_t \odot \bar{s}_t$</p>
@@ -1823,7 +1882,7 @@ s_t = f_t \odot s_{t-1}+i_t\odot \bar{s}_t</script><p>我们将所有的公式�
 <h3 id="归一化原型：规范化的软界限"><a href="#归一化原型：规范化的软界限" class="headerlink" title="归一化原型：规范化的软界限"></a>归一化原型：规范化的软界限</h3><p>我们可以通过状态归一化来增加一个软约束。初步测试中一个有用的方法是将$s_t$除以$\sqrt{Var(s_t)+1}$。这里增加1来防止初始的零状态。我们也可以在除以方差之前减去平均状态。但在初步测试中似乎没有帮助。然后，我们也考虑为表达性增加规模和移位因素，即层标准化。但该模型冒险进入了层标准化LSTM的范围。</p>
 <h3 id="GRU-通过写-遗忘耦合或覆盖的硬约束"><a href="#GRU-通过写-遗忘耦合或覆盖的硬约束" class="headerlink" title="GRU:通过写-遗忘耦合或覆盖的硬约束"></a>GRU:通过写-遗忘耦合或覆盖的硬约束</h3><p>与其进行选择性的写入和遗忘，不如放弃一些表达性，将我们的遗忘门设置为1减去输入门来进行选择性的重写。</p>
 <script type="math/tex; mode=display">
-s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s<em>t$变成了$s</em>{t-1}$和$\bar{s}<em>t$的加权平均数。当$s</em>{t-1}$和$\bar{s}_t$被约束，那它也是被约束的。如果我们使用$\phi= \tanh$（它的输出被限制在$(-1,1)$）。</p>
+s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s_t$变成了$s_{t-1}$和$\bar{s}_t$的加权平均数。当$s_{t-1}$和$\bar{s}_t$被约束，那它也是被约束的。如果我们使用$\phi= \tanh$（它的输出被限制在$(-1,1)$）。</p>
 <p>这就是<code>GRU(gated recurrent unit)</code>。为了符合GRU中的术语，我们将覆盖门成为更新门，并记作$z_t$。虽然叫做更新门，它的操作是通过指出之前状态我们不想更新的百分比来不更新。因此，更新门和原型LSTM中的遗忘门$f_t$是一样的，并且输入门通过$1-z_t$计算得到。</p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -1847,10 +1906,10 @@ s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s<em>t$变成了$s
 \end{align}</script><p><img src="/images/LSTM/NH_PseudoLSTMCell.png" alt></p>
 <h2 id="推导LSTM"><a href="#推导LSTM" class="headerlink" title="推导LSTM"></a>推导LSTM</h2><p>上面有许多LSTM变体，真正的LSTM将读操作放在写操作之后。</p>
 <p>写入操作放在RNN单元读取操作之前，我们需要在正常状态下从一个time step 到下一个 time step传递一个预先门的“阴影状态”。</p>
-<p>为了符合描述LSTM常用的字母，我们需要将主状态$s<em>t$变成$c_t$（c表示cell）。我们对候选写入作一个相应的变动$\bar{c}_t$。我们还需要一个单独的隐藏状态$h_t$(h是隐藏状态)。他的状态和我们的常规状态相同，$h</em>{t-1}$类似我们原型LSTM中的门控先验状态$o<em>t \odot s</em>{t-1}$。，除此它还被一个非线性函数压缩。因此，我们的LSTM在 $t$得到是一组紧密相关的向量：$(c<em>{t-1}, h</em>{t-1}) \quad where \quad h<em>{t-1}=o</em>{t-1} \odot \phi(c_{t-1})$</p>
+<p>为了符合描述LSTM常用的字母，我们需要将主状态$s_t$变成$c_t$（c表示cell）。我们对候选写入作一个相应的变动$\bar{c}_t$。我们还需要一个单独的隐藏状态$h_t$(h是隐藏状态)。他的状态和我们的常规状态相同，$h_{t-1}$类似我们原型LSTM中的门控先验状态$o_t \odot s_{t-1}$。，除此它还被一个非线性函数压缩。因此，我们的LSTM在 $t$得到是一组紧密相关的向量：$(c_{t-1}, h_{t-1}) \quad where \quad h_{t-1}=o_{t-1} \odot \phi(c_{t-1})$</p>
 <p>$h_{t-1}$的产生导致了和我们的伪LSTM两个不同</p>
 <ul>
-<li>标准的LSTM使用$h<em>{t-1}=o</em>{t-1} \odot \phi(c<em>{t-1})$来计算门，而不是使用$\phi(c</em>{t-1})$来计算门。</li>
+<li>标准的LSTM使用$h_{t-1}=o_{t-1} \odot \phi(c_{t-1})$来计算门，而不是使用$\phi(c_{t-1})$来计算门。</li>
 <li>标准的LSTM使用$h_t=o_t \odot \phi (c_t)$作为代替$\phi(c_t)$作为外部输出，它受到输出门的控制</li>
 </ul>
 <p>基本的LSTM</p>
@@ -1888,14 +1947,15 @@ h_t &= o_t \odot \phi(c_t)\\
       </categories>
   </entry>
   <entry>
-    <title>Text_Encoding</title>
-    <url>/2020/03/01/Text-Encoding/</url>
-    <content><![CDATA[<h1 id="文本编码"><a href="#文本编码" class="headerlink" title="文本编码"></a>文本编码</h1><h2 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h2><p>假设词汇表中共计$N$个word，则展开一个<code>N</code>维的Vector，对应word的位置赋值为1,其他位置为0。</p>
+    <title>词编码（表示）</title>
+    <url>/2020/03/01/Word-Encoding/</url>
+    <content><![CDATA[<h1 id="词编码（表示）"><a href="#词编码（表示）" class="headerlink" title="词编码（表示）"></a>词编码（表示）</h1><h2 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h2><p>假设词汇表中共计$N$个word，则展开一个<code>N</code>维的Vector，对应word的位置赋值为1,其他位置为0。</p>
 <p>For example:</p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Time flies like an arrow.</span><br><span class="line">Fruit flies like a banana.</span><br></pre></td></tr></table></figure>
 <p>词汇表的长度为8：<code>{time, fruit, flies, like, an, arrow, banana }</code>。应次每个word都可以表示为 8-D Vector。</p>
 <p>因此，对于短语和句子，文档可以简单的表示为连续词的 与或 运算。</p>
 <p><code>like a banana</code>能够表示为<code>{0,0,0,1,1,0,0,1}</code></p>
+<p>问题：无法衡量词之间的相似度，维度太高。</p>
 <h2 id="TF-Representation"><a href="#TF-Representation" class="headerlink" title="TF Representation"></a>TF Representation</h2><p>短语，句子或文档的TF表示能够简单表示为连续词的one-hot vector的和。</p>
 <p><code>Fruit flies like time flies a fruit:[1,2,2,1,1,0,0,0]</code></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">one_hot_vectorizer = CountVectorizer(binary=<span class="literal">True</span>)</span><br><span class="line">one_hot = one_hot_vectorizer.fit_transform(corpus).toarray()</span><br><span class="line">vocab = one_hot_vectorizer.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(one_hot, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
@@ -1909,6 +1969,137 @@ IDF(w)=\log\frac{N}{n_w}</script><p><code>TF: Term Frequency</code></p>
 <script type="math/tex; mode=display">
 TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少，则IDF越高，说明词的重要性越大。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">tfidf = TfidfVectorizer()</span><br><span class="line">vectors = tfidf.fit_transform(corpus).toarray()</span><br><span class="line">vocab = tfidf.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(vectors, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="基于奇异值分解（SVD）的方法"><a href="#基于奇异值分解（SVD）的方法" class="headerlink" title="基于奇异值分解（SVD）的方法"></a>基于奇异值分解（SVD）的方法</h2><p>这是一种构造词向量的方法。</p>
+<ol>
+<li>第一步，遍历全部的文本数据集，统计词出现的次数；</li>
+<li>然后使用矩阵$X$来表示所有次数的情况；</li>
+<li>接着对$X$进行SVD得到$USV^T$的分解</li>
+<li>最后使用U的行作为所有词表中词的词向量。</li>
+</ol>
+<p>对于矩阵$X$，可以采用两种方法：全文 or 窗口长度。</p>
+<ul>
+<li><p>词-文档矩阵</p>
+<p>建立词组文档矩阵$X$，遍历海量文件，每次词组$i$出现在文件$j$中时，将对应的$X_{ij}$的值加1。矩阵的形状为$\mathbb{R}^{|V|\times M}$，矩阵，矩阵将会非常大，并且和文档个数$M$有关。所以需要采取办法进行处理和优化。</p>
+<p>最终词-文档的共现矩阵最终将会得到泛化的主题（比如某类词汇将会产生相似的表示），这就是所谓的浅层语义分析（LSA,Latent Semantic Analysis）</p>
+</li>
+<li><p>基于窗口的共现矩阵</p>
+<p>将矩阵$X$记录的词频情况变成一个相关性矩阵。</p>
+<p>对$X$进行SVD，观察奇异值（矩阵的对角元素），根据我们期望保留的多少进行截断（保留前多少个维度），将子矩阵$U_{1:|V|,1:k}$作为词向量矩阵，这样，对于词表中的每个词，都使用一个$k$维的向量表示。窗口长度容易捕获到语法和语义信息。</p>
+</li>
+</ul>
+<p>问题</p>
+<ul>
+<li>矩阵的维度会经常变化（新的词语经常会增加，语料库的大小也会随时变化）。</li>
+<li>矩阵是非常稀疏的，因为大多数词并不同时出现。</li>
+<li>矩阵的维度通常非常高（≈106×106），需要大量的存储</li>
+<li>训练需要$O(n^2)$的复杂度</li>
+<li>对于新词或者新的文档很难及时更新</li>
+<li>需要专门对矩阵$X$进行特殊处理，以应对词组频率的极度不平衡的状况</li>
+</ul>
+<p>解决方案：直接学习低维度的词向量</p>
+<p>将最重要的信息存储在固定的，低维度的向量里：密集向量（dense vector)，维数通常是25-1000<br>然而，如何降维？</p>
+<h2 id="基于迭代的方法"><a href="#基于迭代的方法" class="headerlink" title="基于迭代的方法"></a>基于迭代的方法</h2><blockquote>
+<p>通过一步步的迭代的学习，最终得出每个单词基于其上下文的条件概率。</p>
+</blockquote>
+<h3 id="n-gram"><a href="#n-gram" class="headerlink" title="n-gram"></a>n-gram</h3><blockquote>
+<p>单个词出现的概率只和它前面固定数目的词有关。</p>
+</blockquote>
+<p>主要方法，在语料中统计各种词串出现的次数来计算概率以及平滑处理，将计算得到的概率值进行存储，下一次计算直接找出相关的概率参数，进行连乘。</p>
+<p>建立概率模型，其中包含了已知和未知的参数，每增加一个训练样本，就能学习到一点点未知参数的信息。</p>
+<p>每次迭代过程中，模型需要能够评估误差，根据误差进行更新参数。</p>
+<h2 id="CBOW"><a href="#CBOW" class="headerlink" title="CBOW"></a>CBOW</h2><p>根据上下文内容预测中心词的表示。</p>
+<p><img src="/images/WordEmbedding/CBOW.jpg" alt="CBOW"></p>
+<p>连续词袋（Continuous  Bag of Word）模型中的符号：</p>
+<ul>
+<li>$W_i$：单词表 $V$ 中的第 $i$个单词, one-hot 向量</li>
+<li>$v \in \mathbb{R}^{n \times |V|}$：输入词矩阵</li>
+<li>$v_i$：$V$的第$i$列，$n$ 维 $W_i$的输入向量</li>
+<li>$U \in \mathbb{R}^{|V| \times n}$：输出词矩阵</li>
+<li>$U_i$：$U$ 的第 $i$ 行，$n$ 维 $W_i$ 的输出向量</li>
+</ul>
+<p>整个过程如下：</p>
+<ol>
+<li>对于输入上下文长度为$m$个词，生成的独热向量$(x^{c-m},\cdots,x^{c-1},x^{c+1},\cdots,x^{c+m})$，作为模型的输入。</li>
+<li>得到上下文的嵌入词向量$(v_{c-m}=Vx^{c-m},\cdots,v_{c+m}=Vx^{c+m})$</li>
+<li>将这些向量取平均值$\hat{v}=\frac{v_{c-m}+\cdots+v_{c+m}}{2m}$</li>
+<li>产生一个得分向量$z=U\hat{v}$</li>
+<li>将得分向量概率归一化$\hat{y}=softmax(z)$</li>
+<li>希望产生的概率分布和真实的概率分布$y$相匹配，其中真实的概率分布就是我们期望的词的独热向量。</li>
+</ol>
+<p>如何得到矩阵$U,V$</p>
+<p>Loss function: Cross-Entroy，使用Gradient Descend去更新矩阵中的参数。</p>
+<p>从Information Theroy的角度来评估两个概率分布的差异。最为广泛的的方法就是使用交叉熵：</p>
+<script type="math/tex; mode=display">
+H(\hat{y},y)=-\sum_{j=1}^{|V|} y_j\log {\hat{y}_j}</script><h2 id="Skip-Gram"><a href="#Skip-Gram" class="headerlink" title="Skip-Gram"></a>Skip-Gram</h2><p><strong>CBOW</strong>的思路将中心词作为目标向量，周围的词作为输入。而<strong>Skip-Gram</strong>和它正好想法，将中心词作为输入，来预测周围词。</p>
+<p><img src="/images/WordEmbedding/Skip-Gram-Net.jpg" alt="Skip-Gram-Net"></p>
+<p>和<strong>CBOW</strong>模型十分相似，只是交换了输入和输出的位置。输入向量为中心词的独热向量，输出向量为中心词的周围向量。</p>
+<p>假设一段话</p>
+<p><code>the quick brown fox jumped over the lazy dog</code></p>
+<p>取左右窗口为1，则数据集中的（上下文信息，中心词）的数据为：</p>
+<p><code>([the, brown], quick), ([quick, fox], brown), ([brown, jumped], fox), ...</code></p>
+<p>而<strong>Skip-Gram</strong>通过中心词来预测上下文信息，因此转换成如下形式:</p>
+<p><code>(quick, the), (quick, brown), (brown, quick), (brown, fox), ...</code></p>
+<p>整个计算过程可以分为以下几步：</p>
+<ol>
+<li>生成独热变量$x$</li>
+<li>上下文的词向量$v_c= Vx$</li>
+<li>不需要取平均值，因此，$\hat{v}=v_c$</li>
+<li>$U=Uv_c$得到2m个得分向量$U_{c−m},⋯,U_{c−1},U_{c+1},⋯,U_{c+m}$，如果上下文取一个词，就是$U_{c-1},U_{c+1}$</li>
+<li>将得分向量转换成概率分布，$y=softmax(u)$</li>
+<li>希望产生的概率分布和真实的分布相匹配$y^{c−m},⋯,y^{c−1},,y^{c+1}⋯,y^{c+m}$</li>
+</ol>
+<p>为模型设定一个目标/损失函数。不过不同的地方是我们这里需要引入朴素贝叶斯假设来将联合概率拆分成独立概率相乘。只要给出了中心词，所有的输出词是完全独立的。使用随机梯度下降算法(SGD)来进行最优化求解，并且使用mini-batch方法 (通常batch_size在16到512之间)。可以用随机梯度下降法去更新未知参数的梯度。</p>
+<h2 id="Word2Vec"><a href="#Word2Vec" class="headerlink" title="Word2Vec"></a>Word2Vec</h2><p><strong>Word2Vec</strong>是一个预测模型，用于学习Word Embedding，实现的模型就是上面的两种：CBOW和Skip-Gram。</p>
+<ul>
+<li>CBOW 从输入的上下文信息来预测目标词</li>
+<li>Skip-gram 模型则是相反的，从目标词来预测上下文信息</li>
+</ul>
+<p>区别上，CBOW适合在小规模的数据集上，能够对分布式的信息进行平滑处理；而Skip-Gram适合在大规模的数据集熵。</p>
+<p>其中Embedding也可以来捕捉关系：</p>
+<p><img src="/images/WordEmbedding/Embedding_Relation.jpg" alt="Embedding_Relation"></p>
+<h2 id="VSM-Vector-Space-Models"><a href="#VSM-Vector-Space-Models" class="headerlink" title="VSM,Vector Space Models"></a>VSM,Vector Space Models</h2><blockquote>
+<p>将词表示成一个连续的词向量，并且语义上接近的词对应的向量在空间上也是接近的。</p>
+</blockquote>
+<p><strong>分布式假说理论</strong>：如果两个词的上下文相同，那么两个词所表示的语义也是一样的；换言之，两个词的语义是否相同或相似，取决于两个词的上下文内容，上下文相同表示两个词是可以等价替换的。</p>
+<p>生成Word Embedding 的两类方法：</p>
+<ul>
+<li><p>计数法：e.g Latent Semantic Analysis</p>
+<p>在大规模的语料中统计词语和邻近词语的共现频率，然后将每个词映射为稠密的向量表示。</p>
+</li>
+<li><p>预测法 ：e.g neural probabilistic language model</p>
+<p>直接使用词语的邻近信息来得到预测词的词向量（词向量通常作为模型的训练参数）</p>
+</li>
+</ul>
+<h2 id="词向量任务评估"><a href="#词向量任务评估" class="headerlink" title="词向量任务评估"></a>词向量任务评估</h2><h3 id="内部任务评价"><a href="#内部任务评价" class="headerlink" title="　内部任务评价"></a>　内部任务评价</h3><p>内部任务评价的特点如下：</p>
+<ul>
+<li>一般是在一个特定的子任务中进行评测</li>
+<li>计算很快</li>
+<li>有助于理解相关的系统</li>
+<li>在实际的NLP任务中表现好坏，可能需要外部关联实际应用</li>
+</ul>
+<h3 id="方法：词向量类比"><a href="#方法：词向量类比" class="headerlink" title="方法：词向量类比"></a>方法：词向量类比</h3><p>我们先输入一组不完整的类比 a:b::c:? 内部任务评价系统找出最大化余弦相似度的词向量<br>理想情况下，我们想得到$x_b−x_a=x_d−x_c$(例如，王后–国王 = 女演员 – 男演员)。于是$x_b−x_a+x_c=x_d$, 所以我们只需要找出一个与$x_b−x_a+x_c$的标准化内积（比如余弦相似度）取最大值的词向量就可以了。</p>
+<h3 id="方法：相关性评价"><a href="#方法：相关性评价" class="headerlink" title="方法：相关性评价"></a>方法：相关性评价</h3><p>另外一个评测词向量质量的简单方法是人为对两个词的相似度在一个固定区间内打分(比如说 0-10)，再跟对应向量的余弦相适度进行对比。</p>
+<p>相关参数</p>
+<ul>
+<li>词向量的维度</li>
+<li>资料库的大小</li>
+<li>资料源/类型</li>
+<li>上下文窗口的大小</li>
+<li>上下文的对称性</li>
+</ul>
+<p>一般而言，</p>
+<ul>
+<li>精度和使用的模型高度相关，因为这些生成词向量的方法所依据的特性是完全不同的(如同时出现的次数，奇异向量等。)</li>
+<li>文集量越大，精度越高，因为例子越多，生成的系统学习到的经验就更丰富。比如在完成词汇类比的例子中，系统如果之前没有接触测试词，就可能会生成错误的结果。</li>
+<li>如果维度特别低或特别高，精度就会比较低。低维度词向量无法捕捉文集中不同词语的不同意义。这可以视为我们模型复杂度过低而导致的高偏差。比如 “king”, “queen”, “man”, “woman” 这几个词，我们需要至少2个维度像”gender” 如 “leadership” 来把它们编译成 2-字节 词向量。 过低的维度将无法捕捉四个词之间的语义差别，而过高的维度将捕捉到一些对泛化能力没有用的噪音– 即高方差的问题。</li>
+</ul>
+<h3 id="外部任务评价"><a href="#外部任务评价" class="headerlink" title="　外部任务评价"></a>　外部任务评价</h3><p>外部任务评价的特点如下：</p>
+<ul>
+<li>在一个实际任务中进行评测</li>
+<li>需要花很长的时间来计算精度</li>
+<li>不太清楚是否是某个子系统或者其他子系统，又或是几个子系统互相作用引起的问题</li>
+<li>如果替换原有的子系统后获得精度提升，则说明替换很可能是有效的</li>
+</ul>
 ]]></content>
       <categories>
         <category>NLP</category>
@@ -2834,7 +3025,7 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
 <li>合成和采样：机器学习程序生成一些和训练数据近似的新样本常用与生成媒体，游戏的自然纹理。某些情况下希望采样或合成过程中可以根据输入生成一些特定类型的输出。如根据书写的句子，输出句子语音的音频波形。这是一类结构化输出任务，没有唯一正确的结构，希望结构更加自然和真实。</li>
 <li>缺失值填补：给定一个新样本$x\in \mathbb{R}^n$，$X$中某些元素$x_i$缺失。算法填补这些缺失值。</li>
 <li>去噪：干净样本$x\in \mathbb{R}^n$经过未知损坏过程得到的损失样本$\tilde{x} \in \mathbb{R}^n$。算法根据损失后的样本$\tilde{x}$预测干净的样本$x$，或者一般的预测条件概率分布$p(x|\tilde{x})$。</li>
-<li>密度估计或概率质量函数估计：在密度估计问题中，学习算法学习函数$p<em>{model}:\mathbb{R}^n \rightarrow \mathbb{R}$，其中$p</em>{model}(x)$可以解释成样本采样空间的概率密度函数（$x$是连续的）或者概率质量函数（$x$是离散的）。</li>
+<li>密度估计或概率质量函数估计：在密度估计问题中，学习算法学习函数$p_{model}:\mathbb{R}^n \rightarrow \mathbb{R}$，其中$p_{model}(x)$可以解释成样本采样空间的概率密度函数（$x$是连续的）或者概率质量函数（$x$是离散的）。</li>
 </ul>
 <h3 id="性能度量P"><a href="#性能度量P" class="headerlink" title="性能度量P"></a>性能度量P</h3><p>性能度量（performance measure）：衡量模型泛化能力的评估标准</p>
 <p>回归任务最常用的性能度量是均方误差(mean squared error)</p>
@@ -2901,7 +3092,7 @@ F1=\frac{2\times P \times R}{P+R}=\frac{2\times TP}{样例总数+TP-TN}</script>
 <li><p>更一般的$F_\beta$</p>
 <script type="math/tex; mode=display">
 F_\beta=\frac{(1+\beta^2 \times P \times R)}{(\beta^2\times P)+R}</script><blockquote>
-<p> $F<em>\beta$是基于查准率和查全率的加权调和平均定义的$\frac{1}{F</em>\beta}=\frac{1}{1+\beta^2}(\frac{1}{P}+\frac{\beta^2}{R})$。与算术平均$\frac{P+R}{2}$和几何平均$\sqrt{P\times R}$相比，调和平均更重视较小值。</p>
+<p> $F_\beta$是基于查准率和查全率的加权调和平均定义的$\frac{1}{F_\beta}=\frac{1}{1+\beta^2}(\frac{1}{P}+\frac{\beta^2}{R})$。与算术平均$\frac{P+R}{2}$和几何平均$\sqrt{P\times R}$相比，调和平均更重视较小值。</p>
 </blockquote>
 <p>​    $\beta \gt 1$查全率影响更大，$\beta \lt 1$查准率影响更大</p>
 </li>
@@ -3165,8 +3356,8 @@ FPR = \frac{FP}{TN+FP}</script></li>
 <p>非空线性表的逻辑特征：</p>
 <ul>
 <li>有且仅有一个开始结点$a_1$，该结点没有前趋，仅有一个后继$a_2$。</li>
-<li>有且仅有一个终点结点$a<em>n$，该结点没有后继，仅有一个前趋$a</em>{n-1}$</li>
-<li>其余内部内部结点$a<em>i \; (2 \leq i \leq n-1)\;$都有且仅有一个前趋$a</em>{i-1}$和一个后继$a_{i+1}$。</li>
+<li>有且仅有一个终点结点$a_n$，该结点没有后继，仅有一个前趋$a_{n-1}$</li>
+<li>其余内部内部结点$a_i \; (2 \leq i \leq n-1)\;$都有且仅有一个前趋$a_{i-1}$和一个后继$a_{i+1}$。</li>
 </ul>
 <p>线性表中的数据元素不限定形式，但同一线性表中的数据元素必须具有相同特性，相邻元素之间存在着序偶。</p>
 <h3 id="线性表的顺序存储结构"><a href="#线性表的顺序存储结构" class="headerlink" title="线性表的顺序存储结构"></a>线性表的顺序存储结构</h3><p>线性表的两种存储表示方法：</p>
@@ -3176,7 +3367,7 @@ FPR = \frac{FP}{TN+FP}</script></li>
 </ul>
 <p>顺序表：线性表的顺序存储指的是把线性表的数据元素按逻辑顺序依次存放一组地址连续的存储单元里。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LISTINCREMENT = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SqList_d</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    ElemType *elem;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> maxSize;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    SqList_d(<span class="keyword">int</span> n);</span><br><span class="line">    ~SqList_d();</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">SqListInsert</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> e)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">SqListDelete</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printAllData</span><span class="params">()</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">SqList_d::SqList_d(<span class="keyword">int</span> n)</span><br><span class="line">&#123;</span><br><span class="line">    elem = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    length = <span class="number">0</span>;</span><br><span class="line">    maxSize = n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SqList_d::~SqList_d()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">delete</span>[] elem;</span><br><span class="line">    length = <span class="number">0</span>;</span><br><span class="line">    maxSize = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> SqList_d::SqListInsert(<span class="keyword">int</span> i, <span class="keyword">int</span> e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (length &gt;= maxSize)</span><br><span class="line">    &#123;</span><br><span class="line">        elem = (<span class="keyword">int</span> *)<span class="built_in">realloc</span>(elem, (maxSize + LISTINCREMENT) * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">1</span> || i &gt; length + <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"插入位置异常"</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = length; j &gt;= i; j--)</span><br><span class="line">        elem[j] = elem[j - <span class="number">1</span>];</span><br><span class="line">    elem[i - <span class="number">1</span>] = e;</span><br><span class="line">    length++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> SqList_d::SqListDelete(<span class="keyword">int</span> i)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (length &lt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"溢出"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i &lt; <span class="number">1</span> || i &gt; length + <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* code */</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"删除位置异常"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    e = elem[i - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; length; j++)</span><br><span class="line">    &#123;</span><br><span class="line">        elem[j - <span class="number">1</span>] = elem[j];</span><br><span class="line">    &#125;</span><br><span class="line">    length--;</span><br><span class="line">    <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> SqList_d::printAllData()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* code */</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Item: "</span> &lt;&lt; i &lt;&lt; <span class="string">" value: "</span> &lt;&lt; <span class="keyword">this</span>-&gt;elem[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    SqList_d la = SqList_d(<span class="number">10</span>);</span><br><span class="line">    la.SqListInsert(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">    la.printAllData();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>假设顺序吧每个数据元素占有$m$个存储单元，且数据元素的存储位置定义为其所占的存储空间中第一个单元的存储地址，则表中相邻的数据元素$a<em>i$和$a</em>{i+1}$的存储位置$LOC(a<em>i)$和$LOC(a</em>{i+1})$也是相邻的，且满足如下关系：</p>
+<p>假设顺序吧每个数据元素占有$m$个存储单元，且数据元素的存储位置定义为其所占的存储空间中第一个单元的存储地址，则表中相邻的数据元素$a_i$和$a_{i+1}$的存储位置$LOC(a_i)$和$LOC(a_{i+1})$也是相邻的，且满足如下关系：</p>
 <script type="math/tex; mode=display">LOC(a_{i+1}) = LOC(a_i) + m</script><p>如果知道第一个元素$a_i$的存储位置则：</p>
 <script type="math/tex; mode=display">LOC(a_{i}) = LOC(a_1) + (i-1)*m</script><p>由于计算任意数据元素存储地址的时间都是相等的，因此顺序表是一种 <strong>随机存取</strong>$(Random\;Access)$结构</p>
 <p>顺序表的优点：</p>
@@ -3244,8 +3435,8 @@ FPR = \frac{FP}{TN+FP}</script></li>
 <p>特点：<strong>先进先出</strong>$FIFO$和<strong>后进先出</strong>$LIFO$</p>
 <p>栈的抽象数据类型:</p>
 <ul>
-<li>数据对象：$D={a_i | a_i \in  ElemSet,i=1,2,\cdots,n,n \ge 0}$</li>
-<li>数据关系：$R={<a_{i-1},a_i>,a<em>i&gt;|a</em>{i-1},a_i \in D,i=1,2,\cdots,n}$</a_{i-1},a_i></li>
+<li>数据对象：$D=\{a_i | a_i \in  ElemSet,i=1,2,\cdots,n,n \ge 0\}$</li>
+<li>数据关系：$R=\{<a_{i-1},a_i>,a_i&gt;|a_{i-1},a_i \in D,i=1,2,\cdots,n\}$</a_{i-1},a_i></li>
 </ul>
 <p>约定$a_n$端为栈顶，$a_1$端为栈底。</p>
 <ul>
@@ -3284,8 +3475,8 @@ FPR = \frac{FP}{TN+FP}</script></li>
 </ul>
 <p>队列的抽象数据类型：</p>
 <ul>
-<li>数据对象：$D={a_i | a_i \in ElemSet,i=1,2,\cdots,n,n \ge 0}$</li>
-<li>数据关系：$R={<a_{i-1},a_i> | a_{i_1},a_i \in D,i=2,\cdots,n}$</a_{i-1},a_i></li>
+<li>数据对象：$D=\{a_i | a_i \in ElemSet,i=1,2,\cdots,n,n \ge 0\}$</li>
+<li>数据关系：$R=\{<a_{i-1},a_i> | a_{i_1},a_i \in D,i=2,\cdots,n\}$</a_{i-1},a_i></li>
 </ul>
 <p>确定 $a_1$端为队头，$a_n$端为队尾。</p>
 <ul>
@@ -3334,7 +3525,7 @@ FPR = \frac{FP}{TN+FP}</script></li>
 <li><p>数据对象：$j_i=0,\cdots,b_i-1,i=1,2,\cdots,n$</p>
 <script type="math/tex; mode=display">D=\{a_{j_1j_2\cdots j_n}|n(n>0),b_i,j_i,a_{j_1j_2\cdots j_n}\in ElemSet\}</script><p>$n$是数据的维数，$b_i$是数据的第$i$维的长度，$j_i$是数组元素第$i$维的下标。</p>
 </li>
-<li><p>数据关系：$R={R_1,R_2,\cdots,R_n}$</p>
+<li><p>数据关系：$R=\{R_1,R_2,\cdots,R_n\}$</p>
 </li>
 </ul>
 <script type="math/tex; mode=display">R_i=\{<a_{j1\cdots ji \cdots jn},a_{j1\cdots ji+1\cdots jn}>\}
@@ -3378,11 +3569,11 @@ FPR = \frac{FP}{TN+FP}</script></li>
 <p>以列序为主序的存储方式。将数据元素按列排列，第$j+1$个列向量紧接在第$j$个列向量后面。</p>
 </li>
 </ul>
-<p>行优先顺序存储：$\boxed{a<em>{11}|a</em>{12}|\cdots|a<em>{1n}|a</em>{21}|a<em>{22}|\cdots|a</em>{2n}|\cdots|a<em>{m1}|a</em>{m2}|\cdots|a<em>{mn}}$<br>列优先顺序存储：$\boxed{a</em>{11}|a<em>{21}|\cdots|a</em>{m1}|a<em>{12}|a</em>{22}|\cdots|a<em>{m2}|\cdots|a</em>{1n}|a<em>{2n}|\cdots|a</em>{mn}}$</p>
+<p>行优先顺序存储：$\boxed{a_{11}|a_{12}|\cdots|a_{1n}|a_{21}|a_{22}|\cdots|a_{2n}|\cdots|a_{m1}|a_{m2}|\cdots|a_{mn}}$<br>列优先顺序存储：$\boxed{a_{11}|a_{21}|\cdots|a_{m1}|a_{12}|a_{22}|\cdots|a_{m2}|\cdots|a_{1n}|a_{2n}|\cdots|a_{mn}}$</p>
 <p>二维数组元素地址，按行优先顺序存储的计算公式</p>
-<p>任一数据元素$a<em>{ij}$的存储地址$LOC(a</em>{ij})$应为数组的基地址加上排在$a<em>{ij}$前面的数据元素所占用的单元数，因此$a</em>{ij}$的存储地址计算公式为：</p>
+<p>任一数据元素$a_{ij}$的存储地址$LOC(a_{ij})$应为数组的基地址加上排在$a_{ij}$前面的数据元素所占用的单元数，因此$a_{ij}$的存储地址计算公式为：</p>
 <script type="math/tex; mode=display">LOC(a_{ij})=LOC(a_{l_1l_2})+((i-l_1)*(h_2-l_2+1)+(j-l_2))*c\\=LOC(a_{l_1l_2})+i*(h_2-l_2+1)*c-l_1*(h_2-l_2+1)*c+j*c-l_2*c</script><p>令：$M_1=(h_2-l_2+1)*c,M_2=c,$则有</p>
-<script type="math/tex; mode=display">LOC(a_{ij})=v_0+i*M_1+j*M_2</script><p>其中，$v<em>0=LOC(a</em>{l<em>1l_2})+-l_1<em>M_1-l_2</em>M_2,i\in[l_1,h_1],j\in[l_2,h_2],$且$i$和$j$均为整数；$LOC(a_l{ij})$是数据元素$a</em>{ij}$的存储地址，$LOC(a_{l_1l_2})$是二维数组中第一个元素的存储地址，即基地址。</p>
+<script type="math/tex; mode=display">LOC(a_{ij})=v_0+i*M_1+j*M_2</script><p>其中，$v_0=LOC(a_{l_1l_2})+-l_1<em>M_1-l_2</em>M_2,i\in[l_1,h_1],j\in[l_2,h_2],$且$i$和$j$均为整数；$LOC(a_l{ij})$是数据元素$a_{ij}$的存储地址，$LOC(a_{l_1l_2})$是二维数组中第一个元素的存储地址，即基地址。</p>
 <p>二维数组推广到一般，按照行优先顺序存储，则下标为$i_1,i_2,\cdots,i_n$的存储地址为：</p>
 <script type="math/tex; mode=display">LOC(a_{i_1,i_2,\cdots,i_n})
 =LOC(a_{l_1,l_2,\cdots,l_n})+(j_1d_2d_3\cdots d_n+j_2d_3\cdots d_n+\cdots+j_{n-1}d_n+j_n)*c\\=V_0+i_1*M_1+i_2*M_2+\cdots+i_n*M_n</script><h4 id="矩阵的压缩存储"><a href="#矩阵的压缩存储" class="headerlink" title="矩阵的压缩存储"></a>矩阵的压缩存储</h4><p>在矩阵中，若非零元素呈现某种规律分布或举证中出现大量零数据元素。为了节省空间，可以对这类矩阵进行压缩。</p>
@@ -3399,12 +3590,12 @@ FPR = \frac{FP}{TN+FP}</script></li>
 <ol>
 <li><p>对称对称的压缩<br>在一个$n$阶方阵$A$中，若数据元素满足下述性质:</p>
 <script type="math/tex; mode=display">a_{ij}=a_{ji}(i\ge1,j\le n)</script><p>则称为$A$为$n$阶对称矩阵。</p>
-<p>对称矩阵只需存储矩阵中的上三角$a<em>{ij}(i\le j)$或下三角$a</em>{ij}(i\ge j)$的数据元素。</p>
+<p>对称矩阵只需存储矩阵中的上三角$a_{ij}(i\le j)$或下三角$a_{ij}(i\ge j)$的数据元素。</p>
 <p>对称矩阵优先采用行优先顺序存储下三角中的数据元素。</p>
-<p>下三角的数据元素可用一个容量是$n<em>(n+1)/2$的一维数组存储。对于下三角中任意数据元素$a<em>{ij}(i\ge j)$,$a</em>{ij}$在一维数组中的下标$k$与$i、j$的关系为：$k=i</em>(i+1)/2+j$。</p>
+<p>下三角的数据元素可用一个容量是$n<em>(n+1)/2$的一维数组存储。对于下三角中任意数据元素$a_{ij}(i\ge j)$,$a_{ij}$在一维数组中的下标$k$与$i、j$的关系为：$k=i</em>(i+1)/2+j$。</p>
 <script type="math/tex; mode=display">\boxed{a_{00}|a_{10}|a_{11}|a_{20}|a_{21}|a_{22}|\cdots|a_{ij}|\cdots|a_{n-1,0}|a_{n-1,1}|\cdots|a_{n-1,n-1}}</script><p>若采用上述的压缩存储方式，则矩阵中的任一数据元素$a_{ij}$与它在一维数组中的存储位置$k$之间存在如下的对应关系:</p>
 <script type="math/tex; mode=display">k=\begin{cases}i(i-1)/2+j-1,\ge j
-\\j(j-1)/2+i-1,\lt j\end{cases}</script><p>其中$k=0,1,2，\cdots,((n+1)n/2)-1,<br>\1+2+3+(i-1)=(i-1)i/2,<br>\(i-1)i/2+j=k+1\quad i\ge j\quad and\quad i,j\ge 1$</p>
+\\j(j-1)/2+i-1,\lt j\end{cases}</script><p>其中$k=0,1,2，\cdots,((n+1)n/2)-1,<br>\\1+2+3+(i-1)=(i-1)i/2,<br>\(i-1)i/2+j=k+1\quad i\ge j\quad and\quad i,j\ge 1$</p>
 </li>
 <li><p>对角矩阵的压缩存储</p>
 <p>对角矩阵：所有的非零数据元素都集中在以主对角线为中心的带状区域中的举证，即除了<strong>主对角线上和主对角线相邻两侧</strong>的若干条对角线上的数据之外，其余所有数据元素均为零数据元素。</p>
@@ -3532,8 +3723,8 @@ cpot[col]=cpot[col-1]+num[col-1];2\le col\leq n\end{cases}</script></li>
 </ul>
 <p>广义表的抽象数据类型：</p>
 <ul>
-<li>数据对象：$D={e_i|i=1,2,\cdots,n;n\ge 0;e_i\in AtomSet\;or\;e_i\in GList}$$AtomSet$为某个数据对象</li>
-<li>数据关系：$R={<e_{i-1},e_i>|e_{i-1},e_i\in D,2\le i\le n}$</e_{i-1},e_i></li>
+<li>数据对象：$D=\{e_i|i=1,2,\cdots,n;n\ge 0;e_i\in AtomSet\;or\;e_i\in GList\}$$AtomSet$为某个数据对象</li>
+<li>数据关系：$R=\{<e_{i-1},e_i>|e_{i-1},e_i\in D,2\le i\le n\}$</e_{i-1},e_i></li>
 <li>基本操作：<ul>
 <li>$InitGList(\&amp;L)$</li>
 <li>$CreateGList(\&amp;L,S)$</li>
@@ -3773,7 +3964,7 @@ cpot[col]=cpot[col-1]+num[col-1];2\le col\leq n\end{cases}</script></li>
 </ol>
 </li>
 </ol>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆：设有$n$个元素的序列${k_1,k_2,\cdots,k_n}$,当且仅当满足下述关系之一时：</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>堆：设有$n$个元素的序列$\{k_1,k_2,\cdots,k_n\}$,当且仅当满足下述关系之一时：</p>
 <script type="math/tex; mode=display">\begin{cases}k_i\le k_{2i}\\
 k_i\le k_{2i+1}\end{cases}
 \;or\;
@@ -3800,7 +3991,7 @@ k_i\ge k_{2i+1}\end{cases}</script><p>若以一维数组存储堆，则堆对应
 <li><p>哈夫曼树的构造</p>
 <p>哈夫曼树的构造算法如下：</p>
 <ol>
-<li>根据给定的$n$个权值${w_1,w_2,\cdots,w_n}$构造$n$棵二叉树的集合$F=(T_1,T_2,\cdots,T_n)$，其中每棵二叉树$T_i$中只有一个权值为$W_i$的根结点，其左右子树均为空。</li>
+<li>根据给定的$n$个权值$\{w_1,w_2,\cdots,w_n\}$构造$n$棵二叉树的集合$F=(T_1,T_2,\cdots,T_n)$，其中每棵二叉树$T_i$中只有一个权值为$W_i$的根结点，其左右子树均为空。</li>
 <li>在$F$中选取两个根结点的权值最小的树，分别作为左右子树构造一棵新的二叉树，且将新的二叉树的根结点的权值为置其左右子树上根结点的权值之和。</li>
 <li>在$F$中删除作为左右子树的两棵二叉树，同时将新得到的二叉树加入$F$中。</li>
 <li>重复2和3，直到$F$只含有一棵树为止，这棵树就是哈夫曼树。</li>
@@ -3811,7 +4002,7 @@ k_i\ge k_{2i+1}\end{cases}</script><p>若以一维数组存储堆，则堆对应
 <p>每个字符所转换的二进制字符长度相等称为<strong>等长编码</strong>。</p>
 <p>如果让出现频率高的字符采用尽可能短的编码，出现频率低的字符采用稍长的编码，构造一种<strong>不等长编码</strong>，则电文的代码总长度会更短。</p>
 <p>设计电文总长最短的编码方式：构造以字符使用频率作为权值的哈夫曼树。</p>
-<p>具体操作如下：设需要编码的字符集合为${d_1,d_2,\cdots,d_n}$，它们在电文中出现的次数或频率集合为${w_1,w_2,\cdots,w_n}$，以$d_1,d_2,\cdots,d_n$作为叶子结点，$w_1,w_2,\cdots,w_n$作为它们的权值，构造一棵哈夫曼树，规定哈夫曼树的左分支代表0，右分支代表1，则从根结点到每个叶子结点所经过的路径分支组成的0和1的序列便为该结点对应字符的编码，称之为<strong>哈夫曼编码</strong>。</p>
+<p>具体操作如下：设需要编码的字符集合为$\{d_1,d_2,\cdots,d_n\}$，它们在电文中出现的次数或频率集合为$\{w_1,w_2,\cdots,w_n\}$，以$d_1,d_2,\cdots,d_n$作为叶子结点，$w_1,w_2,\cdots,w_n$作为它们的权值，构造一棵哈夫曼树，规定哈夫曼树的左分支代表0，右分支代表1，则从根结点到每个叶子结点所经过的路径分支组成的0和1的序列便为该结点对应字符的编码，称之为<strong>哈夫曼编码</strong>。</p>
 <p><strong>在不等长编码的选择上，必须使任何一个字符的编码都不是其他字符编码的前缀，以保证译码的唯一性。</strong></p>
 <p>若采用哈夫曼编码，则能确保译码的唯一性。</p>
 <p>哈夫曼编码的算法：</p>
@@ -5900,8 +6091,8 @@ s(x,y)=3x+2xy+10y^2</script><p>可以存在多个自变量，如表示平面空�
 <li><p>能量信号和功率信号</p>
 <ul>
 <li>离散时间信号$x(n)$的能量$E \equiv \sum_{n=-\infty}^\infty |x(n)|^2$</li>
-<li>离散时间信号的平均功率：$P=\lim<em>{N \rightarrow \infty} \frac{1}{2N+1} \sum</em>{n=-N}^N |x(n)|^2$</li>
-<li>有限区间$-N \le n \le N$内定义的信号能量$E<em>N= \sum</em>{n=-N}^N |x(n)|^2$</li>
+<li>离散时间信号的平均功率：$P=\lim_{N \rightarrow \infty} \frac{1}{2N+1} \sum_{n=-N}^N |x(n)|^2$</li>
+<li>有限区间$-N \le n \le N$内定义的信号能量$E_N= \sum_{n=-N}^N |x(n)|^2$</li>
 </ul>
 </li>
 <li><p>周期信号和非周期信号</p>
@@ -6297,7 +6488,7 @@ f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</scrip
 <li>找出对称轴</li>
 <li>找出对称性</li>
 </ol>
-<p>例题：$L={a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T}$</p>
+<p>例题：$L=\{a^{2n}b^n | n\gt 1 \; and \;a,b\in V_T\}$</p>
 <p>观察语言：</p>
 <script type="math/tex; mode=display">
 \begin{split}
@@ -6310,7 +6501,7 @@ f(x^{(k)}+\alpha_kd^{(k)}) = \min_{\alpha \ge 0}f(x^{(k)}+\alpha d^{(k)})</scrip
 & S \rightarrow aab
 \end{split}</script><h2 id="逐步求精法（分解法）"><a href="#逐步求精法（分解法）" class="headerlink" title="逐步求精法（分解法）"></a>逐步求精法（分解法）</h2><p>两种：自上而下 或者从左向右</p>
 <p>前提：语言中各成分之间没有关联。</p>
-<p>例题：$L={a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T}$</p>
+<p>例题：$L=\{a^ib^jc^k|i,j,k \ge 1 \; and \; a,b,c \in V_T\}$</p>
 <ol>
 <li><p>自上而下求精法</p>
 <script type="math/tex; mode=display">
@@ -6324,7 +6515,7 @@ S \rightarrow aS|aA,\; A\rightarrow bA|bB,\; B\rightarrow cB|c</script><p>分析
 </li>
 </ol>
 <h2 id="等价法"><a href="#等价法" class="headerlink" title="等价法"></a>等价法</h2><p>产生式两边具有相同的特性</p>
-<p>例题：$L={\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega}$</p>
+<p>例题：$L=\{\omega | \omega \in (a,b)^* \;and\; there\; are\; as\; many\; a’s\; as\; b’s\; in \; \omega\}$</p>
 <p>在语言中，a和b的数量一样多。</p>
 <p>首先写出下面三个产生式：</p>
 <p>当以a开头时，$S \rightarrow aA$；</p>
@@ -6377,7 +6568,7 @@ B \rightarrow aS|a|bBB</script><h2 id="电路状态转换法"><a href="#电路�
 <p>严格的说最后可以写出$2^{n(n+1)}+1$条产生式。</p>
 </li>
 </ol>
-<p>例题：$L={\omega| \omega \in (0,1)^*, 1的数量是偶数}$</p>
+<p>例题：$L=\{\omega| \omega \in (0,1)^*, 1的数量是偶数\}$</p>
 <p>电路状态转换图如下所示：</p>
 <p><img src="/images/电路状态转换图2.png" alt="电路状态转换图2"></p>
 <p>本题中，只有两个状态：</p>
@@ -7067,13 +7258,13 @@ True
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(x.grad)</span><br></pre></td></tr></table></figure>
 <pre><code>tensor([[4.5000, 4.5000],
         [4.5000, 4.5000]])
-</code></pre><p>You should have got a matrix of <code>4.5</code>. Let’s call the <code>out</code> Tensor “o”. We have that $o = \frac{1}{4}\sum<em>i z_i$, $z_i = 3(x_i+2)^2$ and $z_i\bigr\rvert</em>{x<em>i=1} = 27$. Therefore, $\frac{\partial o}{\partial x_i} = \frac{3}{2}(x_i+2)$, hence $\frac{\partial o}{\partial x_i}\bigr\rvert</em>{x_i=1} = \frac{9}{2} = 4.5$.</p>
+</code></pre><p>You should have got a matrix of <code>4.5</code>. Let’s call the <code>out</code> Tensor “o”. We have that $o = \frac{1}{4}\sum_i z_i$, $z_i = 3(x_i+2)^2$ and $z_i\bigr\rvert_{x_i=1} = 27$. Therefore, $\frac{\partial o}{\partial x_i} = \frac{3}{2}(x_i+2)$, hence $\frac{\partial o}{\partial x_i}\bigr\rvert_{x_i=1} = \frac{9}{2} = 4.5$.</p>
 <p>Mathematically, if you have a vector valued function $\vec{y}=f(\vec{x})$, then the gradient of $\vec{y}$  with respect to $\vec{x}$  is a Jacobian matrix:</p>
 <script type="math/tex; mode=display">\begin{split}J=\left(\begin{array}{ccc}
  \frac{\partial y_{1}}{\partial x_{1}} & \cdots & \frac{\partial y_{1}}{\partial x_{n}}\\
  \vdots & \ddots & \vdots\\
  \frac{\partial y_{m}}{\partial x_{1}} & \cdots & \frac{\partial y_{m}}{\partial x_{n}}
- \end{array}\right)\end{split}</script><p>Generally speaking, <code>torch.autograd</code> is an engine for computing vector-Jacobian product. That is, given any vector $v=\left(\begin{array}{cccc} v<em>{1} &amp; v</em>{2} &amp; \cdots &amp; v<em>{m}\end{array}\right)^{T}$, compute the product $v^{T}\cdot J$. If $v$ happens to be the gradient of a scalar function $l=g\left(\vec{y}\right)$, that is, $v=\left(\begin{array}{ccc}\frac{\partial l}{\partial y</em>{1}} &amp; \cdots &amp; \frac{\partial l}{\partial y_{m}}\end{array}\right)^{T}$, then by the chain rule, the vector-Jacobian product would be the gradient of $l$ with respect to $\vec{x}$ :</p>
+ \end{array}\right)\end{split}</script><p>Generally speaking, <code>torch.autograd</code> is an engine for computing vector-Jacobian product. That is, given any vector $v=\left(\begin{array}{cccc} v_{1} &amp; v_{2} &amp; \cdots &amp; v_{m}\end{array}\right)^{T}$, compute the product $v^{T}\cdot J$. If $v$ happens to be the gradient of a scalar function $l=g\left(\vec{y}\right)$, that is, $v=\left(\begin{array}{ccc}\frac{\partial l}{\partial y_{1}} &amp; \cdots &amp; \frac{\partial l}{\partial y_{m}}\end{array}\right)^{T}$, then by the chain rule, the vector-Jacobian product would be the gradient of $l$ with respect to $\vec{x}$ :</p>
 <script type="math/tex; mode=display">\begin{split}J^{T}\cdot v=\left(\begin{array}{ccc}
  \frac{\partial y_{1}}{\partial x_{1}} & \cdots & \frac{\partial y_{m}}{\partial x_{1}}\\
  \vdots & \ddots & \vdots\\

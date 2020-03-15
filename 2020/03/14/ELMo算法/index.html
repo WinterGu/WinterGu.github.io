@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="文本编码One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, banana">
+  <meta name="description" content="ELMo算法ELMo,(Embeddings from Language Models) Paper Paper的author认为对词语进行表征应该兼顾的问题：  词语在语义和语法上用法的特点 随着语言环境的变化，用法也能够改变。  这种算法的特点：每个词语的表征是整个输入语句的函数。 通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LST">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Text_Encoding">
-<meta property="og:url" content="http://yoursite.com/2020/03/01/Text-Encoding/index.html">
+<meta property="og:title" content="ELMo算法">
+<meta property="og:url" content="http://yoursite.com/2020/03/14/ELMo算法/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="文本编码One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, banana">
+<meta property="og:description" content="ELMo算法ELMo,(Embeddings from Language Models) Paper Paper的author认为对词语进行表征应该兼顾的问题：  词语在语义和语法上用法的特点 随着语言环境的变化，用法也能够改变。  这种算法的特点：每个词语的表征是整个输入语句的函数。 通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LST">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-01T12:09:24.383Z">
+<meta property="og:updated_time" content="2020-03-15T05:56:35.592Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Text_Encoding">
-<meta name="twitter:description" content="文本编码One-hot Representation假设词汇表中共计$N$个word，则展开一个N维的Vector，对应word的位置赋值为1,其他位置为0。 For example: 12Time flies like an arrow.Fruit flies like a banana. 词汇表的长度为8：{time, fruit, flies, like, an, arrow, banana">
+<meta name="twitter:title" content="ELMo算法">
+<meta name="twitter:description" content="ELMo算法ELMo,(Embeddings from Language Models) Paper Paper的author认为对词语进行表征应该兼顾的问题：  词语在语义和语法上用法的特点 随着语言环境的变化，用法也能够改变。  这种算法的特点：每个词语的表征是整个输入语句的函数。 通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LST">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2020/03/01/Text-Encoding/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/14/ELMo算法/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Text_Encoding | Dongxian's Blog</title>
+  <title>ELMo算法 | Dongxian's Blog</title>
   
 
 
@@ -255,7 +255,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -273,7 +273,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
 
@@ -354,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/Text-Encoding/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/14/ELMo算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -371,7 +371,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Text_Encoding
+          <h1 class="post-title" itemprop="name headline">ELMo算法
 
               
             
@@ -397,12 +397,24 @@
                 
               
 
-              <time title="创建时间：2020-03-01 19:39:49 / 修改时间：20:09:24" itemprop="dateCreated datePublished" datetime="2020-03-01T19:39:49+08:00">2020-03-01</time>
+              <time title="创建时间：2020-03-14 20:48:19" itemprop="dateCreated datePublished" datetime="2020-03-14T20:48:19+08:00">2020-03-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-15 13:56:35" itemprop="dateModified" datetime="2020-03-15T13:56:35+08:00">2020-03-15</time>
               
             
           </span>
@@ -419,7 +431,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/深度学习/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
 
                 
                 
@@ -461,25 +480,55 @@
       
 
       
-        <h1 id="文本编码"><a href="#文本编码" class="headerlink" title="文本编码"></a>文本编码</h1><h2 id="One-hot-Representation"><a href="#One-hot-Representation" class="headerlink" title="One-hot Representation"></a>One-hot Representation</h2><p>假设词汇表中共计$N$个word，则展开一个<code>N</code>维的Vector，对应word的位置赋值为1,其他位置为0。</p>
-<p>For example:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Time flies like an arrow.</span><br><span class="line">Fruit flies like a banana.</span><br></pre></td></tr></table></figure>
-<p>词汇表的长度为8：<code>{time, fruit, flies, like, an, arrow, banana }</code>。应次每个word都可以表示为 8-D Vector。</p>
-<p>因此，对于短语和句子，文档可以简单的表示为连续词的 与或 运算。</p>
-<p><code>like a banana</code>能够表示为<code>{0,0,0,1,1,0,0,1}</code></p>
-<h2 id="TF-Representation"><a href="#TF-Representation" class="headerlink" title="TF Representation"></a>TF Representation</h2><p>短语，句子或文档的TF表示能够简单表示为连续词的one-hot vector的和。</p>
-<p><code>Fruit flies like time flies a fruit:[1,2,2,1,1,0,0,0]</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">one_hot_vectorizer = CountVectorizer(binary=<span class="literal">True</span>)</span><br><span class="line">one_hot = one_hot_vectorizer.fit_transform(corpus).toarray()</span><br><span class="line">vocab = one_hot_vectorizer.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(one_hot, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="TF-IDF-Representation"><a href="#TF-IDF-Representation" class="headerlink" title="TF-IDF Representation"></a>TF-IDF Representation</h2><script type="math/tex; mode=display">
-IDF(w)=\log\frac{N}{n_w}</script><p><code>TF: Term Frequency</code></p>
-<p><code>IDF: Inverse-Document-Frequency</code></p>
+        <h1 id="ELMo算法"><a href="#ELMo算法" class="headerlink" title="ELMo算法"></a>ELMo算法</h1><p>ELMo,(Embeddings from Language Models)</p>
+<p><a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="noopener">Paper</a></p>
+<p>Paper的author认为对词语进行表征应该兼顾的问题：</p>
 <ul>
-<li>$n_w$s：是文档中包括 <code>w</code>的数量</li>
-<li>$N$：是文档的数量</li>
+<li>词语在语义和语法上用法的特点</li>
+<li>随着语言环境的变化，用法也能够改变。</li>
 </ul>
+<p>这种算法的特点：每个词语的表征是整个输入语句的函数。</p>
+<p>通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LSTM模型，再利用LSTM产生词语的表征。</p>
+<p>在下游的NLP任务中，一般使用下游任务的Corpus（ignore label）对language model进行 微调，这种做法相当于到domain transfer，然后利用label的信息进行监督学习。</p>
+<p>ELMo对词语的表征是“深”的，它们是BiLSTM中所有层的内部表征的函数。因此可以产生丰富的词语特征。</p>
+<p>高层的LSTM的status可以捕捉到词语语义和语境相关的特征，因此可以来进行语义消歧，而底层的LSTM可以捕捉到语法方面的特征，可以做词性标注。将这两个结合起来，可以在下游的NLP Task中获得优势。</p>
+<h2 id="Bidirectional-language-model"><a href="#Bidirectional-language-model" class="headerlink" title="　Bidirectional language model"></a>　Bidirectional language model</h2><p>ELMo从意思上是从语言模型中得到的嵌入。具体而言就是 双向语言模型</p>
 <script type="math/tex; mode=display">
-TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少，则IDF越高，说明词的重要性越大。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfVectorizer</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">corpus = [<span class="string">'Time flies like an arrow.'</span>,</span><br><span class="line">          <span class="string">'Fruit flies like a banana.'</span>]</span><br><span class="line">tfidf = TfidfVectorizer()</span><br><span class="line">vectors = tfidf.fit_transform(corpus).toarray()</span><br><span class="line">vocab = tfidf.get_feature_names()</span><br><span class="line"></span><br><span class="line">sns.heatmap(vectors, annot=<span class="literal">True</span>,</span><br><span class="line">           cbar=<span class="literal">False</span>, xticklabels=vocab,</span><br><span class="line">           yticklabels=[<span class="string">'Sentence 1'</span>,<span class="string">'Sentence 2'</span>])</span><br></pre></td></tr></table></figure>
+\begin{align}
+& forward\;LM: \quad p(t_1,t_2,\cdots,t_N) = \prod_{k=1}^N p(t_k|t_1,t_2,\cdots,t_k-1) \\ 
+& backward\;LM: \quad p(t_1,t_2,\cdots,t_N) = \prod_{k=1}^N p(t_k|t_{k+1},t_{k+2},\cdots,t_N)
+\end{align}</script><p>其中$t$表示各种token。</p>
+<p>对语言模型通常使用多层LSTM进行建模，ELMo的语言模型采用这种方式，使用叠加的双向LSTM来表示。</p>
+<p>假设，输入的符号记为  $\mathbf{x}_k^{LM}$ （通过token embedding 或 a CNN over characters生成），然后将它输入到$L$ layers of LSTMs。每个位置$k$，每一层的LSTM都产生对应的<code>context-dependent</code>的表征$\vec{h}_{k,j}^{LM}，where\;j=1,2,\cdots,L$。这里的$j$表示第几层上的表征。顶层的LSTM的输出表示为$\vec{h}_{k,L}^{LM}$，最后使用Softmax归一化来预测下一个token $t_{k+1}$。对于<code>backward LSTMs</code>，给定$(t_{k+1},\cdots,t_N)$，每一层$j$产生表示$\overleftarrow{h}_{k,j}^{LM}，where\;j=1,2,\cdots,L$。</p>
+<p>biLM将forward 和 backward 的LM集合起来。目标函数就是最大化前向和反向的对数似然函数。</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^N [\log p(t_k|t_1,\cdots,t_{k-1};\Theta_x,\overrightarrow{\Theta}_{LSTM},\Theta_s) + \log p(t_k|t+1,\cdots,t_{N};\Theta_x,\overleftarrow{\Theta}_{LSTM},\Theta_s)]</script><p>其中$\Theta_x$作为token表征，$\Theta_s$表示Softmax layer。</p>
+<h2 id="ELMo"><a href="#ELMo" class="headerlink" title="ELMo"></a>ELMo</h2><p>在biLM中，ELMo的任务是将中间层进行特定的组合。</p>
+<p>对于每个token $t_k$，$L-layer$的biLM需要计算出$2L+1$个表示</p>
+<script type="math/tex; mode=display">
+\begin{align}
+R_k &= \{\mathbf{x}_k^{LM},\overrightarrow{h}_{k,j}^{LM},\overleftarrow{h}_{k,j}^{LM}|j=1,\cdots,L\} \\
+& = \{h_{k,j}^{LM}|j=0,\cdots,L\}
+\end{align}</script><p>其中$h_{k,0}^{LM}$是token layer，$h_{k,j}^{LM} = [\overrightarrow{h}_{k,j}^{LM},\overleftarrow{h}_{k,j}^{LM}]$对应每一个biLSTM layer。</p>
+<p>对于下游的模型，ELMo 将$R$中的所有层合成一个单个向量，$\mathbf{ELMo}_k = E(R_k;\Theta_e)$。在TageLM和CoVe中只是简单的选择了高层的表示$E(R_k)=h_{k,L}^{LM}$。</p>
+<p>通常，ELMo根据具体任务计算出所有层的权重：</p>
+<script type="math/tex; mode=display">
+\mathbf{ELMo}_k^{task} = E(R_k;\Theta^{task}) = \gamma^{task} \sum_{j=0}^L s_j^{task} h_{k,j}^{LM}</script><p>其中，$s^{task}$是softmax标准化的权重，$\gamma^{task}$是一个标量，使得任务模型能够放缩整个ELMo向量。</p>
+<h2 id="Using-biLMs-for-supervised-NLP-task"><a href="#Using-biLMs-for-supervised-NLP-task" class="headerlink" title="Using biLMs for supervised NLP task"></a>Using biLMs for supervised NLP task</h2><p>给定一个预训练的biLM和对应NLP任务的监督学习模型。使用biLM来改善任务模型是一个简单的过程。只需要运行biLM然后记录下每个词的所有layer 表征。然后让任务模型学习所有表征的线性组合。</p>
+<p>首先考虑没有使用biLM最低层的监督学习模型，大部分NLP监督模型在最底层使用通用的架构，能够以一般的方式增加ELMo到模型中去。</p>
+<p>给定符号序列$(t_1,\cdots,t_N)$，使用预训练的词嵌入来对每个位置token构造上下文独立的符号表示$\mathbf{x}_k$。然后，这个模型将会产生上下文敏感的表示$\mathbf{h}_k$。</p>
+<p>增加ELMo到监督模型中，我们首先需要冻结biLM的权重参数，然后将$\mathbf{x}_k$和$\mathbf{ELMo}_k^{task}$连接起来，将ELMo的增强后表征$[\mathbf{x}_k;\mathbf{ELMo}_k^{task}]$输入到任务的网络中。</p>
+<p>作者发现，通过增加一定的Dropout到ELMo和通过$\lambda ||\mathbf{w}||_2^2$到loss正则化ELMo的权重。</p>
+<blockquote>
+<p>This imposes an inductive bias on the ELMo weights to<br>stay close to an average of all biLM layers.</p>
+</blockquote>
+<h2 id="Pre-trained-bidirectional-language-model-architecture"><a href="#Pre-trained-bidirectional-language-model-architecture" class="headerlink" title="Pre-trained bidirectional language model architecture"></a>Pre-trained bidirectional language model architecture</h2><p>特点：</p>
+<ul>
+<li>支持双向联合训练</li>
+<li>在LSTM layers之间增加了 residual connection</li>
+</ul>
+<p>最终，模型使用了4096 units L=2的 biLSTM，512-D的投影以及第一层到第二层使用residual connention。上下文不敏感表示使用 2048 character n-gram Conv filters。一个线性映射层将它下降到512-D的表示。</p>
+<p>结果，biLM为每个输入符号提供了三层表示。和传统词嵌入只提供一层的表示相反。</p>
 
       
     </div>
@@ -510,8 +559,8 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/02/18/neo4j基础教程/" rel="next" title="neo4j基础教程">
-                <i class="fa fa-chevron-left"></i> neo4j基础教程
+              <a href="/2020/03/11/Nodejs初探/" rel="next" title="Nodejs初探">
+                <i class="fa fa-chevron-left"></i> Nodejs初探
               </a>
             
           </div>
@@ -519,10 +568,6 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/03/LSTM的前世今生未来/" rel="prev" title="LSTM的前世今生未来">
-                LSTM的前世今生未来 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,7 +638,7 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -634,7 +679,13 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -669,7 +720,7 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
 
           
         
-         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
         
           
 
@@ -695,7 +746,7 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文本编码"><span class="nav-number">1.</span> <span class="nav-text">文本编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#One-hot-Representation"><span class="nav-number">1.1.</span> <span class="nav-text">One-hot Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TF-Representation"><span class="nav-number">1.2.</span> <span class="nav-text">TF Representation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TF-IDF-Representation"><span class="nav-number">1.3.</span> <span class="nav-text">TF-IDF Representation</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ELMo算法"><span class="nav-number">1.</span> <span class="nav-text">ELMo算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bidirectional-language-model"><span class="nav-number">1.1.</span> <span class="nav-text">　Bidirectional language model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMo"><span class="nav-number">1.2.</span> <span class="nav-text">ELMo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-biLMs-for-supervised-NLP-task"><span class="nav-number">1.3.</span> <span class="nav-text">Using biLMs for supervised NLP task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-trained-bidirectional-language-model-architecture"><span class="nav-number">1.4.</span> <span class="nav-text">Pre-trained bidirectional language model architecture</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1211,6 +1262,46 @@ TF-IDF = TF(w)*IDF(w)</script><p>如果一个文档的词出现的比较稀少�
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

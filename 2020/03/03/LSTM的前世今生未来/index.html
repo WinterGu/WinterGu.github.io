@@ -267,7 +267,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">15</span></a>
 
   </li>
         
@@ -285,7 +285,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">42</span></a>
 
   </li>
 
@@ -505,7 +505,7 @@ O_t
 S_{t-1} \\
 x_t
 \end{pmatrix}</script><ul>
-<li>$s<em>t\;and\;s</em>{t-1}$是当前的状态和之前的转台</li>
+<li>$s_t\;and\;s_{t-1}$是当前的状态和之前的转台</li>
 <li>$o_t$是我们当前的输出</li>
 <li>$x_t$是当前的输入（可以为空的）</li>
 <li>$f$是我们的循环函数</li>
@@ -548,7 +548,7 @@ s_t=\phi(Ws_{t-1}+Ux_t+b)</script><p>在这里：</p>
 <ol>
 <li><p>信息变形</p>
 <p>如果信息不变化，当我们很难利用过去的信息。信息的最佳可用状态可能发生在过去的某个时刻。除了需要学习如何利用当前的信息，我们还需要从当前状态获取到最初的状态。如果这可能的话，这会导致学习困难或差的结果。</p>
-<p>易得，信息变形发生在普通的RNN中。实际上，假设一个RNN Cell可以在没有外部输入的情况下完全保持先前的状态。$F(x)=\phi(Ws<em>{t-1}+b)$是一个关于$s</em>{t-1}$的恒等函数。但是这个恒等函数是线性的，$F(x)$是非线性的。所以存在矛盾。因此，RNN无法避免的从一个timestep到下一个timestep。对于普通的RNN，即使输出$s_t=x_t$这种任务也是不可能的。</p>
+<p>易得，信息变形发生在普通的RNN中。实际上，假设一个RNN Cell可以在没有外部输入的情况下完全保持先前的状态。$F(x)=\phi(Ws_{t-1}+b)$是一个关于$s_{t-1}$的恒等函数。但是这个恒等函数是线性的，$F(x)$是非线性的。所以存在矛盾。因此，RNN无法避免的从一个timestep到下一个timestep。对于普通的RNN，即使输出$s_t=x_t$这种任务也是不可能的。</p>
 </li>
 <li><p>梯度消失和梯度爆炸</p>
 <p>当利用BP训练RNNs。BP是基于梯度的算法，如果梯度爆炸我们就无法训练模型，如果梯度消失，就无法学习长期的依赖，因此BP对最近的干扰非常敏感，以至于非常难训练。</p>
@@ -627,7 +627,7 @@ s_{t+1} = s_t+\Delta s_{t+1}</script><p>LSTM的基本挑战：无法控制和无
 \end{align}</script><p>当然也可以使用更加复杂的函数。</p>
 <h2 id="将门组合在得到LSTM原型"><a href="#将门组合在得到LSTM原型" class="headerlink" title="将门组合在得到LSTM原型"></a>将门组合在得到LSTM原型</h2><p>如果没有输入门，是用输出门应该先读取先前的状态，以产生下一次写的状态。输出门自然在输入门之前。</p>
 <p>LSTM的基本原则是：我们的写入应该增加到之前的状态。因此，我们应该计算$\Delta s_t$，而不是$s_t$。因此候选写入的可能是$\Delta s_t$。把它记作$\bar{s}_t$。</p>
-<p>我们采用和在普通RNN上计算状态的一样的方式计算$\bar{s}<em>t$。首先通过输出门乘先前的状态$o_t \odot s</em>{t-1}$。</p>
+<p>我们采用和在普通RNN上计算状态的一样的方式计算$\bar{s}_t$。首先通过输出门乘先前的状态$o_t \odot s_{t-1}$。</p>
 <script type="math/tex; mode=display">
 \bar{s}_t = \phi(W(o_t \odot s_{t-1})+ Ux_t+b)</script><p>注意$\odot$表示逐元素相乘，$o_t$是我们的输出门。</p>
 <p>$\bar{s}_t$只是一个候选写作，因为我们使用的是选择行写入和输入门。因此我们使用$\bar{s}_t$和输入门$i_t$逐元素相乘，来获得我们真正的写入。$i_t \odot \bar{s}_t$</p>
@@ -650,7 +650,7 @@ s_t = f_t \odot s_{t-1}+i_t\odot \bar{s}_t</script><p>我们将所有的公式�
 <h3 id="归一化原型：规范化的软界限"><a href="#归一化原型：规范化的软界限" class="headerlink" title="归一化原型：规范化的软界限"></a>归一化原型：规范化的软界限</h3><p>我们可以通过状态归一化来增加一个软约束。初步测试中一个有用的方法是将$s_t$除以$\sqrt{Var(s_t)+1}$。这里增加1来防止初始的零状态。我们也可以在除以方差之前减去平均状态。但在初步测试中似乎没有帮助。然后，我们也考虑为表达性增加规模和移位因素，即层标准化。但该模型冒险进入了层标准化LSTM的范围。</p>
 <h3 id="GRU-通过写-遗忘耦合或覆盖的硬约束"><a href="#GRU-通过写-遗忘耦合或覆盖的硬约束" class="headerlink" title="GRU:通过写-遗忘耦合或覆盖的硬约束"></a>GRU:通过写-遗忘耦合或覆盖的硬约束</h3><p>与其进行选择性的写入和遗忘，不如放弃一些表达性，将我们的遗忘门设置为1减去输入门来进行选择性的重写。</p>
 <script type="math/tex; mode=display">
-s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s<em>t$变成了$s</em>{t-1}$和$\bar{s}<em>t$的加权平均数。当$s</em>{t-1}$和$\bar{s}_t$被约束，那它也是被约束的。如果我们使用$\phi= \tanh$（它的输出被限制在$(-1,1)$）。</p>
+s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s_t$变成了$s_{t-1}$和$\bar{s}_t$的加权平均数。当$s_{t-1}$和$\bar{s}_t$被约束，那它也是被约束的。如果我们使用$\phi= \tanh$（它的输出被限制在$(-1,1)$）。</p>
 <p>这就是<code>GRU(gated recurrent unit)</code>。为了符合GRU中的术语，我们将覆盖门成为更新门，并记作$z_t$。虽然叫做更新门，它的操作是通过指出之前状态我们不想更新的百分比来不更新。因此，更新门和原型LSTM中的遗忘门$f_t$是一样的，并且输入门通过$1-z_t$计算得到。</p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -674,10 +674,10 @@ s_t=(1-i_t)\odot s_{t-1}+i_t\odot \bar{s}_t</script><p>它将$s<em>t$变成了$s
 \end{align}</script><p><img src="/images/LSTM/NH_PseudoLSTMCell.png" alt></p>
 <h2 id="推导LSTM"><a href="#推导LSTM" class="headerlink" title="推导LSTM"></a>推导LSTM</h2><p>上面有许多LSTM变体，真正的LSTM将读操作放在写操作之后。</p>
 <p>写入操作放在RNN单元读取操作之前，我们需要在正常状态下从一个time step 到下一个 time step传递一个预先门的“阴影状态”。</p>
-<p>为了符合描述LSTM常用的字母，我们需要将主状态$s<em>t$变成$c_t$（c表示cell）。我们对候选写入作一个相应的变动$\bar{c}_t$。我们还需要一个单独的隐藏状态$h_t$(h是隐藏状态)。他的状态和我们的常规状态相同，$h</em>{t-1}$类似我们原型LSTM中的门控先验状态$o<em>t \odot s</em>{t-1}$。，除此它还被一个非线性函数压缩。因此，我们的LSTM在 $t$得到是一组紧密相关的向量：$(c<em>{t-1}, h</em>{t-1}) \quad where \quad h<em>{t-1}=o</em>{t-1} \odot \phi(c_{t-1})$</p>
+<p>为了符合描述LSTM常用的字母，我们需要将主状态$s_t$变成$c_t$（c表示cell）。我们对候选写入作一个相应的变动$\bar{c}_t$。我们还需要一个单独的隐藏状态$h_t$(h是隐藏状态)。他的状态和我们的常规状态相同，$h_{t-1}$类似我们原型LSTM中的门控先验状态$o_t \odot s_{t-1}$。，除此它还被一个非线性函数压缩。因此，我们的LSTM在 $t$得到是一组紧密相关的向量：$(c_{t-1}, h_{t-1}) \quad where \quad h_{t-1}=o_{t-1} \odot \phi(c_{t-1})$</p>
 <p>$h_{t-1}$的产生导致了和我们的伪LSTM两个不同</p>
 <ul>
-<li>标准的LSTM使用$h<em>{t-1}=o</em>{t-1} \odot \phi(c<em>{t-1})$来计算门，而不是使用$\phi(c</em>{t-1})$来计算门。</li>
+<li>标准的LSTM使用$h_{t-1}=o_{t-1} \odot \phi(c_{t-1})$来计算门，而不是使用$\phi(c_{t-1})$来计算门。</li>
 <li>标准的LSTM使用$h_t=o_t \odot \phi (c_t)$作为代替$\phi(c_t)$作为外部输出，它受到输出门的控制</li>
 </ul>
 <p>基本的LSTM</p>
@@ -739,8 +739,8 @@ h_t &= o_t \odot \phi(c_t)\\
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/01/Text-Encoding/" rel="next" title="Text_Encoding">
-                <i class="fa fa-chevron-left"></i> Text_Encoding
+              <a href="/2020/03/01/Word-Encoding/" rel="next" title="词编码（表示）">
+                <i class="fa fa-chevron-left"></i> 词编码（表示）
               </a>
             
           </div>
@@ -822,7 +822,7 @@ h_t &= o_t \odot \phi(c_t)\\
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -863,7 +863,13 @@ h_t &= o_t \odot \phi(c_t)\\
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -898,7 +904,7 @@ h_t &= o_t \odot \phi(c_t)\\
 
           
         
-         <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
         
           
 
