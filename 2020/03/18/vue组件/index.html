@@ -94,17 +94,14 @@
 
 
 
-  <meta name="description" content="find命令的使用12find [起始目录] 寻找条件 操作find PATH OPTION [-exec COMMAND &amp;#123; &amp;#125; \;] Option 寻找条件寻找条件可以是一个用逻辑运算符 not、and、or 组成的复合条件。逻辑运 算符 and、or、not 的含义为：  and：逻辑与，在命令中用-a表示，是系统缺省的选项，表示只有当所给的条 件都满足时，寻找条件才算">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Find命令使用">
-<meta property="og:url" content="http://yoursite.com/2020/01/08/Find命令使用/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="vue组件">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/vue组件/index.html">
 <meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="find命令的使用12find [起始目录] 寻找条件 操作find PATH OPTION [-exec COMMAND &amp;#123; &amp;#125; \;] Option 寻找条件寻找条件可以是一个用逻辑运算符 not、and、or 组成的复合条件。逻辑运 算符 and、or、not 的含义为：  and：逻辑与，在命令中用-a表示，是系统缺省的选项，表示只有当所给的条 件都满足时，寻找条件才算">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-08T07:35:30.001Z">
+<meta property="og:updated_time" content="2020-03-18T12:24:11.879Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Find命令使用">
-<meta name="twitter:description" content="find命令的使用12find [起始目录] 寻找条件 操作find PATH OPTION [-exec COMMAND &amp;#123; &amp;#125; \;] Option 寻找条件寻找条件可以是一个用逻辑运算符 not、and、or 组成的复合条件。逻辑运 算符 and、or、not 的含义为：  and：逻辑与，在命令中用-a表示，是系统缺省的选项，表示只有当所给的条 件都满足时，寻找条件才算">
+<meta name="twitter:title" content="vue组件">
 
 
 
@@ -112,7 +109,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2020/01/08/Find命令使用/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/18/vue组件/">
 
 
 
@@ -122,7 +119,7 @@
   };
 </script>
 
-  <title>Find命令使用 | Dongxian's Blog</title>
+  <title>vue组件 | Dongxian's Blog</title>
   
 
 
@@ -354,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/Find命令使用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/vue组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dongxian Gu">
@@ -371,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Find命令使用
+          <h1 class="post-title" itemprop="name headline">vue组件
 
               
             
@@ -397,34 +394,12 @@
                 
               
 
-              <time title="创建时间：2020-01-08 15:11:01 / 修改时间：15:35:30" itemprop="dateCreated datePublished" datetime="2020-01-08T15:11:01+08:00">2020-01-08</time>
+              <time title="创建时间：2020-03-18 20:24:11" itemprop="dateCreated datePublished" datetime="2020-03-18T20:24:11+08:00">2020-03-18</time>
             
 
-            
-              
-
-              
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技能/" itemprop="url" rel="index"><span itemprop="name">技能</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -461,135 +436,7 @@
       
 
       
-        <h1 id="find命令的使用"><a href="#find命令的使用" class="headerlink" title="find命令的使用"></a>find命令的使用</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find [起始目录] 寻找条件 操作</span><br><span class="line">find PATH OPTION [-exec COMMAND &#123; &#125; \;]</span><br></pre></td></tr></table></figure>
-<h2 id="Option-寻找条件"><a href="#Option-寻找条件" class="headerlink" title="Option 寻找条件"></a>Option 寻找条件</h2><p>寻找条件可以是一个用逻辑运算符 not、and、or 组成的复合条件。逻辑运 算符 and、or、not 的含义为：</p>
-<ol>
-<li><code>and</code>：逻辑与，在命令中用<code>-a</code>表示，是系统缺省的选项，表示只有当所给的条 件都满足时，寻找条件才算满足。例如：</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find path –name 'tmp' –xtype c -user 'inin'</span><br></pre></td></tr></table></figure>
-<p>该命令寻找三个给定条件都满足的所有文件</p>
-<ol>
-<li><code>or</code>：逻辑或，在命令中用<code>-o</code>表示。该运算符表示只要所给的条件中有一个满足 时，寻找条件就算满足。例如：</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find path –name 'tmp' –o –name 'mina*'</span><br></pre></td></tr></table></figure>
-<p>该命令查询文件名为’tmp’或是匹配’mina*’的所有文件。</p>
-<ol>
-<li><code>not</code>：逻辑非，在命令中用<code>!</code>表示。该运算符表示查找不满足所给条件的文件 。例如：</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ! –name 'tmp'</span><br></pre></td></tr></table></figure>
-<p>该命令查询文件名不是’tmp’的所有文件。</p>
-<p>Tips:当使用很多的逻辑选项时，可以用括号把这些选项括起来。为了避免Shell本身对括号引起误解，在话号前需要加转义字符“\”来去除括号的意义。例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find \(–name 'tmp' –xtype c -user 'inin' \)</span><br></pre></td></tr></table></figure>
-<ol>
-<li>具体参数：</li>
-</ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-name ’字串’</td>
-<td>查找文件名匹配所给字串的所有文件，字串内可用通配符 *、?、[ ]。</td>
-</tr>
-<tr>
-<td>-lname ’字串’</td>
-<td>查找文件名匹配所给字串的所有符号链接文件，字串内可用通配符 *、?、[ ]。</td>
-</tr>
-<tr>
-<td>-gid n</td>
-<td>查找属于ID号为 n 的用户组的所有文件。</td>
-</tr>
-<tr>
-<td>-uid n</td>
-<td>查找属于ID号为 n 的用户的所有文件。</td>
-</tr>
-<tr>
-<td>-group ’字串’</td>
-<td>查找属于用户组名为所给字串的所有的文件。</td>
-</tr>
-<tr>
-<td>-user ’字串’</td>
-<td>查找属于用户名为所给字串的所有的文件。</td>
-</tr>
-<tr>
-<td>-empty</td>
-<td>查找大小为 0的目录或文件。</td>
-</tr>
-<tr>
-<td>-path ’字串’</td>
-<td>查找路径名匹配所给字串的所有文件，字串内可用通配符*、?、[ ]。</td>
-</tr>
-<tr>
-<td>-perm 权限</td>
-<td>查找具有指定权限的文件和目录，权限的表示可以如711，644。</td>
-</tr>
-<tr>
-<td>-size n[bckw]</td>
-<td>查找指定文件大小的文件，n 后面的字符表示单位，缺省为 b，代表512字节的块。</td>
-</tr>
-<tr>
-<td>-type x</td>
-<td>查找类型为 x 的文件，x 为下列字符之一：b 块设备文件;c 字符设备文件;d 目录文件;p 命名管道(FIFO);f 普通文件;l 符号链接文件(symbolic links);s socket文件</td>
-</tr>
-<tr>
-<td>-amin n</td>
-<td>查找n分钟以前被访问过的所有文件。</td>
-</tr>
-<tr>
-<td>-atime n</td>
-<td>查找n天以前被访问过的所有文件。</td>
-</tr>
-<tr>
-<td>-cmin n</td>
-<td>查找n分钟以前文件状态被修改过的所有文件。</td>
-</tr>
-<tr>
-<td>-ctime n</td>
-<td>查找n天以前文件状态被修改过的所有文件。</td>
-</tr>
-<tr>
-<td>-mmin n</td>
-<td>查找n分钟以前文件内容被修改过的所有文件。</td>
-</tr>
-<tr>
-<td>-mtime n</td>
-<td>查找n天以前文件内容被修改过的所有文件。</td>
-</tr>
-<tr>
-<td>-print：</td>
-<td>将搜索结果输出到标准输出。</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>例子：在root以及子目录查找不包括目录/root/bin的，greek用户的，文件类型为普通文件的，3天之前的名为test-find.c的文件，并将结构输出，find命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name "test-find.c" -type f -mtime +3 -user greek -prune /root/bin -print</span><br></pre></td></tr></table></figure>
-<p>当然在这其中，-print是一个默认选项，我们不必刻意去配置它。</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>-exec：对搜索的结构指令指定的shell命令。注意格式要正确：”-exec 命令 {} \;”</p>
-<p>在}和\之间一定要有空格才行;</p>
-<p>{}表示命令的参数即为所找到的文件;命令的末尾必须以“ \;”结束。</p>
-<p>例子：对上述例子搜索出来的文件进行删除操作，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name "test-find.c" -type f -mtime +3 -user greek -prune /root/bin -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-<p>find命令指令实例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name ‘main*’ -exec more &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-<p>查找当前目录中所有以main开头的文件，并显示这些文件的内容。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . \(-name a.out - o -name ‘*.o’\) -atime +7 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
-<p>删除当前目录下所有一周之内没有被访问过的a .out或*.o文件。</p>
-<p>命令中的“.”表示当前目录，此时 find 将从当前目录开始，逐个在其子目录中查找满足后面指定条件的文件。</p>
-<p> “(” 和 “)” 表示括号()，其中的 “\” 称为转义符。之所以这样写是由于对 Shell 而言，(和)另有不同的含义，而不是这里的用于组合条件的用途。</p>
-<p>“-name a.out” 是指要查找名为a.out的文件;</p>
-<p> “-name ‘*.o’” 是指要查找所有名字以 .o 结尾的文件。</p>
-<p>这两个 -name 之间的 -o 表示逻辑或(or)，即查找名字为a.out或名字以 .o结尾的文件。</p>
-<p> find命令在当前目录及其子目录下找到这佯的文件之后，再进行判断，看其最后访问时间 是否在7天以前(条件 -atime +7)，若是，则对该文件执行命令 rm(-exec rm {} \;)。</p>
-<p>其中 {} 代表当前查到的符合条件的文件名，\;则是语法所要求的。</p>
-<p> 上述命令中第一行的最后一个 \ 是续行符。当命令太长而在一行写不下时，可输入一个 \，之后系统将显示一个 &gt;，指示用户继续输入命令。</p>
-<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>链接：<a href="https://www.chinaz.com/server/2009/0807/85796.shtml" target="_blank" rel="noopener">https://www.chinaz.com/server/2009/0807/85796.shtml</a> </p>
-
+        
       
     </div>
 
@@ -619,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/07/机器学习基础/" rel="next" title="机器学习基础">
-                <i class="fa fa-chevron-left"></i> 机器学习基础
+              <a href="/2020/03/18/vue使用/" rel="next" title="vue使用">
+                <i class="fa fa-chevron-left"></i> vue使用
               </a>
             
           </div>
@@ -628,10 +475,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/10/Awk命令的使用/" rel="prev" title="Awk命令的使用">
-                Awk命令的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -675,17 +518,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -799,23 +633,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#find命令的使用"><span class="nav-number">1.</span> <span class="nav-text">find命令的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Option-寻找条件"><span class="nav-number">1.1.</span> <span class="nav-text">Option 寻找条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">1.2.</span> <span class="nav-text">操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">1.3.</span> <span class="nav-text">来源</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
