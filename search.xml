@@ -244,14 +244,7 @@
 <ol>
 <li><p>在<code>&lt;template&gt;</code>元素上使用<code>v-if</code>条件渲染分组</p>
 <p><code>v-if</code>作为一个指令，必须将它添加到一个元素上，但是如果想切换多个元素呢？此时可以将一个<code>&lt;template&gt;</code>元素当作不可见的包裹元素，并在上面使用<code>v-if</code>。最终渲染结果将不包含<code>&lt;template&gt;</code>元素</p>
-<template v-if="ok">
-    <h1>Title</h1>
-    <p>Paragraph 1</p>
-    <p>Paragraph 2</p> 
-</template>
-
-
-
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"ok"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph 1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph 2<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol>
