@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ManjaroLinux启动问题</title>
+    <url>/2020/03/25/ManjaroLinux%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h1 id="ManjaroLinux启动问题"><a href="#ManjaroLinux启动问题" class="headerlink" title="ManjaroLinux启动问题"></a>ManjaroLinux启动问题</h1><p>今早无意中更新系统失败，导致无法开机，提示无法找到linux内核模块。通过采取了一系列方式终于挽救了系统。</p>
+<ul>
+<li>一个使用较新版本Manjaro Linux的liveUSB</li>
+<li>待修复设备需要联网环境</li>
+</ul>
+<p>通过liveUSB启动：</p>
+<p>由于原先系统的文件保存在硬盘上，故liveUSB不会自动挂载硬盘，手动挂载硬盘到对应位置</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo mkdir /mnt/manjaro</span><br><span class="line">sudo mount /dev/sda2 /mnt/manjaro <span class="comment"># sda2为/分区所在设备，可以使用lsblk查看</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#由于原来系统采用UEFI安装，分了一个分区作为引导分区，所以引导分区也要挂载对应位置，否则无法安装内核</span></span><br><span class="line">sudo mount /dev/sda1 /mnt/manjaro/boot/efi</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对于系统的虚拟目录，比如`/dev`和`/sys`,也需要手动绑定，，否则chroot后运行pacman会出错：</span></span><br><span class="line"></span><br><span class="line">sudo mount --<span class="built_in">bind</span> /dev /mnt/manjaro/dev</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /proc /mnt/manjaro/proc</span><br><span class="line">sudo mount --<span class="built_in">bind</span> /sys /mnt/manjaro/sys</span><br></pre></td></tr></table></figure>
+<p>在上面操作完成之后，系统文件以及准备好了，下面切换根目录</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /mnt/manjaro</span><br><span class="line">chroot .</span><br><span class="line">pacman -S linux <span class="comment"># 如果这一步报错，检查自己系统目录是否正确挂载，如果正确挂载则先运行pacman -S archlinux-keyring</span></span><br><span class="line"><span class="comment"># 内核重装完成后继续上次未完成的系统更新</span></span><br><span class="line">pacman -Syu</span><br></pre></td></tr></table></figure>
+<p>思考：</p>
+<p>对于这种方式应该可以用到其他系统，当系统因为某种原因启动失败，可以通过U盘进行启动系统进行修复。</p>
+<p>参考来源：<a href="https://www.cnblogs.com/apocelipes/p/10192882.html" target="_blank" rel="noopener">https://www.cnblogs.com/apocelipes/p/10192882.html</a></p>
+]]></content>
+      <categories>
+        <category>技能</category>
+      </categories>
+  </entry>
+  <entry>
     <title>时间复杂度计算</title>
     <url>/2020/03/24/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E8%AE%A1%E7%AE%97/</url>
     <content><![CDATA[<h1 id="时间复杂度计算"><a href="#时间复杂度计算" class="headerlink" title="时间复杂度计算"></a>时间复杂度计算</h1><p>复杂度分析是用于评估算法执行效率的方法。</p>
