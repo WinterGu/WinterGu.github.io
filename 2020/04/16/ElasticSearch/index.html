@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ElasticSearch 基础实践 Quick Start基本概念 Neal Realtime(NRT)：接近实时的 Cluster：集群是一个或多个节点（服务器）的集合，它们一起保存数据，并且提供跨节点的联合索引和搜索功能。一个集群的名字需要唯一标识。 Node：节点是一个服务器，是集群的一部分，存储数据，参与集群的索引和搜索。同样需要唯一名称标识。通常是启动时候随机的UUID。 Index：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ElasticSearch">
+<meta property="og:url" content="http://yoursite.com/2020/04/16/ElasticSearch/index.html">
+<meta property="og:site_name" content="Dongxian&#39;s Blog">
+<meta property="og:description" content="ElasticSearch 基础实践 Quick Start基本概念 Neal Realtime(NRT)：接近实时的 Cluster：集群是一个或多个节点（服务器）的集合，它们一起保存数据，并且提供跨节点的联合索引和搜索功能。一个集群的名字需要唯一标识。 Node：节点是一个服务器，是集群的一部分，存储数据，参与集群的索引和搜索。同样需要唯一名称标识。通常是启动时候随机的UUID。 Index：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-16T05:56:18.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ElasticSearch">
+<meta name="twitter:description" content="ElasticSearch 基础实践 Quick Start基本概念 Neal Realtime(NRT)：接近实时的 Cluster：集群是一个或多个节点（服务器）的集合，它们一起保存数据，并且提供跨节点的联合索引和搜索功能。一个集群的名字需要唯一标识。 Node：节点是一个服务器，是集群的一部分，存储数据，参与集群的索引和搜索。同样需要唯一名称标识。通常是启动时候随机的UUID。 Index：">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/04/16/ElasticSearch/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ElasticSearch | Dongxian's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dongxian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">2</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">50</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/ElasticSearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Dongxian Gu">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dongxian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ElasticSearch
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-16 11:55:54 / 修改时间：13:56:18" itemprop="dateCreated datePublished" datetime="2020-04-16T11:55:54+08:00">2020-04-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ElasticSearch-基础实践-Quick-Start"><a href="#ElasticSearch-基础实践-Quick-Start" class="headerlink" title="ElasticSearch 基础实践 Quick Start"></a>ElasticSearch 基础实践 Quick Start</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li>Neal Realtime(NRT)：接近实时的</li>
+<li>Cluster：集群是一个或多个节点（服务器）的集合，它们一起保存数据，并且提供跨节点的联合索引和搜索功能。一个集群的名字需要唯一标识。</li>
+<li>Node：节点是一个服务器，是集群的一部分，存储数据，参与集群的索引和搜索。同样需要唯一名称标识。通常是启动时候随机的UUID。</li>
+<li>Index：索引是具有某些相似特征文档的集合。比如客户数据的索引，产品目录的索引。索引由一个名称标识，该名称用于在对其中的文档执行索引、搜索、更新和删除操作时引用索引。</li>
+<li>Type (Deprecated)</li>
+<li>Document：文档是可以被索引的基本单位。在一个索引 / 类型中，您可以存储任意多的文档。</li>
+<li>Shards &amp; Replicas：索引可能存储大量数据，这些数据可能超过节点的硬件限制。为了解决这个问题，提供了将索引细分为多个部分的功能 Shards碎片。创建索引的时候，可以定义所需碎片数目。</li>
+</ol>
+<h2 id="搜索你的集群"><a href="#搜索你的集群" class="headerlink" title="搜索你的集群"></a>搜索你的集群</h2><h3 id="The-REST-API"><a href="#The-REST-API" class="headerlink" title="The REST API"></a>The REST API</h3><p>假设现在一起启动并运行了节点和集群。ES提供了强大的REST API。</p>
+<ul>
+<li>检查cluster、node、index的状态和统计信息</li>
+<li>管理cluster、node、index data和metadata</li>
+<li>对索引执行CRUD和搜索操作</li>
+<li>执行高级搜索操作，比如分页，排序，过滤，聚合等等。</li>
+</ul>
+<h3 id="Cluster-Health"><a href="#Cluster-Health" class="headerlink" title="Cluster Health"></a>Cluster Health</h3><p>检查cluster的health</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/_cat/health?v&amp;pretty"</span><br><span class="line">epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent</span><br><span class="line">1587010145 04:09:05  elasticsearch green           1         1      0   0    0    0        0             0                  -                100.0%</span><br></pre></td></tr></table></figure>
+<p>可以看到名为elasticsearch的集群的状态是green</p>
+<ul>
+<li>Green 一切都好</li>
+<li>Yellow 所有的数据是可获得的，但是一些分片还没分配</li>
+<li>Read 因为某些原因，无法获得数据。</li>
+</ul>
+<p>查看集群中的节点列表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/_cat/nodes?v&amp;pretty"</span><br><span class="line">ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line">127.0.0.1           11          96  14    0.87    0.88     0.97 dilm      *      dongxian-manjaro</span><br></pre></td></tr></table></figure>
+<h3 id="列出所有索引"><a href="#列出所有索引" class="headerlink" title="列出所有索引"></a>列出所有索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/_cat/indices?v&amp;pretty"</span><br><span class="line">health status index uuid pri rep docs.count docs.deleted store.size pri.store.size</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个索引"><a href="#创建一个索引" class="headerlink" title="创建一个索引"></a>创建一个索引</h3><p>现在创建一个名为customer的索引，然后列出来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X PUT "localhost:9200/customer?pretty&amp;pretty"</span><br><span class="line">&#123;</span><br><span class="line">  "acknowledged" : true,</span><br><span class="line">  "shards_acknowledged" : true,</span><br><span class="line">  "index" : "customer"</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/_cat/indices?v&amp;pretty"</span><br><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   customer WYuBXNDZSxWkNfDZ4ArKLA   1   1          0            0       230b           230b</span><br></pre></td></tr></table></figure>
+<p>第二个命令的结果告诉我们，现在有一个名为customer的索引，有1个主碎片和1个副本，其中包含0个文档。</p>
+<p>由于当前只有一个节点在运行，状态为Yellow，因为没有办法分配副本。</p>
+<h3 id="索引和查询文档"><a href="#索引和查询文档" class="headerlink" title="索引和查询文档"></a>索引和查询文档</h3><p>让我们输入一些东西到customer index中，我们使用ID 1来标识文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X PUT "localhost:9200/customer/doc/1?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "name": "John Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取我们刚刚增加到索引的文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X GET "localhost:9200/customer/doc/1?pretty&amp;pretty"</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1,</span><br><span class="line">  "found" : true,</span><br><span class="line">  "_source" : &#123;</span><br><span class="line">    "name" : "John Doe"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回的的信息中</p>
+<ul>
+<li>fount：表示我们找到一个ID 为 1的文档</li>
+<li>_source：返回我们先前插入的整个JSON文档</li>
+</ul>
+<h3 id="删除一个索引"><a href="#删除一个索引" class="headerlink" title="删除一个索引"></a>删除一个索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X DELETE "localhost:9200/customer?pretty&amp;pretty"</span><br><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/_cat/indices?v&amp;pretty"</span><br><span class="line">health status index uuid pri rep docs.count docs.deleted store.size pri.store.size</span><br></pre></td></tr></table></figure>
+<p>通过上面我们可以发现，REST access pattern</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;REST Verb&gt; /&lt;Index&gt;/&lt;Type&gt;/&lt;ID&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p>插入和替换文档</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X PUT "localhost:9200/customer/doc/1?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "name": "John Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> curl -X PUT "localhost:9200/customer/doc/1?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 1,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的操作，修改ID 为1的文档的name。如果我们使用不同的ID，将会产生新的文档，现有的文档不会变换。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X PUT "localhost:9200/customer/doc/2?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "2",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 2,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当indexing的时候，ID是可选的，如果显式知名，ES会自动生成一个随机ID。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X POST "localhost:9200/customer/doc?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "MhxFgXEBHBe5IUAf-8U3",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 3,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，这边使用的POST替换PUT，因为没有指明ID。</p>
+<h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><p>除了索引和替换文档，我们还可以更新文档。每当我们做一个更新，ES删除旧的文档，然后索引一个新的文档。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X POST "localhost:9200/customer/doc/1/_update?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "doc": &#123; "name": "Jane Doe" &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "noop",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 0,</span><br><span class="line">    "successful" : 0,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 1,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更新文档，并且增加字段</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X POST "localhost:9200/customer/doc/1/_update?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "doc": &#123; "name": "Jane Doe", "age": 20 &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 3,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 4,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以使用脚本更新文档，使用脚本将age增加5：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X POST "localhost:9200/customer/doc/1/_update?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "script" : "ctx._source.age += 5"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 4,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 5,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ES提供了在查询条件下更新多个文档的能力</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-update-by-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-update-by-query.html</a></p>
+<h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X DELETE "localhost:9200/customer/doc/2?pretty&amp;pretty"</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "2",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "deleted",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 6,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-delete-by-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-delete-by-query.html</a></p>
+<h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><p>除了索引、更新、删除单个文档外，ES提供了使用批处理上面的能力。</p>
+<p>下面在批量操作中索引两个文档：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X POST "localhost:9200/customer/doc/_bulk?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;"index":&#123;"_id":"1"&#125;&#125;</span><br><span class="line">&#123;"name": "John Doe" &#125;</span><br><span class="line">&#123;"index":&#123;"_id":"2"&#125;&#125;</span><br><span class="line">&#123;"name": "Jane Doe" &#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>更新第一个文档，删除第二个文档：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST "localhost:9200/customer/doc/_bulk?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;"update":&#123;"_id":"1"&#125;&#125;</span><br><span class="line">&#123;"doc": &#123; "name": "John Doe becomes Jane Doe" &#125; &#125;</span><br><span class="line">&#123;"delete":&#123;"_id":"2"&#125;&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>批处理API不会因为单个操作失败而失败，如果单个操作因为某种原因失败，它将会继续后面的其他操作。返回时，为每一个操作提供一个状态，表示是否操作失败。</p>
+<h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><p>样本数据集：</p>
+<p>现在我们已经了解了一些基本知识，接下来让我们尝试使用一个更加真实的数据集。 我准备了一个虚构的客户银行账户信息 JSON 文档样本。 每个文档都有以下模式:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"account_number"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"balance"</span>: <span class="number">16623</span>,</span><br><span class="line">    <span class="attr">"firstname"</span>: <span class="string">"Bradshaw"</span>,</span><br><span class="line">    <span class="attr">"lastname"</span>: <span class="string">"Mckenzie"</span>,</span><br><span class="line">    <span class="attr">"age"</span>: <span class="number">29</span>,</span><br><span class="line">    <span class="attr">"gender"</span>: <span class="string">"F"</span>,</span><br><span class="line">    <span class="attr">"address"</span>: <span class="string">"244 Columbus Place"</span>,</span><br><span class="line">    <span class="attr">"employer"</span>: <span class="string">"Euron"</span>,</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"bradshawmckenzie@euron.com"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Hobucken"</span>,</span><br><span class="line">    <span class="attr">"state"</span>: <span class="string">"CO"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这些数据都是使用<a href="http://www.json-generator.com/生成的，因为是随机生成的，所以忽略数据的实际值和含义。" target="_blank" rel="noopener">http://www.json-generator.com/生成的，因为是随机生成的，所以忽略数据的实际值和含义。</a></p>
+<p>加载样本数据集</p>
+<p><a href="https://github.com/elastic/elasticsearch/blob/master/docs/src/test/resources/accounts.json?raw=true" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch/blob/master/docs/src/test/resources/accounts.json?raw=true</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -H "Content-Type: application/json" -XPOST 'localhost:9200/bank/account/_bulk?pretty&amp;refresh' --data-binary "@accounts.json"</span><br><span class="line"><span class="meta">$</span>curl 'localhost:9200/_cat/indices?v'</span><br><span class="line"></span><br><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   bank     3O23VfKaRse97IfFCLDPyA   1   1       1000            0      414kb          414kb</span><br><span class="line">yellow open   customer pcIogOc6SjyqyPlSh0vmzw   1   1          3            0        4kb            4kb</span><br></pre></td></tr></table></figure>
+<p>表明已经成功将1000份文件批量索引到银行索引中下的账户下</p>
+<h3 id="搜索API"><a href="#搜索API" class="headerlink" title="搜索API"></a>搜索API</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?q=*&amp;sort=account_number:asc&amp;pretty&amp;pretty"</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>q*</code>：表示ES匹配索引中所有文档</li>
+<li><code>sort=account_number:asc</code>：表示使用每个文档的acount_number字段进行升序排序</li>
+<li><code>pretty</code>：表示返回格式化的JSON</li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"took"</span> : <span class="number">63</span>,</span><br><span class="line">  <span class="attr">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"_shards"</span> : &#123;</span><br><span class="line">    <span class="attr">"total"</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"successful"</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"skipped"</span> : <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"failed"</span> : <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"hits"</span> : &#123;</span><br><span class="line">    <span class="attr">"total"</span> : <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">"max_score"</span> : <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">"hits"</span> : [ &#123;</span><br><span class="line">      <span class="attr">"_index"</span> : <span class="string">"bank"</span>,</span><br><span class="line">      <span class="attr">"_type"</span> : <span class="string">"account"</span>,</span><br><span class="line">      <span class="attr">"_id"</span> : <span class="string">"0"</span>,</span><br><span class="line">      <span class="attr">"sort"</span>: [<span class="number">0</span>],</span><br><span class="line">      <span class="attr">"_score"</span> : <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">"_source"</span> : &#123;<span class="attr">"account_number"</span>:<span class="number">0</span>,<span class="attr">"balance"</span>:<span class="number">16623</span>,<span class="attr">"firstname"</span>:<span class="string">"Bradshaw"</span>,<span class="attr">"lastname"</span>:<span class="string">"Mckenzie"</span>,<span class="attr">"age"</span>:<span class="number">29</span>,<span class="attr">"gender"</span>:<span class="string">"F"</span>,<span class="attr">"address"</span>:<span class="string">"244 Columbus Place"</span>,<span class="attr">"employer"</span>:<span class="string">"Euron"</span>,<span class="attr">"email"</span>:<span class="string">"bradshawmckenzie@euron.com"</span>,<span class="attr">"city"</span>:<span class="string">"Hobucken"</span>,<span class="attr">"state"</span>:<span class="string">"CO"</span>&#125;</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      <span class="attr">"_index"</span> : <span class="string">"bank"</span>,</span><br><span class="line">      <span class="attr">"_type"</span> : <span class="string">"account"</span>,</span><br><span class="line">      <span class="attr">"_id"</span> : <span class="string">"1"</span>,</span><br><span class="line">      <span class="attr">"sort"</span>: [<span class="number">1</span>],</span><br><span class="line">      <span class="attr">"_score"</span> : <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">"_source"</span> : &#123;<span class="attr">"account_number"</span>:<span class="number">1</span>,<span class="attr">"balance"</span>:<span class="number">39225</span>,<span class="attr">"firstname"</span>:<span class="string">"Amber"</span>,<span class="attr">"lastname"</span>:<span class="string">"Duke"</span>,<span class="attr">"age"</span>:<span class="number">32</span>,<span class="attr">"gender"</span>:<span class="string">"M"</span>,<span class="attr">"address"</span>:<span class="string">"880 Holmes Lane"</span>,<span class="attr">"employer"</span>:<span class="string">"Pyrami"</span>,<span class="attr">"email"</span>:<span class="string">"amberduke@pyrami.com"</span>,<span class="attr">"city"</span>:<span class="string">"Brogan"</span>,<span class="attr">"state"</span>:<span class="string">"IL"</span>&#125;</span><br><span class="line">    &#125;, ...</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>响应部分：</p>
+<ul>
+<li><code>took</code>：执行搜索的时间</li>
+<li><code>timed_out</code>：告诉我们搜索是否超时</li>
+<li><code>_shards</code>：告诉我们搜索了多少碎片，以及成功 / 失败的搜索碎片的数量</li>
+<li><code>hits</code>：搜索结果</li>
+<li><code>hits.total</code>：符合搜索约束的文档数量</li>
+<li><code>hits.hits</code>：搜索结果的实际数组</li>
+<li><code>hits.sort</code>：结果的排序key</li>
+<li><code>hits._score</code>、<code>max_score</code></li>
+</ul>
+<p>下面是上面的替换方案</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "sort": [</span><br><span class="line">    &#123; "account_number": "asc" &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>这边的区别是，没有在URI中传递参数，而是向API提供了JSON格式的查询请求体。</p>
+<h3 id="Query-Language"><a href="#Query-Language" class="headerlink" title="Query Language"></a>Query Language</h3><p>ElasticSearch提供了JSON风格的查询语言</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><code>query</code>部分告诉查询定义是什么，<code>match_all</code>只是搜索指定索引中的所有文档。</p>
+<p>除此之外，我们烟叶可以传递其他参数来影响搜索结果，在例子中使用了<code>sort</code>，这边我们可以使用<code>size</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "size": 1</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "took" : 6,</span><br><span class="line">  "timed_out" : false,</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 1,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "skipped" : 0,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "hits" : &#123;</span><br><span class="line">    "total" : &#123;</span><br><span class="line">      "value" : 1000,</span><br><span class="line">      "relation" : "eq"</span><br><span class="line">    &#125;,</span><br><span class="line">    "max_score" : 1.0,</span><br><span class="line">    "hits" : [</span><br><span class="line">      &#123;</span><br><span class="line">        "_index" : "bank",</span><br><span class="line">        "_type" : "account",</span><br><span class="line">        "_id" : "1",</span><br><span class="line">        "_score" : 1.0,</span><br><span class="line">        "_source" : &#123;</span><br><span class="line">          "account_number" : 1,</span><br><span class="line">          "balance" : 39225,</span><br><span class="line">          "firstname" : "Amber",</span><br><span class="line">          "lastname" : "Duke",</span><br><span class="line">          "age" : 32,</span><br><span class="line">          "gender" : "M",</span><br><span class="line">          "address" : "880 Holmes Lane",</span><br><span class="line">          "employer" : "Pyrami",</span><br><span class="line">          "email" : "amberduke@pyrami.com",</span><br><span class="line">          "city" : "Brogan",</span><br><span class="line">          "state" : "IL"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：如果没有指定<code>size</code>，默认大小是10.</p>
+<p>下面的例子匹配所有文档，返回从第十个开始的十个文档：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "from": 10,</span><br><span class="line">  "size": 10</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><code>from</code>参数指定文档从那个index开始，<code>size</code>表示从from开始返回多少个文档。</p>
+<p>下面匹配所有结果，按照账户余额降序排序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "sort": &#123; "balance": &#123; "order": "desc" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<h3 id="执行搜索"><a href="#执行搜索" class="headerlink" title="执行搜索"></a>执行搜索</h3><p>上面已经介绍了基础的查询参数，下面更加深入Query DSL。</p>
+<p>返回文档的field。默认整个JSON 文档作为搜索查询的部分返回。这和查询语句中的<code>_source</code>有关，我们可以指定一部分fields返回。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "_source": ["account_number", "balance"]</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>上面的例子通过<code>_source</code>减少了返回的属性。</p>
+<p>和SQL中的<code>SELECT FROM</code>相似</p>
+<p>使用<code>match</code>来查询：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "account_number": 20 &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>返回了所有的账户地址中包含’mill’</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "address": "mill" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>返回账户地址中包含’mill’或’lane’</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "address": "mill lane" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><code>match</code>的变体<code>match_phrase</code>返回了地址包含”mill lane”的账户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_phrase": &#123; "address": "mill lane" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>下面是<code>bool</code> query，它能够将较小的查询组合成更大的查询</p>
+<p>下面的例子组合两个<code>match</code>查询</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><code>bool must</code>子句表示所有的查询必须是true。</p>
+<p>同样也可以满足一个条件也返回：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "should": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>返回两个都不满足的结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must_not": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>上面提到的<code>must should must_not</code>子句可以同时用在<code>bool</code> query中。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": [</span><br><span class="line">        &#123; "match": &#123; "age": "40" &#125; &#125;</span><br><span class="line">      ],</span><br><span class="line">      "must_not": [</span><br><span class="line">        &#123; "match": &#123; "state": "ID" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<h3 id="执行过滤"><a href="#执行过滤" class="headerlink" title="执行过滤"></a>执行过滤</h3><p>前面的章节，我们忽略了一些小细节，文档的score(在搜索结果的<code>_score</code>字段)。它用于度量文档和查询语句的匹配程度。</p>
+<p>但是查询不需要总是产生score。尤其是在用户filter文档时，ES会自动优化查询，避免计算无用的score。</p>
+<p>上个章节的<code>bool</code>查询支持<code>filter</code>子句。</p>
+<p>下面的例子上使用<code>bool</code> query返回所有余额在20000-30000的账户：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">      "filter": &#123;</span><br><span class="line">        "range": &#123;</span><br><span class="line">          "balance": &#123;</span><br><span class="line">            "gte": 20000,</span><br><span class="line">            "lte": 30000</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<h3 id="执行聚合"><a href="#执行聚合" class="headerlink" title="执行聚合"></a>执行聚合</h3><p>聚合提供了对数据进行分组和统计信息的能力</p>
+<p>对所有账户进行分组</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p><code>size=0</code>为了不显示搜索，只希望看见聚合结构。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword"</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "average_balance": &#123;</span><br><span class="line">          "avg": &#123;</span><br><span class="line">            "field": "balance"</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>在分组的基础上，计算每组的平均账户余额</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword",</span><br><span class="line">        "order": &#123;</span><br><span class="line">          "average_balance": "desc"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "average_balance": &#123;</span><br><span class="line">          "avg": &#123;</span><br><span class="line">            "field": "balance"</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<p>在上面的基础上，对平均余额进行降序</p>
+<p>按年龄段(20-29岁，30-39岁，40-49岁)分组，然后按性别分组，最后得到每个年龄段，每个性别的平均账户余额:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_age": &#123;</span><br><span class="line">      "range": &#123;</span><br><span class="line">        "field": "age",</span><br><span class="line">        "ranges": [</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 20,</span><br><span class="line">            "to": 30</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 30,</span><br><span class="line">            "to": 40</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 40,</span><br><span class="line">            "to": 50</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "group_by_gender": &#123;</span><br><span class="line">          "terms": &#123;</span><br><span class="line">            "field": "gender.keyword"</span><br><span class="line">          &#125;,</span><br><span class="line">          "aggs": &#123;</span><br><span class="line">            "average_balance": &#123;</span><br><span class="line">              "avg": &#123;</span><br><span class="line">                "field": "balance"</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/10/NestJs-Overview/" rel="next" title="NestJs_Overview">
+                <i class="fa fa-chevron-left"></i> NestJs_Overview
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4" alt="Dongxian Gu">
+            
+              <p class="site-author-name" itemprop="name">Dongxian Gu</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+        
+         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
+        
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ElasticSearch-基础实践-Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">ElasticSearch 基础实践 Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索你的集群"><span class="nav-number">1.2.</span> <span class="nav-text">搜索你的集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-REST-API"><span class="nav-number">1.2.1.</span> <span class="nav-text">The REST API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cluster-Health"><span class="nav-number">1.2.2.</span> <span class="nav-text">Cluster Health</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有索引"><span class="nav-number">1.2.3.</span> <span class="nav-text">列出所有索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个索引"><span class="nav-number">1.2.4.</span> <span class="nav-text">创建一个索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引和查询文档"><span class="nav-number">1.2.5.</span> <span class="nav-text">索引和查询文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除一个索引"><span class="nav-number">1.2.6.</span> <span class="nav-text">删除一个索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改数据"><span class="nav-number">1.3.</span> <span class="nav-text">修改数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新文档"><span class="nav-number">1.3.1.</span> <span class="nav-text">更新文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文档"><span class="nav-number">1.3.2.</span> <span class="nav-text">删除文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批处理"><span class="nav-number">1.3.3.</span> <span class="nav-text">批处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探索数据"><span class="nav-number">1.4.</span> <span class="nav-text">探索数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索API"><span class="nav-number">1.4.1.</span> <span class="nav-text">搜索API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-Language"><span class="nav-number">1.4.2.</span> <span class="nav-text">Query Language</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行搜索"><span class="nav-number">1.4.3.</span> <span class="nav-text">执行搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行过滤"><span class="nav-number">1.4.4.</span> <span class="nav-text">执行过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行聚合"><span class="nav-number">1.4.5.</span> <span class="nav-text">执行聚合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian Gu</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      const selection = document.getSelection();
+      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+      if (selected) {
+        selection.removeAllRanges();
+        selection.addRange(selected);
+      }
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+</body>
+</html>
