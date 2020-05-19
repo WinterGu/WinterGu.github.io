@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="激活函数Sigmoid \begin{split} &amp; f(x) &#x3D; \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\ &amp; f^,(x) &#x3D; \frac{e^x}{(1+e^{-x})^2} &#x3D; f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack \end{split}Tanh">
@@ -28,9 +28,8 @@
 <meta property="og:description" content="激活函数Sigmoid \begin{split} &amp; f(x) &#x3D; \frac{1}{1+e^{-x}} \quad x\in R ,\quad f(x)\in (0,1)\\ &amp; f^,(x) &#x3D; \frac{e^x}{(1+e^{-x})^2} &#x3D; f(x)(1-f(x)) \quad x\in R \quad f^,(x)\in (0,0.25\rbrack \end{split}Tanh">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-11-01T02:35:45.000Z">
-<meta property="article:modified_time" content="2019-11-06T03:45:40.264Z">
+<meta property="article:modified_time" content="2020-05-19T12:30:26.094Z">
 <meta property="article:author" content="DongxianGu">
-<meta property="article:tag" content="Activation Function">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/01/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/">
@@ -214,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 11:45:40" itemprop="dateModified" datetime="2019-11-06T11:45:40+08:00">2019-11-06</time>
+                <time title="修改时间：2020-05-19 20:30:26" itemprop="dateModified" datetime="2020-05-19T20:30:26+08:00">2020-05-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,9 +278,6 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Activation-Function/" rel="tag"># Activation Function</a>
-          </div>
 
         
 
@@ -378,11 +374,6 @@ f(x) = max(\alpha x,x) \quad  \alpha << 1, For\;most\;,\alpha = 0.01</script><h2
           
         <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">2</span>
-        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
