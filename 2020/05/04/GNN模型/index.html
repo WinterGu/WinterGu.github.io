@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="GNN 模型 GNN原始模型及其变种  GNN的目标是学习一个状态嵌入$\mathbf{h}_v \in \mathbb{R}^s$，它包含每个节点相邻的信息，这个状态嵌入是节点v的s维度的向量表示，能够用来产生一个输出$\mathbf{o}_v$，这个输出可以是节点标签。$f$是一个参数化的函数，也叫做 $local\;transition\;function$，这个函数被所有节点共享，根据输入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GNN模型">
+<meta property="og:url" content="http://yoursite.com/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Summer So Cold">
+<meta property="og:description" content="GNN 模型 GNN原始模型及其变种  GNN的目标是学习一个状态嵌入$\mathbf{h}_v \in \mathbb{R}^s$，它包含每个节点相邻的信息，这个状态嵌入是节点v的s维度的向量表示，能够用来产生一个输出$\mathbf{o}_v$，这个输出可以是节点标签。$f$是一个参数化的函数，也叫做 $local\;transition\;function$，这个函数被所有节点共享，根据输入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/home/dongxian/github.io/source/images/GNN/GraphType.png">
+<meta property="og:image" content="http://yoursite.com/home/dongxian/github.io/source/images/GNN/TrainingMethods.png">
+<meta property="og:image" content="http://yoursite.com/home/dongxian/github.io/source/images/GNN/PropagationSteps.png">
+<meta property="article:published_time" content="2020-05-04T07:39:27.000Z">
+<meta property="article:modified_time" content="2020-05-05T02:18:59.047Z">
+<meta property="article:author" content="DongxianGu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/home/dongxian/github.io/source/images/GNN/GraphType.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GNN模型 | Summer So Cold</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Summer So Cold</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DongxianGu">
+      <meta itemprop="description" content="Life,Happy,Code">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Summer So Cold">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GNN模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-04 15:39:27" itemprop="dateCreated datePublished" datetime="2020-05-04T15:39:27+08:00">2020-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-05 10:18:59" itemprop="dateModified" datetime="2020-05-05T10:18:59+08:00">2020-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="GNN-模型"><a href="#GNN-模型" class="headerlink" title="GNN 模型"></a>GNN 模型</h1><blockquote>
+<p>GNN原始模型及其变种</p>
+</blockquote>
+<p>GNN的目标是学习一个状态嵌入$\mathbf{h}_v \in \mathbb{R}^s$，它包含每个节点相邻的信息，这个状态嵌入是节点v的s维度的向量表示，能够用来产生一个输出$\mathbf{o}_v$，这个输出可以是节点标签。$f$是一个参数化的函数，也叫做 $local\;transition\;function$，这个函数被所有节点共享，根据输入的相邻信息来更新节点状态。$g$是$local\;output\;function$，用来描述如何产生输出。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& \mathbf{h}_v = f(\mathbf{x}_v,\mathbf{x}_{co[v]},\mathbf{h}_{ne[v]},\mathbf{x}_{ne[v]}) \\
+& \mathbf{o}_v=g(\mathbf{h}_v,\mathbf{x}_v)
+\end{align}</script><p>其中$\mathbf{x}<em>v,\mathbf{x}</em>{co[v]},\mathbf{h}<em>{ne[v]},\mathbf{x}</em>{ne[v]}$分别是节点$v$的特征、它的边的特征、$v$的邻居节点的状态和特征。</p>
+<p>通过堆叠所有的状态、输出、特征和节点特征来构造$\mathbf{H},\mathbf{O},\mathbf{X},\mathbf{X}_N$。这样可以得到一个紧密的格式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& \mathbf{H} = F(\mathbf{H},\mathbf{X}) \\
+& \mathbf{O} = G(\mathbf{H},\mathbf{X}_N)
+\end{align}</script><p>其中$F$是$global\;transition\;function$，$G$是$global\;output\;function$，它们将图中所有节点上的$f$和$g$叠加而成。</p>
+<p>GNN使用下面经典的迭代格式来计算状态</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& \mathbf{H}^{t+1} = F(\mathbf{H}^t,\mathbf{X})
+\end{align}</script><p>$\mathbf{H}^t$记作第t次迭代的$\mathbf{H}$。</p>
+<p>$f$和$g$的计算可以描述为前向神经网络。</p>
+<p>当在监督学习中，有着明确的目标值，loss可以被定义为如下：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& loss = \sum_{i=1}^p (\mathbf{t}_i-\mathbf{o}_i)
+\end{align}</script><p>其中p是被监督的节点的数量，学习算法是基于梯度下降的策略的。</p>
+<p>限制</p>
+<ol>
+<li>对固定点来迭代的更新节点的隐藏状态是无效的，如果放宽固定点的假设，可以设计一个多层的GNN来获得节点和相邻的稳定表示。</li>
+<li>GNN在迭代中使用一样的参数，然而大多数流行的神经网络在不同的层使用不同的参数，这被认为是一种分层特征提取方法。同时，节点隐藏状态的更新是一种顺序过程。</li>
+<li>在原始的GNN中，边的一些信息无法被有效的建模。比如知识图谱中的边有关系的类型和传播的信息。</li>
+<li>如何学习边的隐藏状态也是一个问题。</li>
+<li>如果关注节点的表示而不是图的表示，使用固定点是不合适的，因为固定点的表示值更加平滑，只有较少的信息来区分每个节点。</li>
+</ol>
+<h2 id="Graph-Types"><a href="#Graph-Types" class="headerlink" title="Graph Types"></a>Graph Types</h2><blockquote>
+<p>原始的GNN中，输入的图具有标签信息的节点和没有方向的边组成，这是最简单的图的格式。</p>
+</blockquote>
+<h3 id="Directed-Graphs"><a href="#Directed-Graphs" class="headerlink" title="Directed Graphs"></a>Directed Graphs</h3><p>无向的边可以额被看成两个有向的边，表示了两个即结点之间的联系。然而，有向边比无向边具有更多的信息。例如，在知识图谱中，有向边的起点是头节点，结尾是尾节点，表示信息的传播过程是有向的。</p>
+<p>DGP使用两种权值矩阵$\mathbf{W}_p,\mathbf{W}_c$来表示更详细的结构信息。传播规则能够采用如下的方式表示：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& \mathbf{H} = \sigma(\mathbf{D}_p^{-1}\mathbf{A}_P\sigma(\mathbf{D}_c^{-1}\mathbf{A}_c\mathbf{H}^{t-1}\mathbf{W}_c)\mathbf{W}_p)
+\end{align}</script><p>其中$\mathbf{D}_p^{-1}\mathbf{A}_P,\mathbf{D}_c^{-1}\mathbf{A}_c$分别是头节点和尾节点的标准化的邻接矩阵。</p>
+<h3 id="Heterogeneous-Graphs"><a href="#Heterogeneous-Graphs" class="headerlink" title="Heterogeneous Graphs"></a>Heterogeneous Graphs</h3><p>异质图，有多种类型节点。</p>
+<p>处理异质图最简单的方式是将每个节点的类型转为 one-hot特征向量，将它和原始的特征合在一起。GraphInception将元路径的概念引入了异构图的传播中。借助元路径，我们可以根据节点的类型和距离对邻居进行分组。</p>
+<h3 id="Graph-with-Edge-Information"><a href="#Graph-with-Edge-Information" class="headerlink" title="Graph with Edge Information"></a>Graph with Edge Information</h3><p>每条边有额外的信息，比如权重和边的类型，主要有两种方法来处理这类的图</p>
+<ol>
+<li><p>可以将图转换成一个二分图，图中原始的边变成节点，一条原始的边被分成两个新的边，这表示在新的边节点和原来的开始／结束节点有两条新的边。G2S中的encoder对邻居使用了下面的聚合函数：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\mathbf{h}_v^t = \rho(\frac{1}{|\mathcal{N}_v|}\sum_{u\in \mathcal{N}_v } \mathbf{W}_r(\mathbf{r}_v^t\odot\mathbf{h}_u^{t-1})+\mathbf{b}_r)
+\end{align}</script><p>其中$\mathbf{W}_r，\mathbf{b}_r$是不同类型的边的传播参数。</p>
+</li>
+<li><p>对不同类型节点上的传播使用不同的权值矩阵。当关系的数目非常大的时候，R-GCN介绍了两种正则化来减少对关系建模的参数的数量，这两种分别是：$basis/block-diagonal-decomposition$（对角分解和块对角分解）。</p>
+<p>使用基础的对角分解，每个$\mathbf{W}_r$被定义成如下：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+& \mathbf{W}_r = \sum_1^{B} a_{rb}\mathbf{V}_b
+\end{align}</script><p>其中，每个$\mathbf{W}<em>r$都是系数为$a</em>{rb}$的基础变换$\mathbf{V}<em>b \in \mathbb{R}^{d</em>{in} \times d_{out}} $的线性组合。</p>
+<p>对于块对角分解，R-GCN定义$\mathbf{W}_r$为一系列低维矩阵的和，这就比基础分解需要更多的参数。</p>
+</li>
+</ol>
+<h3 id="Dynamic-Graphs"><a href="#Dynamic-Graphs" class="headerlink" title="Dynamic Graphs"></a>Dynamic Graphs</h3><p>动态图有着静态的图结构和动态的输入信息。</p>
+<p>为了捕捉信息的种类，DCRNN和STGCN首先通过GNN来手机空间信息，然后，将得到的输出输入到序列模型中，比如在seq-2-seq模型或者CNNs。不同的是，Structural-RNN 和ST-GCN同时收集空间信息和时间信息。它们使用时间上的连接来扩展静态图，因此可以用传统的GNNs。</p>
+<p><img src="/home/dongxian/github.io/source/images/GNN/GraphType.png" alt="GraphType"></p>
+<p><img src="/home/dongxian/github.io/source/images/GNN/TrainingMethods.png" alt="TrainingMethods"></p>
+<p><img src="/home/dongxian/github.io/source/images/GNN/PropagationSteps.png" alt="PropagationSteps"></p>
+<p><a href="https://arxiv.org/abs/1812.08434" target="_blank" rel="noopener">https://arxiv.org/abs/1812.08434</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/" rel="prev" title="NLP模型结构">
+      <i class="fa fa-chevron-left"></i> NLP模型结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/07/CRF/" rel="next" title="CRF">
+      CRF <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GNN-模型"><span class="nav-number">1.</span> <span class="nav-text">GNN 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Graph-Types"><span class="nav-number">1.1.</span> <span class="nav-text">Graph Types</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Directed-Graphs"><span class="nav-number">1.1.1.</span> <span class="nav-text">Directed Graphs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heterogeneous-Graphs"><span class="nav-number">1.1.2.</span> <span class="nav-text">Heterogeneous Graphs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Graph-with-Edge-Information"><span class="nav-number">1.1.3.</span> <span class="nav-text">Graph with Edge Information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Graphs"><span class="nav-number">1.1.4.</span> <span class="nav-text">Dynamic Graphs</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DongxianGu</p>
+  <div class="site-description" itemprop="description">Life,Happy,Code</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'VUd8OrYllPMWVxDqLagwIGsP-gzGzoHsz',
+      appKey     : 'PiWbdIfbwtkQbPbW1Fh5WN2h',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>

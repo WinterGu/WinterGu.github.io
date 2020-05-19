@@ -1,141 +1,58 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
-<link rel="stylesheet" href="/css/main.css?v=7.1.2">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    version: '7.1.2',
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
-    back2top: true,
-    back2top_sidebar: false,
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
+  <meta name="description" content="The Transformer - Attention is all you need参考来源：https:&#x2F;&#x2F;mchromiak.github.io&#x2F;articles&#x2F;2017&#x2F;Sep&#x2F;12&#x2F;Transformer-Attention-is-all-you-need&#x2F;#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Transformer-All-is-all-you-need">
 <meta property="og:url" content="http://yoursite.com/2020/03/04/Transformer-All-is-all-you-need/index.html">
-<meta property="og:site_name" content="Dongxian&#39;s Blog">
-<meta property="og:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:site_name" content="Summer So Cold">
+<meta property="og:description" content="The Transformer - Attention is all you need参考来源：https:&#x2F;&#x2F;mchromiak.github.io&#x2F;articles&#x2F;2017&#x2F;Sep&#x2F;12&#x2F;Transformer-Attention-is-all-you-need&#x2F;#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/MultiStepAttention.gif">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/encoder.png">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/MultiHead.png">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/transform20fps.gif">
 <meta property="og:image" content="http://yoursite.com/images/Transformer/CoreferenceResolution.png">
-<meta property="og:updated_time" content="2020-03-24T01:20:18.802Z">
+<meta property="article:published_time" content="2020-03-04T04:15:50.000Z">
+<meta property="article:modified_time" content="2020-03-24T01:20:18.802Z">
+<meta property="article:author" content="DongxianGu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Transformer-All-is-all-you-need">
-<meta name="twitter:description" content="The Transformer - Attention is all you need参考来源：https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj 前置知识：  RNN – Andrej Karpathy’s blog The Unreasonabl">
 <meta name="twitter:image" content="http://yoursite.com/images/Transformer/MultiStepAttention.gif">
 
+<link rel="canonical" href="http://yoursite.com/2020/03/04/Transformer-All-is-all-you-need/">
 
 
-
-
-  
-  
-  <link rel="canonical" href="http://yoursite.com/2020/03/04/Transformer-All-is-all-you-need/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-  <title>Transformer-All-is-all-you-need | Dongxian's Blog</title>
+  <title>Transformer-All-is-all-you-need | Summer So Cold</title>
   
-
-
-
-
-
-
 
 
 
@@ -144,7 +61,6 @@
 
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -153,9 +69,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -169,314 +84,176 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Dongxian's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Summer So Cold</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
   </div>
 </div>
+
 
 
 
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-      
-    
-
-    
-      
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-tags">
+        <li class="menu-item menu-item-categories">
 
-    
-    
-      
-    
-
-    
-      
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-categories">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-      
-    
-
-    
-      
-    
-
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-      
-    
-
-    
-      
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">50</span></a>
-
-  </li>
-
-      
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
-        </li>
-      
-    </ul>
-  
-
-  
-
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
-  
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
 </nav>
 
 
 
-  
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
 
-
+    </div>
+  </div>
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/Transformer-All-is-all-you-need/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Dongxian Gu">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DongxianGu">
+      <meta itemprop="description" content="Life,Happy,Code">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dongxian's Blog">
+      <meta itemprop="name" content="Summer So Cold">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Transformer-All-is-all-you-need
-
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Transformer-All-is-all-you-need
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2020-03-04 12:15:50" itemprop="dateCreated datePublished" datetime="2020-03-04T12:15:50+08:00">2020-03-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
+            </span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
+                <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-03-24 09:20:18" itemprop="dateModified" datetime="2020-03-24T09:20:18+08:00">2020-03-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
-
-                
-                
-              
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
             </span>
-          
 
           
-            
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
-
-          
-
-          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/04/Transformer-All-is-all-you-need/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/04/Transformer-All-is-all-you-need/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="The-Transformer-Attention-is-all-you-need"><a href="#The-Transformer-Attention-is-all-you-need" class="headerlink" title="The Transformer - Attention is all you need"></a>The Transformer - Attention is all you need</h1><p>参考来源：<a href="https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj" target="_blank" rel="noopener">https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/#.Xl8qrXWTLmj</a></p>
@@ -512,7 +289,7 @@
 <li>位置嵌入：将位置嵌入添加到输入嵌入当中，用于捕捉序列中的顺序。</li>
 <li><code>Multi-step attention</code>：注意力机制使用当前的decoder状态和前面的目标字符的嵌入来计算。</li>
 </ul>
-<p><img src="/images/Transformer/MultiStepAttention.gif" alt></p>
+<p><img src="/images/Transformer/MultiStepAttention.gif" alt=""></p>
 <center>图1： Multi-step attention from ConvS2S</center>
 
 <p>为了替换卷积网络，<code>Transformer</code>中提出了一种新的方法。他提出了对每个位置进行编码和使用注意力机制，来关联两个距离较远的单词，因此实现了并行化，加速了训练速度。</p>
@@ -542,7 +319,7 @@ x_i+y_{i-1} \to y_i</script><h2 id="基于Encoder-Decoder的Transformer"><a href
 <p>与<code>ConvS2S</code>相反，这里的输入表示是有输入元素和它在序列中的绝对位置组合而成的。<code>ByteNet</code>有扩大的卷积层和没有<code>position-wise FNN</code>。Transformer针对这两种类型采用了两种不同的神经网络。</p>
 <p>这种注意力机制的应用和变化使得Transformer变得新颖。</p>
 <p>One can find the reference Transformer model implementation from authors is present in <a href="https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/models/transformer.py" target="_blank" rel="noopener">Tensor2Tensor (T2T) library </a></p>
-<p><img src="/images/Transformer/encoder.png" alt></p>
+<p><img src="/images/Transformer/encoder.png" alt=""></p>
 <center>图2：单层Encoder（左） 和  N=6个相同的层组成的Decoder(右)</center>
 
 <h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><ul>
@@ -593,7 +370,7 @@ x_i+y_{i-1} \to y_i</script><h2 id="基于Encoder-Decoder的Transformer"><a href
 Attention(Q,k,V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>在Numpy中</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attention</span><span class="params">(Q, k, V)</span>:</span></span><br><span class="line">    num = np.dot(Q, K.T)</span><br><span class="line">    denum = np.sqrt(K.shape[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> np.dot(softmax(num/denum), V)</span><br></pre></td></tr></table></figure>
 <h3 id="Multi-head-attention"><a href="#Multi-head-attention" class="headerlink" title="Multi-head attention"></a>Multi-head attention</h3><p>Transformer减少了输入和输出序列中相关位置的计算操作的量级到$O(1)$。然而这是由减少了有效的分解为代价的，因为平均注意力加权位置。</p>
-<p><img src="/images/Transformer/MultiHead.png" alt></p>
+<p><img src="/images/Transformer/MultiHead.png" alt=""></p>
 <center>图3：由h个并行运行的attention layers组成的 Multi-Head Attention</center>
 
 <p>为了减少代价，作者使用了Multi-head attention</p>
@@ -612,7 +389,7 @@ head_i = Attention(QW_i^Q,KW_i^K,VW_i^V)</script></li>
 <script type="math/tex; mode=display">
 MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \quad W_0 \in  \mathbb{R^{d_{hd_v} \times d_{model}}}</script></li>
 </ul>
-<p><code>Transformer</code>使用 <code>multi-head</code> （ $d_{model}/h $ 维的并行的<code>attention</code>函数） <code>attention</code>  替代 单个（ $d_{model}$维）的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和<code>single-head attention</code>是相似的。</p>
+<p><code>Transformer</code>使用 <code>multi-head</code> （ $d<em>{model}/h $ 维的并行的<code>attention</code>函数） <code>attention</code>  替代 单个（ $d</em>{model}$维）的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和<code>single-head attention</code>是相似的。</p>
 <p><code>Transformer</code>模仿了经典的注意力机制，在<code>encoder-decoder attention layers</code> 的<code>queries</code>是来自前面的<code>decoder layer</code>。 <code>keys</code> 和 <code>values</code>来源<code>encoder</code>的输出。因此，在<code>decoder</code>上的每个位置能够观察到输出序列的所有位置。</p>
 <h3 id="Self-Attention-（SA"><a href="#Self-Attention-（SA" class="headerlink" title="Self-Attention （SA)"></a>Self-Attention （SA)</h3><p>See <a href="https://mchromiak.github.io/articles/2017/Sep/01/Primer-NN/#attention-basis" target="_blank" rel="noopener">Attention Primer</a> for basics on attention.</p>
 <p>在<code>encoder</code>中，<code>self-attention layer</code> 处理来自同一个位置的输入<code>queries，keys，values</code>。encoder中的每个位置都可以观察到来自前面 layer of the encoder 的所有位置。</p>
@@ -630,14 +407,14 @@ MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \qua
 </ul>
 <h3 id="Position-wise-FFN"><a href="#Position-wise-FFN" class="headerlink" title="Position-wise FFN"></a>Position-wise FFN</h3><p>在encoder和decoder最后那个，attention子层由一个全连接的FNN来处理。它应用在每个单独的位置上，同时意味着两个线性变换和一个ReLU</p>
 <script type="math/tex; mode=display">
-FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d_{model}=512$，inner0layer 是$d_{ff}=2048$</p>
-<h2 id="算法的伪代码or流程图"><a href="#算法的伪代码or流程图" class="headerlink" title="算法的伪代码or流程图"></a>算法的伪代码or流程图</h2><p><img src="/images/Transformer/transform20fps.gif" alt></p>
+FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d<em>{model}=512$，inner0layer 是$d</em>{ff}=2048$</p>
+<h2 id="算法的伪代码or流程图"><a href="#算法的伪代码or流程图" class="headerlink" title="算法的伪代码or流程图"></a>算法的伪代码or流程图</h2><p><img src="/images/Transformer/transform20fps.gif" alt=""></p>
 <center>图4：在英译法的Transformer的逐步变换</center>
 
 <p>在encoder阶段（如图1所示），Transformer第一步对输入句子(空心圈)中的每个word生成初始的表示(representation/embedding)。下一步，对每个word，self-attention收集了句子上下文其他word的信息，并且产生了新的表示(representation，被填充后的圈；实心圆)。对句子里的每个word重复这个过程。对每一个word，基于前面的表示继续构建新的表示，前面的表示并行的重复多次（下一层的填空圈）</p>
 <p>Decoder按照从左到右的模式每次相似的生成一个word。它观察decoder中先前生成的words和encoder的最终表示。</p>
 <p>值得注意的self-attention策略允许遇见共指消解<code>coreference resolution</code>的问题，例如，句子中的单词<code>it</code>能够根据上下文指代句子中的不同名词。</p>
-<p><img src="/images/Transformer/CoreferenceResolution.png" alt></p>
+<p><img src="/images/Transformer/CoreferenceResolution.png" alt=""></p>
 <center>图5：共参考消解. 两个例子中 it和不同的符号相关 </center>
 
 <h2 id="启发和经验准则"><a href="#启发和经验准则" class="headerlink" title="启发和经验准则"></a>启发和经验准则</h2><p>作者进行了一系列的实验，讨论了以有着使用了100K Step 64维的 key,values的$h=8$heads为基础的模型，模型大小为512的$N=6$的layers的推荐方案</p>
@@ -656,321 +433,149 @@ FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
 <li>English constituency parsing </li>
 </ul>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/03/LSTM%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F%E6%9C%AA%E6%9D%A5/" rel="prev" title="LSTM的前世今生未来">
+      <i class="fa fa-chevron-left"></i> LSTM的前世今生未来
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/05/Neural-Network-Primer/" rel="next" title="Neural-Network-Primer">
+      Neural-Network-Primer <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/03/03/LSTM的前世今生未来/" rel="next" title="LSTM的前世今生未来">
-                <i class="fa fa-chevron-left"></i> LSTM的前世今生未来
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/05/Neural-Network-Primer/" rel="prev" title="Neural-Network-Primer">
-                Neural-Network-Primer <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/19640280?s=40&v=4" alt="Dongxian Gu">
-            
-              <p class="site-author-name" itemprop="name">Dongxian Gu</p>
-              <div class="site-description motion-element" itemprop="description"></div>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">50</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                      <a href="/categories/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">11</span>
-                    <span class="site-state-item-name">分类</span>
-                  </a>
-                </div>
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  
-                    
-                      <a href="/tags/">
-                    
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">2</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-
-          
-        
-         <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=4946902&auto=0&height=66"></iframe>-->
-        
-          
-
-          
-          
-
-          
-            
-          
-          
-
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Transformer-Attention-is-all-you-need"><span class="nav-number">1.</span> <span class="nav-text">The Transformer - Attention is all you need</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的目标"><span class="nav-number">1.1.</span> <span class="nav-text">算法的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN和CNN"><span class="nav-number">1.2.</span> <span class="nav-text">RNN和CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.3.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer的Motivation"><span class="nav-number">1.4.</span> <span class="nav-text">Transformer的Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的对信息的处理策略"><span class="nav-number">1.5.</span> <span class="nav-text">算法的对信息的处理策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Encoder-Decoder的Transformer"><span class="nav-number">1.6.</span> <span class="nav-text">基于Encoder-Decoder的Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.6.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">1.6.2.</span> <span class="nav-text">Decoder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组成Transformer架构的机制"><span class="nav-number">1.7.</span> <span class="nav-text">组成Transformer架构的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding——PE"><span class="nav-number">1.7.1.</span> <span class="nav-text">Positional Encoding——PE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention"><span class="nav-number">1.7.2.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scaled-Dot-Product-Attention"><span class="nav-number">1.7.3.</span> <span class="nav-text">Scaled Dot-Product Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-head-attention"><span class="nav-number">1.7.4.</span> <span class="nav-text">Multi-head attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Self-Attention-（SA"><span class="nav-number">1.7.5.</span> <span class="nav-text">Self-Attention （SA)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-wise-FFN"><span class="nav-number">1.7.6.</span> <span class="nav-text">Position-wise FFN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的伪代码or流程图"><span class="nav-number">1.8.</span> <span class="nav-text">算法的伪代码or流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启发和经验准则"><span class="nav-number">1.9.</span> <span class="nav-text">启发和经验准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的使用场景"><span class="nav-number">1.10.</span> <span class="nav-text">算法的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可用于演示的数据集"><span class="nav-number">1.11.</span> <span class="nav-text">可用于演示的数据集</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-  
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian Gu</span>
-
-  
-
-  
-</div>
-
-
-
-
-
-
-
-
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
+    <div class="comments" id="valine-comments"></div>
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Transformer-Attention-is-all-you-need"><span class="nav-number">1.</span> <span class="nav-text">The Transformer - Attention is all you need</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的目标"><span class="nav-number">1.1.</span> <span class="nav-text">算法的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN和CNN"><span class="nav-number">1.2.</span> <span class="nav-text">RNN和CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.3.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transformer的Motivation"><span class="nav-number">1.4.</span> <span class="nav-text">Transformer的Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的对信息的处理策略"><span class="nav-number">1.5.</span> <span class="nav-text">算法的对信息的处理策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Encoder-Decoder的Transformer"><span class="nav-number">1.6.</span> <span class="nav-text">基于Encoder-Decoder的Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder"><span class="nav-number">1.6.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decoder"><span class="nav-number">1.6.2.</span> <span class="nav-text">Decoder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组成Transformer架构的机制"><span class="nav-number">1.7.</span> <span class="nav-text">组成Transformer架构的机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding——PE"><span class="nav-number">1.7.1.</span> <span class="nav-text">Positional Encoding——PE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attention"><span class="nav-number">1.7.2.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scaled-Dot-Product-Attention"><span class="nav-number">1.7.3.</span> <span class="nav-text">Scaled Dot-Product Attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-head-attention"><span class="nav-number">1.7.4.</span> <span class="nav-text">Multi-head attention</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Self-Attention-（SA"><span class="nav-number">1.7.5.</span> <span class="nav-text">Self-Attention （SA)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-wise-FFN"><span class="nav-number">1.7.6.</span> <span class="nav-text">Position-wise FFN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的伪代码or流程图"><span class="nav-number">1.8.</span> <span class="nav-text">算法的伪代码or流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启发和经验准则"><span class="nav-number">1.9.</span> <span class="nav-text">启发和经验准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法的使用场景"><span class="nav-number">1.10.</span> <span class="nav-text">算法的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可用于演示的数据集"><span class="nav-number">1.11.</span> <span class="nav-text">可用于演示的数据集</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DongxianGu</p>
+  <div class="site-description" itemprop="description">Life,Happy,Code</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiangsu,Dongxian</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -979,10 +584,35 @@ FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
 
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
 
 
 
@@ -997,504 +627,92 @@ FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是�
 
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
 
   
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/utils.js?v=7.1.2"></script>
-
-  <script src="/js/motion.js?v=7.1.2"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/affix.js?v=7.1.2"></script>
-
-  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
-
-
-
-  
-  <script src="/js/scrollspy.js?v=7.1.2"></script>
-<script src="/js/post-details.js?v=7.1.2"></script>
-
-
-
-  
-
-
-  <script src="/js/next-boot.js?v=7.1.2"></script>
-
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-
-  
-  <script>
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
       
 
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
               }
             });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
+          }, '', false]
         }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
       }
-    });
-  </script>
-
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
 </script>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
-    }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
     
-  
-
 
   
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 <script>
-  $('.highlight').not('.gist .highlight').each(function(i, e) {
-    var $wrap = $('<div>').addClass('highlight-wrap');
-    $(e).after($wrap);
-    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
-      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
-        return $(e).text();
-      }).toArray().join('\n');
-      var ta = document.createElement('textarea');
-      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
-      ta.style.top = yPosition + 'px'; // Prevent page scroll
-      ta.style.position = 'absolute';
-      ta.style.opacity = '0';
-      ta.readOnly = true;
-      ta.value = code;
-      document.body.appendChild(ta);
-      const selection = document.getSelection();
-      const selected = selection.rangeCount > 0 ? selection.getRangeAt(0) : false;
-      ta.select();
-      ta.setSelectionRange(0, code.length);
-      ta.readOnly = false;
-      var result = document.execCommand('copy');
-      
-        if (result) $(this).text('复制成功');
-        else $(this).text('复制失败');
-      
-      ta.blur(); // For iOS
-      $(this).blur();
-      if (selected) {
-        selection.removeAllRanges();
-        selection.addRange(selected);
-      }
-    })).on('mouseleave', function(e) {
-      var $b = $(this).find('.copy-btn');
-      setTimeout(function() {
-        $b.text('复制');
-      }, 300);
-    }).append(e);
-  })
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'VUd8OrYllPMWVxDqLagwIGsP-gzGzoHsz',
+      appKey     : 'PiWbdIfbwtkQbPbW1Fh5WN2h',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
 </script>
 
-
-  
-
-  
-
-  
-   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
-   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-   <script type="text/javascript" src="/js/src/fireworks.js"></script>
-  
-
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
 </html>
