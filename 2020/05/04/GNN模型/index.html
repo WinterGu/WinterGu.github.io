@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://yoursite.com/images/GNN/TrainingMethods.png">
 <meta property="og:image" content="http://yoursite.com/images/GNN/PropagationSteps.png">
 <meta property="article:published_time" content="2020-05-04T07:39:27.000Z">
-<meta property="article:modified_time" content="2020-12-26T07:18:29.355Z">
+<meta property="article:modified_time" content="2021-01-20T02:07:23.380Z">
 <meta property="article:author" content="DongxianGu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/GNN/GraphType.png">
@@ -89,7 +89,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -130,7 +130,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -182,6 +182,7 @@
 <p>GNN原始模型及其变种</p>
 </blockquote>
 <p>GNN的目标是学习一个状态嵌入$\mathbf{h}_v \in \mathbb{R}^s$，它包含每个节点相邻的信息，这个状态嵌入是节点v的s维度的向量表示，能够用来产生一个输出$\mathbf{o}_v$，这个输出可以是节点标签。$f$是一个参数化的函数，也叫做 $local\;transition\;function$，这个函数被所有节点共享，根据输入的相邻信息来更新节点状态。$g$是$local\;output\;function$，用来描述如何产生输出。</p>
+<a id="more"></a>
 <script type="math/tex; mode=display">
 \begin{align}
 & \mathbf{h}_v = f(\mathbf{x}_v,\mathbf{x}_{co[v]},\mathbf{h}_{ne[v]},\mathbf{x}_{ne[v]}) \\
@@ -414,7 +415,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -519,6 +520,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

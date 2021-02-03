@@ -83,7 +83,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -124,7 +124,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -153,6 +153,100 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Self-Attention" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/05/Self-Attention/">Self-Attention</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/05/Self-Attention/" class="archive-article-date">
+  	<time datetime="2020-03-05T14:29:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Self-Attention详解"><a href="#Self-Attention详解" class="headerlink" title="　Self-Attention详解"></a>　Self-Attention详解</h1><p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-transformer/</a></p>
+<p><img src="/images/Self-Attention/v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w.jpg" alt="v2-32eb6aa9e23b79784ed1ca22d3f9abf9_720w"></p>
+<p>对于 Self-Attention，其中<code>Q(query),K(key),V(value)</code>三个矩阵都来源同一个输入，首先需要计算<code>Q</code>和<code>K</code>之间的点乘，然后除以一个标准尺度$\sqrt{d_k}$，它是query和key向量的维度。再试用Softmax将结果归一化为概率分布，然后在乘以矩阵$V$就得到权重和的表示，整个过程可以表示成：</p>
+<script type="math/tex; mode=display">
+Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p><img src="/images/Self-Attention/v2-f64cbdcf1d883ede36b26067e34f4e3e_720w.jpg" alt="v2-f64cbdcf1d883ede36b26067e34f4e3e_720w"></p>
+<p>假如需要翻译词组 <code>Thinking Machines</code> ，其中<code>Thinking</code>的输入嵌入向量用$x_1$表示，<code>Machines</code>的嵌入向量用$x_2$表示。</p>
+<p>当处理<code>Thinking</code>这个词，需要计算句中所有词和它的Attention Score，将词作为搜索的query，和句子中所有词的key来匹配，看看相关度多高。使用$q_1$代表<code>Thinking</code>的query vector，$k_1,k_2$分别表示<code>Thinking,Machines</code>对应的key vector，计算<code>Thinking</code>的Attention Score，只需要计算$q_1$和$k_1,k_2$的点乘。同理计算<code>Machines</code>的Attention Score计算$q_2$和$k2_1,k_2$的点乘。然后再进行放缩，和softmax归一化。</p>
+<p><img src="/images/Self-Attention/v2-03d0a60b60a0a28f52ed903c76bb9a22_720w.jpg" alt="v2-03d0a60b60a0a28f52ed903c76bb9a22_720w"></p>
+<p>显然当前的单词与自身的Attention score 一般最大。其他单词和当前单词的重要程度有相应分数。然后再将Attention Score和value vector相乘，得到加权后的向量。</p>
+<p><img src="/images/Self-Attention/v2-087b831f622f83e4529c1bbf646530f0_720w.jpg" alt="v2-087b831f622f83e4529c1bbf646530f0_720w"></p>
+<p>如果将输入的所有向量合并成矩阵形式，则其中的query、key、value向量也可并称矩阵形式表示。</p>
+<p><img src="/images/Self-Attention/v2-eea2dcbfa49df9fb799ef8e6997260bf_720w.jpg" alt="v2-eea2dcbfa49df9fb799ef8e6997260bf_720w"></p>
+<p>其中，$W^Q,W^K,W^V$是我们模型训练过程中学习到的合适参数。</p>
+<p><img src="/images/Self-Attention/v2-752c1c91e1b4dbca1b64f59a7e026b9b_720w.jpg" alt="v2-752c1c91e1b4dbca1b64f59a7e026b9b_720w"></p>
+<p>Multi-head就是使用多个Q，K，V，然后将得到的多个$Z$拼接起来，在乘以矩阵$W^o$来计算出layer的输出。</p>
+<p>对于encoder就是利用这些基本单元叠加，其中key，query，value来自前一层的输出，所以encoder中的每个位置都可以关注到之前一层中encoder的所有位置。</p>
+<p>对于decoder，由两个和encoder不同的地方</p>
+<ul>
+<li>第一级的 Masked Multi-head，其中的key，query，value均来自前一层的decoder的输出，但是加入了Mask操作，即只能关注到前面已经翻译过了的输出的词语，没有的翻译的无法知道。</li>
+<li>第二级的 Multi-head Attention 的输入来自前一级和encoder的输出：query来自前一级的decoder，key和value来自encoder的输出，这样decoder的每个每个位置可以关注到输入序列的情况。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/深度学习//" class="article-tag-list-link color5">深度学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/05/Self-Attention/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Neural-Network-Primer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -385,175 +479,9 @@ h=f(Wx+b)+\mathbf{x}</script><p>残差连接有助于解决梯度消失问题，
 <li>LSTM – Christopher Olah’s blog <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks </a> and R2Rt.com <a href="https://r2rt.com/written-memories-understanding-deriving-and-extending-the-lstm.html" target="_blank" rel="noopener">Written Memories: Understanding, Deriving and Extending the LSTM</a>.</li>
 <li>Attention – Christopher Olah<a href="https://distill.pub/2016/augmented-rnns/#attentional-interfaces" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks</a></li>
 </ul>
-<h2 id="算法的目标"><a href="#算法的目标" class="headerlink" title="算法的目标"></a>算法的目标</h2><ul>
-<li><code>Seq2Seq的并行化：RNN/CNN</code>处理有序的逐字的序列是并行的障碍。<code>Transformer</code>通过使用注意力机制和对序列中字符的位置编码来替换递归结构来获得并行化运行，反过来，这也导致训练时间的明显减少。</li>
-<li>减少顺序计算：独立序列中字符的位置距离，以$O(1)$的时间复杂度来学习两个符号之间的依赖关系，</li>
-</ul>
-<h2 id="RNN和CNN"><a href="#RNN和CNN" class="headerlink" title="RNN和CNN"></a>RNN和CNN</h2><ol>
-<li>RNN<ul>
-<li>优点：<code>RNN</code>对于语言，图片等序列的变长表示的处理是流行和成功的。<code>RNN</code>是<code>seq2seq</code>(with attention)的核心。门控模型比如<code>LSTM</code>、<code>GRU</code>适合处理远距离的误差传播</li>
-<li>问题：它的顺序特点阻止了实例的并行化。远距离的依赖仍然难以处理，尽管有门这类的模型。<code>RNN</code>中对于序列状态的对齐是浪费的。难以对层级相似的领域建模，比如语言。</li>
-</ul>
-</li>
-<li>CNN<ul>
-<li>优点：对于每层的并行化和适应大多数依赖是局部的（感觉翻译有问题）</li>
-<li>问题：当使用扩大卷积，对文本使用左填充，位置之间的路径可以是对数的。</li>
-<li>解决方案：<code>multi-head self-attention</code> 机制。论文中表明这种方式可以减少2-3个数量级的计算。</li>
-</ul>
-</li>
-</ol>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Paper: <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">ArXiv</a>.</p>
-<p>当使用<code>RNN</code>或者<code>CNN</code>接收一个序列作为输入时，它能按照逐字的处理句子。但这种顺序性对于处理的并行是一个障碍。更重的是，在这样的情况下，当序列太长的话，模型更倾向于以往序列中远距离的内容或者将它和后序位置的内容混合起来。</p>
-<p>一种措施是采用卷积<code>seq2seq</code>。卷积能够使得<code>GPU</code>处理能够并行化。因此 <a href="https://arxiv.org/abs/1705.03122" target="_blank" rel="noopener">Gehring et al, 2017 </a> (Facebook AI)提出了一个全卷积架构来表示输入序列的层次表示。关键是距离近的在低层次相互作用，而距离远则在高层此相互作用。这种卷积网络的堆积被用来评估字之间的长距离依赖。尽管固定了卷积核的大小，但这都是可能的。</p>
-<p>文中作者也提出了两个技巧：</p>
-<ul>
-<li>位置嵌入：将位置嵌入添加到输入嵌入当中，用于捕捉序列中的顺序。</li>
-<li><code>Multi-step attention</code>：注意力机制使用当前的decoder状态和前面的目标字符的嵌入来计算。</li>
-</ul>
-<p><img src="/images/Transformer/MultiStepAttention.gif" alt=""></p>
-<center>图1： Multi-step attention from ConvS2S</center>
-
-<p>为了替换卷积网络，<code>Transformer</code>中提出了一种新的方法。他提出了对每个位置进行编码和使用注意力机制，来关联两个距离较远的单词，因此实现了并行化，加速了训练速度。</p>
-<p><code>NLP</code>中通过<code>seq2seq</code>模型实现将输入句子编码成固定大小的向量表示。向量大小固定，与输入句子的长度无关。很明显这导致了失去了一些信息。为了解决这个问题，<code>Transformer</code>提出了一种基于注意力的替代方法</p>
-<p>可以参考：</p>
-<ul>
-<li><a href="https://arxiv.org/abs/1703.03906" target="_blank" rel="noopener">Denny Britz on Attention, 2017</a></li>
-<li><a href="https://arxiv.org/abs/1705.04304" target="_blank" rel="noopener">Self-attention (a.k.a Intra-attention)</a></li>
-</ul>
-<h2 id="Transformer的Motivation"><a href="#Transformer的Motivation" class="headerlink" title="Transformer的Motivation"></a>Transformer的Motivation</h2><p><code>Transformer</code>架构的目标是序列变换的问题，即输入序列转换为输出序列的任务。比如语音识别、文本语音转换、机器翻译、蛋白质第二结构预测、图灵机等。目标是设置一个单一的架构来处理尽可能多的序列。</p>
-<p>基于<code>encoder-decode</code>r方案的复杂<code>RNN</code>和<code>CNN</code>是主要的序列变换模型（语言模型和机器模型）。循环模型由于序列性质而不能并行的训练。因此存在从记忆中学习长期依赖的问题。记忆越大，效果越好，但是内存会限制学习长序列的批处理。这也是为什么并行化没有帮助的理由。</p>
-<p>减少序列计算的约束一直是众多研究的方向。但是在基于CNN的方法中，从输入到输出位置的隐藏表示的并行计算随着位置的增加而增加。<code>ConvS2S</code> 的 $O(n)$和<code>ByteNet</code>的$O(n\log n)$的复杂度使得学习长距离的依赖关系更加困难。</p>
-<p><code>Transformer</code>减少了从输入/输出序列中两个字符的序列计算数量到常量$O(1)$数量级。<code>Transformer</code>使用多头的注意力机制实现了这个目标。多头注意力机制允许建模输入 或 输出序列的依赖而不用考虑他们的距离。</p>
-<p>注意力的大多数研究都是和RNN网络结合起来。而<code>Transformer</code>的新方法是完全消除循环，使用注意力来处理输入和输出之间的依赖。<code>Transformer</code>将关注点转移到注意力机制上。它不仅消除了循环，而且有利于使用 <code>self-attention</code>的卷积。此外，还留出了更大的空间来并行化。</p>
-<p>这篇文章的最高性能是通过将注意力机制运用到连接<code>encoder</code>和<code>decoder</code>来实现的。</p>
-<p>这种架构被作者称为第一个完全使用<code>self-attention</code>来计算输入和输出的表示的架构。</p>
-<h2 id="算法的对信息的处理策略"><a href="#算法的对信息的处理策略" class="headerlink" title="算法的对信息的处理策略"></a>算法的对信息的处理策略</h2><p>Transformer是基于<code>seq2seq</code>模型的统计机器翻译模型。<code>seq2seq</code>由两个<code>RNN</code>组成，一个是<code>encoder</code>用于处理输入，另一是<code>decoder</code>用于生成输出。</p>
-<p>通常，<code>Transformer</code>的<code>encoder</code>将输入序列映射到连续表示$z$，反过来，$z$被<code>decoder</code>用来生成输出，例如一次一个字符。</p>
-<p><code>encoder</code>的最终状态是一个固定长度的向量$z$。$z$必须<code>encode</code>包含原始句子的全部信息。因此$z$也被成为句子嵌入(sentence embedding)。</p>
-<p><code>encoder-decoder</code>模型在它的每一步设计为<code>auto-regressive</code>（自回归）。使用前面生成的字符作为额外的输入来生成下一个字符时。</p>
-<script type="math/tex; mode=display">
-x_i+y_{i-1} \to y_i</script><h2 id="基于Encoder-Decoder的Transformer"><a href="#基于Encoder-Decoder的Transformer" class="headerlink" title="基于Encoder-Decoder的Transformer"></a>基于Encoder-Decoder的Transformer</h2><p>在<code>Transformer</code>（如<code>ByteNet</code>或<code>ConvS2S</code>)中，<code>decoder</code>是直接堆在<code>encoder</code>上面。<code>Encoder</code>和<code>Decoder</code>都是由相同的层堆积而成的。每个堆积层都是由两种一般类型的子层组成的：</p>
-<ul>
-<li><code>multi-head self-attention mechanism</code> </li>
-<li><code>position-wise fully connected FNN</code></li>
-</ul>
-<p>与<code>ConvS2S</code>相反，这里的输入表示是有输入元素和它在序列中的绝对位置组合而成的。<code>ByteNet</code>有扩大的卷积层和没有<code>position-wise FNN</code>。Transformer针对这两种类型采用了两种不同的神经网络。</p>
-<p>这种注意力机制的应用和变化使得Transformer变得新颖。</p>
-<p>One can find the reference Transformer model implementation from authors is present in <a href="https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/models/transformer.py" target="_blank" rel="noopener">Tensor2Tensor (T2T) library </a></p>
-<p><img src="/images/Transformer/encoder.png" alt=""></p>
-<center>图2：单层Encoder（左） 和  N=6个相同的层组成的Decoder(右)</center>
-
-<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><ul>
-<li><code>Stage 1- Encoder</code> 输入序列顺序的信息是很重要的。因为没有递归，也没有卷积，所以在序列中每个字符关于绝对或相对位置的信息使用位置编码来表示。因此，对于<code>encoder</code>的输入表示成这样：</li>
-</ul>
-<ul>
-<li><code>positional encodings</code>: added $\oplus$ to</li>
-<li><code>embedded input</code></li>
-</ul>
-<ul>
-<li><p>$N=6$ layers。实际上是超过6层的。因为这些<code>layers</code>由两个layers组成：<code>position-wise FNN</code> 和 <code>encoder</code> 或 <code>decoder</code> 和基于注意力的<code>sublayers</code>。每个额外还包括四个线性投影和注意力逻辑。因此，可以提供比6 <code>layer</code>架构更深的层次。</p>
-<ul>
-<li><p><code>Stage 2- Multi-head attention</code></p>
-</li>
-<li><p><code>Stage 3- position-wise FNN</code></p>
-<p><code>Stage2</code> 和 <code>Stage 3</code> 使用残差连接（因此，所有阶段都是用512维 $d_{model}=512$），然后接着在输出端使用<code>normalization layer</code></p>
-</li>
-</ul>
-</li>
-</ul>
-<p>所以，<code>Encoder</code>的原理如下:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stage1_out = Embedding512 + TokenPositionEncoding512</span><br><span class="line">Stage2_out = layer_normalization( multihead_attention(Stage1_out) + Stage1_out )</span><br><span class="line">Stage3_out = layer_normalization(FFN(Stage2_out) + Stage2_out)</span><br><span class="line"></span><br><span class="line">out_enc = Stage3_out</span><br></pre></td></tr></table></figure>
-<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p><code>Decoder</code>的架构是非常相似的，它在<code>Stage 3</code>采用额外的<code>layer</code>，使用在<code>decoder output</code> 上使用 <code>mask multi-head attention</code>。</p>
-<ul>
-<li>Stage1 - Decoder Input。输入是output embedding，偏移一个位置来确保对位置$i$的预测只依赖位置$i$之前的位置。</li>
-<li>Stage2 Masked Multi-head attention 修改来防止位置影响后续的位置(感觉翻译有问题。)</li>
-</ul>
-<p>Stage 2,3,4也使用残差连接，在它的输出后面接着normalization layer。</p>
-<p>Decoder的原理如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Stage1_out = OutputEmbedding512 + TokenPositionEncoding512</span><br><span class="line"></span><br><span class="line">Stage2_Mask = masked_multihead_attention(Stage1_out)</span><br><span class="line">Stage2_Norm1 = layer_normalization(Stage2_Mask) + Stage1_out</span><br><span class="line">Stage2_Multi = multihead_attention(Stage2_Norm1 + out_enc) + Stage2_Norm1</span><br><span class="line">Stage2_Norm2 = layer_normalization(Stage2_Multi) + Stage2_Multi</span><br><span class="line"></span><br><span class="line">Stage3_FNN = FNN(Stage2_Norm2)</span><br><span class="line">Stage3_Norm = layer_normalization(Stage3_FNN) + Stage2_Norm2</span><br><span class="line"></span><br><span class="line">out_dec = Stage3_Norm</span><br></pre></td></tr></table></figure>
-<h2 id="组成Transformer架构的机制"><a href="#组成Transformer架构的机制" class="headerlink" title="组成Transformer架构的机制"></a>组成Transformer架构的机制</h2><p>Transformer主要由以下几种类型的layers组成，细节如下：</p>
-<h3 id="Positional-Encoding——PE"><a href="#Positional-Encoding——PE" class="headerlink" title="Positional Encoding——PE"></a>Positional Encoding——PE</h3><p>在RNN(LSTM)中，time step的概念倍定义为一次一个的输入或输出。在FNN中，使用某种方式将位置编码表示成时间。在Transformer中，作者提出使用正弦波函数来表示时间，作为额外的输入。这种信号增加到输入和输出来表示时间的变化。</p>
-<p>向输入嵌入增加位置编码的一种方式是嵌入输入元素的绝对位置(ConvS2S)。但是，Transformer的作者使用不同频率正弦和余弦函数。这种正弦的方法非常复杂，和嵌入绝对位置的方法有着相似的性能。但是，它能够允许模型能够在测试时间内对更长的句子产生更好的翻译。这种正弦方式能够让模型外推到更长的序列上。</p>
-<p>这种编码方式能够感知当前处理的输入或输出的位置。位置编码能够被学习或者固定。作者通过测试表明：两种的性能相似。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& PE(pos, 2i) = \sin(\frac{pos}{1000^{\frac{2i}{d_{model}}}}) \\
-& PE(pos, 2i+1) = \cos(\frac{pos}{1000^{\frac{2i}{d_{model}}}}) \\
-\end{align}</script><h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p>作者阐述了attention的定义，详细的可以查看<a href="https://mchromiak.github.io/articles/2017/Sep/01/Primer-NN/#attention-basis" target="_blank" rel="noopener">Attention primer</a>。Attention是一种函数，能够将两个元素的输入<code>(query,key-value pair)</code>映射到一个输出。由映射函数的到的输出是<code>values</code>的加权和。每个<code>value</code>的权重是度量每个input <code>key</code> 和<code>query</code>的相关程度。Transformer中attention的创新点是 <code>multi-head self-attention</code></p>
-<h3 id="Scaled-Dot-Product-Attention"><a href="#Scaled-Dot-Product-Attention" class="headerlink" title="Scaled Dot-Product Attention"></a>Scaled Dot-Product Attention</h3><p>在<code>encoder-decoder</code>中，<code>query</code>通常是decoder的隐藏状态。<code>key</code>是encoder的隐藏状态。相应<code>value</code>是规范化的权重，表示一个<code>key</code>得到多少attention。输出使用加权和来计算。这里的<code>query</code>和<code>key</code>的点积用来计算value。</p>
-<p>假设<code>queries</code> 和 <code>keys</code>的维度是 $d_k$，<code>values</code>的维度是$d_v$。这些维度是由线性投影得到的。输入通过三个矩阵表示：<code>queries</code> 矩阵 <code>Q</code>，<code>keys</code> 矩阵 <code>K</code>， <code>values</code>矩阵 <code>V</code>。</p>
-<p>上面的方式有两个好处：</p>
-<ul>
-<li>加法和乘法点积变种有着相似的理论复杂性</li>
-<li>有着常量$\frac{1}{\sqrt{d_k}}$点积能够更快和空间效率更高。被用来优化乘法代码</li>
-</ul>
-<script type="math/tex; mode=display">
-Attention(Q,k,V)=softmax(\frac{QK^T}{\sqrt{d_k}})V</script><p>在Numpy中</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attention</span><span class="params">(Q, k, V)</span>:</span></span><br><span class="line">    num = np.dot(Q, K.T)</span><br><span class="line">    denum = np.sqrt(K.shape[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> np.dot(softmax(num/denum), V)</span><br></pre></td></tr></table></figure>
-<h3 id="Multi-head-attention"><a href="#Multi-head-attention" class="headerlink" title="Multi-head attention"></a>Multi-head attention</h3><p>Transformer减少了输入和输出序列中相关位置的计算操作的量级到$O(1)$。然而这是由减少了有效的分解为代价的，因为平均注意力加权位置。</p>
-<p><img src="/images/Transformer/MultiHead.png" alt=""></p>
-<center>图3：由h个并行运行的attention layers组成的 Multi-Head Attention</center>
-
-<p>为了减少代价，作者使用了Multi-head attention</p>
-<ul>
-<li>$h=8$ attention layers：表示K，Q，V的线性投影（为了减少维度）<script type="math/tex; mode=display">
-head_i = Attention(QW_i^Q,KW_i^K,VW_i^V)</script></li>
-</ul>
-<p>  这里的投影就是参数矩阵</p>
-<script type="math/tex; mode=display">
-  W_i^Q,W_i^K \in \mathbb{R}^{d_{model} \times d_k},W_i^V \in \mathbb{R}^{d_{model} \times d_v}</script><ul>
-<li><p>在每个layer（不同的<code>k,q,v</code>的线性投影）并行使用scaled-dot attention，可以得到$d_v$维的输出</p>
-</li>
-<li><p>连接每个layer（不同的线性投影）的输出：$Concat(head_1， head_2, \cdots , head_h)$</p>
-</li>
-<li><p>对上一步的连接结果进行线性投影</p>
-<script type="math/tex; mode=display">
-MultiHeadAttention(Q, K, V) = Concat(head_1, \cdots, head_h)W^o \quad where \quad W_0 \in  \mathbb{R^{d_{hd_v} \times d_{model}}}</script></li>
-</ul>
-<p><code>Transformer</code>使用 <code>multi-head</code> （ $d<em>{model}/h $ 维的并行的<code>attention</code>函数） <code>attention</code>  替代 单个（ $d</em>{model}$维）的 <code>attention</code>函数（其中<code>q,k,v</code>都是$d_{model}$维的）。由于减少了每个head的维度，所以在计算代价上和<code>single-head attention</code>是相似的。</p>
-<p><code>Transformer</code>模仿了经典的注意力机制，在<code>encoder-decoder attention layers</code> 的<code>queries</code>是来自前面的<code>decoder layer</code>。 <code>keys</code> 和 <code>values</code>来源<code>encoder</code>的输出。因此，在<code>decoder</code>上的每个位置能够观察到输出序列的所有位置。</p>
-<h3 id="Self-Attention-（SA"><a href="#Self-Attention-（SA" class="headerlink" title="Self-Attention （SA)"></a>Self-Attention （SA)</h3><p>See <a href="https://mchromiak.github.io/articles/2017/Sep/01/Primer-NN/#attention-basis" target="_blank" rel="noopener">Attention Primer</a> for basics on attention.</p>
-<p>在<code>encoder</code>中，<code>self-attention layer</code> 处理来自同一个位置的输入<code>queries，keys，values</code>。encoder中的每个位置都可以观察到来自前面 layer of the encoder 的所有位置。</p>
-<p>在decoder中，self-attention layer 能够让每个位置注意到decoder中前面的所有的位置，包括当前的位置。为了保持auto-regressive的属性，通过mask(set to $-\infty$)所有的 和与softmax非法连接的输入<code>values</code>，使用dot-attention attention来表示左边的信息流。</p>
-<p>作者产生使用 self-attention layers 代替 循环 layers和卷积layers由三个原因。</p>
-<ul>
-<li><p>最小化每层的总的计算复杂度</p>
-<p>self-attention layers 使用序列执行操作$O(1)$数量级连接所有的位置，在RNN中是$O(n)$。</p>
-</li>
-<li><p>最大化并行计算的数量，通过最小化序列操作的需求的数量来度量</p>
-<p>对于序列长度 n 小于表示的维度d，对于非常长的序列 n &gt; d维self-attention 能够只考虑以输入序列中以各自输出位置为中心大小为r的邻域，从而使得最大路径增加到$O(\frac{n}{r})$</p>
-</li>
-<li><p>最小化由不同类型的layer组成的网络中任一两个输入和输出位置之间的最大路径长度。输入和输出序列中任何位置组合之间的路径越短，越容易学习到长期依赖关系。</p>
-</li>
-</ul>
-<h3 id="Position-wise-FFN"><a href="#Position-wise-FFN" class="headerlink" title="Position-wise FFN"></a>Position-wise FFN</h3><p>在encoder和decoder最后那个，attention子层由一个全连接的FNN来处理。它应用在每个单独的位置上，同时意味着两个线性变换和一个ReLU</p>
-<script type="math/tex; mode=display">
-FNN(x) = max(0,xW_1+b_1)W_2+b_2</script><p>对于每个位置的线性变换是一样的，但是每个层使用不同的参数。它的工作方式类似于两个卷积核大小维1的卷积网络。输入或输出的维度是$d<em>{model}=512$，inner0layer 是$d</em>{ff}=2048$</p>
-<h2 id="算法的伪代码or流程图"><a href="#算法的伪代码or流程图" class="headerlink" title="算法的伪代码or流程图"></a>算法的伪代码or流程图</h2><p><img src="/images/Transformer/transform20fps.gif" alt=""></p>
-<center>图4：在英译法的Transformer的逐步变换</center>
-
-<p>在encoder阶段（如图1所示），Transformer第一步对输入句子(空心圈)中的每个word生成初始的表示(representation/embedding)。下一步，对每个word，self-attention收集了句子上下文其他word的信息，并且产生了新的表示(representation，被填充后的圈；实心圆)。对句子里的每个word重复这个过程。对每一个word，基于前面的表示继续构建新的表示，前面的表示并行的重复多次（下一层的填空圈）</p>
-<p>Decoder按照从左到右的模式每次相似的生成一个word。它观察decoder中先前生成的words和encoder的最终表示。</p>
-<p>值得注意的self-attention策略允许遇见共指消解<code>coreference resolution</code>的问题，例如，句子中的单词<code>it</code>能够根据上下文指代句子中的不同名词。</p>
-<p><img src="/images/Transformer/CoreferenceResolution.png" alt=""></p>
-<center>图5：共参考消解. 两个例子中 it和不同的符号相关 </center>
-
-<h2 id="启发和经验准则"><a href="#启发和经验准则" class="headerlink" title="启发和经验准则"></a>启发和经验准则</h2><p>作者进行了一系列的实验，讨论了以有着使用了100K Step 64维的 key,values的$h=8$heads为基础的模型，模型大小为512的$N=6$的layers的推荐方案</p>
-<p>同时也说明了模型质量随着$d_k$的减少而下降，因此可以进一步优化 dot-product compatibility function。</p>
-<p>固定的正弦位置编码和学习的位置编码相比，得分几乎相等。</p>
-<h2 id="算法的使用场景"><a href="#算法的使用场景" class="headerlink" title="算法的使用场景"></a>算法的使用场景</h2><ul>
-<li>语言翻译</li>
-<li>句法类别分析的经典语言分析任务</li>
-<li>输入输出不同的模式，如图像和视频</li>
-<li>共指消解</li>
-</ul>
-<h2 id="可用于演示的数据集"><a href="#可用于演示的数据集" class="headerlink" title="可用于演示的数据集"></a>可用于演示的数据集</h2><ul>
-<li>Perplexity (PPL) BLEU (PPL) BLEU</li>
-<li>English-to-German translation development set WMT 2014 English-to-German and WMT 2014 English-to-French translation tasks</li>
-<li>newstest2013 </li>
-<li>English constituency parsing </li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/03/04/Transformer-All-is-all-you-need/#more">more >></a>
+        
       
 
       
@@ -1710,8 +1638,9 @@ H(\hat{y},y)=-\sum_{j=1}^{|V|} y_j\log {\hat{y}_j}</script><h2 id="Skip-Gram"><a
         <h1 id="Nginx一般配置"><a href="#Nginx一般配置" class="headerlink" title="Nginx一般配置"></a>Nginx一般配置</h1><blockquote>
 <p>一般后台项目配置到Nginx中</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Basic Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="string">sendfile</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nopush</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nodelay</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">keepalive_timeout</span> <span class="number">65</span><span class="string">;</span></span><br><span class="line">	<span class="string">types_hash_max_size</span> <span class="number">2048</span><span class="string">;</span></span><br><span class="line">	<span class="comment"># server_tokens off;</span></span><br><span class="line">	<span class="comment"># server_names_hash_bucket_size 64;</span></span><br><span class="line">	<span class="comment"># server_name_in_redirect off;</span></span><br><span class="line">	<span class="string">include</span> <span class="string">/etc/nginx/mime.types;</span></span><br><span class="line">	<span class="string">default_type</span> <span class="string">application/octet-stream;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># SSL Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	<span class="string">ssl_protocols</span> <span class="string">TLSv1</span> <span class="string">TLSv1.1</span> <span class="string">TLSv1.2;</span> <span class="comment"># Dropping SSLv3, ref: POODLE</span></span><br><span class="line">	<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">return</span> <span class="number">301</span> <span class="string">https://$http_host$request_uri;</span></span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">    		<span class="string">proxy_pass</span>      <span class="string">http://127.0.0.1:8000;</span> <span class="comment"># 代理本地地址</span></span><br><span class="line">   		<span class="string">&#125;</span></span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line">    <span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="comment"># SSL 配置</span></span><br><span class="line"> 		<span class="string">listen</span> <span class="number">443</span><span class="string">;</span></span><br><span class="line">		<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">		<span class="string">ssl_session_timeout</span> <span class="string">5m;</span></span><br><span class="line">		<span class="string">ssl_protocols</span>  <span class="string">SSLv2</span> <span class="string">SSLv3</span> <span class="string">TLSv1;</span></span><br><span class="line">		<span class="string">ssl_ciphers</span>  <span class="string">HIGH:!aNULL:!MD5;</span></span><br><span class="line">		<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span>		</span><br><span class="line"> </span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	    	<span class="string">proxy_pass</span>      <span class="string">http://127.0.0.1:8000;</span> <span class="comment"># tomcat服务器地址</span></span><br><span class="line">	  		<span class="comment">#  root /usr/share/nginx/html/;  # 本地静态网页路径</span></span><br><span class="line">		<span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="comment"># 配置 ws/wss</span></span><br><span class="line">	<span class="string">upstream</span> <span class="string">websocket</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">server</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9001;</span>  </span><br><span class="line">	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">listen</span> <span class="number">8888</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">    	<span class="string">ssl_session_timeout</span> <span class="string">20m;</span></span><br><span class="line">   	 	<span class="string">ssl_verify_client</span> <span class="string">off;</span></span><br><span class="line">    	<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	        <span class="string">proxy_pass</span> <span class="string">http://websocket;</span>  </span><br><span class="line">       		<span class="string">proxy_http_version</span> <span class="number">1.1</span><span class="string">;</span>  </span><br><span class="line">        	<span class="string">proxy_set_header</span> <span class="string">Connection</span> <span class="string">"Upgrade"</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2020/01/19/Nginx%E4%B8%80%E8%88%AC%E9%85%8D%E7%BD%AE/#more">more >></a>
+        
       
 
       
@@ -1764,320 +1693,6 @@ H(\hat{y},y)=-\sum_{j=1}^{|V|} y_j\log {\hat{y}_j}</script><h2 id="Skip-Gram"><a
 
 
   
-    <article id="post-Go语言学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/18/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/">Go语言学习</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/18/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-01-18T12:41:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Go语言学习"><a href="#Go语言学习" class="headerlink" title="Go语言学习"></a>Go语言学习</h1><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ol>
-<li>布尔型<br>布尔型的值只可以是常量 true 或者 false。一个简单的例子：var b bool = true。</li>
-<li>数字类型<br>整型 int 和浮点型 float32、float64，Go 语言支持整型和浮点型数字，并且支持复数，其中位的运算采用补码。</li>
-<li>字符串类型:<br>字符串就是一串固定长度的字符连接起来的字符序列。Go 的字符串是由单个字节连接起来的。Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本。</li>
-<li>派生类型:<br>包括：<ul>
-<li>指针类型（Pointer）</li>
-<li>数组类型</li>
-<li>结构化类型(struct)</li>
-<li>Channel 类型</li>
-<li>函数类型</li>
-<li>切片类型</li>
-<li>接口类型（interface）</li>
-<li>Map 类型</li>
-</ul>
-</li>
-</ol>
-<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p><a href="https://blog.csdn.net/xiaoyida11/article/details/51554022" target="_blank" rel="noopener">参考链接</a></p>
-<h2 id="变量-variance"><a href="#变量-variance" class="headerlink" title="变量 variance"></a>变量 variance</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">string</span> = <span class="string">"string"</span></span><br><span class="line"><span class="keyword">var</span> vname vtype <span class="comment">//自动赋初始值 </span></span><br><span class="line">vname = value</span><br><span class="line"><span class="keyword">var</span> v_name = value <span class="comment">// 自动判断类型</span></span><br><span class="line">v_name := value <span class="comment">// 声明新的变量，v_name 不是新变量编译出错</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>数值类型（包括complex64/128）为 0</p>
-</li>
-<li><p>布尔类型为 false</p>
-</li>
-<li><p>字符串为 “”（空字符串）</p>
-</li>
-<li><p>以下几种类型为 nil：</p>
-</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a *<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">map</span>[<span class="keyword">string</span>] <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="keyword">chan</span> <span class="keyword">int</span></span><br><span class="line"><span class="keyword">var</span> a <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="keyword">var</span> a error <span class="comment">// error 是接口</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类型相同多个变量, 非全局变量</span></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 <span class="keyword">type</span></span><br><span class="line">vname1, vname2, vname3 = v1, v2, v3</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> vname1, vname2, vname3 = v1, v2, v3 <span class="comment">// 和 python 很像,不需要显示声明类型，自动推断</span></span><br><span class="line"></span><br><span class="line">vname1, vname2, vname3 := v1, v2, v3 <span class="comment">// 出现在 := 左侧的变量不应该是已经被声明过的，否则会导致编译错误</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种因式分解关键字的写法一般用于声明全局变量</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    vname1 v_type1</span><br><span class="line">    vname2 v_type2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>值类型和引用类型</p>
-<blockquote>
-<p>所有像 int、float、bool 和 string 这些基本类型都属于值类型，使用这些类型的变量直接指向存在内存中的值：</p>
-</blockquote>
-<p>通过 <code>&amp;i</code> 来获取变量 <code>i</code> 的内存地址</p>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> identifier [<span class="keyword">type</span>] = value</span><br><span class="line"><span class="keyword">const</span> c_name1, c_name2 = value1, value2</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Unknown = <span class="number">0</span></span><br><span class="line">    Female = <span class="number">1</span></span><br><span class="line">    Male = <span class="number">2</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>iota</p>
-<blockquote>
-<p>iota，特殊常量，可以认为是一个可以被编译器修改的常量。<br>iota 在 const关键字出现时将被重置为 0(const 内部的第一行之前)，const 中每新增一行常量声明将使 iota 计数一次(iota 可理解为 const 语句块中的行索引)。</p>
-</blockquote>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="literal">iota</span>   <span class="comment">//0</span></span><br><span class="line">	b          <span class="comment">//1</span></span><br><span class="line">	c          <span class="comment">//2</span></span><br><span class="line">	d = <span class="string">"ha"</span>   <span class="comment">//独立值，iota += 1</span></span><br><span class="line">	e          <span class="comment">//"ha"   iota += 1</span></span><br><span class="line">	f = <span class="number">100</span>    <span class="comment">//iota +=1</span></span><br><span class="line">	g          <span class="comment">//100  iota +=1</span></span><br><span class="line">	h = <span class="literal">iota</span>   <span class="comment">//7,恢复计数</span></span><br><span class="line">	i          <span class="comment">//8</span></span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
-<li>算术运算符</li>
-<li>关系运算符</li>
-<li>逻辑运算符</li>
-<li>位运算符</li>
-<li>赋值运算符</li>
-<li>其他运算符</li>
-</ul>
-<p>运算符优先级</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>优先级</th>
-<th>运算符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>* / % &lt;&lt; &gt;&gt; &amp; &amp;^</td>
-</tr>
-<tr>
-<td>4</td>
-<td>+ - \</td>
-<td>\^</td>
-</tr>
-<tr>
-<td>3</td>
-<td>== != &lt; &lt;= &gt; &gt;=</td>
-</tr>
-<tr>
-<td>2</td>
-<td>&amp;&amp;</td>
-</tr>
-<tr>
-<td>1</td>
-<td>\</td>
-<td>\</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 布尔表达式 &#123;</span><br><span class="line">   <span class="comment">/* 在布尔表达式为 true 时执行 */</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">/* 在布尔表达式为 false 时执行 */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> var1 &#123;</span><br><span class="line">    <span class="keyword">case</span> val1:</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">case</span> val2:</span><br><span class="line">        ...</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>switch 语句还可以被用于 type-switch 来判断某个 interface 变量中实际存储的变量类型。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> x.(<span class="keyword">type</span>)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">type</span>:</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">type</span>:</span><br><span class="line">       statement(s); </span><br><span class="line">    <span class="comment">/* 你可以定义任意个数的case */</span></span><br><span class="line">    <span class="keyword">default</span>: <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 fallthrough 会强制执行后面的 case 语句，fallthrough 不会判断下一条 case 的表达式结果是否为 true。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"1、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">true</span>:</span><br><span class="line">            fmt.Println(<span class="string">"2、case 条件语句为 true"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"3、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">case</span> <span class="literal">true</span>:</span><br><span class="line">            fmt.Println(<span class="string">"4、case 条件语句为 true"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">false</span>:</span><br><span class="line">            fmt.Println(<span class="string">"5、case 条件语句为 false"</span>)</span><br><span class="line">            <span class="keyword">fallthrough</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">            fmt.Println(<span class="string">"6、默认 case"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>select 是 Go 中的一个控制结构，类似于用于通信的 switch 语句。每个 case 必须是一个通信操作，要么是发送要么是接收。</p>
-<p>select 随机执行一个可运行的 case。如果没有 case 可运行，它将阻塞，直到有 case 可运行。一个默认的子句应该总是可运行的。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);      </span><br><span class="line">    <span class="keyword">case</span> communication clause  :</span><br><span class="line">       statement(s);</span><br><span class="line">    <span class="comment">/* 你可以定义任意数量的 case */</span></span><br><span class="line">    <span class="keyword">default</span> : <span class="comment">/* 可选 */</span></span><br><span class="line">       statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>每个 case 都必须是一个通信</li>
-<li>所有 channel 表达式都会被求值</li>
-<li>所有被发送的表达式都会被求值</li>
-<li>如果任意某个通信可以进行，它就执行，其他被忽略。</li>
-<li>如果有多个 case 都可以运行，Select 会随机公平地选出一个执行。其他不会执行。</li>
-<li>否则：<ul>
-<li>如果有 default 子句，则执行该语句。</li>
-<li>如果没有 default 子句，select 将阻塞，直到某个通信可以运行；Go 不会重新对 channel 或值进行求值。</li>
-</ul>
-</li>
-</ul>
-<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> [condition |  ( init; condition; increment ) | Range]</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword">for</span> [condition |  ( init; condition; increment ) | Range]</span><br><span class="line">   &#123;</span><br><span class="line">      statement(s);</span><br><span class="line">   &#125;</span><br><span class="line">   statement(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>break</li>
-<li>continue</li>
-<li>goto</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">function_name</span><span class="params">( [parameter list] )</span> [<span class="title">return_types</span>]</span> &#123;</span><br><span class="line">   函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>func：函数由 func 开始声明</li>
-<li>function_name：函数名称，函数名和参数列表一起构成了函数签名。</li>
-<li>parameter list：参数列表，参数就像一个占位符，当函数被调用时，你可以将值传递给参数，这个值被称为实际参数。参数列表指定的是参数类型、顺序、及参数个数。参数是可选的，也就是说函数也可以不包含参数。</li>
-<li>return_types：返回类型，函数返回一列值。return_types 是该列值的数据类型。有些功能不需要返回值，这种情况下 return_types 不是必须的。</li>
-<li>函数体：函数定义的代码集合。</li>
-</ul>
-<p>函数参数</p>
-<ul>
-<li><p>值传递</p>
-<blockquote>
-<p>默认</p>
-</blockquote>
-</li>
-<li><p>引用传递</p>
-<blockquote>
-<p>引用传递指针参数传递到函数内</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义交换值函数*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(x *<span class="keyword">int</span>, y *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> temp <span class="keyword">int</span></span><br><span class="line">   temp = *x    <span class="comment">/* 保持 x 地址上的值 */</span></span><br><span class="line">   *x = *y      <span class="comment">/* 将 y 值赋给 x */</span></span><br><span class="line">   *y = temp    <span class="comment">/* 将 temp 值赋给 y */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数用法</p>
-<ul>
-<li>函数作为另外一个函数的实参：函数定义后可作为另外一个函数的实参数传入</li>
-<li>闭包：闭包是匿名函数，可在动态编程中使用</li>
-<li><p>方法：方法就是一个包含了接受者的函数</p>
-<blockquote>
-<p>Go 语言中同时有函数和方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。所有给定类型的方法属于该类型的方法集。</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(variable_name variable_data_type)</span> <span class="title">function_name</span><span class="params">()</span> [<span class="title">return_type</span>]</span>&#123;</span><br><span class="line">   <span class="comment">/* 函数体*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>变量声明的位置</p>
-<ul>
-<li><p>函数内定义的变量称为局部变量</p>
-<blockquote>
-<p>作用域只在函数体内，参数和返回值变量也是局部变量。</p>
-</blockquote>
-</li>
-<li><p>函数外定义的变量称为全局变量</p>
-<blockquote>
-<p>全局变量可以在整个包甚至外部包（被导出后）使用。</p>
-</blockquote>
-</li>
-<li>函数定义中的变量称为形式参数<blockquote>
-<p>形式参数会作为函数的局部变量来使用。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>声明数组</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variable_name [SIZE] variable_type</span><br></pre></td></tr></table></figure>
-<p>初始化数组<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> balance = [<span class="number">5</span>]<span class="keyword">float32</span>&#123;<span class="number">1000.0</span>, <span class="number">2.0</span>, <span class="number">3.4</span>, <span class="number">7.0</span>, <span class="number">50.0</span>&#125;</span><br><span class="line"><span class="keyword">var</span> balance = [...]<span class="keyword">float32</span>&#123;<span class="number">1000.0</span>, <span class="number">2.0</span>, <span class="number">3.4</span>, <span class="number">7.0</span>, <span class="number">50.0</span>&#125;</span><br><span class="line">balance[<span class="number">4</span>] = <span class="number">50.0</span></span><br></pre></td></tr></table></figure></p>
-<p>多维数组</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variable_name [SIZE1][SIZE2]...[SIZEN] variable_type</span><br><span class="line">a = [<span class="number">3</span>][<span class="number">4</span>]<span class="keyword">int</span>&#123;  </span><br><span class="line"> &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; ,   <span class="comment">/*  第一行索引为 0 */</span></span><br><span class="line"> &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125; ,   <span class="comment">/*  第二行索引为 1 */</span></span><br><span class="line"> &#123;<span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>&#125;,   <span class="comment">/* 第三行索引为 2 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>数组参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void myFunction(param [<span class="number">10</span>]<span class="keyword">int</span>)</span><br><span class="line">&#123;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void myFunction(param []<span class="keyword">int</span>)</span><br><span class="line">&#123;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> var_name *<span class="keyword">var</span>-<span class="keyword">type</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> a <span class="keyword">int</span>= <span class="number">20</span>   <span class="comment">/* 声明实际变量 */</span></span><br><span class="line">   <span class="keyword">var</span> ip *<span class="keyword">int</span>        <span class="comment">/* 声明指针变量 */</span></span><br><span class="line"></span><br><span class="line">   ip = &amp;a  <span class="comment">/* 指针变量的存储地址 */</span></span><br><span class="line"></span><br><span class="line">   fmt.Printf(<span class="string">"a 变量的地址是: %x\n"</span>, &amp;a  )</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 指针变量的存储地址 */</span></span><br><span class="line">   fmt.Printf(<span class="string">"ip 变量储存的指针地址: %x\n"</span>, ip )</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 使用指针访问值 */</span></span><br><span class="line">   fmt.Printf(<span class="string">"*ip 变量的值: %d\n"</span>, *ip )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>定义</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> struct_variable_type <span class="keyword">struct</span> &#123;</span><br><span class="line">   member definition</span><br><span class="line">   member definition</span><br><span class="line">   ...</span><br><span class="line">   member definition</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>声明</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">variable_name := structure_variable_type &#123;value1, value2...valuen&#125;</span><br><span class="line">或</span><br><span class="line">variable_name := structure_variable_type &#123; key1: value1, key2: value2..., keyn: valuen&#125;</span><br></pre></td></tr></table></figure>
-<p>访问成员：<code>结构体.成员名</code></p>
-<p>结构体指针</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> struct_pointer *Books</span><br></pre></td></tr></table></figure>
-<h2 id="切片-Slice"><a href="#切片-Slice" class="headerlink" title="切片 Slice"></a>切片 Slice</h2><p>声明一个未指定大小的数组来定义切片<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> identifier []<span class="keyword">type</span></span><br></pre></td></tr></table></figure></p>
-<p>使用make()函数来创建切片:</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> slice1 []<span class="keyword">type</span> = <span class="built_in">make</span>([]<span class="keyword">type</span>, <span class="built_in">len</span>)</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">slice1 := <span class="built_in">make</span>([]<span class="keyword">type</span>, <span class="built_in">len</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span>([]T, length, capacity)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>length 初始长度</li>
-<li>capacity 容量</li>
-</ul>
-<p>初始化切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s :=[] <span class="keyword">int</span> &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> &#125; </span><br><span class="line">s := arr[:] </span><br><span class="line">s := arr[startIndex:endIndex] </span><br><span class="line">s := arr[startIndex:] </span><br><span class="line">s := arr[:endIndex] </span><br><span class="line">s1 := s[startIndex:endIndex] </span><br><span class="line">s :=<span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>,<span class="built_in">cap</span>)</span><br></pre></td></tr></table></figure>
-<p>len() 和 cap() 函数</p>
-<ul>
-<li>切片是可索引的，并且可以由 len() 方法获取长度。</li>
-<li>切片提供了计算容量的方法 cap() 可以测量切片最长可以达到多少。</li>
-</ul>
-<p>一个切片在未初始化之前默认为 nil，长度为 0，实例如下：</p>
-<p>切片截取<br>设置下限及上限来设置截取切片 <code>[lower-bound:upper-bound]</code></p>
-<p>append() 和 copy() 函数</p>
-<ul>
-<li>拷贝切片的 copy 方法</li>
-<li>向切片追加新元素的 append 方法</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers []<span class="keyword">int</span></span><br><span class="line"><span class="comment">/* 允许追加空切片 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">0</span>)</span><br><span class="line"><span class="comment">/* 向切片添加一个元素 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">1</span>)</span><br><span class="line"><span class="comment">/* 同时添加多个元素 */</span></span><br><span class="line">numbers = <span class="built_in">append</span>(numbers, <span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"><span class="comment">/* 创建切片 numbers1 是之前切片的两倍容量*/</span></span><br><span class="line">numbers1 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(numbers), (<span class="built_in">cap</span>(numbers))*<span class="number">2</span>)</span><br><span class="line"><span class="comment">/* 拷贝 numbers 的内容到 numbers1 */</span></span><br><span class="line"><span class="built_in">copy</span>(numbers1,numbers)</span><br></pre></td></tr></table></figure>
-<h2 id="Range-范围"><a href="#Range-范围" class="headerlink" title="Range 范围"></a>Range 范围</h2><blockquote>
-<p>Go 语言中 range 关键字用于 for 循环中迭代数组(array)、切片(slice)、通道(channel)或集合(map)的元素。在数组和切片中它返回元素的索引和索引对应的值，在集合中返回 key-value 对。</p>
-</blockquote>
-<h2 id="Map-集合"><a href="#Map-集合" class="headerlink" title="Map(集合)"></a>Map(集合)</h2><blockquote>
-<p>Map 是一种无序的键值对的集合。Map 最重要的一点是通过 key 来快速检索数据，key 类似于索引，指向数据的值。<br>Map 是一种集合，所以我们可以像迭代数组和切片那样迭代它。不过，Map 是无序的，我们无法决定它的返回顺序，这是因为 Map 是使用 hash 表来实现的。</p>
-</blockquote>
-<p>定义 Map</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 声明变量，默认 map 是 nil */</span></span><br><span class="line"><span class="keyword">var</span> map_variable <span class="keyword">map</span>[key_data_type]value_data_type</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使用 make 函数 */</span></span><br><span class="line">map_variable := <span class="built_in">make</span>(<span class="keyword">map</span>[key_data_type]value_data_type)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> country := <span class="keyword">range</span> countryCapitalMap &#123;</span><br><span class="line">   fmt.Println(country, <span class="string">"首都是"</span>, countryCapitalMap [country])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*查看元素在集合中是否存在 */</span></span><br><span class="line">capital, ok := countryCapitalMap [ <span class="string">"American"</span> ] <span class="comment">/*如果确定是真实的,则存在,否则不存在 */</span></span><br><span class="line"><span class="keyword">if</span> (ok) &#123;</span><br><span class="line">    fmt.Println(<span class="string">"American 的首都是"</span>, capital)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"American 的首都不存在"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>delete() 函数</p>
-<blockquote>
-<p>delete() 函数用于删除集合的元素, 参数为 map 和其对应的 key。实例如下：</p>
-</blockquote>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">delete</span>(countryCapitalMap, <span class="string">"Key"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type_name(expression)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">var</span> sum <span class="keyword">int</span> = <span class="number">17</span></span><br><span class="line">   <span class="keyword">var</span> count <span class="keyword">int</span> = <span class="number">5</span></span><br><span class="line">   <span class="keyword">var</span> mean <span class="keyword">float32</span></span><br><span class="line">   </span><br><span class="line">   mean = <span class="keyword">float32</span>(sum)/<span class="keyword">float32</span>(count)</span><br><span class="line">   fmt.Printf(<span class="string">"mean 的值为: %f\n"</span>,mean)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定义接口 */</span></span><br><span class="line"><span class="keyword">type</span> interface_name <span class="keyword">interface</span> &#123;</span><br><span class="line">   method_name1 [return_type]</span><br><span class="line">   method_name2 [return_type]</span><br><span class="line">   method_name3 [return_type]</span><br><span class="line">   ...</span><br><span class="line">   method_namen [return_type]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 定义结构体 */</span></span><br><span class="line"><span class="keyword">type</span> struct_name <span class="keyword">struct</span> &#123;</span><br><span class="line">   <span class="comment">/* variables */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 实现接口方法 */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(struct_name_variable struct_name)</span> <span class="title">method_name1</span><span class="params">()</span> [<span class="title">return_type</span>]</span> &#123;</span><br><span class="line">   <span class="comment">/* 方法实现 */</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(struct_name_variable struct_name)</span> <span class="title">method_namen</span><span class="params">()</span> [<span class="title">return_type</span>]</span> &#123;</span><br><span class="line">   <span class="comment">/* 方法实现*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>Go 语言通过内置的错误接口提供了非常简单的错误处理机制。</p>
-<p>error类型是一个接口类型，这是它的定义：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> error <span class="keyword">interface</span> &#123;</span><br><span class="line">    Error() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sqrt</span><span class="params">(f <span class="keyword">float64</span>)</span> <span class="params">(<span class="keyword">float64</span>, error)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> f &lt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>, errors.New(<span class="string">"math: square root of negative number"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实现</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>Go 语言支持并发，我们只需要通过 go 关键字来开启 goroutine 即可。</p>
-<p>goroutine 是轻量级线程，goroutine 的调度是由 Golang 运行时进行管理的。</p>
-<p>goroutine 语法格式：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> 函数名( 参数列表 )</span><br></pre></td></tr></table></figure>
-<p>通道（channel）:是用来传递数据的一个数据结构。</p>
-<blockquote>
-<p>通道可用于两个 goroutine 之间通过传递一个指定类型的值来同步运行和通讯。操作符 &lt;- 用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。</p>
-</blockquote>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch &lt;- v    <span class="comment">// 把 v 发送到通道 ch</span></span><br><span class="line">v := &lt;-ch  <span class="comment">// 从 ch 接收数据</span></span><br><span class="line">           <span class="comment">// 并把值赋给 v</span></span><br></pre></td></tr></table></figure>
-<p>声明一个通道很简单，我们使用chan关键字即可，通道在使用前必须先创建：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br></pre></td></tr></table></figure>
-<p>通道缓冲区<br>Channel buffer<br>通道可以设置缓冲区，通过 make 的第二个参数指定缓冲区大小：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-<p>带缓冲区的通道允许发送端的数据发送和接收端的数据获取处于异步状态，就是说发送端发送的数据可以放在缓冲区里面，可以等待接收端去获取数据，而不是立刻需要接收端去获取数据。</p>
-<p>不过由于缓冲区的大小是有限的，所以还是必须有接收端来接收数据的，否则缓冲区一满，数据发送端就无法再发送数据了。</p>
-<p>注意：如果通道不带缓冲，发送方会阻塞直到接收方从通道中接收了值。如果通道带缓冲，发送方则会阻塞直到发送的值被拷贝到缓冲区内；如果缓冲区已满，则意味着需要等待直到某个接收方获取到一个值。接收方在有值可以接收之前会一直阻塞。</p>
-<p>Go 遍历通道与关闭通道</p>
-<p>通过 <code>range</code> 关键字来实现遍历读取到的数据，类似于与数组或切片。格式如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v, ok := &lt;-ch</span><br></pre></td></tr></table></figure>
-<p>如果通道接收不到数据后 ok 就为 false，这时通道就可以使用 close() 函数来关闭。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fibonacci</span><span class="params">(n <span class="keyword">int</span>, c <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        x, y := <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; n; i++ &#123;</span><br><span class="line">                c &lt;- x</span><br><span class="line">                x, y = y, x+y</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">close</span>(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">        c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">10</span>)</span><br><span class="line">        <span class="keyword">go</span> fibonacci(<span class="built_in">cap</span>(c), c)</span><br><span class="line">        <span class="comment">// range 函数遍历每个从通道接收到的数据，因为 c 在发送完 10 个</span></span><br><span class="line">        <span class="comment">// 数据之后就关闭了通道，所以这里我们 range 函数在接收到 10 个数据</span></span><br><span class="line">        <span class="comment">// 之后就结束了。如果上面的 c 通道不关闭，那么 range 函数就不</span></span><br><span class="line">        <span class="comment">// 会结束，从而在接收第 11 个数据的时候就阻塞了。</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="keyword">range</span> c &#123;</span><br><span class="line">                fmt.Println(i)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/18/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
@@ -2092,7 +1707,7 @@ H(\hat{y},y)=-\sum_{j=1}^{|V|} y_j\log {\hat{y}_j}</script><h2 id="Skip-Gram"><a
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2197,6 +1812,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

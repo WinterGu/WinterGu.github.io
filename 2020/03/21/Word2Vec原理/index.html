@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Word2Vec原理 | Summer So Cold</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Word2Vec word2vec 是 google 在 2013 年推出的一个 NLP 工具，它的特点是将所有的词向量化，这样词与词之间就可以定量的去度量他们之间的关系，挖掘词之间的联系。 因此本文的讲解 word2vec 原理以 Github 上的 word2vec 代码为准。本文关注于 word2vec 的基础知识。  词向量基础词向量来表示词并不是Word2Vec的首创，很久之前就提出了。">
+  <meta name="description" content="Word2Vec word2vec 是 google 在 2013 年推出的一个 NLP 工具，它的特点是将所有的词向量化，这样词与词之间就可以定量的去度量他们之间的关系，挖掘词之间的联系。 因此本文的讲解 word2vec 原理以 Github 上的 word2vec 代码为准。本文关注于 word2vec 的基础知识。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Word2Vec原理">
 <meta property="og:url" content="http://yoursite.com/2020/03/21/Word2Vec%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Summer So Cold">
-<meta property="og:description" content="Word2Vec word2vec 是 google 在 2013 年推出的一个 NLP 工具，它的特点是将所有的词向量化，这样词与词之间就可以定量的去度量他们之间的关系，挖掘词之间的联系。 因此本文的讲解 word2vec 原理以 Github 上的 word2vec 代码为准。本文关注于 word2vec 的基础知识。  词向量基础词向量来表示词并不是Word2Vec的首创，很久之前就提出了。">
+<meta property="og:description" content="Word2Vec word2vec 是 google 在 2013 年推出的一个 NLP 工具，它的特点是将所有的词向量化，这样词与词之间就可以定量的去度量他们之间的关系，挖掘词之间的联系。 因此本文的讲解 word2vec 原理以 Github 上的 word2vec 代码为准。本文关注于 word2vec 的基础知识。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/word2vec/distribute-representation-demo1.png">
 <meta property="og:image" content="http://yoursite.com/images/word2vec/CBOW-example1.png">
 <meta property="og:image" content="http://yoursite.com/images/word2vec/huffman-demo.png">
 <meta property="article:published_time" content="2020-03-21T02:33:32.000Z">
-<meta property="article:modified_time" content="2020-05-03T00:28:56.570Z">
+<meta property="article:modified_time" content="2021-01-20T02:14:18.100Z">
 <meta property="article:author" content="DongxianGu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/word2vec/distribute-representation-demo1.png">
@@ -89,7 +89,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -130,7 +130,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -182,6 +182,7 @@
 <p>word2vec 是 google 在 2013 年推出的一个 NLP 工具，它的特点是将所有的词向量化，这样词与词之间就可以定量的去度量他们之间的关系，挖掘词之间的联系。</p>
 <p>因此本文的讲解 word2vec 原理以 Github 上的 <a href="https://github.com/tmikolov/word2vec" target="_blank" rel="noopener">word2vec</a> 代码为准。本文关注于 word2vec 的基础知识。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="词向量基础"><a href="#词向量基础" class="headerlink" title="词向量基础"></a>词向量基础</h2><p>词向量来表示词并不是Word2Vec的首创，很久之前就提出了。最早的词向量相当的冗长，词向量维度大小为整个词汇表的大小，对于每个具体词汇表中词，将对应的位置置为1。这就是One-hot编码表示。</p>
 <p>One-hot representation 表示词向量是非常简单的，但存在很多问题。最大的问题就是一般词汇表非常的大，比如百万级别，那么每个词都得用百万维度的向量来表示，这对内存来说简直是个灾难。而且只有一个位置为1,其余为0，表达的效率不高。因此如何将词向量的维度变小？</p>
 <p>Distributed representation 就是为了解决 one hot representation的问题而提出的。它的思想就是通过训练，将每个词映射到一个较短的词向量来。所有的词向量就构成了向量空间，进而可以使用统计学的方法来研究词与词之间的关系。但是这个较短的词向量维度多大呢？这个一般需要我们在训练时自己来指定。</p>
@@ -565,7 +566,7 @@ e =e + g\theta^{w_j} \\
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -670,6 +671,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

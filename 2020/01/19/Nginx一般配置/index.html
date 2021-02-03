@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Nginx一般配置 | Summer So Cold</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Nginx一般配置 一般后台项目配置到Nginx中  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364http &amp;#123;	##	# Basic Settings	##	sendfile on;	tcp_no">
+  <meta name="description" content="Nginx一般配置 一般后台项目配置到Nginx中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx一般配置">
 <meta property="og:url" content="http://yoursite.com/2020/01/19/Nginx%E4%B8%80%E8%88%AC%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Summer So Cold">
-<meta property="og:description" content="Nginx一般配置 一般后台项目配置到Nginx中  12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364http &amp;#123;	##	# Basic Settings	##	sendfile on;	tcp_no">
+<meta property="og:description" content="Nginx一般配置 一般后台项目配置到Nginx中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-01-19T03:01:48.000Z">
-<meta property="article:modified_time" content="2020-01-19T03:10:26.913Z">
+<meta property="article:modified_time" content="2021-01-20T02:18:33.543Z">
 <meta property="article:author" content="DongxianGu">
 <meta name="twitter:card" content="summary">
   
@@ -85,7 +85,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -126,7 +126,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -177,6 +177,7 @@
         <h1 id="Nginx一般配置"><a href="#Nginx一般配置" class="headerlink" title="Nginx一般配置"></a>Nginx一般配置</h1><blockquote>
 <p>一般后台项目配置到Nginx中</p>
 </blockquote>
+<a id="more"></a>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http</span> <span class="string">&#123;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># Basic Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="string">sendfile</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nopush</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">tcp_nodelay</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">keepalive_timeout</span> <span class="number">65</span><span class="string">;</span></span><br><span class="line">	<span class="string">types_hash_max_size</span> <span class="number">2048</span><span class="string">;</span></span><br><span class="line">	<span class="comment"># server_tokens off;</span></span><br><span class="line">	<span class="comment"># server_names_hash_bucket_size 64;</span></span><br><span class="line">	<span class="comment"># server_name_in_redirect off;</span></span><br><span class="line">	<span class="string">include</span> <span class="string">/etc/nginx/mime.types;</span></span><br><span class="line">	<span class="string">default_type</span> <span class="string">application/octet-stream;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line">	<span class="comment"># SSL Settings</span></span><br><span class="line">	<span class="comment">##</span></span><br><span class="line"></span><br><span class="line">	<span class="string">ssl_protocols</span> <span class="string">TLSv1</span> <span class="string">TLSv1.1</span> <span class="string">TLSv1.2;</span> <span class="comment"># Dropping SSLv3, ref: POODLE</span></span><br><span class="line">	<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span></span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="string">listen</span> <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">return</span> <span class="number">301</span> <span class="string">https://$http_host$request_uri;</span></span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">    		<span class="string">proxy_pass</span>      <span class="string">http://127.0.0.1:8000;</span> <span class="comment"># 代理本地地址</span></span><br><span class="line">   		<span class="string">&#125;</span></span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line">    <span class="string">server</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="comment"># SSL 配置</span></span><br><span class="line"> 		<span class="string">listen</span> <span class="number">443</span><span class="string">;</span></span><br><span class="line">		<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">		<span class="string">ssl_session_timeout</span> <span class="string">5m;</span></span><br><span class="line">		<span class="string">ssl_protocols</span>  <span class="string">SSLv2</span> <span class="string">SSLv3</span> <span class="string">TLSv1;</span></span><br><span class="line">		<span class="string">ssl_ciphers</span>  <span class="string">HIGH:!aNULL:!MD5;</span></span><br><span class="line">		<span class="string">ssl_prefer_server_ciphers</span> <span class="string">on;</span>		</span><br><span class="line"> </span><br><span class="line">		<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	    	<span class="string">proxy_pass</span>      <span class="string">http://127.0.0.1:8000;</span> <span class="comment"># tomcat服务器地址</span></span><br><span class="line">	  		<span class="comment">#  root /usr/share/nginx/html/;  # 本地静态网页路径</span></span><br><span class="line">		<span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">    <span class="comment"># 配置 ws/wss</span></span><br><span class="line">	<span class="string">upstream</span> <span class="string">websocket</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">server</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9001;</span>  </span><br><span class="line">	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">server</span> <span class="string">&#123;</span>  </span><br><span class="line">    	<span class="string">listen</span> <span class="number">8888</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">ssl</span> <span class="string">on;</span></span><br><span class="line">		<span class="string">ssl_certificate</span> <span class="string">/etc/nginx/server.crt;</span> <span class="comment">#(证书公钥)</span></span><br><span class="line">		<span class="string">ssl_certificate_key</span> <span class="string">/etc/nginx/server.key;</span> <span class="comment">#(证书私钥)</span></span><br><span class="line">    	<span class="string">ssl_session_timeout</span> <span class="string">20m;</span></span><br><span class="line">   	 	<span class="string">ssl_verify_client</span> <span class="string">off;</span></span><br><span class="line">    	<span class="string">location</span> <span class="string">/</span> <span class="string">&#123;</span></span><br><span class="line">	        <span class="string">proxy_pass</span> <span class="string">http://websocket;</span>  </span><br><span class="line">       		<span class="string">proxy_http_version</span> <span class="number">1.1</span><span class="string">;</span>  </span><br><span class="line">        	<span class="string">proxy_set_header</span> <span class="string">Connection</span> <span class="string">"Upgrade"</span><span class="string">;</span>  </span><br><span class="line">    	<span class="string">&#125;</span>  </span><br><span class="line">	<span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
 
       
@@ -346,7 +347,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -451,6 +452,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

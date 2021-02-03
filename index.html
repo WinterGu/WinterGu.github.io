@@ -83,7 +83,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -124,7 +124,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -154,6 +154,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Ruby-Tutorial" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/20/Ruby-Tutorial/">Ruby-Tutorial</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/20/Ruby-Tutorial/" class="archive-article-date">
+  	<time datetime="2021-01-20T01:59:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Ruby-Tutorial"><a href="#Ruby-Tutorial" class="headerlink" title="Ruby Tutorial"></a>Ruby Tutorial</h1>
+        
+          <a class="article-more-a" href="/2021/01/20/Ruby-Tutorial/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程语言//" class="article-tag-list-link color5">编程语言</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/20/Ruby-Tutorial/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-LeetCode5421" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -177,9 +264,9 @@
         <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="　题目描述"></a>　题目描述</h2><p>给你一个房屋数组houses 和一个整数 k ，其中 houses[i] 是第 i 栋房子在一条街上的位置，现需要在这条街上安排 k 个邮筒。</p>
 <p>请你返回每栋房子与离它最近的邮筒之间的距离的 最小 总和。</p>
 <p>答案保证在 32 位有符号整数范围以内。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1478. 安排邮筒 https://leetcode-cn.com/problems/allocate-mailboxes/</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinDistance</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(<span class="keyword">int</span>[] houses, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = houses.length;</span><br><span class="line">        Arrays.sort(houses);</span><br><span class="line">        <span class="keyword">int</span>[][] rec = <span class="keyword">new</span> <span class="keyword">int</span>[n][n]; <span class="comment">// rec[i][j] 用一个邮箱最小的花费</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] ints : rec) &#123;</span><br><span class="line">            Arrays.fill(ints, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> mid = houses[i] + houses[j] &gt;&gt; <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> x = i; x &lt;= j; x++) &#123;</span><br><span class="line">                    rec[i][j] += Math.abs(houses[x] - mid);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n][k + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span>[] ints : dp) &#123;</span><br><span class="line">            Arrays.fill(ints, <span class="number">0x7fffffff</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">1</span>] = rec[<span class="number">0</span>][i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt;= Math.min(i + <span class="number">1</span>, k); j++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> x = j - <span class="number">1</span>; x &lt;= i; x++) &#123;</span><br><span class="line">                    dp[i][j] = Math.min(dp[i][j], dp[x - <span class="number">1</span>][j - <span class="number">1</span>] + rec[x][i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>来源：力扣（LeetCode）<br>        链接：<a href="https://leetcode-cn.com/problems/allocate-mailboxes" target="_blank" rel="noopener">https://leetcode-cn.com/problems/allocate-mailboxes</a><br>        著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-
+        
+          <a class="article-more-a" href="/2020/06/14/LeetCode5421/#more">more >></a>
+        
       
 
       
@@ -266,28 +353,9 @@
         <h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>给你一个整数数组 <code>arr</code> 和一个整数值 <code>target</code> 。</p>
 <p>请你在 arr 中找 两个互不重叠的子数组 且它们的和都等于 target 。可能会有多种方案，请你返回满足要求的两个子数组长度和的 最小值 。</p>
 <p>请返回满足要求的最小长度和，如果无法找到这样的两个子数组，请返回 -1 。</p>
-<ul>
-<li><p>示例 1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [3,2,2,4,3], target &#x3D; 3</span><br><span class="line">输出：2</span><br><span class="line">解释：只有两个子数组和为 3 （[3] 和 [3]）。它们的长度和为 2 。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>示例 2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [7,3,4,7], target &#x3D; 7</span><br><span class="line">输出：2</span><br><span class="line">解释：尽管我们有 3 个互不重叠的子数组和为 7 （[7], [3,4] 和 [7]），但我们会选择第一个和第三个子数组，因为它们的长度和 2 是最小值。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>示例 3：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [4,3,2,6,2,3,4], target &#x3D; 6</span><br><span class="line">输出：-1</span><br><span class="line">解释：我们只有一个和为 6 的子数组。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>示例 4：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [5,5,4,4,5], target &#x3D; 3</span><br><span class="line">输出：-1</span><br><span class="line">解释：我们无法找到和为 3 的子数组。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>示例 5：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：arr &#x3D; [3,1,1,1,5,1,2,1], target &#x3D; 3</span><br><span class="line">输出：3</span><br><span class="line">解释：注意子数组 [1,2] 和 [2,1] 不能成为一个方案因为它们重叠了。</span><br></pre></td></tr></table></figure>
-<p>提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 &lt;&#x3D; arr.length &lt;&#x3D; 10^5</span><br><span class="line">1 &lt;&#x3D; arr[i] &lt;&#x3D; 1000</span><br><span class="line">1 &lt;&#x3D; target &lt;&#x3D; 10^8</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>哈希表 + 前缀和 + 动态规划</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minSumOfLengths</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">       Map&lt;Integer, Integer&gt; fuck = <span class="keyword">new</span> HashMap&lt;&gt;(); <span class="comment">// 保存前缀和 &lt;和，下标&gt;</span></span><br><span class="line">       fuck.put(<span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">int</span> curPreSum = <span class="number">0</span>; <span class="comment">// 保存当前位置前缀和 </span></span><br><span class="line">       <span class="keyword">int</span> mi = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">int</span> ans = <span class="number">0x7fffffff</span>;</span><br><span class="line">       List&lt;Integer&gt; m_f = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 长度为arr.length ,当前位置前面满足target的子数组长度</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">           curPreSum += arr[i]; <span class="comment">// 计算当前前缀和，并保存</span></span><br><span class="line">           fuck.put(curPreSum, i);</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (fuck.containsKey(curPreSum - target)) &#123;</span><br><span class="line">               <span class="comment">// 计算是否存在前缀和等于 curPreSum - target，存在这存在位置到当前位置和为target</span></span><br><span class="line">               <span class="keyword">int</span> l_i = fuck.get(curPreSum - target); <span class="comment">// 起点位置</span></span><br><span class="line">               <span class="keyword">int</span> ttt = i - l_i; <span class="comment">// 子数组长度</span></span><br><span class="line">               <span class="keyword">if</span> (mi == <span class="number">0</span>)</span><br><span class="line">                   <span class="comment">// 表示前面还没有满足条件子数组</span></span><br><span class="line">                   mi = ttt;</span><br><span class="line">               <span class="keyword">else</span></span><br><span class="line">                   <span class="comment">// 判断当前子数组长度和前面子数组长度那个更短</span></span><br><span class="line">                   mi = Math.min(mi, ttt);</span><br><span class="line">               m_f.add(mi);</span><br><span class="line"></span><br><span class="line">               <span class="keyword">if</span> (l_i != -<span class="number">1</span> &amp;&amp; m_f.get(l_i) != <span class="number">0</span>)</span><br><span class="line">                   <span class="comment">// 当找到的l_i之前存在哦子数组，和当前的子数组，求和</span></span><br><span class="line">                   ans = Math.min(ans, m_f.get(l_i) + ttt);</span><br><span class="line"></span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               m_f.add(mi);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (ans == <span class="number">0x7fffffff</span>)</span><br><span class="line">           <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">       <span class="keyword">return</span> ans;</span><br></pre></td></tr></table></figure>
-
+        
+          <a class="article-more-a" href="/2020/06/14/LeetCode5423/#more">more >></a>
+        
       
 
       
@@ -374,24 +442,9 @@
         <h1 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h1><blockquote>
 <p>给定一组有固定价值和固定重量的物品，以及一个已知最大承重量的背包，求在不超过背包最大承重量的前提下，能放进背包里面的物品的最大总价值。</p>
 </blockquote>
-<h2 id="0-1背包问题"><a href="#0-1背包问题" class="headerlink" title="0-1背包问题"></a>0-1背包问题</h2><p>每一种物品都只有一件，可以选择放或不妨。假设有n件物品，背包承重为m。</p>
-<p>可以采用一个二维数组去解决：$f[i][j]$，其中$i$代表加入背包的前$i$件物品，$j$表示背包的承重，$f[i][j]$表示当前状态下能放进背包里面的物品的最大总价值。那么$f[n][m]$就是最终结果。</p>
-<p>采用<strong>动态规划</strong>，必须知道<strong>初始状态</strong>和<strong>状态转移方程</strong>。初始状态容易知道，状态转移方程如何求解？</p>
-<p>对于一件物品，我们可以选择放或者不放进背包两种选择：</p>
-<ol>
-<li>假如放进背包，$f[i][j]=f[i-1][j-weight[i]]+value[i]$，右边的公式可以这样理解：在没放进这件物品之前的状态值加上要放进去这件物品的价值。$f[i-1][j-weight[i]]$部分，$i-1$容易理解，关键的是$j-weight[i]$意味着：要将这件物品放入背包，背包中必须预留这部分空间。</li>
-<li>假如不放进背包，$f[i][j]=f[i-1][j]$，这是理所当然的。</li>
-</ol>
-<p>因此，状态转移方程就是：$f[i][j]=max(f[i-1][j],f[i-1][j-weight[i]]+value[i])$</p>
-<p>除此之外，还有一种特殊情况，这种情况就是背包放不了当前这一物品，这种情况下$f[i][j]=f[i-1][j]$</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> V 500</span></span><br><span class="line"><span class="keyword">int</span> weight[<span class="number">20</span>+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> value[<span class="number">20</span>+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">20</span>+<span class="number">1</span>][V+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入物品个数："</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请分别输入"</span> &lt;&lt; n &lt;&lt; <span class="string">"物品的重量和价值："</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; weight[i] &gt;&gt; value[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入背包的容量："</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (weight[i] &gt; j)</span><br><span class="line">            &#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j] &gt; f[i<span class="number">-1</span>][j-weight[i]] + value[i] ? f[i<span class="number">-1</span>][j] : f[i<span class="number">-1</span>][j-weight[i]] + value[i];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"背包能放的最大价值为："</span>&lt;&lt; f[n][m] &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>0-1背包还可以使用一维数组解决：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> V 500</span></span><br><span class="line"><span class="keyword">int</span> weight[<span class="number">20</span>+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> value[<span class="number">20</span>+<span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> f[V+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入物品个数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请分别输入"</span> &lt;&lt; n &lt;&lt; <span class="string">"个物品的重量和价值:"</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; weight[i] &gt;&gt; value[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入背包容量:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = m; j &gt;= <span class="number">1</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (weight[i] &lt;= j) &#123;</span><br><span class="line">                f[j] = f[j] &gt; f[j - weight[i]] + value[i] ? f[j] : f[j - weight[i]] + value[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"背包能放的最大价值为:"</span> &lt;&lt; f[m] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h2><p>完全背包中的每种物品都有无限件。</p>
-<p>相关代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> V 500</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> weight[<span class="number">20</span> + <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> value[<span class="number">20</span> + <span class="number">1</span>];</span><br><span class="line"><span class="keyword">int</span> f[V + <span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入物品个数:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请分别输入"</span> &lt;&lt; n &lt;&lt; <span class="string">"个物品的重量和价值:"</span> &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; weight[i] &gt;&gt; value[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入背包容量:"</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = weight[i]; j &lt;= m; j++) &#123;</span><br><span class="line">            f[j] = <span class="built_in">max</span>(f[j], f[j - weight[i]] + value[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"背包能放的最大价值为:"</span> &lt;&lt; f[m] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>未完参考<a href="https://www.cnblogs.com/mfrank/p/10803417.html" target="_blank" rel="noopener">https://www.cnblogs.com/mfrank/p/10803417.html</a></p>
-
+        
+          <a class="article-more-a" href="/2020/05/18/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/#more">more >></a>
+        
       
 
       
@@ -470,48 +523,9 @@
 <li>知识存储 neo4j、apache Jena等</li>
 </ul>
 <p>知识图谱的关键，先定义好构建它用来干啥，目标业务导向，定义好符合业务逻辑schema层是最重要的。在有了schema后才是实体抽取和关系抽取。关系抽取将知识点整合成知识网络的重要过程。</p>
-<p><img src="/images/PCNN/9168245-668e61926106cb94.webp" alt="9168245-668e61926106cb94"></p>
-<ul>
-<li>input：句子：<code>Steve Jobs was the co-founder of Apple Inc</code>和两个实体 <code>Steve Jobs</code>和<code>Apple Inc</code></li>
-<li>output：实体之间的关系：<code>/business/company/founder</code></li>
-</ul>
-<p>因此，可以将其转换为一个分类问题，输入句子和实体信息，让模型分出两个实体之间的关系属于的类别。</p>
-<h2 id="PCNN"><a href="#PCNN" class="headerlink" title="PCNN"></a>PCNN</h2><p><a href="http://www.emnlp2015.org/proceedings/EMNLP/pdf/EMNLP203.pdf" target="_blank" rel="noopener">http://www.emnlp2015.org/proceedings/EMNLP/pdf/EMNLP203.pdf</a></p>
-<p>PCNN的实现过程：</p>
-<ul>
-<li><p>数据预处理：对数据先进行位置编码，按句子中各个词距离实体的距离进行编码。</p>
-<p>例如：“As we known，<strong>Steve Jobs</strong> was the co-founder of <strong>Apple Inc</strong> which is a great company in America.”</p>
-<p>句子中由两个entity，句子产生两个和句子长度相同的编码。</p>
-<p>pos_1:[-4,-3,-2,-1,0,1,2,3……] ,其中0就是<strong>Steve Jobs</strong>的位置。</p>
-<p>pos_2:[-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3……] 其中0就是<strong>Apple Inc</strong>的位置。</p>
-</li>
-<li><p>切分句子：其中最重要的是将一条文本数据在两个实体处各切一刀将文本分成了三段</p>
-<p>比如 As we known，<strong>Steve Jobs</strong> was the co-founder of <strong>Apple Inc</strong> which is a great company in America，将被切成：</p>
-<ol>
-<li><p>As we known，<strong>Steve Jobs</strong></p>
-</li>
-<li><p><strong>Steve Jobs</strong> was the co-founder of <strong>Apple Inc</strong></p>
-</li>
-<li><p><strong>Apple Inc</strong> which is a great company in America</p>
-<p>注：位置编码也同样进行了切分操作</p>
-</li>
-</ol>
-</li>
-<li><p>特征提取：将位置特征和文本特征拼接后，然后将上面三个数据分别通过CNN提取特征</p>
-</li>
-<li><p>关系分类：提取出来的特征通过池化层之后进行拼接后传入softmax层，最终得到relation的分类。</p>
-</li>
-</ul>
-<p><img src="/images/PCNN/pcnn.webp" alt="pcnn"></p>
-<p>从上面流程中可以发现，这个网络结构注意实体之间的距离信息，位置信息，以及实体之间或左右的信息。</p>
-<ul>
-<li><p>一般而言，两个实体之间距离越近，则他们有关系的可能性越大</p>
-</li>
-<li><p>而反映实体之间有关系的词一般会出线在两个实体之间，左侧或者右侧</p>
-<p>例如：<strong>Steve Jobs</strong> was the co-founder of <strong>Apple Inc</strong> ， 关系词 co-founder就在两个entity之间</p>
-</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/05/11/%E5%85%B3%E7%B3%BB%E6%8A%BD%E5%8F%96%E4%B9%8BPCNN/#more">more >></a>
+        
       
 
       
@@ -589,1321 +603,9 @@
 <p>知识表示学习：将知识库中的实体和关系表示为稠密低维的实值向量。</p>
 <p>知识图谱中包含实体和关系，其中节点表示实体，连边代表关系。</p>
 <p>知识通常用三元组表示：（head,relation,tail）</p>
-<p>知识表示学习的意义</p>
-<ul>
-<li>低维向量提高计算效率</li>
-<li>稠密向量缓解数据稀疏</li>
-<li>多源的异质信息表示形式统一，便于迁移和融合。</li>
-</ul>
-<h3 id="知识表示学习的代表模型"><a href="#知识表示学习的代表模型" class="headerlink" title="知识表示学习的代表模型"></a>知识表示学习的代表模型</h3><h3 id="基于距离的模型"><a href="#基于距离的模型" class="headerlink" title="基于距离的模型"></a>基于距离的模型</h3><ol>
-<li><p>基于距离的模型——UM</p>
-<p>利用头实体和尾实体的共现信息，忽略它们之间的关系。</p>
-<p>得分函数为：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = -||h-t||_{l1/l2}</script><p>Bordes A, Glorot X, Weston J, et al. Joint learning of words and meaning representations for open-text semantic parsing. Artificial Intelligence and Statistics. 2012: 127-135.</p>
-</li>
-<li><p>基于距离的模型——SE</p>
-<p>和UM比较，SE添加了关系信息：将关系建模为分别针对头实体和尾实体的矩阵，得分函数为：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = - ||M_r^hh-M_r^tt||_{l1/l2}</script><p>Bordes A, Weston J, Collobert R, et al. Learning structured embeddings of knowledge bases. AAAI. 2011.</p>
-</li>
-</ol>
-<h3 id="基于翻译的模型"><a href="#基于翻译的模型" class="headerlink" title="基于翻译的模型"></a>基于翻译的模型</h3><ol>
-<li><p>基于翻译的模型——TransE</p>
-<p>将每条知识(head,relation,tail)中的relation看成从head到tail的翻译操作。</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = ||h+r-t||_{l1/l2}</script><p>例如：</p>
-<p>（北京，是…的首都，中国）</p>
-<p>（华盛顿，是…的首都，美国）</p>
-</li>
-</ol>
-<script type="math/tex; mode=display">
-   L=\sum_{\xi \in T}\sum_{\xi' \in T'} [\gamma + f(\xi) - f(\xi')]_{+}</script><blockquote>
-<p>我的理解，这个损失函数应该采用了负采样，$\xi$表示正例，$\xi’$表示负例，求损失函数的最小值。</p>
-</blockquote>
-<p>   TransE的缺点：无法处理复杂关系，比如1-N，N-1,N-N关系。</p>
-<p>   例如：（奥巴马，是…总统，美国）、（布什，是…总统，美国）,在TransE中，奥巴马和布什的向量会变的相同。</p>
-<p>   Bordes A, Usunier N, Garcia-Duran A, et al. Translating embeddings for modeling multi-relational data. NIPS2013: 2787-2795</p>
-<ol>
-<li><p>基于翻译的模型——TransH</p>
-<p>为了解决TransE的问题，TransH将每种关系建模为一个超平面，将三元组中的头实体和尾实体分别映射到超平面上。</p>
-<p>得分函数为：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& h_{\perp} = h-w_r^Thw_r,\quad t_{\perp} = t - w_r^Ttw_r \\
-& f(h,r,t) = - ||h_{\perp}+r-t_{\perp}||_{l1/l2}
-\end{align}</script><p>Wang Z, Zhang J, Feng J, et al. Knowledge graph embedding by translating on hyperplanes. AAAI2014</p>
-</li>
-<li><p>基于翻译的模型——TransR/CTransR</p>
-<p>TransE和TransH将实体和关系嵌入到同一个向量空间。</p>
-<p>TransR表示不同的关系应该嵌入不同的语义空间，将关系嵌入为矩阵，将实体映射到关系子空间中</p>
-<p>CTransR将属于同一种关系的头尾实体对分成聚成多个类，针对每个类学习不同的关系矩阵。</p>
-<script type="math/tex; mode=display">h_{\perp} = hM_r,\quad t_{\perp} = tM_r</script><p>Lin Y, Liu Z, Sun M, et al. Learning entity and relation embeddings for knowledge graph completion. AAAI2015.</p>
-</li>
-<li><p>基于翻译的模型——TransD</p>
-<p>TransH和TransR/CTransR中，不同种类的实体共享相同的映射向量或矩阵，但一个关系的头尾实体的种类和属性往往具有较大差别。</p>
-<p>TransR引入了空间映射，但是也产生了大量的模型参数。</p>
-<p>TransD则将每个对象（实体、关系）嵌入为两个向量：语义向量、映射向量。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& M_r^h=r_ph_p^T+I^{k*d},\quad M_r^t = r_pt_p^T+I^{k*d} \\
-& h_{\perp} = M_r^hh,\quad t_{\perp} = M_r^tt
-\end{align}</script><p>Ji G, He S, Xu L, et al. Knowledge graph embedding via dynamic mapping matrix. ACL2015: 687-696</p>
-</li>
-<li><p>基于翻译的模型——TranSparse</p>
-<p>为了克服关系的<strong>异质性</strong>（有的关系连接的头尾实体对较多，有的较少）和<strong>不平衡性</strong>（同一关系的头实体和尾实体的数量不对称），TranSparse（share/separate）用自适应的稀疏矩阵代替一般的映射矩阵，稀疏度由关系连接的头尾实体对的数量决定。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& h_{\perp} = M_r(\theta_r)h,\quad t_{\perp} = M_r(\theta_r)t \\
-& h_{\perp} = M_r^h(\theta_r^h)h,\quad t_{\perp} = M_r^t(\theta_r^t)t
-\end{align}</script><p>Ji G, Liu K, He S, et al. Knowledge graph completion with adaptive sparse transfer matrix. AAAI. 2016</p>
-</li>
-<li><p>基于翻译的模型——TransM</p>
-<p>TransM对前面几种模型的基础条件进行了放宽，即$h+r \approx t$。方法是在前面得分函数的基础上增加了权重：</p>
-<script type="math/tex; mode=display">
-w_r = \frac{1}{\log (h_rpt_r + t_rph_r)}</script><p>Fan M, Zhou Q, Chang E, et al. Transition-based knowledge graph embedding with relational mapping properties. Proceedings of the 28th Pacific Asia Conference on Language, Information and Computing. 2014</p>
-</li>
-<li><p>基于翻译的模型——ManiFoldE</p>
-<p>ManiFoldE将约束$h+r \approx t$放宽为一种基本流形的约束，得分函数为：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& f(h,r,t) = ||M(h,r,t) - D_r^2||_{l1/l2} \\
-& M(h,r,t) = |||h+r-t|_{l2}
-\end{align}</script><p>$M()$是一个流形，以(h,r,<em>)为例，所有合适的尾实体都分布在高维流形上，例如$M()$是一个高维球体，那么所有的\</em>都在以$h+r$为球心，以$D_r$为半径的球面上。</p>
-<p>Xiao H, Huang M, Zhu X. From one point to a manifold: Knowledge graph embedding for precise link prediction. arXiv preprint arXiv:1512.04792, 2015</p>
-</li>
-<li><p>基于翻译的模型——TransF</p>
-<p>TransF将约束$h+r \approx t$放宽为：只要求$h+r \;or\;t-r$的方向与$t\;or\;h$一致。得分函数同时衡量了$h+r$和$t$,$t-r$和$h$的方向：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = (h+r)^Tt+(t-r)^Th</script><p>Feng J, Huang M, Wang M, et al. Knowledge graph embedding by flexible translation. Fifteenth International Conference on the Principles of Knowledge Representation and Reasoning. 2016.</p>
-</li>
-<li><p>基于翻译的模型——TransA</p>
-<p>TransE及其扩展模型的两个问题：</p>
-<ul>
-<li>得分函数采用L1或L2距离，灵活度不够</li>
-<li>损失函数过于简单，实体和关系向量的每一维等同考虑。</li>
-</ul>
-<p>TransA将损失函数中的距离度量改成马式距离，并为每一维学习不同的权重，$W_r$是非负对矩阵。</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = (h+r-t)^TW_r(h+r-t)</script><blockquote>
-<p>看起来像二次型那块的公式</p>
-</blockquote>
-<p>Xiao H, Huang M, Hao Y, et al. TransA: An adaptive approach for knowledge graph embedding. arXiv preprint arXiv:1509.05490, 2015</p>
-</li>
-<li><p>基于翻译的模型——KG2E</p>
-<p>KG2E使用高斯分布来表示实体和关系。高斯分布的均值表示实体或关系在语义空间的中心位置，而高斯分布的协方差则表示实体或关系的不确定度。</p>
-<ul>
-<li>头尾实体间的关系的概率分布：<script type="math/tex; mode=display">
-P_e \sim N(h-t,\sum_h+\sum_t)</script></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>实际关系的概率分布</p>
-<script type="math/tex; mode=display">
-    P_r \sim N(r,\sum_r)</script><ul>
-<li><p>损失函数：KL散度/期望概率(计算上述两个概率的相似度)</p>
-<p><a href="https://www.jianshu.com/p/43318a3dc715?isappinstalled=0" target="_blank" rel="noopener">https://www.jianshu.com/p/43318a3dc715?isappinstalled=0</a></p>
-<script type="math/tex; mode=display">
-    D_{KL}(P_e||P_r) = \sum_{i=1}^N P_e(x_i)\cdot(\log P_e(x_i)-\log P_r(x_i))</script><p>  He S, Liu K, Ji G, et al. Learning to represent knowledge graphs with gaussian embedding. Proceedings of the 24th ACM International on Conference on Information and Knowledge Management. ACM, 2015: 623-632.</p>
-</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li><p>基于翻译的模型——TransG</p>
-<p>也使用高斯分布来表示实体和关系，但认为一个关系连接不同的头尾实体时拥有不同的语义。所以关系的分布是高斯分布的混合。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& h \sim N(\mu_h,\sigma_h^2I),\quad t \sim N(\mu_t,\sigma_t^2I) \\
-& r = \sum_i \pi_r^i\mu_r^i,\quad \mu_r^i \sim N(\mu_h-\mu_t,(\sigma_h^2+\sigma_t^2)I)
-\end{align}</script><p>得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = \sum_i\pi_r^i \exp(\frac{-||\mu_h+\mu_r^i-\mu_t||_{l2}}{\sigma_h^2+\sigma_t^2})</script><p>Xiao H, Huang M, Zhu X. TransG: A generative model for knowledge graph embedding. Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2016, 1: 2316-2325.</p>
-</li>
-</ol>
-<h2 id="语义匹配模型"><a href="#语义匹配模型" class="headerlink" title="语义匹配模型"></a>语义匹配模型</h2><ol>
-<li><p>LFM （Latent Factor Model）</p>
-<p>LFM利用基于关系的双线性变换，刻画实体和关系之间的二阶联系。协同性较好，计算复杂度低，得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = h^TM_rt</script><p>Jenatton R, Roux N L, Bordes A, et al. A latent factor model for highly multirelational data. NIPS. 2012: 3167-3175.</p>
-</li>
-<li><p>DistMult</p>
-<p>DistMult将LFM中关系的表示矩阵限制为对角阵，极大降低了模型复杂度，模型效果反而得到显著提升。</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = h^Tdiag(M_r)t</script><p>Yang B, Yih W, He X, et al. Embedding entities and relations for learning and inference in knowledge bases. arXiv preprint arXiv:1412.6575, 2014</p>
-</li>
-<li><p>ComplEx</p>
-<p>为了更好的对非对称关系建模，ComplEx将DistMult中实体和关系的表示扩展到复数向量空间中，即向量的每一维都是复数，而不在是实数。    得分函数如下，$Re(x)$是取x的实部。</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = Re(h^Tdiag(M_r)t)</script><p>Trouillon T, Welbl J, Riedel S, et al. Complex embeddings for simple link prediction. International Conference on Machine Learning. 2016: 2071-208</p>
-</li>
-<li><p>ANALOGY</p>
-<p>ANALOGY对知识图谱中的类比关系进行建模。例如：太阳系中的太阳之于行星，原子系统中的原子核之于核外电子。</p>
-<p>得分函数同LFM:</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = h^TM_rt</script><p>约束条件：</p>
-<ul>
-<li>正规性：$M_rM_r^T=M_r^TM_r$，如：对称矩阵可以对对称关系建模（好友关系），负对称矩阵对非对称关系建模（父子关系）</li>
-<li>交换性：$M<em>rM</em>{r’}=M<em>{r’}M</em>{r}$</li>
-</ul>
-<p>Liu H, Wu Y, Yang Y. Analogical inference for multi-relational embeddings. Proceedings of the 34th International Conference on Machine Learning-Volume JMLR. org, 2017: 2168-2178.</p>
-</li>
-<li><p>RESCAL</p>
-<p>RESCAL是矩阵分解模型的典型代表。在该模型中，知识图谱中的所有实体对和所有关系构成一个张量$\mathbf{X}$，如果三元组（h,r,t）存在，则$X_{hrt}=1$，否则为0。</p>
-<p>张量分解旨在将每个三元组（h,r,t）分解为实体和关系表示$X<em>{hrt}=h^tM_rt$，使得$X</em>{hrt}$尽量接近1。</p>
-<p>RESCAL的基本思想和LFM类似，不同的是，RESCAL会优化张量中的所有位置，包括值为0的位置，而LFM只优化知识图谱中存在的三元组。</p>
-<p>Nickel M, Tresp V, Kriegel H P. A Three-Way Model for Collective Learning on Multi-Relational Data. ICML. 2011, 11: 809-816.</p>
-</li>
-<li><p>HolE</p>
-<p>HolE定义了一种循环相关的操作，更好的捕捉实体间的语义关联。</p>
-<ul>
-<li>循环相关操作定义：<script type="math/tex; mode=display">
-[h\otimes t]_k = \sum_{i=0}^{d-1} [h]_i*[t]_{(i+k)\mod d}</script></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>得分函数：<script type="math/tex; mode=display">
-   f(h,r,t) = r^T((h\otimes t) = \sum_{k=0}^{d-1}([r]_k\sum_{i=0}^{d-1} [h]_i*[t]_{(i+k)\mod d}))</script></li>
-</ul>
-<p>Nickel M, Rosasco L, Poggio T. Holographic embeddings of knowledge graphs. AAAI. 2016.</p>
-<ol>
-<li><p>SLM</p>
-<p>SLM利用标准非线性单层神经网络来连接尸体</p>
-<p>得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = u_r^T \tanh(M_r^hh+M_r^tt)</script><p>Socher R, Chen D, Manning C D, et al. Reasoning with neural tensor networks for knowledge base completion. NIPS. 2013: 926-93</p>
-</li>
-<li><p>SME</p>
-<p>SME利用神经网络结构，为三元组设计了两种得分函数：</p>
-<ul>
-<li>线性形式：<script type="math/tex; mode=display">
-f(h,r,t) = (M_1h+M_2r+b_1)^T(M_3t+M_4r+b_2)</script></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>双线性形式：<script type="math/tex; mode=display">
-   f(h,r,t) = (M_1h\otimes M_2r+b_1)^T(M_3t\otimes M_4r+b_2)</script></li>
-</ul>
-<p>Bordes A, Glorot X, Weston J, et al. A semantic matching energy function for learning with multi-relational data. Machine Learning, 2014, 94(2): 233-259.</p>
-<ol>
-<li><p>NTN</p>
-<p>NTN用张量网络捕获头尾实体间的语义关联，得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = u_r^T \tanh \bigg(h^TM_rt+V_r \tbinom{h}{t}+b_r\bigg)</script><p>$u_r$是与关系相关的线性层，$M_r$是所有关系共享的三阶张量，$V_r$是与关系相关的投影举证。</p>
-<p>Socher R, Chen D, Manning C D, et al. Reasoning with neural tensor networks for knowledge base completion. NIPS. 2013: 926-934.</p>
-</li>
-<li><p>MLP</p>
-<p>MLP使用标准的多层神经网络捕获头尾实体间的语义关联，得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = w_r^T \tanh(M_r\cdot(h,r,t))</script><p>$M_r$是与关系相关的第一层神经网络的权重，$w_r$是与关系相关的第二层神经网络的权重，二者为所有关系共享。</p>
-<p>Dong X, Gabrilovich E, Heitz G, et al. Knowledge vault: A web-scale approach to probabilistic knowledge fusion. Proceedings of the 20th ACM SIGKDD international conference on Knowledge discovery and data mining. ACM, 2014: 601-610.</p>
-</li>
-<li><p>NAM</p>
-<p>NAM使用1+L层DNN捕获头尾实体间的语义关联：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& a^{(l)} =W^{(l)}z^{(l-1)} + b^{(l)},\quad l=1,\dots,L \\
-& z^{(l)} = ReLU(a^{(l)}),\quad l=1,\dots,L
-\end{align}</script><p>$(h;r)$作为输入，即$z^0$</p>
-<p>得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = \sigma(z^{(L)}\cdot t)</script><p>NAM为复杂关系设计了神经网络</p>
-<p>RMNN（relation-modulated neural networks）:</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& a^{(l)} = W^{(l)}z^{(l-1)}+B^{(l)}r,\quad l=1,\dots,L \\
-& z^{(l)} = ReLU(a^{(l)}),l=1,\dots,L
-\end{align}</script><p>$h$作为输入，即$z^0$</p>
-<p>得分函数：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = \sigma(z^{(L)} \cdot t + B^{(L+1)}r)</script></li>
-</ol>
-<pre><code>Liu Q, Jiang H, Evdokimov A, et al. Probabilistic reasoning via deep learning: Neural association models. arXiv preprint arXiv:1603.07704, 2016.
-</code></pre><ol>
-<li><p>ConvE</p>
-<p>ConvE利用卷积神经网络捕获实体间的语义关联：</p>
-<script type="math/tex; mode=display">
-f(h,r,t) = \sigma((vec([\bar{h};\bar r]\cdot w) W)t)</script><p>$w$是卷积核(多个)，$W$是映射矩阵</p>
-<p>Dettmers T, Minervini P, Stenetorp P, et al. Convolutional 2d knowledge graph embeddings. AAAI. 2018.</p>
-</li>
-</ol>
-<h3 id="融合多源信息的模型"><a href="#融合多源信息的模型" class="headerlink" title="融合多源信息的模型"></a>融合多源信息的模型</h3><p>实体类别信息：SSE、TKRL</p>
-<ul>
-<li>Guo S, Wang Q, Wang B, et al. Semantically smooth knowledge graph embedding. Proceedings of the 53rd Annual Meeting of the Association for Computational Linguistics and the 7th International Joint Conference on Natural Language Processing (Volume 1: Long Papers). 2015, 1: 84-94.</li>
-<li>Xie R, Liu Z, Sun M. Representation Learning of Knowledge Graphs with Hierarchical Types. IJCAI. 2016: 2965-2971.</li>
-</ul>
-<p>关系路径</p>
-<p>PTransE 在 TransE的基础上加入了实体对间的路径信息，得分函数为：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& f(h,r,t) = E(h,r,t) + E(h,P,t) \\
-& E(h,r,t) = ||h+r-t|| \\
-& E(h,P,t) = \frac{1}{Z} \sum_{p \in P(h,t)} R(p|h,t)E(h,p,t)\\
-& E(h,p,t) = ||h+p-t|| = ||p-(t-h)|| = ||p-r|| = E(p,r)
-\end{align}</script><p>由于实体对间的所以路径都是可靠的，因此，PtransE提出了Path-Contraint Resource Allocation图算法度量关系路径的可靠性。$R(p|h,t)$表示从h经过路径p，t所获得的资源数量。</p>
-<p>Lin Y, Liu Z, Luan H, et al. Modeling relation paths for representation learning of knowledge bases. arXiv preprint arXiv:1506.00379, 2015</p>
-<p>文本描述信息</p>
-<p>NTN</p>
-<p>Socher R, Chen D, Manning C D, et al. Reasoning with neural tensor networks for knowledge base completion. NIPS. 2013: 926-934.</p>
-<p>DKRL</p>
-<p>Xie R, Liu Z, Jia J, et al. Representation learning of knowledge graphs with<br>entity descriptions. AAAI. 2016</p>
-<p>TEKE</p>
-<p>Wang Z, Li J Z. Text-Enhanced Representation Learning for Knowledge Graph. IJCAI. 2016: 1293-1299</p>
-<p>逻辑规则</p>
-<p>ILP Integer Linear Programming</p>
-<p>Wang Q, Wang B, Guo L. Knowledge base completion using embeddings and<br>rules. IJCAI. 2015</p>
-<p>KALE</p>
-<p>Guo S, Wang Q, Wang L, et al. Jointly embedding knowledge graphs and<br>logical rules. EMNLP. 2016: 192-202.</p>
-<p>PUGE</p>
-<p>Guo S, Wang Q, Wang L, et al. Knowledge graph embedding with iterative<br>guidance from soft rules. AAAI. 2018</p>
-<p>实体属性信息</p>
-<p>Nickel M, Tresp V, Kriegel H P. Factorizing yago: scalable machine learning for linked data. WWW. 2012: 271-280.</p>
-<p>时序信息</p>
-<p>Jiang T, Liu T, Ge T, et al. Encoding temporal information for time-aware link<br>prediction. EMNLP. 2016: 2350-2354.</p>
-<p>图结构</p>
-<p>GAKE</p>
-<p>Feng J, Huang M, Yang Y. GAKE: graph aware knowledge embedding. COLING. 2016: 641-651</p>
-<h3 id="较新成果"><a href="#较新成果" class="headerlink" title="较新成果"></a>较新成果</h3><ol>
-<li><p>TransC</p>
-<p>TransC将知识图谱中的实例和概念区别对待：实例嵌入为向量，概念嵌入为球体。用点和球、球和球之间的相对位置关系对instanceOf和subClassOf两种关系建模，普通关系采用TransE模型。</p>
-</li>
-</ol>
-<script type="math/tex; mode=display">
-\begin{align}
-& f_e(i,c) = ||i-p||_2-m \\
-& d = ||p_i-p_j||_2
-\end{align}</script><p>​                    Lv X, Hou L, Li J, et al. Differentiating Concepts and Instances for Knowledge Graph Embedding.EMNLP. 2018: 1971-1979.</p>
-<ol>
-<li><p>TransN</p>
-<p>利用实体在知识图谱中的邻居节点，将实体和关系分别嵌入为两种向量：</p>
-<ul>
-<li>语义向量：用于表示实体或关系的语义</li>
-<li>上下文向量：用于表示其他实体或关系的上下文</li>
-</ul>
-<p>TransN选择邻居节点（实体关系对）</p>
-<ul>
-<li>利用实体的邻居总数动态计算所选邻居的数量</li>
-<li>利用关系间的相似度动态计算邻居节点的权重</li>
-</ul>
-<p>Wang C C, Cheng P J. Translating Representations of Knowledge Graphs with Neighbors. SIGIR. 2018: 917-920</p>
-</li>
-<li><p>GAN-based Framework</p>
-<p>利用生成对抗网络中的生成器进行高质量的负采样，用鉴别器计算reward和进行表示学习。</p>
-<p>Wang P, Li S, Pan R. Incorporating GAN for negative sampling in knowledge representation learning. AAAI. 2018.</p>
-</li>
-</ol>
-<h3 id="模型评测"><a href="#模型评测" class="headerlink" title="模型评测"></a>模型评测</h3><ol>
-<li><p>常用数据集</p>
-<ul>
-<li>WordNet是著名的词典知识库，主要用于词义消歧。主要定义了名词、动词、形容词和副词之间的语义关系。例如名词之间的上下位关系（如 猫科动物是猫的上位词）、动词之间额蕴含关系（如 打鼾蕴含睡眠）等。</li>
-<li>Freebase将WordNet和Wikipedia进行了结合，用WordNet的本体知识补充Wikipedia中实体的上下位知识。其数据基于RDF三元组模型，底层采用图数据库进行存储。</li>
-<li>YAGO是一个综合型知识库，整合了Wikipedia、WordNet和GeoNames等数据源</li>
-<li>其他常用数据集，WN11,WN18,FB13,FB15K,FB1M,FB5M</li>
-</ul>
-</li>
-<li><p>链接预测</p>
-<p>指预测含有普通关系的三元组中丢失的头实体或尾实体。预测结果是候选实例根据损失值排名的清单，而不直接给出最匹配实例。</p>
-<p>评测标准一般两种：</p>
-<ul>
-<li>MRR：所有正确实例排名的倒数的平均值;</li>
-<li>Hists@N：正确实例的排名中不大于N的比例</li>
-</ul>
-</li>
-<li><p>三元组分类</p>
-<p>知识图谱中的三元组分类表示一个二分类问题，其是判断给定的三元组是否是知识图谱中真实存在的。</p>
-<p>评测标准：Accuracy、Precision、Recall和F1</p>
-</li>
-</ol>
-<h3 id="知识表示学习应用"><a href="#知识表示学习应用" class="headerlink" title="知识表示学习应用"></a>知识表示学习应用</h3><ol>
-<li><p>知识融合</p>
-<p>Sun Z., Hu W., Li C. Cross-lingual Entity Alignment via Joint Attribute-Preserving EmbeddingISWC2017</p>
-</li>
-<li><p>人机交互</p>
-<p>Commonsense Knowledge Aware Conversation Generation with Graph<br>Attention. IJCAI 2018</p>
-</li>
-</ol>
-<h2 id="知识抽取"><a href="#知识抽取" class="headerlink" title="知识抽取"></a>知识抽取</h2><h3 id="问题和方法"><a href="#问题和方法" class="headerlink" title="问题和方法"></a>问题和方法</h3><p>场景（数据源）</p>
-<ul>
-<li>（半）结构化文本数据：百科知识中的Inforbox、规范的表格、数据库、社交网络等</li>
-<li>非结构化文本数据：网页、新闻、社交媒体、论文等</li>
-<li>多媒体数据：图片、视频</li>
-</ul>
-<p>信息抽取和知识抽取</p>
-<ul>
-<li>区别：信息抽取获得结构化数据，知识抽取获得机器可理解和处理的知识（知识表示）</li>
-<li>关系：知识抽取建立在信息抽取的基础上，都普遍用到自然语言处理技术、基于规则的包装器和机器学习等技术。</li>
-</ul>
-<p>知识抽取挑战</p>
-<ul>
-<li>知识的不明确性 ambiguous</li>
-<li>知识的不完备性 incomplete 关系、标签/属性、实体等缺失</li>
-<li>知识的不一致性 inconsistent</li>
-</ul>
-<h3 id="知识抽取场景和方法"><a href="#知识抽取场景和方法" class="headerlink" title="知识抽取场景和方法"></a>知识抽取场景和方法</h3><ol>
-<li><p>从关系数据库中抽取知识</p>
-<p>抽取原理</p>
-<ul>
-<li>表 Table ——类 Class</li>
-<li>列 Column ——属性 Property</li>
-<li>行 Row —— 资源/实例 Resource/Instance</li>
-<li>单元 Cell ——属性值 Property Value</li>
-<li>外键 Foreign Key ——指代 Reference</li>
-</ul>
-<p>根据上面的规则将关系性数据库转化为一个知识库</p>
-<p>抽取标准</p>
-<ul>
-<li>Direct Mapping</li>
-<li>R2RML</li>
-</ul>
-<p>抽取工具</p>
-<ul>
-<li>D2R,Virtuoso,Orcle SW, Morph ….</li>
-</ul>
-<p>R2RML映射语言</p>
-<ul>
-<li>输入：数据库表、视图、SQL查询</li>
-<li>输出：三元组</li>
-</ul>
-<p>一共四个步骤：抽取类-&gt;抽取属性-&gt;抽取实例-&gt;建立类之间的关系</p>
-<p>优点：转换规则简单，易于实现</p>
-<p>缺点：</p>
-<ul>
-<li>直接转换得到的知识库语义信息不足</li>
-<li>需要熟悉原数据库设计的专家辅助进行知识库的优化</li>
-</ul>
-</li>
-<li><p>百科知识的抽取</p>
-<ul>
-<li>大规模多语言百科知识图谱，维基百科的结构化版本，linked data核心数据集</li>
-<li>覆盖127中语言，两千八百万个实体，数亿三元组，支持数据集的完全下载</li>
-<li>固定模式对实体信息进行抽取，包括abstract、infobox、category、page link等</li>
-</ul>
-</li>
-<li><p>无结构化数据的知识抽取</p>
-<p>问题：当前知识图谱构建的技术瓶颈</p>
-<p>关键技术：实体识别、关系抽取、事件抽取</p>
-<ul>
-<li><p>实体识别：抽取文本中的原子信息，例如人名、组织/机构、地理位置、时间/日期、字符、金额等等</p>
-</li>
-<li><p>关系抽取：抽取实体间的语义关系</p>
-</li>
-<li>事件抽取<ul>
-<li>事件定义：具有时间、地点、参与者等基本元素，可由某个动作触发或状态改变而发生的一个图结构知识片段</li>
-<li>从数据中抽取事件信息，并以结构化和语义化形式展现，例如事件发生的时间、地点、原因、参与者等。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>爬虫的原理：</p>
-<ol>
-<li>获取目标数据的URL；</li>
-<li>向对应URL提交HTTP请求；</li>
-<li>解析HTTP响应；</li>
-<li>存储解析结果。</li>
-</ol>
-<p>请求和响应：使用Python requests</p>
-<ol>
-<li>向目标URL发出不同种类的HTTP请求（GET、POST、DELETE的等）；</li>
-<li>定制HTTP请求的头部，设置User-Agent和Cookie；</li>
-<li>使用代理（proxy）进行请求；</li>
-<li>对HTTP响应进行解析，获取状态码和文本字段。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">'http://www.baidu.com'</span></span><br><span class="line">r = requests.get(url)</span><br><span class="line">print(r.status_code)</span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
-<p>数据解析</p>
-<ul>
-<li>Beautiful Soup 提供对HTML文本进行解析，出了自带的解析库，还支持使用lxml和html.parser</li>
-<li>lxml是使用C语言编写的HTML和XML解析库，因此速度非常快</li>
-<li>html.parser是Python自带的HTML解析器</li>
-<li>正则表达式，对标签内容进行抽取</li>
-</ul>
-<p>多进程并发爬取</p>
-<ul>
-<li><p>Python内置的multiprocessing库提供了进程池类Pool，可以实现多进程并发爬取</p>
-</li>
-<li><p>Pool类的构造函数接收一个整型参数，代表进程池的大小，即并发工作进程的最大个数，默认值为计算机的CPU个数</p>
-</li>
-<li><p>Pool常用方法</p>
-<ol>
-<li><p><code>apply_async(func, args,callback, error_back)</code></p>
-<p>将爬取进程添加到进程池中，并发知行。func维并发执行的函数名，args为func函数的参数列表，callback和error_callback是进程正常退出和异常退出时调用的回调函数。用于处理程序执行结构。</p>
-</li>
-<li><p><code>close()</code></p>
-<p>关闭进程池，不能加入新的进程，用于所有进程都提交进入进程池里的时候。</p>
-</li>
-<li><p><code>join()</code></p>
-<p>将主进程挂起，等待所有子进程执行完毕，close()必须在join()方法之前调用。</p>
-</li>
-</ol>
-</li>
-<li><p>使用回调函数或者try/except语句捕获子进程异常，否则子进程异常退出时不显示任何信息</p>
-</li>
-</ul>
-<p>反爬虫机制</p>
-<ul>
-<li><p>大多数网站都由反爬虫机制，常见的有：</p>
-<ul>
-<li>验证HTTP请求头</li>
-<li>基于用户行为的反爬虫机制</li>
-</ul>
-</li>
-<li><p>反爬机制1原理</p>
-<p>在每个HTTP请求的头部包含一些关于请求的附加信息，比如User-Agent、referer、cookie。绝大多数网站都会查看User-Agent字段。</p>
-</li>
-<li><p>反爬机制1应对</p>
-<p>在发起HTTP请求，在请求头加入定制的信息。</p>
-</li>
-<li><p>反爬机制2原理</p>
-<ol>
-<li>拒绝同IP地址短期内发起大量请求，响应码维HTTP429</li>
-<li>对一段时间内网站后台日志进行分析，对访问次数异常多的IP加入“黑名单”</li>
-</ol>
-</li>
-<li><p>反爬机制2应对</p>
-<ol>
-<li>应对短时间内拒绝情况，可以间隔一段时间再请求</li>
-<li>使用Selenium模拟人的行为，使用浏览器请求。</li>
-<li>最方便的方式使用proxy server对目标网站进行请求。</li>
-</ol>
-</li>
-</ul>
-<p>百科页面爬取</p>
-<p>微软学术数据爬取</p>
-<ul>
-<li>通过API获取</li>
-</ul>
-<p>微博数据爬取</p>
-<ul>
-<li><p>爬取入口</p>
-<p>网页端、wap端</p>
-<p>对于数据全面性不高的时候，或构建语料库时，建议爬取wap端。</p>
-</li>
-<li><p>处理用户登陆</p>
-<ul>
-<li>微博需要用户登陆才能访问，网页中的cookie会自动保留登陆信息</li>
-<li>方案一：用网页端微博获取cookies数据，传入爬虫数据。</li>
-<li>方案二：编写自动登陆脚本，自动获取cookies（由大量账号时）</li>
-<li>小规模爬取，手动传入cookies比较方便</li>
-</ul>
-</li>
-</ul>
-<p>GitHun数据获取</p>
-<ul>
-<li>方案一：直接对网站页面进行请求，但是容易倍网站拒绝 429</li>
-<li>方案二：使用GitHub提供的REST API和GRAPH API请求数据</li>
-<li>方案三：GHTorrent项目</li>
-</ul>
-<h2 id="命名实体识别-Named-Entity-Recognition"><a href="#命名实体识别-Named-Entity-Recognition" class="headerlink" title="命名实体识别 Named Entity Recognition"></a>命名实体识别 Named Entity Recognition</h2><p>实体识别的任务是识别出文本中三大类命名实体：实体类、实践类、数字类。</p>
-<p>序列标注体系</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Token</th>
-<th style="text-align:center">IO</th>
-<th style="text-align:center">BIO</th>
-<th>BIOES</th>
-<th style="text-align:center">BMEWO</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">特</td>
-<td style="text-align:center">I-PER</td>
-<td style="text-align:center">B-PER</td>
-<td>B-PER</td>
-<td style="text-align:center">B-PER</td>
-</tr>
-<tr>
-<td style="text-align:center">朗</td>
-<td style="text-align:center">I-PER</td>
-<td style="text-align:center">I-PER</td>
-<td>I-PER</td>
-<td style="text-align:center">M-PER</td>
-</tr>
-<tr>
-<td style="text-align:center">普</td>
-<td style="text-align:center">I-PER</td>
-<td style="text-align:center">I-PER</td>
-<td>E-PER</td>
-<td style="text-align:center">E-PER</td>
-</tr>
-<tr>
-<td style="text-align:center">在</td>
-<td style="text-align:center">O</td>
-<td style="text-align:center">O</td>
-<td>O</td>
-<td style="text-align:center">O</td>
-</tr>
-<tr>
-<td style="text-align:center">白</td>
-<td style="text-align:center">I-LOC</td>
-<td style="text-align:center">B-LOC</td>
-<td>B-LOC</td>
-<td style="text-align:center">B-LOC</td>
-</tr>
-<tr>
-<td style="text-align:center">宫</td>
-<td style="text-align:center">I-LOC</td>
-<td style="text-align:center">I-LOC</td>
-<td>E-LOC</td>
-<td style="text-align:center">E-LOC</td>
-</tr>
-<tr>
-<td style="text-align:center">签</td>
-<td style="text-align:center">O</td>
-<td style="text-align:center">O</td>
-<td>O</td>
-<td style="text-align:center">O</td>
-</tr>
-<tr>
-<td style="text-align:center">署</td>
-<td style="text-align:center">O</td>
-<td style="text-align:center">O</td>
-<td>O</td>
-<td style="text-align:center">O</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="基于规则和词典的实体识别"><a href="#基于规则和词典的实体识别" class="headerlink" title="基于规则和词典的实体识别"></a>基于规则和词典的实体识别</h3><p>流程</p>
-<ol>
-<li>预处理<ol>
-<li>划分句子</li>
-<li>分词+词性标注</li>
-<li>构建词典</li>
-</ol>
-</li>
-<li>识别实体边界<ol>
-<li>初始化边界：词典匹配、拼写规则、特殊字符、特征词和标点符号等</li>
-</ol>
-</li>
-<li>命名实体分类<ol>
-<li>使用分类规则</li>
-<li>基于词典的分类</li>
-</ol>
-</li>
-</ol>
-<p>词典的三个使用场景</p>
-<ul>
-<li>在分词时辅助分词</li>
-<li>实体抽取时根据词典匹配实体</li>
-<li>基于词典对实体分类</li>
-</ul>
-<p>词典的构建</p>
-<blockquote>
-<p>基于统计分析得到候选词典，然后在人工进行筛选，同时人工提取领域中重要的术语和复用领域现有词典。现有的综合中文语义词库包括：CSC、howne和Chinese Open Wordnet。</p>
-</blockquote>
-<p>词典构建统计分析方法：</p>
-<ul>
-<li>去停用词后统计词频，选取一定范围的名词</li>
-<li>关键词抽取：TF-IDF、TextRank</li>
-<li>借助维基百科页面的分类系统</li>
-<li>特征词分词：词共现、特定模式</li>
-<li>词性分析：从标记为人名(nh)、组织（ni）、日期（nt）等词中抽取</li>
-<li>依存句法分析</li>
-</ul>
-<h3 id="基于机器学习的实体识别"><a href="#基于机器学习的实体识别" class="headerlink" title="基于机器学习的实体识别"></a>基于机器学习的实体识别</h3><p>主要包括</p>
-<ul>
-<li>隐式马尔科夫模型 Hidden Markov Model,HMM</li>
-<li>最大熵马尔科夫模型 Maximum Entropy Markov Model,MEMM</li>
-<li>条件随机场 Conditional Random Fields，CRF</li>
-<li>支持向量机 Support Vector Machine,SVM</li>
-</ul>
-<ol>
-<li>隐式马尔科夫模型<ul>
-<li>有向图模型</li>
-<li>生成模型</li>
-<li>特征分布独立假设</li>
-</ul>
-</li>
-<li>条件随机场模型<ul>
-<li>无向图模型</li>
-<li>判别式模型</li>
-<li>无特征分布独立假设</li>
-</ul>
-</li>
-</ol>
-<h3 id="基于深度学习的实体识别"><a href="#基于深度学习的实体识别" class="headerlink" title="基于深度学习的实体识别"></a>基于深度学习的实体识别</h3><p>NN/CNN+CRF模型</p>
-<p>Bi-LSTM+CRF</p>
-<p>Bi-LSTM-CNN-CRF</p>
-<h3 id="基于半监督学习的实体识别"><a href="#基于半监督学习的实体识别" class="headerlink" title="基于半监督学习的实体识别"></a>基于半监督学习的实体识别</h3><p>Language Model Augmented Sequence Taggers （TagLM）   Peters et al.[2017]</p>
-<ol>
-<li>使用海量无标注语料训练Bi-LSTM</li>
-<li>获取LM embedding和Word embeding</li>
-<li>将词的向量和语言模型向量混合输入到序列标注模型中进行预测</li>
-</ol>
-<h3 id="基于迁移学习的实体识别"><a href="#基于迁移学习的实体识别" class="headerlink" title="基于迁移学习的实体识别"></a>基于迁移学习的实体识别</h3><p>迁移学习的核心：找出新问题和原问题之间的<strong>相似性</strong>.</p>
-<p>迁移学习是机器学习的一种，但也有一些区别</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>传统机器学习</th>
-<th>迁移学习</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>训练和测试数据服从相同的分布</td>
-<td>训练和测试数据服从不同的分布</td>
-</tr>
-<tr>
-<td>数据标注</td>
-<td>需要足够的数据标注来训练模型</td>
-<td>不需要足够的数据标注</td>
-</tr>
-<tr>
-<td>模型</td>
-<td>每个任务分别建模</td>
-<td>模型可以在不同任务之间迁移</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>迁移学习的三种模式：跨域、跨应用、跨语言</p>
-<p>Yang et al.[2017]</p>
-<h3 id="基于预训练的实体识别"><a href="#基于预训练的实体识别" class="headerlink" title="基于预训练的实体识别"></a>基于预训练的实体识别</h3><p>BERT模型：重新设计了语言模型预训练阶段的目标任务，提出了遮挡语言模型 Masked LM和下一个句子预测 NSP</p>
-<ul>
-<li>Masked LM：在输入的词序列中，随机选15%的词进行[MASK]，然后在15%的词中，有80%的词被真正打上[MASK]标签，10%的词随机替换成任意词汇，10%的词不做任何处理。模型的任务是去正确预测带有[MASK]标签的词，相比传统的语言模型，Masked LM可以从前后两个方向预测这些带有[Mask]标签的词</li>
-<li>NSP本质上是一个二分类任务，以50%的概率输入一个句子和下一个句子的拼接，标签属于正例；另外50%的概率输入一个句子和非下一个随机句子的拼接，对应标签为负例。</li>
-</ul>
-<h2 id="关系抽取"><a href="#关系抽取" class="headerlink" title="关系抽取"></a>关系抽取</h2><p>语义关系</p>
-<ul>
-<li>指隐藏在句法结构后面由词语的语义范畴建立起来的关系</li>
-<li>在句子中的地位很重要</li>
-<li>连接文本中的实体</li>
-<li>与实体一起表达出文本中的含义</li>
-<li>并不是很难识别</li>
-</ul>
-<p>句法关系 Syntactic relations</p>
-<ul>
-<li><p>位置关系 relation  of position</p>
-<ul>
-<li><p>位置关系是组合关系 （Syntagmatic Relations）一个方面的表现</p>
-</li>
-<li><p>也被叫做横向关系或链状关系</p>
-</li>
-<li>Word Order<ul>
-<li>SVO、VSO、SOV、OVS、OSV、VOS</li>
-<li>英语就是SVO</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>替代关系 relation of substitutability</p>
-<ul>
-<li>指的是在某个结构的<strong>位置</strong>上彼此可以<strong>相互替换</strong>的成分之间的关系</li>
-<li>The <em>__</em> smiles.<ul>
-<li>比如 ：man、boy、girl</li>
-<li>必须满足以下条件</li>
-<li>必须有生命</li>
-<li>只有人类可以</li>
-<li>和smiles连接的名词必须是单数</li>
-</ul>
-</li>
-<li>也被称为联想关系或聚合关系</li>
-<li>也被称为纵聚合关系或纵向关系或选择关系</li>
-</ul>
-</li>
-<li><p>同现关系 relation of co-occurence</p>
-<ul>
-<li>指的是小句子中不同集合关系的词语允许或要求和另一个集合或类别中的词语一起组成句子或句子的某一特定部分。</li>
-<li>同现关系部分属于组合关系，部分属于聚合关系</li>
-</ul>
-</li>
-</ul>
-<p>组合关系 Versus 聚合关系</p>
-<ul>
-<li>Harris,1987 频繁出现的组合关系可能称为我们记忆中的一部分，从而称为范式</li>
-<li>Gardin,1965  聚合关系的实例来源于累积的组合数据</li>
-<li>反映了当前对开放文本关系抽取的思考</li>
-</ul>
-<p>谓词逻辑 Predicate logic [Frege,1879]</p>
-<ul>
-<li><p>固有关系的形式化</p>
-</li>
-<li><p>例如 Google buys YouTube 表示为 buy(Google,YouTube)</p>
-<p>问题：</p>
-<ul>
-<li><p>如何处理多个参数</p>
-<p>buy(Google,YouTube,for $1.65B,in 2006)</p>
-</li>
-<li><p>如何处理多谓词或者无谓词的情况</p>
-<p>buy(Google,YouTube) ^ for($1.65B) ^ jumped(stock) ^ immediately</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>戴维森逻辑表示 [Davidson,1980]</p>
-<ul>
-<li><p>用附加的变量表示事件或者关系</p>
-</li>
-<li><p>事件可以被明确的修改或者量化</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \exist e\; buy(e,Google,YouTube) \and for(e,$1.65B) \and in(e,2006) \\
-& \exist e_1\; buy(e_1,Google,YouTube) \and for(e_1,$1.65B) \and \exist e_2\;jumped(e_2,stock) \and immediately(e_2) \and \exist e_3 belong-to(e_3,stock,Google)
-\end{align}</script></li>
-<li><p>问题</p>
-<ul>
-<li><p>如何处理确实或者可选的参数</p>
-<p>YouTube was bought for $1.65B in 2006 没有主语</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>新戴维森逻辑表示</p>
-<ul>
-<li><p>谓词参数分解为主题角色</p>
-<script type="math/tex; mode=display">
-\exist e \;InstanceOfBuying(e) \and agent(e,Google) \and patient(e,YouTube)</script><script type="math/tex; mode=display">
-\exist e\; InstanceOf(e,Buying) \and agent(e,Google) \and patient(e,YouTube)</script></li>
-</ul>
-<p>一阶逻辑的图表示</p>
-<ul>
-<li>Begriffsschrift(‘concepte-script’)</li>
-<li>Relational graphs</li>
-<li>Existential graphs</li>
-<li>Conceptual graphs</li>
-<li>Discourse representation structure</li>
-</ul>
-<p>语义关系的双重性</p>
-<ul>
-<li><p>逻辑方面：谓词</p>
-<p>用于AI以支持基于知识的表示和推理</p>
-</li>
-<li><p>图方面：弧形连接概念</p>
-<p>在NLP中可以表示事实性知识</p>
-<p>主要是二元关系</p>
-</li>
-</ul>
-<p>推理系统的兴起</p>
-<ul>
-<li>logic-based reasoning, no language</li>
-<li>early NLP systems with semantic knowledge<ul>
-<li>interactive English dialogue system</li>
-<li>understanding children’s stories</li>
-<li>conceptual shift from the “shallow” architecture of primitive conversion systems such as ELIZA</li>
-</ul>
-</li>
-<li>large-scale hand-crafted ontologies<ul>
-<li>Cyc</li>
-<li>OpenMind Common Sense</li>
-<li>MindPixel</li>
-<li>FreeBase-truly large-scale</li>
-<li>DBpedia</li>
-<li>Wikidata</li>
-</ul>
-</li>
-</ul>
-<p>知识和语言的十字路口</p>
-<ul>
-<li>词典中的词汇可以从文本中自动学习得到</li>
-<li>语义网络<ul>
-<li>一种用图来表示知识的结构化方式，信息被表达为一组结点，结点通过一组带标记的有向直线彼此相连，用于表示结点之间的关系。<ul>
-<li>顶点是映射文本中单词的概念</li>
-<li>边代表概念间的关系</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>WordNet<ul>
-<li>包含155000个单词 （名词、动词、形容词、副词）</li>
-<li>包含十几种语义关系，例如同义词、反义词、超代名词。</li>
-</ul>
-</li>
-</ul>
-<p>自动化知识获取</p>
-<ul>
-<li>学习本体关系<ul>
-<li>is-a</li>
-<li>part-of</li>
-</ul>
-</li>
-<li>bootstrapping</li>
-<li>开放式关系抽取<ul>
-<li>没有预先指定的关系列表或关系模型</li>
-<li>学习关系表达的模式<ul>
-<li>POS</li>
-<li>paths in a syntactic tree</li>
-<li>sequences of high-frequency words</li>
-</ul>
-</li>
-<li>抽取结果很难映射到知识库中</li>
-</ul>
-</li>
-</ul>
-<p>关系抽取的用处</p>
-<ol>
-<li><p>构建知识库</p>
-</li>
-<li><p>文本分析</p>
-</li>
-<li><p>NLP应用</p>
-<p>信息抽取、信息检索、自动摘要、机器翻译、问答、释义、文本蕴涵推理、叙词表构建、语义网络构建、词义消歧、语言建模</p>
-</li>
-</ol>
-<h3 id="语义关系"><a href="#语义关系" class="headerlink" title="语义关系"></a>语义关系</h3><p>语义关系的两种视角</p>
-<ul>
-<li>概念间的关系<ul>
-<li>主要是关于世界的知识</li>
-<li>可以从文本中发现</li>
-</ul>
-</li>
-<li>名词间的关系<ul>
-<li>主要关注文本所表达的事件或者形势</li>
-<li>可以通过知识库信息进行发现</li>
-</ul>
-</li>
-</ul>
-<p>Casagrande &amp; Hale 1967在讲外语的人实验者门得出一系列单词的定义，从中抽取了13中关系</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Relation</th>
-<th style="text-align:center">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">attributive</td>
-<td style="text-align:center">toad-small</td>
-</tr>
-<tr>
-<td style="text-align:center">function</td>
-<td style="text-align:center">ear-hearing</td>
-</tr>
-<tr>
-<td style="text-align:center">operational</td>
-<td style="text-align:center">shirt-wear</td>
-</tr>
-<tr>
-<td style="text-align:center">exemplification</td>
-<td style="text-align:center">circular-wheel</td>
-</tr>
-<tr>
-<td style="text-align:center">synonymy</td>
-<td style="text-align:center">thousand-ten hundred</td>
-</tr>
-<tr>
-<td style="text-align:center">provenience</td>
-<td style="text-align:center">milk-cow</td>
-</tr>
-<tr>
-<td style="text-align:center">circularity</td>
-<td style="text-align:center">X is defined as X</td>
-</tr>
-<tr>
-<td style="text-align:center">contingency</td>
-<td style="text-align:center">lightning-rain</td>
-</tr>
-<tr>
-<td style="text-align:center">spatial</td>
-<td style="text-align:center">tongue-mouth</td>
-</tr>
-<tr>
-<td style="text-align:center">comparison</td>
-<td style="text-align:center">wolf-coyote</td>
-</tr>
-<tr>
-<td style="text-align:center">class inclusion</td>
-<td style="text-align:center">bee-insect</td>
-</tr>
-<tr>
-<td style="text-align:center">antonymy</td>
-<td style="text-align:center">low-high</td>
-</tr>
-<tr>
-<td style="text-align:center">grading</td>
-<td style="text-align:center">Monday-Sunday</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Chaffin &amp; Hermann,1984 对31中语义关系的实体进行分组，最终发现五个粗粒度的类别：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Relation</th>
-<th style="text-align:center">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">constrasts</td>
-<td style="text-align:center">night-day</td>
-</tr>
-<tr>
-<td style="text-align:center">similars</td>
-<td style="text-align:center">car-auto</td>
-</tr>
-<tr>
-<td style="text-align:center">class inclusion</td>
-<td style="text-align:center">vehicle-car</td>
-</tr>
-<tr>
-<td style="text-align:center">part-whole</td>
-<td style="text-align:center">airplane-wing</td>
-</tr>
-<tr>
-<td style="text-align:center">case</td>
-<td style="text-align:center">relations-agent,instrument</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>复合名词中的语义关系</p>
-<p>复合名词</p>
-<ul>
-<li>定义：两个或更多名词连在一起所构成的词</li>
-<li>例如：Silkworm、 healthcare reform….</li>
-<li>性质:<ul>
-<li>隐式关系编码：难以解读</li>
-<li>丰富性：难以忽略</li>
-<li>高产：无法被列入词典</li>
-</ul>
-</li>
-</ul>
-<p>复合名词是一个缩影：表征问题反映了一般语义关系</p>
-<ul>
-<li>语义学的大量文献 www.cl.cam.ac.uk/~do242/Resources/compound_bibliography.html</li>
-<li>互补的观点<ul>
-<li>语言学的：寻找最全面的解释表达</li>
-<li>NLP：为特定应用选择最有用的表示方式<ul>
-<li>计算易处理的</li>
-<li>向下游系统提供信息输出</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>复合名词的关系能否从一个小的封闭的清单中得出的吗？</p>
-<p>即是否存在一个合理小的集合，完全涵盖文本中名词短语邻近的内容。</p>
-<p>布朗语料库综合研究产生的关系：</p>
-<ul>
-<li><p>一个四级关系层级</p>
-<p>L1: Constitute</p>
-<p>​    L2: Source-Result</p>
-<p>​    L2: Result-Source</p>
-<p>​    L2: Copula</p>
-<p>​        L3: Adjective-Like_Modifier</p>
-<p>​        L3:Subsumptive</p>
-<p>​        L3:Attributive</p>
-<p>​            L4:Animate_Head (e.g. girl firend)</p>
-<p>​            L4:Inanimate_Head (e.g. house boat)</p>
-</li>
-<li><p>六大语义关系</p>
-<p>|    Relation    |     Example     |<br>| :——————: | :——————-: |<br>|   Possession   |  family estate  |<br>|    Location    |   water polo    |<br>|    Purpose     |  water bucket   |<br>| Activity-actor | crime syndicate |<br>|  Resemblance   |   cherry bomb   |<br>|   Constitute   |    clay bird    |</p>
-</li>
-</ul>
-<h3 id="语义关系学习"><a href="#语义关系学习" class="headerlink" title="语义关系学习"></a>语义关系学习</h3><p>方法：</p>
-<ul>
-<li>监督学习<ul>
-<li>优点：表现很好</li>
-<li>缺点：需要大量的标记数据和特征表示</li>
-</ul>
-</li>
-<li>无监督学习<ul>
-<li>优点：可扩展，适用于开放式信息提取</li>
-<li>缺点：表现比较差</li>
-</ul>
-</li>
-</ul>
-<p>特征</p>
-<ul>
-<li><p>目的：将数据映射维向量</p>
-</li>
-<li><p>Entity features and relational features [Turney, 2006]</p>
-</li>
-<li><p>实体特征：捕获关系实体中参数语义的一些表示</p>
-<ul>
-<li>Basic entity feature<ul>
-<li>基本实体特征包括每个候选参数的字符串值以及标记这写参数的单个单词，可能是词形化或词干化</li>
-<li>例如。字符串值、单独的词、词形化或词干化</li>
-<li>优点：大多数情况下，这些特征对于一个良好的关系是信息足够的</li>
-<li>缺点：特征比较稀疏</li>
-</ul>
-</li>
-<li>Background entity features<ul>
-<li>句法信息，例如：语法角色</li>
-<li>语义信息，例如：语义类别</li>
-<li>优点：解决了数据的稀疏性问题</li>
-<li>缺点：需要人工标注</li>
-<li>可以使用语义类别进行聚类<ul>
-<li>Brown clusters [Brown&amp;al., 1992]</li>
-<li>Clustering By Committee [Pantel &amp; Lin, 2002]</li>
-<li>Latent Dirichlet Allocation [Blei&amp;al., 2003]</li>
-</ul>
-</li>
-<li>直接表示特征空间中的单词共现<ul>
-<li>协调、分布表示、关系语义表示</li>
-</ul>
-</li>
-<li>词嵌入</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>关系特征：直接对关系进行表征，表征参数间的相互作用，如对文本实体的上下文进行建模。</p>
-</li>
-<li><p>Basic relational features</p>
-<ul>
-<li>对上下文进行建模<ul>
-<li>在两个参数之间的单词</li>
-<li>处于参数的特定窗口或者一侧的单词</li>
-<li>链接参数的依赖路径</li>
-<li>一个完整的依赖图</li>
-<li>最小支配子树</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Background relational features</p>
-<ul>
-<li>编码关于实体通常是如何交互的知识，而不仅仅是上下文<ul>
-<li>通过释义进行关系表征</li>
-<li>占位符模式</li>
-<li>通过聚类寻找相似上下文</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="关系抽取数据集"><a href="#关系抽取数据集" class="headerlink" title="关系抽取数据集"></a>关系抽取数据集</h3><p>语义关系学习的标注数据</p>
-<ul>
-<li>small-scale/large-scale</li>
-<li>general-purpose/domain-specific</li>
-<li>arguments marked / not marked</li>
-<li>additional information about the arguments / no additional information</li>
-</ul>
-<p>数据：MUC和ACE</p>
-<p>数据：SemEval</p>
-<ul>
-<li>小数量的关系</li>
-<li>标注的实体</li>
-<li>附加的实体信息</li>
-<li>句子语境和挖掘模式</li>
-</ul>
-<p>SemEval-2007 Task4 SemEval-2010 Task8</p>
-<p>数据：FewRel</p>
-<h3 id="基于模板的实体关系抽取"><a href="#基于模板的实体关系抽取" class="headerlink" title="基于模板的实体关系抽取"></a>基于模板的实体关系抽取</h3><p>基于模板的方法：</p>
-<ul>
-<li>使用模式/规则挖掘关系，基于触发词/字符串等</li>
-<li>基于依存句法</li>
-</ul>
-<p>关系挖掘模式</p>
-<ul>
-<li>支持大多数关系抽取系统的基本概念是关系模式<ul>
-<li>它是一个表达式，当与文本片段匹配时，它能够标识出响应的关系实例</li>
-</ul>
-</li>
-<li>例如 词典项、通配符、词性、句法关系、正则表达式等等</li>
-</ul>
-<p>基于依存句法</p>
-<p>通常可以以动词为起点构建规则，对节点上的词性和边上的依存关系进行限定。</p>
-<ol>
-<li>对句子进行分词、词性标注、命名实体识别、依存分析等处理</li>
-<li>根据句子依存语法树结构上匹配规则，每匹配一条规则就生成一个三元组</li>
-<li>根据扩展规则对抽取到的三元组进行扩展</li>
-<li>对三元组实体和触发词进一步抽取出关系</li>
-</ol>
-<p>例子：董卿现身国家博物馆看展优雅大方</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">词顺序</th>
-<th style="text-align:center">词</th>
-<th style="text-align:center">词性</th>
-<th style="text-align:center">依存关系路径</th>
-<th style="text-align:center">依存关系</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">董卿</td>
-<td style="text-align:center">人名</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">主语</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">现身</td>
-<td style="text-align:center">动词</td>
-<td style="text-align:center">-1</td>
-<td style="text-align:center">核心词</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">国家博物馆</td>
-<td style="text-align:center">地名</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">宾语</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">看</td>
-<td style="text-align:center">动词</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">顺承</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">展</td>
-<td style="text-align:center">动词</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">补语</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">优雅</td>
-<td style="text-align:center">形容词</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">定语</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">端庄</td>
-<td style="text-align:center">形容词</td>
-<td style="text-align:center">7</td>
-<td style="text-align:center">定语</td>
-</tr>
-<tr>
-<td style="text-align:center">7</td>
-<td style="text-align:center">大方</td>
-<td style="text-align:center">形容词</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">定语</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>规则抽取结果</p>
-<p>（董卿，现身，国家博物馆） —-&gt; 位于（董卿，国家博物馆）</p>
-<ul>
-<li>优点<ul>
-<li>人工规则具有高准确率</li>
-<li>可以为特定领域定制</li>
-<li>在小规模数据集上容易实现，构建简单</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>低召回率</li>
-<li>特定领域的模板需要专家构建，要考虑周全所有可能的pattern很难，也费时间尽力</li>
-<li>需要为每条关系来定义pattern</li>
-<li>难以维护</li>
-<li>可移植性差</li>
-</ul>
-</li>
-</ul>
-<h3 id="有监督实体关系抽取"><a href="#有监督实体关系抽取" class="headerlink" title="有监督实体关系抽取"></a>有监督实体关系抽取</h3><p>关系学习的算法</p>
-<ul>
-<li>基于特征向量的方法<ul>
-<li>从上下文信息、词性、语法等中抽取一系列特征</li>
-</ul>
-</li>
-<li>核分类<ul>
-<li>关系特征可能拥有复杂的结构</li>
-</ul>
-</li>
-<li>序列标注方法<ul>
-<li>关系中参数的跨度是可变的</li>
-</ul>
-</li>
-</ul>
-<h4 id="基于特征向量的方法"><a href="#基于特征向量的方法" class="headerlink" title="基于特征向量的方法"></a>基于特征向量的方法</h4><p>定义：从上下文信息、词性、语法等中抽取一系列特征，来训练一个分类器（朴素贝叶斯、支持向量机、最大熵等），然后完成关系抽取。</p>
-<p>对于一组训练数据:</p>
-<script type="math/tex; mode=display">
-(x^1,y^1),(x^2,y^2),\cdots(x^n,y^n)</script><p>将二元关系抽取视为分类问题：$y^i={-1,1}$</p>
-<p>进而学习得出一个分类函数</p>
-<script type="math/tex; mode=display">
-f = \begin{cases}
-& 1 \quad存在某种关系 \\
-& -1 \quad 其他情况
-\end{cases}</script><h4 id="核分类"><a href="#核分类" class="headerlink" title="核分类"></a>核分类</h4><ul>
-<li>观点：两个实体的相似度可以在高维的特征空间计算得到而不需要枚举特征空间的各个维度</li>
-<li>convolution kernels<ul>
-<li>易于对特征进行组合，例如：实体和关系</li>
-</ul>
-</li>
-<li>kernelizable classifiers<ul>
-<li>SVM、Logistic Regression、KNN、Naive Bayes</li>
-</ul>
-</li>
-</ul>
-<p>Kernels for linguistic structures</p>
-<ul>
-<li>string sequenceies</li>
-<li>dependency paths</li>
-<li>shallow parse tree</li>
-<li>constituent parse trees</li>
-<li>dependency parse trees</li>
-<li>feature-enriched/semantic tree kernel</li>
-<li>directed acyclic graphs</li>
-</ul>
-<h4 id="Sequential-labeling-method"><a href="#Sequential-labeling-method" class="headerlink" title="Sequential labeling method"></a>Sequential labeling method</h4><ul>
-<li>能够识别句子中的实体，并且打上对应的语义类型标签，如：person、organization、location、protein等</li>
-<li>对于识别出的实体，给出句子中存在的关系，如：president-of、born-in、cause、side-effect</li>
-<li>HMMs / MEMMs / CRFs</li>
-<li>useful for<ul>
-<li>argument identification</li>
-<li>relation extraction</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>Sequential labeling : argument identification<ul>
-<li>words: individual words,previous/following two words,word substrings,capitalization,digit patterns,manual lexicon。</li>
-<li>labels: individual labels, previous/following two labels</li>
-<li>combinations of words and labels</li>
-</ul>
-</li>
-<li>relation extraction<ul>
-<li>某些情况，关系抽取可以退化维序列标注问题</li>
-<li>HMMs、CRFs</li>
-<li>Dynamic graphical model</li>
-</ul>
-</li>
-</ol>
-<h3 id="弱监督关系抽取"><a href="#弱监督关系抽取" class="headerlink" title="弱监督关系抽取"></a>弱监督关系抽取</h3><h3 id="远程监督关系抽取"><a href="#远程监督关系抽取" class="headerlink" title="远程监督关系抽取"></a>远程监督关系抽取</h3><h3 id="无监督关系抽取"><a href="#无监督关系抽取" class="headerlink" title="无监督关系抽取"></a>无监督关系抽取</h3><h3 id="基于深度学习的关系抽取"><a href="#基于深度学习的关系抽取" class="headerlink" title="基于深度学习的关系抽取"></a>基于深度学习的关系抽取</h3><h4 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h4><ul>
-<li>映射单词到一个实值的低维空间向量</li>
-<li>做法<ul>
-<li>neural networks （e.g. CBOW, skip-gram）</li>
-<li>dimensionality reduction (e.g LSA,LDA,PCA)</li>
-<li>explicit representation (words in the context)</li>
-</ul>
-</li>
-<li>对于很多NLP任务都很重要</li>
-</ul>
-<p>Word Embeddings from a Neural LM [Bengio &amp;al.2003]</p>
-<p>NNLM模型</p>
-<p>Efficient Estimation of Word Representations in Vector Space [Mikolov &amp;al.2013]</p>
-<p>Word2VecLinguistic Regularities in Continuous Space Word Representations [Mikolov &amp;al.2013]</p>
-<p>RNNLM</p>
-<p>基于句法的词嵌入</p>
-<p>Linguistic Regularities in Continuous Space Word Representations [Mikolov &amp;al.2013]</p>
-<p>Dependency-Based Word Embeddings [Levy&amp;Goldberg,2014]</p>
-<p>Semantic Compositionality through Recursive Matrix-Vector Spaces [Socher&amp;al., 2012]</p>
-<p>MV-RNN</p>
-<p>Relation Classification via Convolutional Deep Neural Network [Zeng&amp;al., 2014]</p>
-<p>CNN: Convolutional Deep Neural Network</p>
-<p>Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification. [Zhou, 2016, ACL]</p>
-<p>RESIDE: Improving Distantly-Supervised Neural Relation Extraction using Side Information [Vashishth1, 2018, EMNLP]</p>
-<p>Syntax-aware Entity Embedding for Neural Relation Extraction [He, 2018, AAAI]</p>
-<p>A Hierarchical Framework for Relation Extraction with Reinforcement Learning [Takanobu, 2019, AAAI]</p>
-<p>Jointly Extracting Multiple Triplets with Multilayer Translation Constraints. [Tan, 2019, AAAI]</p>
-
+        
+          <a class="article-more-a" href="/2020/05/08/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/#more">more >></a>
+        
       
 
       
@@ -1982,49 +684,9 @@ f = \begin{cases}
 <p>CRF可以用于不同的预测问题，比如序列标注问题。</p>
 <p>序列标注问题，因此主要是线性链条件随机场，问题变成了由输入序列对输出序列预测的判别模型。</p>
 <p>学习方法通常是：极大似然估计或正则化的极大似然估计</p>
-<h2 id="概率无向图模型"><a href="#概率无向图模型" class="headerlink" title="概率无向图模型"></a>概率无向图模型</h2><p>probabilistic undirected graphical model，又称马尔可夫随机场(Markov Random Field)，是一个可以使用无向图表示的联合概率分布。</p>
-<p>定义：概率无向图<br>设有联合概率分布$P(Y)$,由无向图$\mathbf{G=(V,E)}$表示，在图中，结点表示随机变量，边表示随机变量之间的依赖关系。如果联合概率分布$P(Y)$满足成对、局部或全局马尔可夫性，则称此联合概率分布为概率无向图模型或马尔可夫随机场。</p>
-<p>定义：团和最大团</p>
-<p>无向图$\mathbf{G}$中中任何两个结点均有边连接的结点子集称为团，若$\mathbf{C}$是无向图$\mathbf{G}$中的一个团，并且不能再加进任何一个$\mathbf{G}$的结点使其成为一个更大的团，则称$\mathbf{C}$为最大团。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line"> D1((Y1))</span><br><span class="line"> D2((Y2))</span><br><span class="line"> D3((Y3))</span><br><span class="line"> D4((Y4))</span><br><span class="line"> D1---D2</span><br><span class="line"> D1---D3</span><br><span class="line"> D2---D4</span><br><span class="line"> D2---D3</span><br><span class="line"> D3---D4</span><br></pre></td></tr></table></figure>
-<p>概率无向图模型的因子分解：将概率无向图模型的联合概率分布表示为其最大团上的随机变量的函数的乘积形式。</p>
-<script type="math/tex; mode=display">
-\begin{align}& \mathbf{P(Y)}=\frac{1}{Z}\prod_C{\varPsi_c(Y_c)} \\& Z = \sum_Y\prod_C{\varPsi_c(Y_c)}\end{align}</script><p>其中函数$\varPsi_c(Y_c)$称为势函数，一般要求是严格正的，通常定义为指数函数</p>
-<script type="math/tex; mode=display">
-\begin{align}\varPsi_c(Y_c) = \exp\{-E(Y_c)\}\end{align}</script><h2 id="条件随机场"><a href="#条件随机场" class="headerlink" title="条件随机场"></a>条件随机场</h2><p>条件随机场：给定随机变量$\mathbf{X}$条件下，随机变量$\mathbf{Y}$的马尔可夫随机场。</p>
-<p>定义：条件随机场</p>
-<p>设$\mathbf{X}$和$\mathbf{Y}$是随机变量，$\mathbf{P(Y|X)}$是在给定$\mathbf{X}$条件下$\mathbf{Y}$的条件概率分布。若随机变量$\mathbf{Y}$构成一个由无向图$\mathbf{G=(V,E)}$表示的马尔可夫随机场，即</p>
-<script type="math/tex; mode=display">
-\begin{align}P(Y_v|X,Y_w,w\neq v) = P(Y_v|X,Y_w,w \sim v)\end{align}</script><p>对任意结点$v$成立，则条件概率分布$\mathbf{P(Y|X)}$为条件随机场。其中，$w \sim v$表示在图中和结点$v$连接的所有结点$w$,$w \neq v$表示结点$v$之外的所有节点。$\mathbf{Y_v,Y_u,Y_w}$为结点$\mathbf{v,u,w}$对应的随机变量。</p>
-<p>定义中没有假设，$\mathbf{X}$和$\mathbf{Y}$具有相同的结构。现实中，一般假设它们图结构相同。</p>
-<p>定义：线性链条件随机场</p>
-<p>设$\mathbf{X=(X_1,X_2,\cdots,X_n)}，\mathbf{Y=(Y_1,Y_2,\cdots,Y_n)}$均为线性链表示的随机变量序列，若在给定随机变量序列$\mathbf{X}$的条件下，随机变量序列$\mathbf{Y}$的条件概率分布构成条件随机场。</p>
-<script type="math/tex; mode=display">
-\begin{align}& P(Y_i|X,Y_1,\cdots,Y_{i-1},Y_{i+1},\cdots,Y_n) = P(Y_i|X,Y_{i-1},Y_{i+1}) \; i=1,2,\cdots,n\end{align}</script><p>在标注问题中，$\mathbf X$表示输入观测序列，$\mathbf Y$表示对应的输出标记序列或状态序列。</p>
-<h3 id="CRF的参数化形式"><a href="#CRF的参数化形式" class="headerlink" title="CRF的参数化形式"></a>CRF的参数化形式</h3><p>线性链CRF的参数化形式，设$\mathbf{P(Y|X)}$为线性链CRF，则在随机变量$\mathbf  X$取值为$\mathbf x$的条件下，随机变量$\mathbf Y$取值为$\mathbf y$的条件概率具有以下形式：</p>
-<script type="math/tex; mode=display">
-\begin{align}& P(\mathbf y|\mathbf x) = \frac{1}{Z(\mathbf x)} \exp(\sum_{i,k}\lambda_kt_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,i)+\sum_{i,l}\mu_ls_l(\mathbf y_i,\mathbf x,i)) \\& Z(\mathbf x) = \sum_{\mathbf y}\exp(\sum_{i,k}\lambda_kt_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,i)+\sum_{i,l}\mu_ls_l(\mathbf y_i,\mathbf x,i)) \end{align}</script><p>其中，$t_k和s_l$是特征函数，$\lambda_k和\mu_l$是对应的权值，$Z(\mathbf x)$是规范化因子。</p>
-<h3 id="CRF的简化形式"><a href="#CRF的简化形式" class="headerlink" title="CRF的简化形式"></a>CRF的简化形式</h3><p>将局部特征函数转化为全局特征函数，CRF则可以写成权值向量和特征向量的内积形式。</p>
-<p>将转移特征和状态特征机器权值用统一的符号表示。</p>
-<p>设有$K_1$个转移特征，$K_2$个状态特征，$K=K_1+K_2$</p>
-<script type="math/tex; mode=display">
-f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,i) = \begin{cases}t_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,i) \quad k=1,2,\cdots,K_1\\s_l(\mathbf y_i,\mathbf x,i) \quad k=K_1+l,l=1,2,\cdots,K_2\end{cases}</script><p>然后对转移和状态特征在各个位置i求和，记作：</p>
-<script type="math/tex; mode=display">
-f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,i) k=1,2,\cdots,K</script><p>用$\mathbf w_k$表示特征$f_k(\mathbf y,\mathbf x)$的权值，即</p>
-<script type="math/tex; mode=display">
-\mathbf w_k = \begin{cases}\lambda_k, \quad k=1,2,\cdots,K_1 \\\mu_l, \quad k=K_1+l,l=1,2,\cdots,K_2\end{cases}</script><p>因此，条件随机场可以表示为：</p>
-<script type="math/tex; mode=display">
-\begin{align}& P(\mathbf y|\mathbf x)= \frac{1}{Z(\mathbf x)}\exp \sum_{k=1}^K\mathbf w_k f_k(\mathbf y,\mathbf x) \\& Z(x) = \sum_{\mathbf y}\exp\sum_{k=1}^K\mathbf w_k f_k(\mathbf y,\mathbf x)\end{align}</script><p>若$\mathbf w$表示权值向量，$F(\mathbf y,\mathbf x)$表示全局特征向量：</p>
-<script type="math/tex; mode=display">
-\begin{align}& \mathbf w = (w_1,w_2,\cdots,w_k)^T \\& F(\mathbf y,\mathbf x) = (f_1(\mathbf y,\mathbf x),f_2(\mathbf y,\mathbf x),\cdots,f_K(\mathbf y,\mathbf x),)^T\end{align}</script><p>则CRF可以写成内积的形式：</p>
-<script type="math/tex; mode=display">
-\begin{align}& P(\mathbf y|\mathbf x)= \frac{\exp (\mathbf w \cdot F(\mathbf y,\mathbf x))}{Z(\mathbf x)} \\& Z(x) = \sum_{\mathbf y}\exp (\mathbf w \cdot F(\mathbf y,\mathbf x))\end{align}</script><h3 id="CRF的矩阵形式-（略）"><a href="#CRF的矩阵形式-（略）" class="headerlink" title="CRF的矩阵形式 （略）"></a>CRF的矩阵形式 （略）</h3><h2 id="CRF的概率计算问题"><a href="#CRF的概率计算问题" class="headerlink" title="CRF的概率计算问题"></a>CRF的概率计算问题</h2><p>给定CRF $\mathbf{P(Y|X)}$，输入序列$\mathbf x$和输出序列$\mathbf y$，计算条件概率$\mathbf{P(Y<em>i=y_i|x),P(Y</em>{i-1}=y_{i-1},Y_i=y_i|x)}$以及相应的数学期望的问题。</p>
-<h3 id="前向-后向算法"><a href="#前向-后向算法" class="headerlink" title="前向-后向算法"></a>前向-后向算法</h3><p>像HMM一样，递归的计算以上概率及其期望值。</p>
-<p>对于每个指标$i=0,1,\cdots,n+1$，定义前向向量$\alpha_i(\mathbf x)$:</p>
-<script type="math/tex; mode=display">
-\alpha_0(y|x)=\begin{cases}1,\quad y=start \\0,\quad other\end{cases}</script><p>递推公式为</p>
-<script type="math/tex; mode=display">
-\alpha_i^T(y_i|x)=\alpha_{i-1}^T(y_{i-1}|x)M_i(y_{i-1},y_i|x), \quad i=1,2,\cdots,n+1</script>
+        
+          <a class="article-more-a" href="/2020/05/07/CRF/#more">more >></a>
+        
       
 
       
@@ -2101,71 +763,9 @@ f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,
 <p>GNN原始模型及其变种</p>
 </blockquote>
 <p>GNN的目标是学习一个状态嵌入$\mathbf{h}_v \in \mathbb{R}^s$，它包含每个节点相邻的信息，这个状态嵌入是节点v的s维度的向量表示，能够用来产生一个输出$\mathbf{o}_v$，这个输出可以是节点标签。$f$是一个参数化的函数，也叫做 $local\;transition\;function$，这个函数被所有节点共享，根据输入的相邻信息来更新节点状态。$g$是$local\;output\;function$，用来描述如何产生输出。</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \mathbf{h}_v = f(\mathbf{x}_v,\mathbf{x}_{co[v]},\mathbf{h}_{ne[v]},\mathbf{x}_{ne[v]}) \\
-& \mathbf{o}_v=g(\mathbf{h}_v,\mathbf{x}_v)
-\end{align}</script><p>其中$\mathbf{x}<em>v,\mathbf{x}</em>{co[v]},\mathbf{h}<em>{ne[v]},\mathbf{x}</em>{ne[v]}$分别是节点$v$的特征、它的边的特征、$v$的邻居节点的状态和特征。</p>
-<p>通过堆叠所有的状态、输出、特征和节点特征来构造$\mathbf{H},\mathbf{O},\mathbf{X},\mathbf{X}_N$。这样可以得到一个紧密的格式</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \mathbf{H} = F(\mathbf{H},\mathbf{X}) \\
-& \mathbf{O} = G(\mathbf{H},\mathbf{X}_N)
-\end{align}</script><p>其中$F$是$global\;transition\;function$，$G$是$global\;output\;function$，它们将图中所有节点上的$f$和$g$叠加而成。</p>
-<p>GNN使用下面经典的迭代格式来计算状态</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \mathbf{H}^{t+1} = F(\mathbf{H}^t,\mathbf{X})
-\end{align}</script><p>$\mathbf{H}^t$记作第t次迭代的$\mathbf{H}$。</p>
-<p>$f$和$g$的计算可以描述为前向神经网络。</p>
-<p>当在监督学习中，有着明确的目标值，loss可以被定义为如下：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& loss = \sum_{i=1}^p (\mathbf{t}_i-\mathbf{o}_i)
-\end{align}</script><p>其中p是被监督的节点的数量，学习算法是基于梯度下降的策略的。</p>
-<p>限制</p>
-<ol>
-<li>对固定点来迭代的更新节点的隐藏状态是无效的，如果放宽固定点的假设，可以设计一个多层的GNN来获得节点和相邻的稳定表示。</li>
-<li>GNN在迭代中使用一样的参数，然而大多数流行的神经网络在不同的层使用不同的参数，这被认为是一种分层特征提取方法。同时，节点隐藏状态的更新是一种顺序过程。</li>
-<li>在原始的GNN中，边的一些信息无法被有效的建模。比如知识图谱中的边有关系的类型和传播的信息。</li>
-<li>如何学习边的隐藏状态也是一个问题。</li>
-<li>如果关注节点的表示而不是图的表示，使用固定点是不合适的，因为固定点的表示值更加平滑，只有较少的信息来区分每个节点。</li>
-</ol>
-<h2 id="Graph-Types"><a href="#Graph-Types" class="headerlink" title="Graph Types"></a>Graph Types</h2><blockquote>
-<p>原始的GNN中，输入的图具有标签信息的节点和没有方向的边组成，这是最简单的图的格式。</p>
-</blockquote>
-<h3 id="Directed-Graphs"><a href="#Directed-Graphs" class="headerlink" title="Directed Graphs"></a>Directed Graphs</h3><p>无向的边可以额被看成两个有向的边，表示了两个即结点之间的联系。然而，有向边比无向边具有更多的信息。例如，在知识图谱中，有向边的起点是头节点，结尾是尾节点，表示信息的传播过程是有向的。</p>
-<p>DGP使用两种权值矩阵$\mathbf{W}_p,\mathbf{W}_c$来表示更详细的结构信息。传播规则能够采用如下的方式表示：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \mathbf{H} = \sigma(\mathbf{D}_p^{-1}\mathbf{A}_P\sigma(\mathbf{D}_c^{-1}\mathbf{A}_c\mathbf{H}^{t-1}\mathbf{W}_c)\mathbf{W}_p)
-\end{align}</script><p>其中$\mathbf{D}_p^{-1}\mathbf{A}_P,\mathbf{D}_c^{-1}\mathbf{A}_c$分别是头节点和尾节点的标准化的邻接矩阵。</p>
-<h3 id="Heterogeneous-Graphs"><a href="#Heterogeneous-Graphs" class="headerlink" title="Heterogeneous Graphs"></a>Heterogeneous Graphs</h3><p>异质图，有多种类型节点。</p>
-<p>处理异质图最简单的方式是将每个节点的类型转为 one-hot特征向量，将它和原始的特征合在一起。GraphInception将元路径的概念引入了异构图的传播中。借助元路径，我们可以根据节点的类型和距离对邻居进行分组。</p>
-<h3 id="Graph-with-Edge-Information"><a href="#Graph-with-Edge-Information" class="headerlink" title="Graph with Edge Information"></a>Graph with Edge Information</h3><p>每条边有额外的信息，比如权重和边的类型，主要有两种方法来处理这类的图</p>
-<ol>
-<li><p>可以将图转换成一个二分图，图中原始的边变成节点，一条原始的边被分成两个新的边，这表示在新的边节点和原来的开始／结束节点有两条新的边。G2S中的encoder对邻居使用了下面的聚合函数：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\mathbf{h}_v^t = \rho(\frac{1}{|\mathcal{N}_v|}\sum_{u\in \mathcal{N}_v } \mathbf{W}_r(\mathbf{r}_v^t\odot\mathbf{h}_u^{t-1})+\mathbf{b}_r)
-\end{align}</script><p>其中$\mathbf{W}_r，\mathbf{b}_r$是不同类型的边的传播参数。</p>
-</li>
-<li><p>对不同类型节点上的传播使用不同的权值矩阵。当关系的数目非常大的时候，R-GCN介绍了两种正则化来减少对关系建模的参数的数量，这两种分别是：$basis/block-diagonal-decomposition$（对角分解和块对角分解）。</p>
-<p>使用基础的对角分解，每个$\mathbf{W}_r$被定义成如下：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-& \mathbf{W}_r = \sum_1^{B} a_{rb}\mathbf{V}_b
-\end{align}</script><p>其中，每个$\mathbf{W}<em>r$都是系数为$a</em>{rb}$的基础变换$\mathbf{V}<em>b \in \mathbb{R}^{d</em>{in} \times d_{out}} $的线性组合。</p>
-<p>对于块对角分解，R-GCN定义$\mathbf{W}_r$为一系列低维矩阵的和，这就比基础分解需要更多的参数。</p>
-</li>
-</ol>
-<h3 id="Dynamic-Graphs"><a href="#Dynamic-Graphs" class="headerlink" title="Dynamic Graphs"></a>Dynamic Graphs</h3><p>动态图有着静态的图结构和动态的输入信息。</p>
-<p>为了捕捉信息的种类，DCRNN和STGCN首先通过GNN来手机空间信息，然后，将得到的输出输入到序列模型中，比如在seq-2-seq模型或者CNNs。不同的是，Structural-RNN 和ST-GCN同时收集空间信息和时间信息。它们使用时间上的连接来扩展静态图，因此可以用传统的GNNs。</p>
-<p><img src="/images/GNN/GraphType.png" alt="GraphType"></p>
-<p><img src="/images/GNN/TrainingMethods.png" alt="TrainingMethods"></p>
-<p><img src="/images/GNN/PropagationSteps.png" alt="PropagationSteps"></p>
-<p><a href="https://arxiv.org/abs/1812.08434" target="_blank" rel="noopener">https://arxiv.org/abs/1812.08434</a></p>
-
+        
+          <a class="article-more-a" href="/2020/05/04/GNN%E6%A8%A1%E5%9E%8B/#more">more >></a>
+        
       
 
       
@@ -2238,9 +838,10 @@ f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="NLP模型结构"><a href="#NLP模型结构" class="headerlink" title="NLP模型结构"></a>NLP模型结构</h1><h2 id="TextCNN"><a href="#TextCNN" class="headerlink" title="TextCNN"></a>TextCNN</h2><p><a href="https://www.bbsmax.com/A/kjdwWe06dN/" target="_blank" rel="noopener">https://www.bbsmax.com/A/kjdwWe06dN/</a></p>
-<p><img src="/images/nlp/TextCNN.jpg" alt="TextCNN"></p>
-
+        <h1 id="NLP模型结构"><a href="#NLP模型结构" class="headerlink" title="NLP模型结构"></a>NLP模型结构</h1>
+        
+          <a class="article-more-a" href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/#more">more >></a>
+        
       
 
       
@@ -2328,14 +929,9 @@ f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,
 <li>特点3中的叶子节点，只能为空的节点。</li>
 <li>特点5，确保没有一条路径会比其他路径长出两倍。因此，红黑树是相对接近平衡的二叉树。</li>
 </ul>
-<h2 id="红黑树的应用"><a href="#红黑树的应用" class="headerlink" title="红黑树的应用"></a>红黑树的应用</h2><p>主要用于存储有序的数据，它的时间复杂度是$O(\log n)$，效率非常高。</p>
-<p>例如：Java集合中的<code>TreeSet</code>和<code>TreeMap</code>，C++ <code>STL</code> 中的<code>set</code>,<code>map</code>。以及Linux虚拟内存的管理。</p>
-<h2 id="红黑树的时间复杂度和相关证明"><a href="#红黑树的时间复杂度和相关证明" class="headerlink" title="红黑树的时间复杂度和相关证明"></a>红黑树的时间复杂度和相关证明</h2><p><strong>红黑树的时间复杂度为：$O\log n$</strong></p>
-<p>使用数学归纳法进行证明：</p>
-<p>定理：一棵含有n个节点的红黑树的高度至多为$2\log(n+1)$</p>
-<p>证明：</p>
-<h2 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h2><p><a href="https://www.cnblogs.com/skywang12345/p/3245399.html" target="_blank" rel="noopener">https://www.cnblogs.com/skywang12345/p/3245399.html</a></p>
-
+        
+          <a class="article-more-a" href="/2020/04/25/%E7%BA%A2%E9%BB%91%E6%A0%91/#more">more >></a>
+        
       
 
       
@@ -2388,225 +984,6 @@ f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,
 
 
   
-    <article id="post-ElasticSearch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/16/ElasticSearch/">ElasticSearch</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/16/ElasticSearch/" class="archive-article-date">
-  	<time datetime="2020-04-16T03:55:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ElasticSearch-基础实践-Quick-Start"><a href="#ElasticSearch-基础实践-Quick-Start" class="headerlink" title="ElasticSearch 基础实践 Quick Start"></a>ElasticSearch 基础实践 Quick Start</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
-<li>Neal Realtime(NRT)：接近实时的</li>
-<li>Cluster：集群是一个或多个节点（服务器）的集合，它们一起保存数据，并且提供跨节点的联合索引和搜索功能。一个集群的名字需要唯一标识。</li>
-<li>Node：节点是一个服务器，是集群的一部分，存储数据，参与集群的索引和搜索。同样需要唯一名称标识。通常是启动时候随机的UUID。</li>
-<li>Index：索引是具有某些相似特征文档的集合。比如客户数据的索引，产品目录的索引。索引由一个名称标识，该名称用于在对其中的文档执行索引、搜索、更新和删除操作时引用索引。</li>
-<li>Type (Deprecated)</li>
-<li>Document：文档是可以被索引的基本单位。在一个索引 / 类型中，您可以存储任意多的文档。</li>
-<li>Shards &amp; Replicas：索引可能存储大量数据，这些数据可能超过节点的硬件限制。为了解决这个问题，提供了将索引细分为多个部分的功能 Shards碎片。创建索引的时候，可以定义所需碎片数目。</li>
-</ol>
-<h2 id="搜索你的集群"><a href="#搜索你的集群" class="headerlink" title="搜索你的集群"></a>搜索你的集群</h2><h3 id="The-REST-API"><a href="#The-REST-API" class="headerlink" title="The REST API"></a>The REST API</h3><p>假设现在一起启动并运行了节点和集群。ES提供了强大的REST API。</p>
-<ul>
-<li>检查cluster、node、index的状态和统计信息</li>
-<li>管理cluster、node、index data和metadata</li>
-<li>对索引执行CRUD和搜索操作</li>
-<li>执行高级搜索操作，比如分页，排序，过滤，聚合等等。</li>
-</ul>
-<h3 id="Cluster-Health"><a href="#Cluster-Health" class="headerlink" title="Cluster Health"></a>Cluster Health</h3><p>检查cluster的health</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/_cat/health?v&amp;pretty"</span></span></span><br><span class="line">epoch      timestamp cluster       status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent</span><br><span class="line">1587010145 04:09:05  elasticsearch green           1         1      0   0    0    0        0             0                  -                100.0%</span><br></pre></td></tr></table></figure>
-<p>可以看到名为elasticsearch的集群的状态是green</p>
-<ul>
-<li>Green 一切都好</li>
-<li>Yellow 所有的数据是可获得的，但是一些分片还没分配</li>
-<li>Read 因为某些原因，无法获得数据。</li>
-</ul>
-<p>查看集群中的节点列表</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/_cat/nodes?v&amp;pretty"</span></span></span><br><span class="line">ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name</span><br><span class="line">127.0.0.1           11          96  14    0.87    0.88     0.97 dilm      *      dongxian-manjaro</span><br></pre></td></tr></table></figure>
-<h3 id="列出所有索引"><a href="#列出所有索引" class="headerlink" title="列出所有索引"></a>列出所有索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/_cat/indices?v&amp;pretty"</span></span></span><br><span class="line">health status index uuid pri rep docs.count docs.deleted store.size pri.store.size</span><br></pre></td></tr></table></figure>
-<h3 id="创建一个索引"><a href="#创建一个索引" class="headerlink" title="创建一个索引"></a>创建一个索引</h3><p>现在创建一个名为customer的索引，然后列出来</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X PUT <span class="string">"localhost:9200/customer?pretty&amp;pretty"</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "acknowledged" : true,</span><br><span class="line">  "shards_acknowledged" : true,</span><br><span class="line">  "index" : "customer"</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/_cat/indices?v&amp;pretty"</span></span></span><br><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   customer WYuBXNDZSxWkNfDZ4ArKLA   1   1          0            0       230b           230b</span><br></pre></td></tr></table></figure>
-<p>第二个命令的结果告诉我们，现在有一个名为customer的索引，有1个主碎片和1个副本，其中包含0个文档。</p>
-<p>由于当前只有一个节点在运行，状态为Yellow，因为没有办法分配副本。</p>
-<h3 id="索引和查询文档"><a href="#索引和查询文档" class="headerlink" title="索引和查询文档"></a>索引和查询文档</h3><p>让我们输入一些东西到customer index中，我们使用ID 1来标识文档</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X PUT <span class="string">"localhost:9200/customer/doc/1?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "name": "John Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>获取我们刚刚增加到索引的文档</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X GET <span class="string">"localhost:9200/customer/doc/1?pretty&amp;pretty"</span></span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1,</span><br><span class="line">  "found" : true,</span><br><span class="line">  "_source" : &#123;</span><br><span class="line">    "name" : "John Doe"</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回的的信息中</p>
-<ul>
-<li>fount：表示我们找到一个ID 为 1的文档</li>
-<li>_source：返回我们先前插入的整个JSON文档</li>
-</ul>
-<h3 id="删除一个索引"><a href="#删除一个索引" class="headerlink" title="删除一个索引"></a>删除一个索引</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X DELETE <span class="string">"localhost:9200/customer?pretty&amp;pretty"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/_cat/indices?v&amp;pretty"</span></span></span><br><span class="line">health status index uuid pri rep docs.count docs.deleted store.size pri.store.size</span><br></pre></td></tr></table></figure>
-<p>通过上面我们可以发现，REST access pattern</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;REST Verb&gt; &#x2F;&lt;Index&gt;&#x2F;&lt;Type&gt;&#x2F;&lt;ID&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h2><p>插入和替换文档</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X PUT <span class="string">"localhost:9200/customer/doc/1?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "name": "John Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 0,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> curl -X PUT <span class="string">"localhost:9200/customer/doc/1?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 1,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的操作，修改ID 为1的文档的name。如果我们使用不同的ID，将会产生新的文档，现有的文档不会变换。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X PUT <span class="string">"localhost:9200/customer/doc/2?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "2",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 2,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当indexing的时候，ID是可选的，如果显式知名，ES会自动生成一个随机ID。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST <span class="string">"localhost:9200/customer/doc?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "name": "Jane Doe"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "MhxFgXEBHBe5IUAf-8U3",</span><br><span class="line">  "_version" : 1,</span><br><span class="line">  "result" : "created",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 3,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意，这边使用的POST替换PUT，因为没有指明ID。</p>
-<h3 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h3><p>除了索引和替换文档，我们还可以更新文档。每当我们做一个更新，ES删除旧的文档，然后索引一个新的文档。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST <span class="string">"localhost:9200/customer/doc/1/_update?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "doc": &#123; "name": "Jane Doe" &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "noop",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 0,</span><br><span class="line">    "successful" : 0,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 1,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>更新文档，并且增加字段</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST <span class="string">"localhost:9200/customer/doc/1/_update?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "doc": &#123; "name": "Jane Doe", "age": 20 &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 3,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 4,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>也可以使用脚本更新文档，使用脚本将age增加5：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X POST <span class="string">"localhost:9200/customer/doc/1/_update?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "script" : "ctx._source.age += 5"</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "1",</span><br><span class="line">  "_version" : 4,</span><br><span class="line">  "result" : "updated",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 5,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ES提供了在查询条件下更新多个文档的能力</p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-update-by-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-update-by-query.html</a></p>
-<h3 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X DELETE <span class="string">"localhost:9200/customer/doc/2?pretty&amp;pretty"</span></span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "_index" : "customer",</span><br><span class="line">  "_type" : "doc",</span><br><span class="line">  "_id" : "2",</span><br><span class="line">  "_version" : 2,</span><br><span class="line">  "result" : "deleted",</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 2,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "_seq_no" : 6,</span><br><span class="line">  "_primary_term" : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-delete-by-query.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/docs-delete-by-query.html</a></p>
-<h3 id="批处理"><a href="#批处理" class="headerlink" title="批处理"></a>批处理</h3><p>除了索引、更新、删除单个文档外，ES提供了使用批处理上面的能力。</p>
-<p>下面在批量操作中索引两个文档：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X POST <span class="string">"localhost:9200/customer/doc/_bulk?pretty&amp;pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;"index":&#123;"_id":"1"&#125;&#125;</span><br><span class="line">&#123;"name": "John Doe" &#125;</span><br><span class="line">&#123;"index":&#123;"_id":"2"&#125;&#125;</span><br><span class="line">&#123;"name": "Jane Doe" &#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>更新第一个文档，删除第二个文档：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST "localhost:9200/customer/doc/_bulk?pretty&amp;pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;"update":&#123;"_id":"1"&#125;&#125;</span><br><span class="line">&#123;"doc": &#123; "name": "John Doe becomes Jane Doe" &#125; &#125;</span><br><span class="line">&#123;"delete":&#123;"_id":"2"&#125;&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>批处理API不会因为单个操作失败而失败，如果单个操作因为某种原因失败，它将会继续后面的其他操作。返回时，为每一个操作提供一个状态，表示是否操作失败。</p>
-<h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><p>样本数据集：</p>
-<p>现在我们已经了解了一些基本知识，接下来让我们尝试使用一个更加真实的数据集。 我准备了一个虚构的客户银行账户信息 JSON 文档样本。 每个文档都有以下模式:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"account_number"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"balance"</span>: <span class="number">16623</span>,</span><br><span class="line">    <span class="attr">"firstname"</span>: <span class="string">"Bradshaw"</span>,</span><br><span class="line">    <span class="attr">"lastname"</span>: <span class="string">"Mckenzie"</span>,</span><br><span class="line">    <span class="attr">"age"</span>: <span class="number">29</span>,</span><br><span class="line">    <span class="attr">"gender"</span>: <span class="string">"F"</span>,</span><br><span class="line">    <span class="attr">"address"</span>: <span class="string">"244 Columbus Place"</span>,</span><br><span class="line">    <span class="attr">"employer"</span>: <span class="string">"Euron"</span>,</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"bradshawmckenzie@euron.com"</span>,</span><br><span class="line">    <span class="attr">"city"</span>: <span class="string">"Hobucken"</span>,</span><br><span class="line">    <span class="attr">"state"</span>: <span class="string">"CO"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这些数据都是使用  <a href="http://www.json-generator.com/" target="_blank" rel="noopener">http://www.json-generator.com/</a>   生成的，因为是随机生成的，所以忽略数据的实际值和含义。</p>
-<p>加载样本数据集</p>
-<p><a href="https://github.com/elastic/elasticsearch/blob/master/docs/src/test/resources/accounts.json?raw=true" target="_blank" rel="noopener">https://github.com/elastic/elasticsearch/blob/master/docs/src/test/resources/accounts.json?raw=true</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -H <span class="string">"Content-Type: application/json"</span> -XPOST <span class="string">'localhost:9200/bank/account/_bulk?pretty&amp;refresh'</span> --data-binary <span class="string">"@accounts.json"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">curl <span class="string">'localhost:9200/_cat/indices?v'</span></span></span><br><span class="line"></span><br><span class="line">health status index    uuid                   pri rep docs.count docs.deleted store.size pri.store.size</span><br><span class="line">yellow open   bank     3O23VfKaRse97IfFCLDPyA   1   1       1000            0      414kb          414kb</span><br><span class="line">yellow open   customer pcIogOc6SjyqyPlSh0vmzw   1   1          3            0        4kb            4kb</span><br></pre></td></tr></table></figure>
-<p>表明已经成功将1000份文件批量索引到银行索引中下的账户下</p>
-<h3 id="搜索API"><a href="#搜索API" class="headerlink" title="搜索API"></a>搜索API</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?q=*&amp;sort=account_number:asc&amp;pretty&amp;pretty"</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>q*</code>：表示ES匹配索引中所有文档</li>
-<li><code>sort=account_number:asc</code>：表示使用每个文档的acount_number字段进行升序排序</li>
-<li><code>pretty</code>：表示返回格式化的JSON</li>
-</ul>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"took"</span> : <span class="number">63</span>,</span><br><span class="line">  <span class="attr">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"_shards"</span> : &#123;</span><br><span class="line">    <span class="attr">"total"</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"successful"</span> : <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"skipped"</span> : <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"failed"</span> : <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"hits"</span> : &#123;</span><br><span class="line">    <span class="attr">"total"</span> : <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">"max_score"</span> : <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">"hits"</span> : [ &#123;</span><br><span class="line">      <span class="attr">"_index"</span> : <span class="string">"bank"</span>,</span><br><span class="line">      <span class="attr">"_type"</span> : <span class="string">"account"</span>,</span><br><span class="line">      <span class="attr">"_id"</span> : <span class="string">"0"</span>,</span><br><span class="line">      <span class="attr">"sort"</span>: [<span class="number">0</span>],</span><br><span class="line">      <span class="attr">"_score"</span> : <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">"_source"</span> : &#123;<span class="attr">"account_number"</span>:<span class="number">0</span>,<span class="attr">"balance"</span>:<span class="number">16623</span>,<span class="attr">"firstname"</span>:<span class="string">"Bradshaw"</span>,<span class="attr">"lastname"</span>:<span class="string">"Mckenzie"</span>,<span class="attr">"age"</span>:<span class="number">29</span>,<span class="attr">"gender"</span>:<span class="string">"F"</span>,<span class="attr">"address"</span>:<span class="string">"244 Columbus Place"</span>,<span class="attr">"employer"</span>:<span class="string">"Euron"</span>,<span class="attr">"email"</span>:<span class="string">"bradshawmckenzie@euron.com"</span>,<span class="attr">"city"</span>:<span class="string">"Hobucken"</span>,<span class="attr">"state"</span>:<span class="string">"CO"</span>&#125;</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      <span class="attr">"_index"</span> : <span class="string">"bank"</span>,</span><br><span class="line">      <span class="attr">"_type"</span> : <span class="string">"account"</span>,</span><br><span class="line">      <span class="attr">"_id"</span> : <span class="string">"1"</span>,</span><br><span class="line">      <span class="attr">"sort"</span>: [<span class="number">1</span>],</span><br><span class="line">      <span class="attr">"_score"</span> : <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">"_source"</span> : &#123;<span class="attr">"account_number"</span>:<span class="number">1</span>,<span class="attr">"balance"</span>:<span class="number">39225</span>,<span class="attr">"firstname"</span>:<span class="string">"Amber"</span>,<span class="attr">"lastname"</span>:<span class="string">"Duke"</span>,<span class="attr">"age"</span>:<span class="number">32</span>,<span class="attr">"gender"</span>:<span class="string">"M"</span>,<span class="attr">"address"</span>:<span class="string">"880 Holmes Lane"</span>,<span class="attr">"employer"</span>:<span class="string">"Pyrami"</span>,<span class="attr">"email"</span>:<span class="string">"amberduke@pyrami.com"</span>,<span class="attr">"city"</span>:<span class="string">"Brogan"</span>,<span class="attr">"state"</span>:<span class="string">"IL"</span>&#125;</span><br><span class="line">    &#125;, ...</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>响应部分：</p>
-<ul>
-<li><code>took</code>：执行搜索的时间</li>
-<li><code>timed_out</code>：告诉我们搜索是否超时</li>
-<li><code>_shards</code>：告诉我们搜索了多少碎片，以及成功 / 失败的搜索碎片的数量</li>
-<li><code>hits</code>：搜索结果</li>
-<li><code>hits.total</code>：符合搜索约束的文档数量</li>
-<li><code>hits.hits</code>：搜索结果的实际数组</li>
-<li><code>hits.sort</code>：结果的排序key</li>
-<li><code>hits._score</code>、<code>max_score</code></li>
-</ul>
-<p>下面是上面的替换方案</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "sort": [</span><br><span class="line">    &#123; "account_number": "asc" &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>这边的区别是，没有在URI中传递参数，而是向API提供了JSON格式的查询请求体。</p>
-<h3 id="Query-Language"><a href="#Query-Language" class="headerlink" title="Query Language"></a>Query Language</h3><p>ElasticSearch提供了JSON风格的查询语言</p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/query-dsl.html</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p><code>query</code>部分告诉查询定义是什么，<code>match_all</code>只是搜索指定索引中的所有文档。</p>
-<p>除此之外，我们烟叶可以传递其他参数来影响搜索结果，在例子中使用了<code>sort</code>，这边我们可以使用<code>size</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -X GET <span class="string">"localhost:9200/bank/_search?pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "size": 1</span><br><span class="line">&#125;</span><br><span class="line">'</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  "took" : 6,</span><br><span class="line">  "timed_out" : false,</span><br><span class="line">  "_shards" : &#123;</span><br><span class="line">    "total" : 1,</span><br><span class="line">    "successful" : 1,</span><br><span class="line">    "skipped" : 0,</span><br><span class="line">    "failed" : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  "hits" : &#123;</span><br><span class="line">    "total" : &#123;</span><br><span class="line">      "value" : 1000,</span><br><span class="line">      "relation" : "eq"</span><br><span class="line">    &#125;,</span><br><span class="line">    "max_score" : 1.0,</span><br><span class="line">    "hits" : [</span><br><span class="line">      &#123;</span><br><span class="line">        "_index" : "bank",</span><br><span class="line">        "_type" : "account",</span><br><span class="line">        "_id" : "1",</span><br><span class="line">        "_score" : 1.0,</span><br><span class="line">        "_source" : &#123;</span><br><span class="line">          "account_number" : 1,</span><br><span class="line">          "balance" : 39225,</span><br><span class="line">          "firstname" : "Amber",</span><br><span class="line">          "lastname" : "Duke",</span><br><span class="line">          "age" : 32,</span><br><span class="line">          "gender" : "M",</span><br><span class="line">          "address" : "880 Holmes Lane",</span><br><span class="line">          "employer" : "Pyrami",</span><br><span class="line">          "email" : "amberduke@pyrami.com",</span><br><span class="line">          "city" : "Brogan",</span><br><span class="line">          "state" : "IL"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：如果没有指定<code>size</code>，默认大小是10.</p>
-<p>下面的例子匹配所有文档，返回从第十个开始的十个文档：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "from": 10,</span><br><span class="line">  "size": 10</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p><code>from</code>参数指定文档从那个index开始，<code>size</code>表示从from开始返回多少个文档。</p>
-<p>下面匹配所有结果，按照账户余额降序排序：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">curl -X GET <span class="string">"localhost:9200/bank/_search?pretty"</span> -H <span class="string">'Content-Type: application/json'</span> -d<span class="string">'</span></span></span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "sort": &#123; "balance": &#123; "order": "desc" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<h3 id="执行搜索"><a href="#执行搜索" class="headerlink" title="执行搜索"></a>执行搜索</h3><p>上面已经介绍了基础的查询参数，下面更加深入Query DSL。</p>
-<p>返回文档的field。默认整个JSON 文档作为搜索查询的部分返回。这和查询语句中的<code>_source</code>有关，我们可以指定一部分fields返回。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">  "_source": ["account_number", "balance"]</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>上面的例子通过<code>_source</code>减少了返回的属性。</p>
-<p>和SQL中的<code>SELECT FROM</code>相似</p>
-<p>使用<code>match</code>来查询：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "account_number": 20 &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>返回了所有的账户地址中包含’mill’</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "address": "mill" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>返回账户地址中包含’mill’或’lane’</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match": &#123; "address": "mill lane" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p><code>match</code>的变体<code>match_phrase</code>返回了地址包含”mill lane”的账户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123; "match_phrase": &#123; "address": "mill lane" &#125; &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>下面是<code>bool</code> query，它能够将较小的查询组合成更大的查询</p>
-<p>下面的例子组合两个<code>match</code>查询</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p><code>bool must</code>子句表示所有的查询必须是true。</p>
-<p>同样也可以满足一个条件也返回：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "should": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>返回两个都不满足的结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must_not": [</span><br><span class="line">        &#123; "match": &#123; "address": "mill" &#125; &#125;,</span><br><span class="line">        &#123; "match": &#123; "address": "lane" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>上面提到的<code>must should must_not</code>子句可以同时用在<code>bool</code> query中。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": [</span><br><span class="line">        &#123; "match": &#123; "age": "40" &#125; &#125;</span><br><span class="line">      ],</span><br><span class="line">      "must_not": [</span><br><span class="line">        &#123; "match": &#123; "state": "ID" &#125; &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<h3 id="执行过滤"><a href="#执行过滤" class="headerlink" title="执行过滤"></a>执行过滤</h3><p>前面的章节，我们忽略了一些小细节，文档的score(在搜索结果的<code>_score</code>字段)。它用于度量文档和查询语句的匹配程度。</p>
-<p>但是查询不需要总是产生score。尤其是在用户filter文档时，ES会自动优化查询，避免计算无用的score。</p>
-<p>上个章节的<code>bool</code>查询支持<code>filter</code>子句。</p>
-<p>下面的例子上使用<code>bool</code> query返回所有余额在20000-30000的账户：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "query": &#123;</span><br><span class="line">    "bool": &#123;</span><br><span class="line">      "must": &#123; "match_all": &#123;&#125; &#125;,</span><br><span class="line">      "filter": &#123;</span><br><span class="line">        "range": &#123;</span><br><span class="line">          "balance": &#123;</span><br><span class="line">            "gte": 20000,</span><br><span class="line">            "lte": 30000</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<h3 id="执行聚合"><a href="#执行聚合" class="headerlink" title="执行聚合"></a>执行聚合</h3><p>聚合提供了对数据进行分组和统计信息的能力</p>
-<p>对所有账户进行分组</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword"</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p><code>size=0</code>为了不显示搜索，只希望看见聚合结构。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword"</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "average_balance": &#123;</span><br><span class="line">          "avg": &#123;</span><br><span class="line">            "field": "balance"</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>在分组的基础上，计算每组的平均账户余额</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_state": &#123;</span><br><span class="line">      "terms": &#123;</span><br><span class="line">        "field": "state.keyword",</span><br><span class="line">        "order": &#123;</span><br><span class="line">          "average_balance": "desc"</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "average_balance": &#123;</span><br><span class="line">          "avg": &#123;</span><br><span class="line">            "field": "balance"</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<p>在上面的基础上，对平均余额进行降序</p>
-<p>按年龄段(20-29岁，30-39岁，40-49岁)分组，然后按性别分组，最后得到每个年龄段，每个性别的平均账户余额:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET "localhost:9200/bank/_search?pretty" -H 'Content-Type: application/json' -d'</span><br><span class="line">&#123;</span><br><span class="line">  "size": 0,</span><br><span class="line">  "aggs": &#123;</span><br><span class="line">    "group_by_age": &#123;</span><br><span class="line">      "range": &#123;</span><br><span class="line">        "field": "age",</span><br><span class="line">        "ranges": [</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 20,</span><br><span class="line">            "to": 30</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 30,</span><br><span class="line">            "to": 40</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            "from": 40,</span><br><span class="line">            "to": 50</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      "aggs": &#123;</span><br><span class="line">        "group_by_gender": &#123;</span><br><span class="line">          "terms": &#123;</span><br><span class="line">            "field": "gender.keyword"</span><br><span class="line">          &#125;,</span><br><span class="line">          "aggs": &#123;</span><br><span class="line">            "average_balance": &#123;</span><br><span class="line">              "avg": &#123;</span><br><span class="line">                "field": "balance"</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/6.0/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/工具//" class="article-tag-list-link color3">工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/16/ElasticSearch/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -2621,7 +998,7 @@ f_k(\mathbf y,\mathbf x)=\sum_{i=1}^n f_k(\mathbf y_{i-1},\mathbf y_i,\mathbf x,
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2726,6 +1103,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

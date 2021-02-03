@@ -16,7 +16,7 @@
 <meta property="og:description" content="ELMo算法ELMo,(Embeddings from Language Models) Paper Paper的author认为对词语进行表征应该兼顾的问题：  词语在语义和语法上用法的特点 随着语言环境的变化，用法也能够改变。  这种算法的特点：每个词语的表征是整个输入语句的函数。 通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LST">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-14T12:48:19.000Z">
-<meta property="article:modified_time" content="2020-03-24T01:20:54.868Z">
+<meta property="article:modified_time" content="2021-01-20T02:19:52.467Z">
 <meta property="article:author" content="DongxianGu">
 <meta name="twitter:card" content="summary">
   
@@ -85,7 +85,7 @@
 		        
 					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
@@ -126,7 +126,7 @@
 			        
 						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
@@ -186,6 +186,7 @@
 <p>在下游的NLP任务中，一般使用下游任务的Corpus（ignore label）对language model进行 微调，这种做法相当于到domain transfer，然后利用label的信息进行监督学习。</p>
 <p>ELMo对词语的表征是“深”的，它们是BiLSTM中所有层的内部表征的函数。因此可以产生丰富的词语特征。</p>
 <p>高层的LSTM的status可以捕捉到词语语义和语境相关的特征，因此可以来进行语义消歧，而底层的LSTM可以捕捉到语法方面的特征，可以做词性标注。将这两个结合起来，可以在下游的NLP Task中获得优势。</p>
+<a id="more"></a>
 <h2 id="Bidirectional-language-model"><a href="#Bidirectional-language-model" class="headerlink" title="　Bidirectional language model"></a>　Bidirectional language model</h2><p>ELMo从意思上是从语言模型中得到的嵌入。具体而言就是 双向语言模型</p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -391,7 +392,7 @@ R_k &= \{\mathbf{x}_k^{LM},\overrightarrow{h}_{k,j}^{LM},\overleftarrow{h}_{k,j}
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 DongxianGu
+    		&copy; 2021 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -496,6 +497,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LeetCode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
