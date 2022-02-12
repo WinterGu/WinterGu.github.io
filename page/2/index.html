@@ -154,6 +154,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-NLP模型结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/">NLP模型结构</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2020-05-02T13:01:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="NLP模型结构"><a href="#NLP模型结构" class="headerlink" title="NLP模型结构"></a>NLP模型结构</h1>
+        
+          <a class="article-more-a" href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/02/NLP%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-红黑树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -923,93 +999,6 @@ T(n)=O(f(n))</script><p>T(n) 我们已经讲过了，它表示代码执行的时
 
 
   
-    <article id="post-ELMo算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/14/ELMo%E7%AE%97%E6%B3%95/">ELMo算法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/14/ELMo%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-03-14T12:48:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ELMo算法"><a href="#ELMo算法" class="headerlink" title="ELMo算法"></a>ELMo算法</h1><p>ELMo,(Embeddings from Language Models)</p>
-<p><a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="noopener">Paper</a></p>
-<p>Paper的author认为对词语进行表征应该兼顾的问题：</p>
-<ul>
-<li>词语在语义和语法上用法的特点</li>
-<li>随着语言环境的变化，用法也能够改变。</li>
-</ul>
-<p>这种算法的特点：每个词语的表征是整个输入语句的函数。</p>
-<p>通过在大语料上以language model（$p(text)$）为目标来训练Bidirectional LSTM模型，再利用LSTM产生词语的表征。</p>
-<p>在下游的NLP任务中，一般使用下游任务的Corpus（ignore label）对language model进行 微调，这种做法相当于到domain transfer，然后利用label的信息进行监督学习。</p>
-<p>ELMo对词语的表征是“深”的，它们是BiLSTM中所有层的内部表征的函数。因此可以产生丰富的词语特征。</p>
-<p>高层的LSTM的status可以捕捉到词语语义和语境相关的特征，因此可以来进行语义消歧，而底层的LSTM可以捕捉到语法方面的特征，可以做词性标注。将这两个结合起来，可以在下游的NLP Task中获得优势。</p>
-        
-          <a class="article-more-a" href="/2020/03/14/ELMo%E7%AE%97%E6%B3%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/NLP//" class="article-tag-list-link color4">NLP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/14/ELMo%E7%AE%97%E6%B3%95/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
@@ -1024,7 +1013,7 @@ T(n)=O(f(n))</script><p>T(n) 我们已经讲过了，它表示代码执行的时
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 DongxianGu
+    		&copy; 2022 DongxianGu
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
